@@ -20,9 +20,10 @@ AURORA_ORIGIN_STAGE_ENDPOINT = "https://api-staging.auroraer.com/scenExplr/v1"
 class APISession:
     """Internal class to hold base methods for interacting with the Aurora HTTP API"""
 
-    def __init__(self, base_url=None, token=None):
+    def __init__(self, base_url=None, token=None, graphql_endpoint=None):
         self.token = self._get_token(token)
         self.base_url = self._get_base_url(base_url)
+        self.graphql_url = f"{self.base_url}{graphql_endpoint}"
         self.session = self._create_session()
 
     def _get_token(self, token, universe=None):
