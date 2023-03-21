@@ -1,6 +1,6 @@
 from json import encoder
 
-from typing import Dict, List
+from typing import Dict, List, Optional
 import requests
 import logging
 import os
@@ -13,19 +13,24 @@ import aurora.origin.client.gql.queries.scenario as scenario_query
 
 log = logging.getLogger(__name__)
 AURORA_API_KEY_ENVIRONMENT_VARIABLE_NAME = "AURORA_API_KEY"
-AURORA_API_BASE_URL_ENVIRONMENT_VARIABLE_NAME = "AURORA_API_BASE_URL"
+AURORA_ORIGIN_SCENARIO_API_BASE_URL_ENVIRONMENT_VARIABLE_NAME = (
+    "AURORA_ORIGIN_SCENARIO_API_BASE_URL"
+)
+AURORA_ORIGIN_INPUTS_API_BASE_URL_ENVIRONMENT_VARIABLE_NAME = (
+    "AURORA_ORIGIN_INPUTS_API_BASE_URL"
+)
 AURORA_API_KEY_FILE_NAME = ".aurora-api-key"
-AURORA_ORIGIN_PRODUCTION_ENDPOINT = "https://api.auroraer.com/scenExplr/v1"
-AURORA_ORIGIN_STAGE_ENDPOINT = "https://api-staging.auroraer.com/scenExplr/v1"
+AURORA_ORIGIN_SCENARIO_PRODUCTION_ENDPOINT = "https://api.auroraer.com/scenExplr/v1"
+AURORA_ORIGIN_SCENARIO_STAGE_ENDPOINT = "https://api-staging.auroraer.com/scenExplr/v1"
+AURORA_ORIGIN_INPUTS_PRODUCTION_ENDPOINT = "https://app.auroraer.com/modelInputs/v1"
+AURORA_ORIGIN_INPUTS_STAGE_ENDPOINT = "https://app-staging.auroraer.com/modelInputs/v1"
 
 
 class APISession:
     """Internal class to hold base methods for interacting with the Aurora HTTP API"""
 
-    def __init__(self, base_url=None, token=None, graphql_endpoint=None):
+    def __init__(self, token=None):
         self.token = self._get_token(token)
-        self.base_url = self._get_base_url(base_url)
-        self.graphql_url = f"{self.base_url}{graphql_endpoint}"
         self.session = self._create_session()
 
     def _get_token(self, token, universe=None):
@@ -42,24 +47,27 @@ class APISession:
         else:
             return self._load_token_from_file(universe)
 
-    def _get_base_url(self, base_url):
+    def _get_base_url(
+        self,
+        default_url: str,
+        base_url: Optional[str] = None,
+        environment_variable: Optional[str] = None,
+    ):
         if base_url is not None:
             log.debug(
                 f"Using baseUrl {base_url} passed as parameter to session constructor"
             )
             return base_url
-        elif AURORA_API_BASE_URL_ENVIRONMENT_VARIABLE_NAME in os.environ:
-            base_url_override = os.environ[
-                AURORA_API_BASE_URL_ENVIRONMENT_VARIABLE_NAME
-            ]
+        elif environment_variable in os.environ:
+            base_url_override = os.environ[environment_variable]
             log.debug(
                 f"""Using base url '{base_url_override}' passed found in
                  environment variable
-                 {AURORA_API_BASE_URL_ENVIRONMENT_VARIABLE_NAME}"""
+                 {environment_variable}"""
             )
             return base_url_override
         else:
-            return AURORA_ORIGIN_PRODUCTION_ENDPOINT
+            return default_url
 
     def _load_token_from_file(self, universe):
         file = Path.joinpath(Path.home(), AURORA_API_KEY_FILE_NAME)
@@ -105,7 +113,7 @@ class APISession:
             return
         elif response.status_code == 401:
             raise RuntimeError(
-                f"You are not authorised. Please check you have set the correct api token."
+                "You are not authorised. Please check you have set the correct api token."
             )
         else:
             raise RuntimeError(f"{response.status_code}  {response.text}")
@@ -155,13 +163,29 @@ class OriginSession(APISession):
     environment variable *AURORA_API_KEY*.
 
     Args:
-        base_url (string, optional): Override the base url used to contact the
-        Origin API. Defaults to None. token (string, optional): Overide the api
-        authentication token used for API access. Defaults to None.
+        token (string, optional): Override the api authentication token used for
+        API access. Defaults to None.
     """
 
-    def __init__(self, base_url=None, token=None):
-        super().__init__(base_url, token)
+    def __init__(
+        self,
+        token=None,
+        scenario_base_url: Optional[str] = None,
+        inputs_base_url: Optional[str] = None,
+    ):
+        super().__init__(token)
+        self.scenario_service_url = self._get_base_url(
+            default_url=AURORA_ORIGIN_SCENARIO_PRODUCTION_ENDPOINT,
+            base_url=scenario_base_url,
+            environment_variable=AURORA_ORIGIN_SCENARIO_API_BASE_URL_ENVIRONMENT_VARIABLE_NAME,
+        )
+        self.scenario_service_graphql_url = f"{self.scenario_service_url}/graphql"
+        self.inputs_service_url = self._get_base_url(
+            default_url=AURORA_ORIGIN_INPUTS_PRODUCTION_ENDPOINT,
+            base_url=inputs_base_url,
+            environment_variable=AURORA_ORIGIN_INPUTS_API_BASE_URL_ENVIRONMENT_VARIABLE_NAME,
+        )
+        self.inputs_service_graphql_url = f"{self.inputs_service_url}/graphql"
 
     def get_scenarios(self):
         """ """
