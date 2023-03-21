@@ -10,8 +10,8 @@ from urllib.parse import urlencode
 import aurora.origin.client.gql.queries.project as project_query
 import aurora.origin.client.gql.queries.scenario as scenario_query
 
-
 log = logging.getLogger(__name__)
+
 AURORA_API_KEY_ENVIRONMENT_VARIABLE_NAME = "AURORA_API_KEY"
 AURORA_ORIGIN_SCENARIO_API_BASE_URL_ENVIRONMENT_VARIABLE_NAME = (
     "AURORA_ORIGIN_SCENARIO_API_BASE_URL"
@@ -20,8 +20,10 @@ AURORA_ORIGIN_INPUTS_API_BASE_URL_ENVIRONMENT_VARIABLE_NAME = (
     "AURORA_ORIGIN_INPUTS_API_BASE_URL"
 )
 AURORA_API_KEY_FILE_NAME = ".aurora-api-key"
-AURORA_ORIGIN_SCENARIO_PRODUCTION_ENDPOINT = "https://api.auroraer.com/scenExplr/v1"
-AURORA_ORIGIN_SCENARIO_STAGE_ENDPOINT = "https://api-staging.auroraer.com/scenExplr/v1"
+AURORA_ORIGIN_SCENARIO_PRODUCTION_ENDPOINT = "https://api.auroraer.com/scenarioExplr/v1"
+AURORA_ORIGIN_SCENARIO_STAGE_ENDPOINT = (
+    "https://api-staging.auroraer.com/scenarioExplr/v1"
+)
 AURORA_ORIGIN_INPUTS_PRODUCTION_ENDPOINT = "https://app.auroraer.com/modelInputs/v1"
 AURORA_ORIGIN_INPUTS_STAGE_ENDPOINT = "https://app-staging.auroraer.com/modelInputs/v1"
 
@@ -96,6 +98,7 @@ class APISession:
         session.headers = {
             "Content-Type": "application/json",
             "Private-Token": self.token,
+            "EOS-Cookie": self.token,
         }
         return session
 
