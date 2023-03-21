@@ -34,7 +34,7 @@ class APISession:
             env_key = f"{AURORA_API_KEY_ENVIRONMENT_VARIABLE_NAME}_{universe}"
 
         if token is not None:
-            log.debug(f"Using token passed as parameter to session constructor")
+            log.debug("Using token passed as parameter to session constructor")
             return token
         elif env_key in os.environ:
             log.debug(f"Using token passed found in environment variable {env_key}")
@@ -172,76 +172,65 @@ class OriginSession(APISession):
     def create_scenario(self):
         """ """
         url = f"{self.scenario_service_graphql_url}"
-        query = ""
         variables = {}
-        return self._graphql_request(url, query, variables)
+        return self._graphql_request(url, scenario_query.create_scenario, variables)
 
     def update_scenario(self):
         """ """
         url = f"{self.scenario_service_graphql_url}"
-        query = ""
         variables = {}
-        return self._graphql_request(url, query, variables)
+        return self._graphql_request(url, scenario_query.update_scenario, variables)
 
     def delete_scenario(self):
         """ """
         url = f"{self.scenario_service_graphql_url}"
-        query = ""
         variables = {}
-        return self._graphql_request(url, query, variables)
+        return self._graphql_request(url, scenario_query.delete_scenario, variables)
 
     def launch_scenario(self):
         """ """
         url = f"{self.scenario_service_graphql_url}"
-        query = ""
         variables = {}
-        return self._graphql_request(url, query, variables)
+        return self._graphql_request(url, scenario_query.launch_scenario, variables)
 
     def get_projects(self):
         """ """
         url = f"{self.scenario_service_graphql_url}"
-        query = ""
         variables = {}
-        return self._graphql_request(url, query, variables)
+        return self._graphql_request(url, project_query.get_projects, variables)
 
     def get_project(self):
         """ """
         url = f"{self.scenario_service_graphql_url}"
-        query = ""
         variables = {}
-        return self._graphql_request(url, query, variables)
+        return self._graphql_request(url, project_query.get_project, variables)
 
     def create_project(self):
         """ """
         url = f"{self.scenario_service_graphql_url}"
-        query = ""
         variables = {}
-        return self._graphql_request(url, query, variables)
+        return self._graphql_request(url, project_query.create_project, variables)
 
     def update_project(self):
         """ """
         url = f"{self.scenario_service_graphql_url}"
-        query = ""
         variables = {}
-        return self._graphql_request(url, query, variables)
+        return self._graphql_request(url, project_query.update_project, variables)
 
     def delete_project(self):
         """ """
         url = f"{self.scenario_service_graphql_url}"
-        query = ""
         variables = {}
-        return self._graphql_request(url, query, variables)
+        return self._graphql_request(url, project_query.delete_project, variables)
 
     def pin_project(self):
         """ """
         url = f"{self.scenario_service_graphql_url}"
-        query = ""
         variables = {}
-        return self._graphql_request(url, query, variables)
+        return self._graphql_request(url, project_query.pin_project, variables)
 
     def unpin_project(self):
         """ """
         url = f"{self.scenario_service_graphql_url}"
-        query = ""
         variables = {}
-        return self._graphql_request(url, query, variables)
+        return self._graphql_request(url, project_query.unpin_project, variables)
