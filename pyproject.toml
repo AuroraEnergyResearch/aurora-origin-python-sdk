@@ -1,0 +1,32 @@
+[build-system]
+build-backend = "setuptools.build_meta"
+requires = ["setuptools"]
+
+
+[project]
+name = "aurora-origin-sdk"
+version = "0.1.0"
+authors = [
+  { name = "Aurora Development", email = "aurora_development@auroraer.com" },
+]
+readme = "README.md"
+keywords = [
+  "aurora",
+  "energy",
+  "research",
+  "auroraenergyresearch",
+  "aer",
+  "origin",
+  "sdk",
+]
+license = { file = "LICENSE" }
+dependencies = ["requests"]
+
+[project.urls]
+repository = "https://github.com/AuroraEnergyResearch/aurora-origin-python-sdk"
+
+[project.optional-dependencies]
+setup = ["pytest-runner"]
+tests = ["pytest"]
+development = ["flake8", "black", "pytest", "snapshottest", "sphinx", "debugpy"]
+notebooks = ["matplotlib", "pandas", "ipykernel"]
