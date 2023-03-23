@@ -1,7 +1,7 @@
 from typing import Optional
 import logging
-import client.gql.queries.project as project_query
-import client.gql.queries.scenario as scenario_query
+import origin_sdk.gql.queries.project as project_query
+import origin_sdk.gql.queries.scenario as scenario_query
 from core.api_session import APISession
 
 log = logging.getLogger(__name__)
