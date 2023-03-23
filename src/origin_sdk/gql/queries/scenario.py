@@ -1,4 +1,4 @@
-from aurora.origin.client.gql.fragments.scenario import (
+from origin_sdk.gql.fragments.scenario import (
     scenario_summary_fields,
     all_scenario_fields,
     advanced_settings_fields,

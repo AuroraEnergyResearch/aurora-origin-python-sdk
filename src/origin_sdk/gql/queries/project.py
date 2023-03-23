@@ -1,4 +1,4 @@
-from aurora.origin.client.gql.fragments.scenario import scenario_summary_fields
+from origin_sdk.gql.fragments.scenario import scenario_summary_fields
 
 get_projects = """
 query {

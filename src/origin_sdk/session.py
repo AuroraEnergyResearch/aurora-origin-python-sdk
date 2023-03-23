@@ -2,7 +2,7 @@ from typing import Optional
 import logging
 import origin_sdk.gql.queries.project as project_query
 import origin_sdk.gql.queries.scenario as scenario_query
-from core.api_session import APISession
+from core.api import APISession
 
 log = logging.getLogger(__name__)
 log.setLevel(logging.DEBUG)
