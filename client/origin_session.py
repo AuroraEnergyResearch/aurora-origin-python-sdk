@@ -1,8 +1,8 @@
 from typing import Optional
 import logging
-import aurora.origin.client.gql.queries.project as project_query
-import aurora.origin.client.gql.queries.scenario as scenario_query
-from aurora.core.client.api_session import APISession
+import client.gql.queries.project as project_query
+import client.gql.queries.scenario as scenario_query
+from core.api_session import APISession
 
 log = logging.getLogger(__name__)
 log.setLevel(logging.DEBUG)

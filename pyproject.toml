@@ -4,7 +4,7 @@ requires = ["setuptools"]
 
 
 [project]
-name = "aurora-origin-sdk"
+name = "aurora_origin_sdk"
 version = "0.1.0"
 authors = [
   { name = "Aurora Development", email = "aurora_development@auroraer.com" },
