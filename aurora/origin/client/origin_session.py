@@ -24,7 +24,7 @@ class OriginSession(APISession):
 
     By default the session will connect to the production Origin API endpoint.
     This can be overridden by passing the base_url into the constructor or by
-    setting the environment variable *AURORA_API_BASE_URL*. This feature is for
+    setting the above environment variables for BASE_URLs. This feature is for
     internal use only.
 
     The authentication token is read from the users home directory
@@ -35,6 +35,8 @@ class OriginSession(APISession):
     Args:
         token (string, optional): Override the api authentication token used for
         API access. Defaults to None.
+        scenario_base_url (string, optional): Override the scenario service base url
+        inputs_base_url (string, optional): Override the model inputs service base url
     """
 
     def __init__(
