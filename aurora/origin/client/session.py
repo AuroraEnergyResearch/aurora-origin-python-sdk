@@ -11,6 +11,7 @@ import aurora.origin.client.gql.queries.project as project_query
 import aurora.origin.client.gql.queries.scenario as scenario_query
 
 log = logging.getLogger(__name__)
+log.setLevel(logging.DEBUG)
 
 AURORA_API_KEY_ENVIRONMENT_VARIABLE_NAME = "AURORA_API_KEY"
 AURORA_ORIGIN_SCENARIO_API_BASE_URL_ENVIRONMENT_VARIABLE_NAME = (
@@ -20,12 +21,10 @@ AURORA_ORIGIN_INPUTS_API_BASE_URL_ENVIRONMENT_VARIABLE_NAME = (
     "AURORA_ORIGIN_INPUTS_API_BASE_URL"
 )
 AURORA_API_KEY_FILE_NAME = ".aurora-api-key"
-AURORA_ORIGIN_SCENARIO_PRODUCTION_ENDPOINT = "https://api.auroraer.com/scenarioExplr/v1"
-AURORA_ORIGIN_SCENARIO_STAGE_ENDPOINT = (
-    "https://api-staging.auroraer.com/scenarioExplr/v1"
-)
-AURORA_ORIGIN_INPUTS_PRODUCTION_ENDPOINT = "https://app.auroraer.com/modelInputs/v1"
-AURORA_ORIGIN_INPUTS_STAGE_ENDPOINT = "https://app-staging.auroraer.com/modelInputs/v1"
+AURORA_ORIGIN_SCENARIO_PRODUCTION_ENDPOINT = "https://api.auroraer.com/scenarioExplr"
+AURORA_ORIGIN_SCENARIO_STAGE_ENDPOINT = "https://api-staging.auroraer.com/scenarioExplr"
+AURORA_ORIGIN_INPUTS_PRODUCTION_ENDPOINT = "https://app.auroraer.com/modelInputs"
+AURORA_ORIGIN_INPUTS_STAGE_ENDPOINT = "https://app-staging.auroraer.com/modelInputs"
 
 
 class APISession:
@@ -182,42 +181,61 @@ class OriginSession(APISession):
             base_url=scenario_base_url,
             environment_variable=AURORA_ORIGIN_SCENARIO_API_BASE_URL_ENVIRONMENT_VARIABLE_NAME,
         )
-        self.scenario_service_graphql_url = f"{self.scenario_service_url}/graphql"
+        self.scenario_service_graphql_url = f"{self.scenario_service_url}/v1/graphql"
         self.inputs_service_url = self._get_base_url(
             default_url=AURORA_ORIGIN_INPUTS_PRODUCTION_ENDPOINT,
             base_url=inputs_base_url,
             environment_variable=AURORA_ORIGIN_INPUTS_API_BASE_URL_ENVIRONMENT_VARIABLE_NAME,
         )
-        self.inputs_service_graphql_url = f"{self.inputs_service_url}/graphql"
+        self.inputs_service_graphql_url = f"{self.inputs_service_url}/v1/graphql"
 
-    def get_scenarios(self):
+    def get_aurora_scenarios(self, region: Optional[str] = None):
         """ """
         url = f"{self.scenario_service_graphql_url}"
-        variables = {}
+        variables = {
+            "filter": {
+                **({"regionGroupCode": region} if region is not None else {}),
+                "scenarioType": "AURORA_SCENARIO",
+            }
+        }
         return self._graphql_request(url, scenario_query.get_scenarios, variables)
 
-    def create_scenario(self):
+    def get_scenarios(self, query_filter):
         """ """
         url = f"{self.scenario_service_graphql_url}"
-        variables = {}
+        variables = {"filter": {**query_filter, "scenarioType": "TENANTED_SCENARIO"}}
+        return self._graphql_request(url, scenario_query.get_scenarios, variables)
+
+    def get_scenario_by_id(self, scenario_id: str):
+        """ """
+        url = f"{self.scenario_service_graphql_url}"
+        variables = {"filter": {"scenarioGlobalId": id}}
+        return self._graphql_request(
+            url, scenario_query.get_scenario_details, variables
+        )
+
+    def create_scenario(self, scenario):
+        """ """
+        url = f"{self.scenario_service_graphql_url}"
+        variables = {"scenario": scenario}
         return self._graphql_request(url, scenario_query.create_scenario, variables)
 
-    def update_scenario(self):
+    def update_scenario(self, scenario_update):
         """ """
         url = f"{self.scenario_service_graphql_url}"
-        variables = {}
+        variables = {"scenario": scenario_update}
         return self._graphql_request(url, scenario_query.update_scenario, variables)
 
-    def delete_scenario(self):
+    def delete_scenario(self, scenario_id: str):
         """ """
         url = f"{self.scenario_service_graphql_url}"
-        variables = {}
+        variables = {"scenarioGlobalId": scenario_id}
         return self._graphql_request(url, scenario_query.delete_scenario, variables)
 
-    def launch_scenario(self):
+    def launch_scenario(self, scenario_id: str):
         """ """
         url = f"{self.scenario_service_graphql_url}"
-        variables = {}
+        variables = {"scenarioGlobalId": scenario_id}
         return self._graphql_request(url, scenario_query.launch_scenario, variables)
 
     def get_projects(self):
@@ -226,38 +244,38 @@ class OriginSession(APISession):
         variables = {}
         return self._graphql_request(url, project_query.get_projects, variables)
 
-    def get_project(self):
+    def get_project(self, project_id: str):
         """ """
         url = f"{self.scenario_service_graphql_url}"
-        variables = {}
+        variables = {"projectId": project_id}
         return self._graphql_request(url, project_query.get_project, variables)
 
-    def create_project(self):
+    def create_project(self, project):
         """ """
         url = f"{self.scenario_service_graphql_url}"
-        variables = {}
+        variables = {"project": project}
         return self._graphql_request(url, project_query.create_project, variables)
 
-    def update_project(self):
+    def update_project(self, project_update):
         """ """
         url = f"{self.scenario_service_graphql_url}"
-        variables = {}
+        variables = {"project": project_update}
         return self._graphql_request(url, project_query.update_project, variables)
 
-    def delete_project(self):
+    def delete_project(self, project_id):
         """ """
         url = f"{self.scenario_service_graphql_url}"
-        variables = {}
+        variables = {"projectGlobalId": project_id}
         return self._graphql_request(url, project_query.delete_project, variables)
 
-    def pin_project(self):
+    def pin_project(self, project_id):
         """ """
         url = f"{self.scenario_service_graphql_url}"
-        variables = {}
+        variables = {"projectGlobalId": project_id}
         return self._graphql_request(url, project_query.pin_project, variables)
 
-    def unpin_project(self):
+    def unpin_project(self, project_id):
         """ """
         url = f"{self.scenario_service_graphql_url}"
-        variables = {}
+        variables = {"projectGlobalId": project_id}
         return self._graphql_request(url, project_query.unpin_project, variables)

@@ -8,6 +8,15 @@ get_scenarios = f"""
 query ($filter: ScenarioFilter) {{
   getScenarios (filter: $filter) {{
     regions
+    {scenario_summary_fields}
+  }}
+}}
+"""
+
+get_scenario_details = f"""
+query ($filter: ScenarioFilter) {{
+  getScenarios (filter: $filter) {{
+    regions
     {all_scenario_fields}
     {advanced_settings_fields}
   }}
