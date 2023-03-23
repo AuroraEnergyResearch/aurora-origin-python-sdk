@@ -59,22 +59,24 @@ class OriginSession(APISession):
         )
         self.inputs_service_graphql_url = f"{self.inputs_service_url}/v1/graphql"
 
-    def get_aurora_scenarios(self, region: Optional[str] = None):
+    def get_aurora_scenarios(self, region: Optional[str] = None, query_filter=None):
         """ """
         url = f"{self.scenario_service_graphql_url}"
         variables = {
             "filter": {
                 **({"regionGroupCode": region} if region is not None else {}),
+                **(query_filter if query_filter is not None else {}),
                 "scenarioType": "AURORA_SCENARIO",
             }
         }
         return self._graphql_request(url, scenario_query.get_scenarios, variables)
 
-    def get_scenarios(self, query_filter):
-        """ """
-        url = f"{self.scenario_service_graphql_url}"
-        variables = {"filter": {**query_filter, "scenarioType": "TENANTED_SCENARIO"}}
-        return self._graphql_request(url, scenario_query.get_scenarios, variables)
+    # Only support querying based on id, region and type currently
+    # def get_scenarios(self, query_filter):
+    #     """ """
+    #     url = f"{self.scenario_service_graphql_url}"
+    #     variables = {"filter": {**query_filter, "scenarioType": "TENANTED_SCENARIO"}}
+    #     return self._graphql_request(url, scenario_query.get_scenarios, variables)
 
     def get_scenario_by_id(self, scenario_id: str):
         """ """
