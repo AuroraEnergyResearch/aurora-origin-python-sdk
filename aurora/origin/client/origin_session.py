@@ -79,7 +79,7 @@ class OriginSession(APISession):
     def get_scenario_by_id(self, scenario_id: str):
         """ """
         url = f"{self.scenario_service_graphql_url}"
-        variables = {"filter": {"scenarioGlobalId": id}}
+        variables = {"filter": {"scenarioGlobalId": scenario_id}}
         return self._graphql_request(
             url, scenario_query.get_scenario_details, variables
         )
