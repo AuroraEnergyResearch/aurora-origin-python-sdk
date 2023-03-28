@@ -6,7 +6,9 @@
   "python.linting.mypyCategorySeverity.error":"Error",
   "python.linting.mypyArgs": [
     "--ignore-missing-imports",
-    "src/origin_sdk"
+    "--namespace-packages",
+    "--explicit-package-bases",
+    "--pretty"
   ],
   "python.linting.mypyPath": "${workspaceFolder}/.venv/Scripts/mypy",
   "python.linting.flake8Enabled": true,
@@ -17,7 +19,17 @@
   "python.linting.flake8Path": "${workspaceFolder}/.venv/Scripts/flake8",
   "python.pythonPath": ".venv\\Scripts\\python.exe",
   "editor.formatOnSave": true,
-  "cSpell.words": ["itertools"],
+  "cSpell.words": [
+    "Azathoth",
+    "AZATHOTH",
+    "Brynhildr",
+    "BRYNHILDR",
+    "Hastur",
+    "HASTUR",
+    "itertools",
+    "Tatzelwurm",
+    "TATZELWURM"
+  ],
   "autoDocstring.docstringFormat": "google",
   "python.testing.pytestArgs": [
     "tests"
