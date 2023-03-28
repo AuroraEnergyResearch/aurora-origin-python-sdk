@@ -1,12 +1,20 @@
 {
   "python.formatting.provider": "black",
-  "python.linting.pylintEnabled": false,
   "python.linting.enabled": true,
+  "python.linting.pylintEnabled": false,
+  "python.linting.mypyEnabled": true,
+  "python.linting.mypyCategorySeverity.error":"Error",
+  "python.linting.mypyArgs": [
+    "--ignore-missing-imports",
+    "src/origin_sdk"
+  ],
+  "python.linting.mypyPath": "${workspaceFolder}/.venv/Scripts/mypy",
   "python.linting.flake8Enabled": true,
   "python.linting.flake8Args": [
     "--max-line-length=100",
     "--per-file-ignores=tools/cli.py:E402"
   ],
+  "python.linting.flake8Path": "${workspaceFolder}/.venv/Scripts/flake8",
   "python.pythonPath": ".venv\\Scripts\\python.exe",
   "editor.formatOnSave": true,
   "cSpell.words": ["itertools"],
@@ -16,5 +24,6 @@
   ],
   "python.testing.unittestEnabled": false,
   "python.testing.pytestEnabled": true,
-  "python.testing.pytestPath": "${workspaceFolder}/.venv/Scripts/pytest"
+  "python.testing.pytestPath": "${workspaceFolder}/.venv/Scripts/pytest",
+  "python.analysis.typeCheckingMode": "off"
 }

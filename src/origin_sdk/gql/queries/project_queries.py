@@ -26,7 +26,7 @@ query ($projectId: String!) {{
 }}
 """
 
-create_project = """
+get_project = """
 mutation ($project: InputProject!) {
   createProject (project: $project) {
     projectGlobalId

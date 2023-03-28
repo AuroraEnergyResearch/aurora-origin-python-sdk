@@ -1,8 +1,10 @@
-from typing import Optional
+from typing import List, Optional
 import logging
-import origin_sdk.gql.queries.project as project_query
-import origin_sdk.gql.queries.scenario as scenario_query
+import origin_sdk.gql.queries.project_queries as project_query
+import origin_sdk.gql.queries.scenario_queries as scenario_query
 from core.api import APISession
+from origin_sdk.types.project_types import ProjectSummaryType, ProjectType
+from origin_sdk.types.scenario_types import ScenarioOwner
 
 log = logging.getLogger(__name__)
 log.setLevel(logging.DEBUG)
@@ -71,14 +73,14 @@ class OriginSession(APISession):
         }
         return self._graphql_request(url, scenario_query.get_scenarios, variables)
 
-    # Only support querying based on id, region and type currently
+    # Only support querying based on id, region and type currentlyuu
     # def get_scenarios(self, query_filter):
     #     """ """
     #     url = f"{self.scenario_service_graphql_url}"
     #     variables = {"filter": {**query_filter, "scenarioType": "TENANTED_SCENARIO"}}
     #     return self._graphql_request(url, scenario_query.get_scenarios, variables)
 
-    def get_scenario_by_id(self, scenario_id: str):
+    def get_scenario_by_id(self, scenario_id: str) -> ScenarioOwner:
         """ """
         url = f"{self.scenario_service_graphql_url}"
         variables = {"filter": {"scenarioGlobalId": scenario_id}}
@@ -86,13 +88,13 @@ class OriginSession(APISession):
             url, scenario_query.get_scenario_details, variables
         )
 
-    def create_scenario(self, scenario):
+    def create_scenario(self, scenario) -> ScenarioOwner:
         """ """
         url = f"{self.scenario_service_graphql_url}"
         variables = {"scenario": scenario}
         return self._graphql_request(url, scenario_query.create_scenario, variables)
 
-    def update_scenario(self, scenario_update):
+    def update_scenario(self, scenario_update) -> ScenarioOwner:
         """ """
         url = f"{self.scenario_service_graphql_url}"
         variables = {"scenario": scenario_update}
@@ -104,31 +106,30 @@ class OriginSession(APISession):
         variables = {"scenarioGlobalId": scenario_id}
         return self._graphql_request(url, scenario_query.delete_scenario, variables)
 
-    def launch_scenario(self, scenario_id: str):
+    def launch_scenario(self, scenario_id: str) -> ScenarioOwner:
         """ """
         url = f"{self.scenario_service_graphql_url}"
         variables = {"scenarioGlobalId": scenario_id}
         return self._graphql_request(url, scenario_query.launch_scenario, variables)
 
-    def get_projects(self):
+    def get_projects(self) -> List[ProjectSummaryType]:
         """ """
         url = f"{self.scenario_service_graphql_url}"
-        variables = {}
-        return self._graphql_request(url, project_query.get_projects, variables)
+        return self._graphql_request(url, project_query.get_projects)
 
-    def get_project(self, project_id: str):
+    def get_project(self, project_id: str) -> ProjectType:
         """ """
         url = f"{self.scenario_service_graphql_url}"
         variables = {"projectId": project_id}
         return self._graphql_request(url, project_query.get_project, variables)
 
-    def create_project(self, project):
+    def create_project(self, project) -> ProjectSummaryType:
         """ """
         url = f"{self.scenario_service_graphql_url}"
         variables = {"project": project}
         return self._graphql_request(url, project_query.create_project, variables)
 
-    def update_project(self, project_update):
+    def update_project(self, project_update) -> ProjectSummaryType:
         """ """
         url = f"{self.scenario_service_graphql_url}"
         variables = {"project": project_update}

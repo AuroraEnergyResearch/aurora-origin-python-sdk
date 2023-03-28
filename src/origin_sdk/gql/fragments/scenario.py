@@ -31,32 +31,30 @@ scenario_summary_fields = """
 """
 
 all_scenario_fields = f"""
-	{scenario_summary_fields}
-	defaultCurrency
-	currencies
-	sensitivity
-	baseScenarioGlobalId
-	runDetails
-	appReleaseStatus
-	baseInputReference
-	baseInputReferenceType
-	userInputReference
-	inputImportStatus
-	years
-	weatherYear
+  {scenario_summary_fields}
+  defaultCurrency
+  sensitivity
+  regions
+  baseScenarioGlobalId
+  runDetails
+  appReleaseStatus
+  launchedByEmail
+  userInputReference
+  inputImportStatus
+  currencies
 """
 
 advanced_settings_fields = """
-	advancedSettings {
-		modelReference
-		controlFileName
-		stateFile
-		quickTry
-		retentionPolicy
-		numIterations
-		serverName
-		isHistoricRun
-		isPriorityRun
-		moduloOfYearToConfigForFYR
-	}
+  advancedSettings {
+    modelReference
+    controlFileName
+    stateFile
+    quickTry
+    retentionPolicy
+    numIterations
+    serverName
+    isHistoricRun
+    isPriorityRun
+    moduloOfYearToConfigForFYR
+  }
 """

@@ -30,5 +30,13 @@ repository = "https://github.com/AuroraEnergyResearch/aurora-origin-python-sdk"
 [project.optional-dependencies]
 setup = ["pytest-runner"]
 tests = ["pytest"]
-development = ["flake8", "black", "pytest", "snapshottest", "sphinx", "debugpy"]
+development = [
+  "mypy",
+  "flake8",
+  "black",
+  "pytest",
+  "snapshottest",
+  "sphinx",
+  "debugpy",
+]
 notebooks = ["matplotlib", "pandas", "ipykernel"]

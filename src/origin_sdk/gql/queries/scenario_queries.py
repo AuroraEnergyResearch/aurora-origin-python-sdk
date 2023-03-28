@@ -16,7 +16,6 @@ query ($filter: ScenarioFilter) {{
 get_scenario_details = f"""
 query ($filter: ScenarioFilter) {{
   getScenarios (filter: $filter) {{
-    regions
     {all_scenario_fields}
     {advanced_settings_fields}
   }}
@@ -26,7 +25,8 @@ query ($filter: ScenarioFilter) {{
 create_scenario = f"""
 mutation ($scenario: InputScenario!) {{
   createScenario (scenario: $scenario) {{
-    {scenario_summary_fields}
+    {all_scenario_fields}
+    {advanced_settings_fields}
   }}
 }}
 """
