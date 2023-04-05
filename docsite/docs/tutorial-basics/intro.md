@@ -16,7 +16,7 @@ pip install git+https://github.com/AuroraEnergyResearch/aurora-origin-python-sdk
 2. Add your Aurora API key to the file $home/.aurora-api-key
 
 3. Import `OriginSession` and initialise. See
-   [OriginSession](/docs/reference/OriginSession) for details on usage.
+   [OriginSession](/docs/origin_sdk/OriginSession) for details on usage.
 
 ```python
 from origin_sdk.OriginSession import OriginSession

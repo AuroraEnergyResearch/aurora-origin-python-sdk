@@ -66,7 +66,7 @@ const config = {
             label: "Tutorial",
           },
           {
-            href: "https://github.com/auroraenergyresearch/aurora-origin-python-sdk",
+            href: "https://github.com/AuroraEnergyResearch/aurora-origin-python-sdk",
             label: "GitHub",
             position: "right",
           },
@@ -84,7 +84,7 @@ const config = {
               },
               {
                 label: "GitHub",
-                href: "https://github.com/facebook/docusaurus",
+                href: "https://github.com/AuroraEnergyResearch/aurora-origin-python-sdk",
               },
             ],
           },

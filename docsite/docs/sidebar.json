@@ -1,0 +1,21 @@
+{
+  "items": [
+    {
+      "items": [
+        "docs/origin_sdk/service/Scenario"
+      ],
+      "label": "origin_sdk.service",
+      "type": "category"
+    },
+    {
+      "items": [
+        "docs/origin_sdk/types/scenario_types"
+      ],
+      "label": "origin_sdk.types",
+      "type": "category"
+    },
+    "docs/origin_sdk/OriginSession"
+  ],
+  "label": "origin_sdk",
+  "type": "category"
+}

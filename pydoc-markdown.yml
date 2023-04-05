@@ -5,7 +5,7 @@ loaders:
     # search_path:
     #   - src/origin_sdk
     #   - src/origin_sdk/*/*.py
-      
+
 processors:
   - type: filter
     skip_empty_modules: true

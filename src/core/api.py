@@ -43,16 +43,16 @@ class APISession:
                 f"Using baseUrl {base_url} passed as parameter to session constructor"
             )
             return base_url
-        elif environment_variable in os.environ:
-            base_url_override = os.environ[environment_variable]
+        elif environment_variable and environment_variable in os.environ:
+            base_url_override = os.environ.get(environment_variable)
             log.debug(
                 f"""Using base url '{base_url_override}' passed found in
                  environment variable
                  {environment_variable}"""
             )
             return base_url_override
-        else:
-            return default_url
+
+        return default_url
 
     def _load_token_from_file(self, universe):
         file = Path.joinpath(Path.home(), AURORA_API_KEY_FILE_NAME)
@@ -114,7 +114,7 @@ class APISession:
         response = self.session.request("POST", url, data=json.dumps(payload))
         return self._parse_as_json(response)
 
-    def _graphql_request(self, url, query, variables):
+    def _graphql_request(self, url, query, variables=None):
         return self._post_request(url, {"query": query, "variables": variables})
 
     def _parse_as_json(self, response):
