@@ -133,3 +133,11 @@ def unpin_project(project_id)
 
 
 
+#### get\_meta\_json
+
+```python
+def get_meta_json(meta_url: str)
+```
+
+
+

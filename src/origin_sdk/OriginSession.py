@@ -79,12 +79,13 @@ class OriginSession(APISession):
         }
         return self._graphql_request(url, scenario_query.get_scenarios, variables)
 
-    # Only support querying based on id, region and type currentlyuu
+    # Only support querying based on id, region and type currently
     # def get_scenarios(self, query_filter):
     #     """ """
     #     url = f"{self.scenario_service_graphql_url}"
     #     variables = {"filter": {**query_filter, "scenarioType": "TENANTED_SCENARIO"}}
-    #     return self._graphql_request(url, scenario_query.get_scenarios, variables)
+    #     return self._graphql_request(url, scenario_query.get_scenarios,
+    #     variables)
 
     def get_scenario_by_id(self, scenario_id: str) -> ScenarioType:
         """ """
@@ -92,7 +93,7 @@ class OriginSession(APISession):
         variables = {"filter": {"scenarioGlobalId": scenario_id}}
         return self._graphql_request(
             url, scenario_query.get_scenario_details, variables
-        )
+        )[0]
 
     def create_scenario(self, scenario) -> ScenarioType:
         """ """
@@ -158,3 +159,8 @@ class OriginSession(APISession):
         url = f"{self.scenario_service_graphql_url}"
         variables = {"projectGlobalId": project_id}
         return self._graphql_request(url, project_query.unpin_project, variables)
+
+    def get_meta_json(self, meta_url: str):
+        """"""
+        url = f"{self.scenario_service_url}/{meta_url}"
+        return self._get_request(url)

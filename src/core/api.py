@@ -11,6 +11,28 @@ AURORA_API_KEY_ENVIRONMENT_VARIABLE_NAME = "AURORA_API_KEY"
 AURORA_API_KEY_FILE_NAME = ".aurora-api-key"
 
 
+def handle_graphql_response(func):
+    def parse_data_and_errors_from_gql_response(*args, **kwargs):
+        result = func(*args, **kwargs)
+
+        if result.get("errors"):
+            errors = result.get("errors")
+            raise Exception(errors)
+
+        if result.get("data"):
+            # Data is not null
+            data = result.get("data")
+
+            # If there was only one resolver requested, shortcut and give to the
+            # user
+            if len(data) == 1:
+                data = next(iter(data.values()))
+
+        return data
+
+    return parse_data_and_errors_from_gql_response
+
+
 class APISession:
     """Internal class to hold base methods for interacting with the Aurora HTTP API"""
 
@@ -114,6 +136,7 @@ class APISession:
         response = self.session.request("POST", url, data=json.dumps(payload))
         return self._parse_as_json(response)
 
+    @handle_graphql_response
     def _graphql_request(self, url, query, variables=None):
         return self._post_request(url, {"query": query, "variables": variables})
 
