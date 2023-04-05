@@ -7,7 +7,7 @@ where = ["src"]
 
 [project]
 name = "aurora_origin_sdk"
-version = "0.1.0"
+version = "0.2.0"
 authors = [
   { name = "Aurora Development", email = "aurora_development@auroraer.com" },
 ]
