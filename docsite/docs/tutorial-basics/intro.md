@@ -13,7 +13,7 @@ description: Getting the SDK installed and authenticated
 pip install git+https://github.com/AuroraEnergyResearch/aurora-origin-python-sdk
 ```
 
-2. Add your Aurora API key to the file $home/.aurora-api-key
+2. Add your Aurora API key to the file $home/.aurora-api-key. for example `C:\Users\Joe Bloggs\.aurora-api-key` or set as the environment variable `AURORA_API_KEY`.
 
 3. Import `OriginSession` and initialise. See
    [OriginSession](/docs/origin_sdk/OriginSession) for details on usage.

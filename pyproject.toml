@@ -36,7 +36,8 @@ development = [
   "black",
   "pytest",
   "snapshottest",
-  "sphinx",
   "debugpy",
+  "novella",
+  "pydoc-markdown[novella]",
 ]
 notebooks = ["matplotlib", "pandas", "ipykernel"]
