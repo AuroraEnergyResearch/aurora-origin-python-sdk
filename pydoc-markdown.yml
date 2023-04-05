@@ -1,0 +1,19 @@
+loaders:
+  - type: python
+    packages:
+      - origin_sdk
+    # search_path:
+    #   - src/origin_sdk
+    #   - src/origin_sdk/*/*.py
+      
+processors:
+  - type: filter
+    skip_empty_modules: true
+  - type: smart
+  - type: crossref
+renderer:
+  type: docusaurus
+  docs_base_path: docsite
+  relative_output_path: docs
+  relative_sidebar_path: sidebar.json
+  sidebar_top_level_label: null

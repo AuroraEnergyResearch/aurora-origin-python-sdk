@@ -3,7 +3,6 @@
   "python.linting.enabled": true,
   "python.linting.pylintEnabled": false,
   "python.linting.mypyEnabled": true,
-  "python.linting.mypyCategorySeverity.error":"Error",
   "python.linting.mypyArgs": [
     "--ignore-missing-imports",
     "--namespace-packages",
@@ -30,6 +29,7 @@
     "Tatzelwurm",
     "TATZELWURM"
   ],
+  "cSpell.language": "en-GB",
   "autoDocstring.docstringFormat": "google",
   "python.testing.pytestArgs": [
     "tests"

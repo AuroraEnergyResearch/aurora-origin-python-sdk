@@ -1,4 +1,4 @@
-from typing import TypedDict, List, Any, Optional
+from typing import Dict, TypedDict, List, Any, Optional
 from enum import Enum
 
 
@@ -75,6 +75,8 @@ class AdvancedScenarioSettings(TypedDict):
 
 
 class ScenarioSummaryType(TypedDict):
+    """Dictionary received when requesting a list of scenarios"""
+
     scenarioGlobalId: str
     name: str
     description: str
@@ -103,10 +105,18 @@ class ScenarioSummaryType(TypedDict):
     weatherYear: Optional[int]
 
 
+class RegionDict(TypedDict):
+    regionCode: str
+    metaUrl: str
+    dataUrlBase: str
+
+
 class ScenarioType(ScenarioSummaryType):
+    """Extended scenario details received when requesting a single scenario"""
+
     defaultCurrency: str
     sensitivity: str
-    regions: Any
+    regions: Dict[str, RegionDict]
     baseScenarioGlobalId: str
     runDetails: Any
     appReleaseStatus: Any

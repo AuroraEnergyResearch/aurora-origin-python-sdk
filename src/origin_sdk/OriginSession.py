@@ -1,10 +1,13 @@
-from typing import List, Optional
+from typing import List, Optional, TypedDict
 import logging
 import origin_sdk.gql.queries.project_queries as project_query
 import origin_sdk.gql.queries.scenario_queries as scenario_query
 from core.api import APISession
 from origin_sdk.types.project_types import ProjectSummaryType, ProjectType
-from origin_sdk.types.scenario_types import ScenarioOwner
+from origin_sdk.types.scenario_types import (
+    ScenarioSummaryType,
+    ScenarioType,
+)
 
 log = logging.getLogger(__name__)
 log.setLevel(logging.DEBUG)
@@ -19,6 +22,12 @@ AURORA_ORIGIN_SCENARIO_PRODUCTION_ENDPOINT = "https://api.auroraer.com/scenarioE
 AURORA_ORIGIN_SCENARIO_STAGE_ENDPOINT = "https://api-staging.auroraer.com/scenarioExplr"
 AURORA_ORIGIN_INPUTS_PRODUCTION_ENDPOINT = "https://app.auroraer.com/modelInputs"
 AURORA_ORIGIN_INPUTS_STAGE_ENDPOINT = "https://app-staging.auroraer.com/modelInputs"
+
+
+class OriginSessionConfig(TypedDict, total=False):
+    token: str
+    scenario_base_url: str
+    inputs_base_url: str
 
 
 class OriginSession(APISession):
@@ -41,27 +50,24 @@ class OriginSession(APISession):
         inputs_base_url (string, optional): Override the model inputs service base url
     """
 
-    def __init__(
-        self,
-        token=None,
-        scenario_base_url: Optional[str] = None,
-        inputs_base_url: Optional[str] = None,
-    ):
-        super().__init__(token)
+    def __init__(self, config: OriginSessionConfig = {}):
+        super().__init__(config.get("token"))
         self.scenario_service_url = self._get_base_url(
             default_url=AURORA_ORIGIN_SCENARIO_PRODUCTION_ENDPOINT,
-            base_url=scenario_base_url,
+            base_url=config.get("scenario_base_url"),
             environment_variable=AURORA_ORIGIN_SCENARIO_API_BASE_URL_ENVIRONMENT_VARIABLE_NAME,
         )
         self.scenario_service_graphql_url = f"{self.scenario_service_url}/v1/graphql"
         self.inputs_service_url = self._get_base_url(
             default_url=AURORA_ORIGIN_INPUTS_PRODUCTION_ENDPOINT,
-            base_url=inputs_base_url,
+            base_url=config.get("inputs_base_url"),
             environment_variable=AURORA_ORIGIN_INPUTS_API_BASE_URL_ENVIRONMENT_VARIABLE_NAME,
         )
         self.inputs_service_graphql_url = f"{self.inputs_service_url}/v1/graphql"
 
-    def get_aurora_scenarios(self, region: Optional[str] = None, query_filter=None):
+    def get_aurora_scenarios(
+        self, region: Optional[str] = None, query_filter=None
+    ) -> List[ScenarioSummaryType]:
         """ """
         url = f"{self.scenario_service_graphql_url}"
         variables = {
@@ -80,7 +86,7 @@ class OriginSession(APISession):
     #     variables = {"filter": {**query_filter, "scenarioType": "TENANTED_SCENARIO"}}
     #     return self._graphql_request(url, scenario_query.get_scenarios, variables)
 
-    def get_scenario_by_id(self, scenario_id: str) -> ScenarioOwner:
+    def get_scenario_by_id(self, scenario_id: str) -> ScenarioType:
         """ """
         url = f"{self.scenario_service_graphql_url}"
         variables = {"filter": {"scenarioGlobalId": scenario_id}}
@@ -88,13 +94,13 @@ class OriginSession(APISession):
             url, scenario_query.get_scenario_details, variables
         )
 
-    def create_scenario(self, scenario) -> ScenarioOwner:
+    def create_scenario(self, scenario) -> ScenarioType:
         """ """
         url = f"{self.scenario_service_graphql_url}"
         variables = {"scenario": scenario}
         return self._graphql_request(url, scenario_query.create_scenario, variables)
 
-    def update_scenario(self, scenario_update) -> ScenarioOwner:
+    def update_scenario(self, scenario_update) -> ScenarioType:
         """ """
         url = f"{self.scenario_service_graphql_url}"
         variables = {"scenario": scenario_update}
@@ -106,7 +112,7 @@ class OriginSession(APISession):
         variables = {"scenarioGlobalId": scenario_id}
         return self._graphql_request(url, scenario_query.delete_scenario, variables)
 
-    def launch_scenario(self, scenario_id: str) -> ScenarioOwner:
+    def launch_scenario(self, scenario_id: str) -> ScenarioType:
         """ """
         url = f"{self.scenario_service_graphql_url}"
         variables = {"scenarioGlobalId": scenario_id}
