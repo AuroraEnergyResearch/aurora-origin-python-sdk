@@ -51,7 +51,7 @@ const config = {
     /** @type {import('@docusaurus/preset-classic').ThemeConfig} */
     ({
       // Replace with your project's social card
-      image: "img/docusaurus-social-card.jpg",
+      image: "img/logo.png",
       navbar: {
         title: "Aurora Origin SDK Docs",
         logo: {
@@ -63,7 +63,7 @@ const config = {
             type: "docSidebar",
             sidebarId: "docSidebar",
             position: "left",
-            label: "Tutorial",
+            label: "Docs",
           },
           {
             href: "https://github.com/AuroraEnergyResearch/aurora-origin-python-sdk",
