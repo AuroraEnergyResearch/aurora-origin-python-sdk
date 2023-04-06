@@ -17,7 +17,7 @@ class Scenario:
         session (OriginSession): You should first instantiate an OriginSession
         and pass this over to the Scenario.
 
-    Properties:
+    Attributes:
         scenario_id (str): The scenario ID
         session (OriginSession): The OriginSession attached to this scenario
         scenario (ScenarioType): The full Scenario object from the service

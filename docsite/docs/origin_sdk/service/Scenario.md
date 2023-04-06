@@ -19,7 +19,9 @@ interface for Scenario building and downloading outputs
 - `session` _OriginSession_ - You should first instantiate an OriginSession
   and pass this over to the Scenario.
   
-  Properties:
+
+**Attributes**:
+
 - `scenario_id` _str_ - The scenario ID
 - `session` _OriginSession_ - The OriginSession attached to this scenario
 - `scenario` _ScenarioType_ - The full Scenario object from the service

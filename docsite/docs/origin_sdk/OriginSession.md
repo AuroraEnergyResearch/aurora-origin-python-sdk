@@ -16,7 +16,7 @@ This can be overridden by passing the base_url into the constructor or by
 setting the above environment variables for BASE_URLs. This feature is for
 internal use only.
 
-The authentication token is read from the users home directory
+The authentication token is read from the user&#x27;s home directory
 *$home/.aurora-api-key* e.g. *C:/Users/Joe Bloggs/.aurora-api-key*. This can
 be overridden by passing the token into the constructor or by setting the
 environment variable *AURORA_API_KEY*.
@@ -31,11 +31,24 @@ environment variable *AURORA_API_KEY*.
 #### get\_aurora\_scenarios
 
 ```python
-def get_aurora_scenarios(region: Optional[str] = None,
-                         query_filter=None) -> List[ScenarioSummaryType]
+def get_aurora_scenarios(
+        region: Optional[str] = None) -> List[ScenarioSummaryType]
 ```
 
+Gets a list of all published Aurora scenarios.
 
+**Arguments**:
+
+  region (string, optional) - A regional filter. We accept three
+  letter ISO codes where appropriate. If in doubt as to which code to
+  use for a region (e.g. Iberia), you can check the Origin URL while
+  browsing the platform. You will see something like
+  &quot;.../launcher/aer/&lt;REGION&gt;&quot;
+  
+
+**Returns**:
+
+  List[ScenarioSummaryType]
 
 #### get\_scenario\_by\_id
 
@@ -43,7 +56,16 @@ def get_aurora_scenarios(region: Optional[str] = None,
 def get_scenario_by_id(scenario_id: str) -> ScenarioType
 ```
 
+Get a single scenario by it&#x27;s ID.
 
+**Arguments**:
+
+  scenario_id (string) - The ID of the scenario
+  
+
+**Returns**:
+
+  ScenarioType
 
 #### create\_scenario
 
@@ -51,7 +73,11 @@ def get_scenario_by_id(scenario_id: str) -> ScenarioType
 def create_scenario(scenario) -> ScenarioType
 ```
 
+Creates a new scenario
 
+**Arguments**:
+
+  scenario (InputScenario) -
 
 #### update\_scenario
 

@@ -9,6 +9,7 @@
     },
     {
       "items": [
+        "docs/origin_sdk/types/scenario_enums",
         "docs/origin_sdk/types/scenario_types"
       ],
       "label": "origin_sdk.types",

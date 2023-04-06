@@ -1,61 +1,81 @@
+"""
+The scenario_types module contains type hinting and can be useful when trying to
+understand what options you have when interacting with functions, or what
+outputs to expect from queries. Enums are available in
+[scenario_enums](/docs/origin_sdk/types/scenario_enums) for import and usage.
+"""
 from typing import Dict, TypedDict, List, Any, Optional
-from enum import Enum
+from origin_sdk.types.scenario_enums import (
+    ScenarioRunStatus,
+    ScenarioRunType,
+    ScenarioOwner,
+    ScenarioTransformStatus,
+    InputTypesSupported,
+    ModelPriceSpikiness,
+    ServerName,
+    RetentionPolicyEnum,
+)
 
 
-class ScenarioRunStatus(Enum):
-    QUEUED = "Queued"
-    RUNNING = "Running"
-    COMPLETE = "Complete"
-    ERRORED = "Errored"
-    NOT_LAUNCHED = "NotLaunched"
+class InputScenario(TypedDict):
+    """
+    Interface for creating or updating scenarios. Note that while you may be
+    able to create a scenario partially, the values required to put it into a
+    launchable state varies based on configuration. If you are missing
+    parameters, the service ought to tell you what is missing.
 
+    Attributes:
 
-class ScenarioRunType(Enum):
-    MYR_AND_FYR = "MYR_AND_FYR"
-    MYR = "MYR"
-    FYR = "FYR"
+        projectGlobalId (string): The ID of the project to create the scenario
+        in
+        name (string): The name of the scenario
+        baseScenarioGlobalId (string): **Required only for non-Aurorean use.** The
+            "base" scenario you wish to use. This is equivalent to your own
+            scenario, or a published AER scenario that you wish to "copy".
+        description (optional, string): A description for the scenario. Purely for user
+            purposes, not used by the system.
+        regionGroupCode (optional, string): A region group for the scenario. Be aware
+            that a "regionGroup" would be AUS, whereas a "region" would then be
+            "VIC" or "NSW". For most regions, the "regionGroup" and it's three
+            letter region code are identical.
+        useExogifiedInputs (optional, boolean): A true value here is equivalent to the
+            "Model Determined Capacity" toggled off in the interface. When this
+            is set to false, the model automatically builds capacity to support
+            demand. If you unselect this, you are choosing to take control of
+            defining the capacity build assumptions (this runs much more
+            quickly). Whether these options are available, depends on the
+            scenario this is based on.
+        defaultCurrency (optional, string): Should be set automatically once a
+            `regionGroupCode` is chosen, but can be overridden
+        retentionPolicy (optional, string): Internal only.
+        scenarioRunType (optional, ScenarioRunType): Internal only. Can be values `MYR`, `FYR` or
+            `MYR_AND_FYR`. Non-Auroreans should look to using the
+            `useExogifiedInputs` flag over the scenarioRunType. The behaviour
+            between the two differs slightly for a better Origin experience.
+        modelPriceSpikiness (optional, ModelPriceSpikiness): Used for AUS, set
+            this to one of the ModelPriceSpikiness enum values if you wish to
+            use the feature.
+        years (optional, List[int]): Internal only.
+        weatherYear (optional, int): Internal only, but a form of this coming
+            soon for non-Aurorean usage.
+        advancedSettings (optional, Any): Internal only.
+    """
 
-
-class ScenarioOwner(Enum):
-    AURORA_SCENARIO = "AURORA_SCENARIO"
-    TENANTED_SCENARIO = "TENANTED_SCENARIO"
-
-
-class ScenarioTransformStatus(Enum):
-    COMPLETE = "Complete"
-    ERRORED = "Errored"
-    NOT_STARTED = "NotStarted"
-
-
-class InputTypesSupported(Enum):
-    EXOGENOUS_ONLY = "EXOGENOUS_ONLY"
-    ENDOGENOUS_ONLY = "ENDOGENOUS_ONLY"
-    ENDOGENOUS_AND_EXOGENOUS = "ENDOGENOUS_AND_EXOGENOUS"
-
-
-class ModelPriceSpikiness(Enum):
-    NONE = "None"
-    LOW = "Low"
-    MEDIUM = "Medium"
-    HIGH = "High"
-
-
-class ServerName(Enum):
-    AWS = "AWS"
-    AZATHOTH = "Azathoth"
-    BRYNHILDR = "Brynhildr"
-    HASTUR = "Hastur"
-    QUETZAL = "Quetzal"
-    TATZELWURM = "Tatzelwurm"
-    CTHULHU = "Cthulhu"
-
-
-class RetentionPolicyEnum(Enum):
-    SHORT_TERM = "ShortTerm"
-    STANDARD = "Standard"
-    MIDTERM = "MidTerm"
-    LONG_TERM = "LongTerm"
-    CENTRAL = "Central"
+    projectGlobalId: str
+    name: str
+    baseScenarioGlobalId: Optional[str]
+    description: Optional[str]
+    regionGroupCode: Optional[str]
+    scenarioRunType: Optional[ScenarioRunType]
+    useExogifiedInputs: Optional[bool]
+    defaultCurrency: Optional[str]
+    retentionPolicy: Optional[str]
+    modelPriceSpikiness: Optional[ModelPriceSpikiness]
+    preserveBaseScenarioTransformations: Optional[bool]
+    userInputReference: Optional[str]
+    years: Optional[List[int]]
+    weatherYear: Optional[int]
+    advancedSettings: Optional[Any]
 
 
 class AdvancedScenarioSettings(TypedDict):

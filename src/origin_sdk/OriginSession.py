@@ -38,7 +38,7 @@ class OriginSession(APISession):
     setting the above environment variables for BASE_URLs. This feature is for
     internal use only.
 
-    The authentication token is read from the users home directory
+    The authentication token is read from the user's home directory
     *$home/.aurora-api-key* e.g. *C:/Users/Joe Bloggs/.aurora-api-key*. This can
     be overridden by passing the token into the constructor or by setting the
     environment variable *AURORA_API_KEY*.
@@ -66,14 +66,26 @@ class OriginSession(APISession):
         self.inputs_service_graphql_url = f"{self.inputs_service_url}/v1/graphql"
 
     def get_aurora_scenarios(
-        self, region: Optional[str] = None, query_filter=None
+        self, region: Optional[str] = None
     ) -> List[ScenarioSummaryType]:
-        """ """
+        """
+        Gets a list of all published Aurora scenarios.
+
+        Args:
+            region (string, optional) - A regional filter. We accept three
+            letter ISO codes where appropriate. If in doubt as to which code to
+            use for a region (e.g. Iberia), you can check the Origin URL while
+            browsing the platform. You will see something like
+            ".../launcher/aer/<REGION>"
+
+        Returns:
+            List[ScenarioSummaryType]
+        """
         url = f"{self.scenario_service_graphql_url}"
         variables = {
             "filter": {
                 **({"regionGroupCode": region} if region is not None else {}),
-                **(query_filter if query_filter is not None else {}),
+                # **(query_filter if query_filter is not None else {}),
                 "scenarioType": "AURORA_SCENARIO",
             }
         }
@@ -88,7 +100,15 @@ class OriginSession(APISession):
     #     variables)
 
     def get_scenario_by_id(self, scenario_id: str) -> ScenarioType:
-        """ """
+        """
+        Get a single scenario by it's ID.
+
+        Args:
+            scenario_id (string) - The ID of the scenario
+
+        Returns:
+            ScenarioType
+        """
         url = f"{self.scenario_service_graphql_url}"
         variables = {"filter": {"scenarioGlobalId": scenario_id}}
         return self._graphql_request(
@@ -96,7 +116,12 @@ class OriginSession(APISession):
         )[0]
 
     def create_scenario(self, scenario) -> ScenarioType:
-        """ """
+        """
+        Creates a new scenario
+        
+        Args:
+            scenario (InputScenario) - 
+        """
         url = f"{self.scenario_service_graphql_url}"
         variables = {"scenario": scenario}
         return self._graphql_request(url, scenario_query.create_scenario, variables)
