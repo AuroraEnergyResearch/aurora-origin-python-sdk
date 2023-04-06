@@ -32,10 +32,15 @@ cd docsite; npm i;
 pydoc-markdown
 
 # Also update any of the markdown inside docsite/docs
-
 cd docsite
 npm run build
-cp ./build/* ../docs -Recurse
+```
+
+### Deploying the documentation
+
+```powershell
+cd docsite
+npm run deploy_ghpages
 ```
 
 This expected the documentation can be found here:

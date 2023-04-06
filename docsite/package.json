@@ -12,7 +12,10 @@
     "serve": "docusaurus serve",
     "write-translations": "docusaurus write-translations",
     "write-heading-ids": "docusaurus write-heading-ids",
-    "typecheck": "tsc"
+    "typecheck": "tsc",
+    "__clean_docs_dir": "npx rimraf ../docs/*",
+    "__copy_build_to_docs": "npx copyfiles -u 1 ./build/**/*.* ../docs",
+    "deploy_ghpages": "npm run __clean_docs_dir && npm run __copy_build_to_docs"
   },
   "dependencies": {
     "@docusaurus/core": "2.4.0",
