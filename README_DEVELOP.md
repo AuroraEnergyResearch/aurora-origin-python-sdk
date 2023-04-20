@@ -45,6 +45,5 @@ npm run deploy_ghpages
 
 Then check the result into `main`.
 
-The site will deploy automatically within a few minutes. This expected the
-documentation can be found
+The site will deploy automatically within a few minutes. The expected documentation can be found
 [here](https://auroraenergyresearch.github.io/aurora-origin-python-sdk/).
