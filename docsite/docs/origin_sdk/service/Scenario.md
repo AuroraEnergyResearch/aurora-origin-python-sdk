@@ -44,18 +44,27 @@ this scenario
 
   A list of regions available
 
-#### get\_meta\_json
+#### get\_scenario\_regions
 
 ```python
-def get_meta_json(region: str)
+def get_scenario_regions()
 ```
 
-A helper function that gets the meta json for the region. Caches into
-internal state for future use.
+Helper function to get the regions object on the Scenario, as it&#x27;s a
+common access pattern.
+
+#### get\_scenario\_region
+
+```python
+def get_scenario_region(region: str)
+```
+
+Helper function to get a specific region from the regions object, as
+it&#x27;s a common access pattern.
 
 **Returns**:
 
-  A meta json useful for downloading files.
+  RegionDict
 
 #### get\_download\_types
 
@@ -76,19 +85,17 @@ respectively.
 
   A list of type and granularity downloads available for the region.
 
-#### download\_output\_csv
+#### get\_scenario\_data\_csv
 
 ```python
-def download_output_csv(region: str,
-                        type: str,
-                        granularity: str,
-                        currency: str,
-                        outfile: Optional[str] = None)
+def get_scenario_data_csv(region: str,
+                          download_type: str,
+                          granularity: str,
+                          currency: Optional[str] = None)
 ```
 
-Downloads a csv from the service. As of writing, returns the CSV
-directly from the function. Do not use this for half hourly data in it&#x27;s
-current form, it&#x27;s a bad idea.
+Downloads a csv from the service and returns as a string. Recommended to
+use if looking to generate a csv file on disk.
 
 **Arguments**:
 
@@ -98,12 +105,43 @@ current form, it&#x27;s a bad idea.
   &quot;get_download_types&quot; to query the available options.
 - `granularity` _String_ - The &quot;granularity&quot; of file to download. You can use
   &quot;get_download_types&quot; to query the available options.
-- `currency` _String_ - The currency year to download the file in.
+- `currency` _Optional, String_ - The currency year to download the file
+  in. Will default to `defaultCurrency` on the scenario if available.
   
 
 **Returns**:
 
-  CSV as text
+  CSV as text string
+
+#### get\_scenario\_dataframe
+
+```python
+def get_scenario_dataframe(region: str,
+                           download_type: str,
+                           granularity: str,
+                           currency: Optional[str] = None)
+```
+
+Much the same as `get_scenario_data` but instead parses the CSV as a
+pandas data frame for easier consumption via a script. In general, our
+CSVs have two header rows. The first identifies the column of data and
+the second is a unit string or other contextual information if relevant.
+
+**Arguments**:
+
+- `region` _String_ - The region to download for. Use
+  &quot;get_downloadable_regions&quot; to see a list of options.
+- `type` _String_ - The &quot;type&quot; of file to download. You can use
+  &quot;get_download_types&quot; to query the available options.
+- `granularity` _String_ - The &quot;granularity&quot; of file to download. You can use
+  &quot;get_download_types&quot; to query the available options.
+- `currency` _Optional, String_ - The currency year to download the file
+  in. Will default to `defaultCurrency` on the scenario if available.
+  
+
+**Returns**:
+
+  Pandas Dataframe
 
 #### refresh
 
@@ -111,5 +149,6 @@ current form, it&#x27;s a bad idea.
 def refresh()
 ```
 
-
+Contacts the service to get an updated view of the scenario. Useful for
+things such as polling on a frequency.
 

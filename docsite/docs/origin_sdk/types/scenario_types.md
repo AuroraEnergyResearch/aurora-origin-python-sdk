@@ -64,6 +64,24 @@ class ScenarioSummaryType(TypedDict)
 
 Dictionary received when requesting a list of scenarios
 
+## RegionDict Objects
+
+```python
+class RegionDict(TypedDict)
+```
+
+Regional information object.
+
+**Attributes**:
+
+- `regionCode` _String_ - ISO code or similar from the service
+- `metaUrl` _String_ - URL used to get the meta json file for this region&#x27;s downloads
+- `dataUrlBase` _String_ - URL used as the base to construct a download URL
+  for output data
+- `__meta_json` _Optional_ - Not provided by the service. This field is
+  populated as required by internal implementation of the Scenario class.
+  Observe this at your own risk.
+
 ## ScenarioType Objects
 
 ```python

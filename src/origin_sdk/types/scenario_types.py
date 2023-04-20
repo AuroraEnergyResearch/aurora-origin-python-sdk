@@ -12,8 +12,6 @@ from origin_sdk.types.scenario_enums import (
     ScenarioTransformStatus,
     InputTypesSupported,
     ModelPriceSpikiness,
-    ServerName,
-    RetentionPolicyEnum,
 )
 
 
@@ -126,9 +124,23 @@ class ScenarioSummaryType(TypedDict):
 
 
 class RegionDict(TypedDict):
+    """
+    Regional information object.
+
+    Attributes:
+        regionCode (String): ISO code or similar from the service
+        metaUrl (String): URL used to get the meta json file for this region's downloads
+        dataUrlBase (String): URL used as the base to construct a download URL
+        for output data
+        __meta_json (Optional): Not provided by the service. This field is
+        populated as required by internal implementation of the Scenario class.
+        Observe this at your own risk.
+    """
+
     regionCode: str
     metaUrl: str
     dataUrlBase: str
+    __meta_json: Optional[Any]
 
 
 class ScenarioType(ScenarioSummaryType):
