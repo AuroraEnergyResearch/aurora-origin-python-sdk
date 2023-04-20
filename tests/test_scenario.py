@@ -10,5 +10,13 @@ regions = deu_scenario.get_downloadable_regions()
 
 all_downloads = {r: deu_scenario.get_download_types(r) for r in regions}
 
-csv = deu_scenario.download_output_csv("deu", "system", "1y", "eur2021")
-print(csv)
+all_deu_downloads = [
+    (item.get("type"), item.get("granularity")) for item in all_downloads.get("deu")
+]
+
+all_dfs = {
+    f"{type}-{granularity}": deu_scenario.get_scenario_dataframe(
+        "deu", type, granularity
+    )
+    for type, granularity in all_deu_downloads
+}
