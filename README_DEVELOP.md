@@ -43,6 +43,8 @@ cd docsite
 npm run deploy_ghpages
 ```
 
-This expected the documentation can be found here:
+Then check the result into `main`.
 
-[Aurora Origin SDK Documenation](https://auroraenergyresearch.github.io/aurora-origin-python-sdk/)
+The site will deploy automatically within a few minutes. This expected the
+documentation can be found
+[here](https://auroraenergyresearch.github.io/aurora-origin-python-sdk/).
