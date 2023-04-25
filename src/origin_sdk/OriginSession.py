@@ -79,7 +79,8 @@ class OriginSession(APISession):
         # If the state has a token, the pickle was doctored to inject one. Keep
         # it.
         if self.token is None:
-            # Else, re-initialise in a headless way, there is no realistic way 
+            # Else, re-initialise in a headless way, there is no realistic way
+            # to allow the user to inject a token in the unpickle
             self.token = self._get_token()
 
     def get_aurora_scenarios(
