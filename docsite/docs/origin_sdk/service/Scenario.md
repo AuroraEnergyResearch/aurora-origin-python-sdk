@@ -152,3 +152,11 @@ def refresh()
 Contacts the service to get an updated view of the scenario. Useful for
 things such as polling on a frequency.
 
+#### get
+
+```python
+def get(key: str)
+```
+
+Shortcut for Scenario.scenario.get()
+
