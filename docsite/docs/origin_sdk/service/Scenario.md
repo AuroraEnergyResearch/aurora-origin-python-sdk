@@ -25,11 +25,6 @@ interface for Scenario building and downloading outputs
 - `scenario_id` _str_ - The scenario ID
 - `session` _OriginSession_ - The OriginSession attached to this scenario
 - `scenario` _ScenarioType_ - The full Scenario object from the service
-  
-
-**Methods**:
-
-  get_downloadable_regions()
 
 #### get\_downloadable\_regions
 
