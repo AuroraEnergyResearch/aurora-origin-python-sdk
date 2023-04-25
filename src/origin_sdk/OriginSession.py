@@ -69,19 +69,15 @@ class OriginSession(APISession):
         state = self.__dict__.copy()
 
         # Remove the sensitive token information
-        del state["token"]
+        state["token"] = None
 
         return state
 
     def __setstate__(self, state):
         self.__dict__.update(state)
-
-        # If the state has a token, the pickle was doctored to inject one. Keep
-        # it.
-        if self.token is None:
-            # Else, re-initialise in a headless way, there is no realistic way
-            # to allow the user to inject a token in the unpickle
-            self.token = self._get_token()
+        # Re-initialise the token, there is no realistic way
+        # to allow the user to inject a token in the unpickle
+        self.token = self._get_token(self.token)
 
     def get_aurora_scenarios(
         self, region: Optional[str] = None
