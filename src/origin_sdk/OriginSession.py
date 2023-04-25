@@ -65,6 +65,23 @@ class OriginSession(APISession):
         )
         self.inputs_service_graphql_url = f"{self.inputs_service_url}/v1/graphql"
 
+    def __getstate__(self):
+        state = self.__dict__.copy()
+
+        # Remove the sensitive token information
+        del state["token"]
+
+        return state
+
+    def __setstate__(self, state):
+        self.__dict__.update(state)
+
+        # If the state has a token, the pickle was doctored to inject one. Keep
+        # it.
+        if self.token is None:
+            # Else, re-initialise in a headless way, there is no realistic way 
+            self.token = self._get_token()
+
     def get_aurora_scenarios(
         self, region: Optional[str] = None
     ) -> List[ScenarioSummaryType]:
@@ -118,9 +135,9 @@ class OriginSession(APISession):
     def create_scenario(self, scenario) -> ScenarioType:
         """
         Creates a new scenario
-        
+
         Args:
-            scenario (InputScenario) - 
+            scenario (InputScenario) -
         """
         url = f"{self.scenario_service_graphql_url}"
         variables = {"scenario": scenario}

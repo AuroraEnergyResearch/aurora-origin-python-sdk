@@ -247,3 +247,9 @@ class Scenario:
         """
         self.scenario = self.session.get_scenario_by_id(self.scenario_id)
         return self
+
+    def get(self, key: str):
+        """
+        Shortcut for Scenario.scenario.get()
+        """
+        return self.scenario.get(key)
