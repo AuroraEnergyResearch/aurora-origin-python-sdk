@@ -23,10 +23,6 @@ class Scenario:
         scenario_id (str): The scenario ID
         session (OriginSession): The OriginSession attached to this scenario
         scenario (ScenarioType): The full Scenario object from the service
-
-    Methods:
-        get_downloadable_regions()
-
     """
 
     def __init__(self, scenario_id: str, session: OriginSession):
@@ -247,3 +243,9 @@ class Scenario:
         """
         self.scenario = self.session.get_scenario_by_id(self.scenario_id)
         return self
+
+    def get(self, key: str):
+        """
+        Shortcut for Scenario.scenario.get()
+        """
+        return self.scenario.get(key)

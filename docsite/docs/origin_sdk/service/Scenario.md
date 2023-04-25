@@ -25,11 +25,6 @@ interface for Scenario building and downloading outputs
 - `scenario_id` _str_ - The scenario ID
 - `session` _OriginSession_ - The OriginSession attached to this scenario
 - `scenario` _ScenarioType_ - The full Scenario object from the service
-  
-
-**Methods**:
-
-  get_downloadable_regions()
 
 #### get\_downloadable\_regions
 
@@ -151,4 +146,12 @@ def refresh()
 
 Contacts the service to get an updated view of the scenario. Useful for
 things such as polling on a frequency.
+
+#### get
+
+```python
+def get(key: str)
+```
+
+Shortcut for Scenario.scenario.get()
 
