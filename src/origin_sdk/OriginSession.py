@@ -3,7 +3,7 @@ import logging
 import origin_sdk.gql.queries.project_queries as project_query
 import origin_sdk.gql.queries.scenario_queries as scenario_query
 from core.api import APISession
-from origin_sdk.types.project_types import ProjectSummaryType, ProjectType
+from origin_sdk.types.project_types import InputProject, ProjectSummaryType, ProjectType
 from origin_sdk.types.scenario_types import (
     ScenarioSummaryType,
     ScenarioType,
@@ -169,8 +169,8 @@ class OriginSession(APISession):
         variables = {"projectId": project_id}
         return self._graphql_request(url, project_query.get_project, variables)
 
-    def create_project(self, project) -> ProjectSummaryType:
-        """ """
+    def create_project(self, project: InputProject) -> ProjectSummaryType:
+        """"""
         url = f"{self.scenario_service_graphql_url}"
         variables = {"project": project}
         return self._graphql_request(url, project_query.create_project, variables)

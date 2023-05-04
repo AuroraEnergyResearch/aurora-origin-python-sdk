@@ -15,6 +15,22 @@ from origin_sdk.types.scenario_enums import (
 )
 
 
+class AdvancedScenarioSettings(TypedDict):
+    baseInputReference: Optional[str]
+    baseInputReferenceType: Optional[str]
+    modelReference: Optional[str]
+    controlFileName: Optional[str]
+    stateFile: Optional[str]
+    quickTry: Optional[bool]
+    retentionPolicy: Optional[str]
+    numIterations: Optional[str]
+    serverName: Optional[str]
+    devTestMode: Optional[str]
+    isHistoricRun: Optional[str]
+    isPriorityRun: Optional[str]
+    moduloOfYearToConfigForFYR: Optional[str]
+
+
 class InputScenario(TypedDict):
     """
     Interface for creating or updating scenarios. Note that while you may be
@@ -56,7 +72,7 @@ class InputScenario(TypedDict):
         years (optional, List[int]): Internal only.
         weatherYear (optional, int): Internal only, but a form of this coming
             soon for non-Aurorean usage.
-        advancedSettings (optional, Any): Internal only.
+        advancedSettings (optional, AdvancedScenarioSettings): Internal only.
     """
 
     projectGlobalId: str
@@ -73,23 +89,7 @@ class InputScenario(TypedDict):
     userInputReference: Optional[str]
     years: Optional[List[int]]
     weatherYear: Optional[int]
-    advancedSettings: Optional[Any]
-
-
-class AdvancedScenarioSettings(TypedDict):
-    baseInputReference: str
-    baseInputReferenceType: str
-    modelReference: str
-    controlFileName: str
-    stateFile: str
-    quickTry: bool
-    retentionPolicy: str
-    numIterations: str
-    serverName: str
-    devTestMode: str
-    isHistoricRun: str
-    isPriorityRun: str
-    moduloOfYearToConfigForFYR: str
+    advancedSettings: Optional[AdvancedScenarioSettings]
 
 
 class ScenarioSummaryType(TypedDict):
