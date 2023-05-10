@@ -2,12 +2,15 @@ from typing import List, Optional, TypedDict
 import logging
 import origin_sdk.gql.queries.project_queries as project_query
 import origin_sdk.gql.queries.scenario_queries as scenario_query
+import origin_sdk.gql.queries.input_queries as input_query
+
 from core.api import APISession
 from origin_sdk.types.project_types import InputProject, ProjectSummaryType, ProjectType
 from origin_sdk.types.scenario_types import (
     ScenarioSummaryType,
     ScenarioType,
 )
+from origin_sdk.types.input_types import ModelVariableType, Transform
 
 log = logging.getLogger(__name__)
 log.setLevel(logging.DEBUG)
@@ -203,3 +206,52 @@ class OriginSession(APISession):
         """"""
         url = f"{self.scenario_service_url}/{meta_url}"
         return self._get_request(url)
+
+    def get_inputs_session(self, scenario_id: str):
+        """Gets the inputs instance information, as well as rehydrating all the
+        data if required"""
+        url = f"{self.inputs_service_graphql_url}"
+        variables = {"sessionId": scenario_id}
+        return self._graphql_request(
+            url, input_query.get_session_information_gql, variables
+        )
+
+    def get_technology_names(self, scenario_id: str, regions: Optional[List[str]]):
+        """"""
+        url = f"{self.inputs_service_graphql_url}"
+        variables = {"sessionId": scenario_id, "regions": regions}
+        return self._graphql_request(
+            url, input_query.get_technology_names_gql, variables
+        )
+
+    def get_technology(
+        self, scenario_id: str, technology_name: str, regions: Optional[List[str]]
+    ):
+        """"""
+        url = f"{self.inputs_service_graphql_url}"
+        variables = {
+            "sessionId": scenario_id,
+            "technologyName": technology_name,
+            "regions": regions,
+        }
+        return self._graphql_request(url, input_query.get_technology_gql, variables)
+
+    def update_technology(
+        self,
+        scenario_id: str,
+        technology_name: str,
+        parameter: str,
+        endogenous_or_exogenous: ModelVariableType,
+        transform: List[Transform],
+        regions: List[str],
+    ):
+        url = f"{self.inputs_service_graphql_url}"
+        variables = {
+            "sessionId": scenario_id,
+            "techName": technology_name,
+            "parameter": parameter,
+            "endoExo": endogenous_or_exogenous,
+            "tx": transform,
+            "regions": regions,
+        }
+        return self._graphql_request(url, input_query.get_technology_gql, variables)
