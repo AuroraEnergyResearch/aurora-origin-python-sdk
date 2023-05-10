@@ -1,4 +1,4 @@
-from typing import List, Optional, TypedDict
+from typing import Any, List, Optional, TypedDict
 import logging
 import origin_sdk.gql.queries.project_queries as project_query
 import origin_sdk.gql.queries.scenario_queries as scenario_query
@@ -7,6 +7,7 @@ import origin_sdk.gql.queries.input_queries as input_query
 from core.api import APISession
 from origin_sdk.types.project_types import InputProject, ProjectSummaryType, ProjectType
 from origin_sdk.types.scenario_types import (
+    InputScenario,
     ScenarioSummaryType,
     ScenarioType,
 )
@@ -52,6 +53,8 @@ class OriginSession(APISession):
         scenario_base_url (string, optional): Override the scenario service base url
         inputs_base_url (string, optional): Override the model inputs service base url
     """
+
+    inputs_config_cache: Any = None
 
     def __init__(self, config: OriginSessionConfig = {}):
         super().__init__(config.get("token"))
@@ -132,7 +135,7 @@ class OriginSession(APISession):
             url, scenario_query.get_scenario_details, variables
         )[0]
 
-    def create_scenario(self, scenario) -> ScenarioType:
+    def create_scenario(self, scenario: InputScenario) -> ScenarioType:
         """
         Creates a new scenario
 
@@ -216,25 +219,47 @@ class OriginSession(APISession):
             url, input_query.get_session_information_gql, variables
         )
 
-    def get_technology_names(self, scenario_id: str, regions: Optional[List[str]]):
+    def get_inputs_config(self):
+        if self.inputs_config_cache is None:
+            url = self.inputs_service_graphql_url
+            self.inputs_config_cache = self._graphql_request(
+                url, input_query.get_config_gql
+            )
+        return self.inputs_config_cache
+
+    def get_technology_names(self, scenario_id: str):
         """"""
         url = f"{self.inputs_service_graphql_url}"
-        variables = {"sessionId": scenario_id, "regions": regions}
+        variables = {"sessionId": scenario_id}
         return self._graphql_request(
             url, input_query.get_technology_names_gql, variables
         )
 
     def get_technology(
-        self, scenario_id: str, technology_name: str, regions: Optional[List[str]]
+        self,
+        scenario_id: str,
+        technology_name: str,
+        region: str,
+        subregion: Optional[str] = None,
+        exogenous_sub_technology: Optional[str] = None,
+        subsidy: Optional[str] = None,
+        endogenous_sub_technology: Optional[str] = None,
     ):
         """"""
         url = f"{self.inputs_service_graphql_url}"
         variables = {
             "sessionId": scenario_id,
-            "technologyName": technology_name,
-            "regions": regions,
+            "techName": technology_name,
+            "region": region,
+            "subregion": subregion,
+            "exoSubTechnology": exogenous_sub_technology,
+            "subsidy": subsidy,
+            "endoSubTechnology": endogenous_sub_technology
         }
-        return self._graphql_request(url, input_query.get_technology_gql, variables)
+        config = self.get_inputs_config().get("technology")
+        return self._graphql_request(
+            url, input_query.get_technology_gql(config), variables
+        )
 
     def update_technology(
         self,

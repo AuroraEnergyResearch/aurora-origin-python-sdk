@@ -3,7 +3,9 @@ from origin_sdk.gql.queries.input_queries.utils import RecursiveTree, tree_to_st
 
 
 def create_get_session_gql(variables: Dict[str, str], select: RecursiveTree):
-    query: RecursiveTree = {"getSession (sessionId: $sessionId)": select}
+    query: RecursiveTree = {
+        "getSession (sessionId: $sessionId)": select,
+    }
     return f'''query ( $sessionId: String!, {", ".join([f"""${
         key
     }: {
@@ -13,14 +15,52 @@ def create_get_session_gql(variables: Dict[str, str], select: RecursiveTree):
     }'''
 
 
+config_tech_params_subtree = {
+    "name": None,
+    "type": None,
+    "units": None,
+    "lock": None,
+    "aggregationMethod": None,
+    "appliesToEndoBui": None,
+    "appliesToExo": None,
+    "loadFactorTechRequired": None,
+    "thermalTechRequired": None,
+    "initialRange": {
+        "upper": None,
+        "lower": None,
+    },
+    "hardLimit": {
+        "upper": None,
+        "lower": None,
+    },
+}
+
+get_config_gql = tree_to_string(
+    {
+        "getConfig": {
+            "technology": {
+                "definitions": {
+                    "name": None,
+                    "isLoadFactor": None,
+                    "isThermal": None,
+                    "readOnlyParameters": None,
+                },
+                "parameters": config_tech_params_subtree,
+                "definitionParameters": config_tech_params_subtree,
+            },
+            "userPermissions": None,
+        }
+    }
+)
+
 get_session_information_gql = create_get_session_gql(
     {},
     {
-        "sessionId": None,
+        "meta": {"sessionId": None, "tenant": None},
         "dataGroups": None,
         "currencyInformation": None,
         "defaultCurrency": None,
-        "transforms": None,
+        # "transforms": None,
         "productRegionInformation": {
             "code": None,
             "enabledRegions": {
