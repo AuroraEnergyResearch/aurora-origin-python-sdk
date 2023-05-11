@@ -254,29 +254,36 @@ class OriginSession(APISession):
             "subregion": subregion,
             "exoSubTechnology": exogenous_sub_technology,
             "subsidy": subsidy,
-            "endoSubTechnology": endogenous_sub_technology
+            "endoSubTechnology": endogenous_sub_technology,
         }
         config = self.get_inputs_config().get("technology")
         return self._graphql_request(
             url, input_query.get_technology_gql(config), variables
         )
 
-    def update_technology(
+    def update_technology_endogenous(
         self,
         scenario_id: str,
         technology_name: str,
         parameter: str,
-        endogenous_or_exogenous: ModelVariableType,
         transform: List[Transform],
-        regions: List[str],
+        region: str,
+        sub_region: Optional[str] = None,
+        sub_technology: Optional[str] = None,
     ):
         url = f"{self.inputs_service_graphql_url}"
         variables = {
             "sessionId": scenario_id,
-            "techName": technology_name,
             "parameter": parameter,
-            "endoExo": endogenous_or_exogenous,
             "tx": transform,
-            "regions": regions,
+            "name": technology_name,
+            "region": region,
+            "subRegion": sub_region,
+            "subTechnology": sub_technology,
         }
-        return self._graphql_request(url, input_query.get_technology_gql, variables)
+
+        config = self.get_inputs_config().get("technology")
+
+        return self._graphql_request(
+            url, input_query.update_endo_technology_gql(config), variables
+        )

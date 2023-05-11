@@ -1,4 +1,4 @@
-from typing import Any
+from typing import Any, List, Optional
 from origin_sdk.gql.queries.input_queries import (
     create_get_session_gql,
 )
@@ -50,19 +50,81 @@ aggregated_plants_fragment: RecursiveTree = {
 }
 
 
-def get_technology_gql(tech_config: Any):
+def get_endo_exo_param_list_from_config(tech_config: Any):
     pd = tech_config.get("definitionParameters")
     ppy = tech_config.get("parameters")
-    exoParams = [
+    exo_params = [
         param.get("name") for param in ppy if param.get("appliesToExo") is True
     ]
-    endoParams = [
+    endo_params = [
         param.get("name") for param in ppy if param.get("appliesToEndoBui") is True
     ]
-    # exoDefs = [param.get("name") for param in pd if param.get("appliesToExo") is True]
-    endoDefs = [
+    exo_defs = [param.get("name") for param in pd if param.get("appliesToExo") is True]
+    endo_defs = [
         param.get("name") for param in pd if param.get("appliesToEndoBui") is True
     ]
+
+    return (exo_params, endo_params, exo_defs, endo_defs)
+
+
+def get_endo_param_and_def_tree(
+    endo_params: Optional[List[str]] = None, endo_defs: Optional[List[str]] = None
+):
+    return {
+        **(
+            {
+                "parameters": {
+                    param: yearly_values_with_transform for param in endo_params
+                }
+            }
+            if endo_params is not None
+            else {}
+        ),
+        **(
+            {
+                "definitions": {
+                    param: variable_values_with_transform for param in endo_defs
+                }
+            }
+            if endo_defs is not None
+            else {}
+        ),
+    }
+
+
+def get_exo_param_and_def_tree(
+    exo_params: Optional[List[str]] = None, exo_defs: Optional[List[str]] = None
+):
+    return {
+        **(
+            {
+                "parameters": {
+                    param: yearly_values_with_transform for param in exo_params
+                }
+            }
+            if exo_params is not None
+            else {}
+        ),
+        **(
+            {
+                "definitions": {
+                    param: variable_values_with_transform for param in exo_defs
+                }
+            }
+            if exo_defs is not None
+            else {}
+        ),
+    }
+
+
+def get_technology_gql(tech_config: Any):
+    exo_params, endo_params, exo_defs, endo_defs = get_endo_exo_param_list_from_config(
+        tech_config
+    )
+    exo_tree = get_exo_param_and_def_tree(exo_params=exo_params)
+    endo_tree = get_endo_param_and_def_tree(
+        endo_params=endo_params, endo_defs=endo_defs
+    )
     return create_get_session_gql(
         {
             "techName": "String!",
@@ -80,59 +142,37 @@ def get_technology_gql(tech_config: Any):
                 "region": None,
                 "isRenewable": None,
                 "technologyGrouping": None,
-                "getExogenous( subTechnology: $exoSubTechnology, subsidy: $subsidy)": {
-                    **(
-                        {
-                            "parameters": {
-                                param: yearly_values_with_transform
-                                for param in exoParams
-                            }
-                        }
-                        if exoParams is not None
-                        else {}
-                    )
-                },
-                "getEndogenous( subTechnology: $endoSubTechnology )": {
-                    **(
-                        {
-                            "parameters": {
-                                param: yearly_values_with_transform
-                                for param in endoParams
-                            }
-                        }
-                        if endoParams is not None
-                        else {}
-                    ),
-                    **(
-                        {
-                            "definitions": {
-                                param: variable_values_with_transform
-                                for param in endoDefs
-                            }
-                        }
-                        if endoDefs is not None
-                        else {}
-                    ),
-                },
+                "getExogenous( subTechnology: $exoSubTechnology, subsidy: $subsidy)": exo_tree,
+                "getEndogenous( subTechnology: $endoSubTechnology )": endo_tree,
             }
         },
     )
 
 
-update_technology_gql = f"""mutation(
+def update_endo_technology_gql(tech_config: Any):
+    _, endo_params, _, endo_defs = get_endo_exo_param_list_from_config(tech_config)
+    return f"""mutation (
     $sessionId: String!,
-    $techName: String!,
-    $parameter: PlantParameter!,
-    $endoExo: EnumEndoExo!,
+    $parameter: EndogenousPlantVariable!,
     $tx: [OptionalYearlyNumberItemInput!]!,
-    $regions: [String!]
-) {{
-    updateTechnologyParameter(
-        sessionId: $sessionId,
-        technology: $techName,
-        parameter: $parameter,
-        endoExo: $endoExo,
-        tx: $tx,
-        regions: $regions
-    ) {tree_to_string(aggregated_plants_fragment)}
-}}"""
+    $name: String!,
+    $region: String!
+    $subRegion: String,
+    $subTechnology: String ) {{
+        updateEndogenousTechnologyParameter(
+            sessionId: $sessionId,
+            parameter: $parameter,
+            tx: $tx,
+            name: $name,
+            region: $region,
+            subRegion: $subRegion,
+            subTechnology: $subTechnology) {
+                tree_to_string(
+                    get_endo_param_and_def_tree(
+                        endo_params,
+                        endo_defs
+                    )
+                )
+            }
+    }}
+    """
