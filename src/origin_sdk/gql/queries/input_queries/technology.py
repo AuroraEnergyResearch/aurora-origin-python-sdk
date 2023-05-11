@@ -176,3 +176,33 @@ def update_endo_technology_gql(tech_config: Any):
             }
     }}
     """
+
+
+def update_exo_technology_gql(tech_config: Any):
+    exo_params, _, _, _ = get_endo_exo_param_list_from_config(tech_config)
+    return f"""mutation (
+    $sessionId: String!,
+    $parameter: ExogenousPlantVariable!,
+    $tx: [OptionalYearlyNumberItemInput!]!,
+    $name: String!,
+    $region: String!
+    $subRegion: String,
+    $subsidy: String,
+    $subTechnology: String) {{
+        updateExogenousTechnologyParameter(
+            sessionId: $sessionId,
+            parameter: $parameter,
+            tx: $tx,
+            name: $name,
+            region: $region,
+            subRegion: $subRegion,
+            subsidy: $subsidy,
+            subTechnology: $subTechnology) {
+                tree_to_string(
+                    get_exo_param_and_def_tree(
+                        exo_params
+                    )
+                )
+            }
+    }}
+    """

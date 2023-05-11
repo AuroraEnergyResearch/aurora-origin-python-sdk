@@ -26,7 +26,10 @@ def handle_graphql_response(func):
             # If there was only one resolver requested, shortcut and give to the
             # user
             while len(data) == 1:
-                data = next(iter(data.values()))
+                try:
+                    data = next(iter(data.values()))
+                except Exception:
+                    break
 
         return data
 

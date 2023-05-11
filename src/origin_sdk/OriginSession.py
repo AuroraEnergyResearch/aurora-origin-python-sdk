@@ -287,3 +287,32 @@ class OriginSession(APISession):
         return self._graphql_request(
             url, input_query.update_endo_technology_gql(config), variables
         )
+
+    def update_technology_exogenous(
+        self,
+        scenario_id: str,
+        technology_name: str,
+        parameter: str,
+        transform: List[Transform],
+        region: str,
+        sub_region: Optional[str] = None,
+        subsidy: Optional[str] = None,
+        sub_technology: Optional[str] = None,
+    ):
+        url = f"{self.inputs_service_graphql_url}"
+        variables = {
+            "sessionId": scenario_id,
+            "parameter": parameter,
+            "tx": transform,
+            "name": technology_name,
+            "region": region,
+            "subRegion": sub_region,
+            "subsidy": subsidy,
+            "subTechnology": sub_technology,
+        }
+
+        config = self.get_inputs_config().get("technology")
+
+        return self._graphql_request(
+            url, input_query.update_exo_technology_gql(config), variables
+        )
