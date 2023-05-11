@@ -3,9 +3,18 @@ from origin_sdk.gql.queries.input_queries.utils import RecursiveTree, tree_to_st
 
 
 def create_get_session_gql(variables: Dict[str, str], select: RecursiveTree):
+    """Creates a getSession query, since this is the most common wrapper for
+    queries.
+
+    Arguments:
+        variables: A dictionary of variables to be declared in the query
+        select: The projection/query body to specify.
+    """
+    
     query: RecursiveTree = {
         "getSession (sessionId: $sessionId)": select,
     }
+    
     return f'''query ( $sessionId: String!, {", ".join([f"""${
         key
     }: {
