@@ -3,6 +3,8 @@ from origin_sdk.service.Scenario import Scenario
 
 session = OriginSession()
 
+test_scenario = None
+
 
 def get_scenario_for_testing():
     global test_scenario
