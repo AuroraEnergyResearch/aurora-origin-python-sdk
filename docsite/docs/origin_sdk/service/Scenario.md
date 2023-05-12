@@ -155,3 +155,15 @@ def get(key: str)
 
 Shortcut for Scenario.scenario.get()
 
+#### get\_latest\_scenario\_from\_region
+
+```python
+@staticmethod
+def get_latest_scenario_from_region(session: OriginSession,
+                                    region: str,
+                                    name_filter: Optional[str] = None)
+```
+
+Given a region (and optional name match) will return the latest
+scenario found.
+

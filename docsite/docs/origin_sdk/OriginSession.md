@@ -70,7 +70,7 @@ Get a single scenario by it&#x27;s ID.
 #### create\_scenario
 
 ```python
-def create_scenario(scenario) -> ScenarioType
+def create_scenario(scenario: InputScenario) -> ScenarioType
 ```
 
 Creates a new scenario
@@ -122,7 +122,7 @@ def get_project(project_id: str) -> ProjectType
 #### create\_project
 
 ```python
-def create_project(project) -> ProjectSummaryType
+def create_project(project: InputProject) -> ProjectSummaryType
 ```
 
 
@@ -166,4 +166,66 @@ def get_meta_json(meta_url: str)
 ```
 
 
+
+#### get\_inputs\_session
+
+```python
+def get_inputs_session(scenario_id: str)
+```
+
+Gets the inputs instance information, as well as rehydrating all the
+data if required
+
+#### get\_technology\_names
+
+```python
+def get_technology_names(scenario_id: str)
+```
+
+Gets the technology names available for update, by region, and any
+subtechnology groupings
+
+#### get\_technology
+
+```python
+def get_technology(scenario_id: str,
+                   technology_name: str,
+                   region: str,
+                   subregion: Optional[str] = None,
+                   exogenous_sub_technology: Optional[str] = None,
+                   subsidy: Optional[str] = None,
+                   endogenous_sub_technology: Optional[str] = None)
+```
+
+Gets a specific technology information and all it&#x27;s yearly and non
+yearly values available for update
+
+#### update\_technology\_endogenous
+
+```python
+def update_technology_endogenous(scenario_id: str,
+                                 technology_name: str,
+                                 parameter: str,
+                                 transform: List[Transform],
+                                 region: str,
+                                 sub_region: Optional[str] = None,
+                                 sub_technology: Optional[str] = None)
+```
+
+Updates an endogenous technology assumption.
+
+#### update\_technology\_exogenous
+
+```python
+def update_technology_exogenous(scenario_id: str,
+                                technology_name: str,
+                                parameter: str,
+                                transform: List[Transform],
+                                region: str,
+                                sub_region: Optional[str] = None,
+                                subsidy: Optional[str] = None,
+                                sub_technology: Optional[str] = None)
+```
+
+Updates an exogenous technology assumption.
 

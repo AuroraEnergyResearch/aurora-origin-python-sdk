@@ -54,7 +54,7 @@ parameters, the service ought to tell you what is missing.
 - `years` _optional, List[int]_ - Internal only.
 - `weatherYear` _optional, int_ - Internal only, but a form of this coming
   soon for non-Aurorean usage.
-- `advancedSettings` _optional, Any_ - Internal only.
+- `advancedSettings` _optional, AdvancedScenarioSettings_ - Internal only.
 
 ## ScenarioSummaryType Objects
 
