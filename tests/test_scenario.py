@@ -3,34 +3,6 @@ from origin_sdk.service.Scenario import Scenario
 
 session = OriginSession()
 
-# Construct the Scenario object with an ID
-deu_scenario = Scenario("3549f685-ac8e-4e03-b383-b331cd0b7afd", session)
-
-regions = deu_scenario.get_downloadable_regions()
-
-all_downloads = {r: deu_scenario.get_download_types(r) for r in regions}
-
-deu_region = all_downloads.get("deu")
-
-all_deu_downloads = (
-    [
-        (item.get("type"), item.get("granularity"))
-        for item in deu_region
-        if item is not None
-    ]
-    if deu_region is not None
-    else []
-)
-
-all_dfs = {
-    f"{type}-{granularity}": deu_scenario.get_scenario_dataframe(
-        "deu", type, granularity
-    )
-    for type, granularity in all_deu_downloads
-}
-
-test_scenario = None
-
 
 def get_scenario_for_testing():
     global test_scenario
@@ -40,6 +12,12 @@ def get_scenario_for_testing():
         )
 
     return test_scenario
+
+
+def test_construct_latest_gbr_scenario():
+    scenario = get_scenario_for_testing()
+    # The constructor passed, we are good to go, check the id exists
+    assert scenario.scenario.get("scenarioGlobalId") is not None
 
 
 def test_getting_latest_net_zero_scenario():
@@ -73,12 +51,6 @@ def test_getting_a_silly_region_fails():
         assert False
     except Exception as e:
         assert "Scenario not found" in str(e)
-
-
-def test_construct_latest_gbr_scenario():
-    get_scenario_for_testing()
-    # The constructor passed, we are good to go
-    assert True
 
 
 def test_downloadable_regions_function():
