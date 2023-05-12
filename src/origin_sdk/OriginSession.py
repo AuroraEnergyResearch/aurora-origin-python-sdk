@@ -11,7 +11,7 @@ from origin_sdk.types.scenario_types import (
     ScenarioSummaryType,
     ScenarioType,
 )
-from origin_sdk.types.input_types import ModelVariableType, Transform
+from origin_sdk.types.input_types import Transform
 
 log = logging.getLogger(__name__)
 log.setLevel(logging.DEBUG)
