@@ -219,7 +219,7 @@ class OriginSession(APISession):
             url, input_query.get_session_information_gql, variables
         )
 
-    def get_inputs_config(self):
+    def __get_inputs_config(self):
         if self.inputs_config_cache is None:
             url = self.inputs_service_graphql_url
             self.inputs_config_cache = self._graphql_request(
@@ -256,7 +256,7 @@ class OriginSession(APISession):
             "subsidy": subsidy,
             "endoSubTechnology": endogenous_sub_technology,
         }
-        config = self.get_inputs_config().get("technology")
+        config = self.__get_inputs_config().get("technology")
         return self._graphql_request(
             url, input_query.get_technology_gql(config), variables
         )
@@ -282,7 +282,7 @@ class OriginSession(APISession):
             "subTechnology": sub_technology,
         }
 
-        config = self.get_inputs_config().get("technology")
+        config = self.__get_inputs_config().get("technology")
 
         return self._graphql_request(
             url, input_query.update_endo_technology_gql(config), variables
@@ -311,7 +311,7 @@ class OriginSession(APISession):
             "subTechnology": sub_technology,
         }
 
-        config = self.get_inputs_config().get("technology")
+        config = self.__get_inputs_config().get("technology")
 
         return self._graphql_request(
             url, input_query.update_exo_technology_gql(config), variables
