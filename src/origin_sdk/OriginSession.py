@@ -11,7 +11,7 @@ from origin_sdk.types.scenario_types import (
     ScenarioSummaryType,
     ScenarioType,
 )
-from origin_sdk.types.input_types import ModelVariableType, Transform
+from origin_sdk.types.input_types import Transform
 
 log = logging.getLogger(__name__)
 log.setLevel(logging.DEBUG)
@@ -219,7 +219,7 @@ class OriginSession(APISession):
             url, input_query.get_session_information_gql, variables
         )
 
-    def get_inputs_config(self):
+    def __get_inputs_config(self):
         if self.inputs_config_cache is None:
             url = self.inputs_service_graphql_url
             self.inputs_config_cache = self._graphql_request(
@@ -228,7 +228,8 @@ class OriginSession(APISession):
         return self.inputs_config_cache
 
     def get_technology_names(self, scenario_id: str):
-        """"""
+        """Gets the technology names available for update, by region, and any
+        subtechnology groupings"""
         url = f"{self.inputs_service_graphql_url}"
         variables = {"sessionId": scenario_id}
         return self._graphql_request(
@@ -245,7 +246,8 @@ class OriginSession(APISession):
         subsidy: Optional[str] = None,
         endogenous_sub_technology: Optional[str] = None,
     ):
-        """"""
+        """Gets a specific technology information and all it's yearly and non
+        yearly values available for update"""
         url = f"{self.inputs_service_graphql_url}"
         variables = {
             "sessionId": scenario_id,
@@ -256,7 +258,7 @@ class OriginSession(APISession):
             "subsidy": subsidy,
             "endoSubTechnology": endogenous_sub_technology,
         }
-        config = self.get_inputs_config().get("technology")
+        config = self.__get_inputs_config().get("technology")
         return self._graphql_request(
             url, input_query.get_technology_gql(config), variables
         )
@@ -271,6 +273,7 @@ class OriginSession(APISession):
         sub_region: Optional[str] = None,
         sub_technology: Optional[str] = None,
     ):
+        """Updates an endogenous technology assumption."""
         url = f"{self.inputs_service_graphql_url}"
         variables = {
             "sessionId": scenario_id,
@@ -282,7 +285,7 @@ class OriginSession(APISession):
             "subTechnology": sub_technology,
         }
 
-        config = self.get_inputs_config().get("technology")
+        config = self.__get_inputs_config().get("technology")
 
         return self._graphql_request(
             url, input_query.update_endo_technology_gql(config), variables
@@ -299,6 +302,7 @@ class OriginSession(APISession):
         subsidy: Optional[str] = None,
         sub_technology: Optional[str] = None,
     ):
+        """Updates an exogenous technology assumption."""
         url = f"{self.inputs_service_graphql_url}"
         variables = {
             "sessionId": scenario_id,
@@ -311,7 +315,7 @@ class OriginSession(APISession):
             "subTechnology": sub_technology,
         }
 
-        config = self.get_inputs_config().get("technology")
+        config = self.__get_inputs_config().get("technology")
 
         return self._graphql_request(
             url, input_query.update_exo_technology_gql(config), variables

@@ -2,6 +2,26 @@
   "items": [
     {
       "items": [
+        {
+          "items": [
+            {
+              "items": [
+                "docs/origin_sdk/gql/queries/input_queries/session"
+              ],
+              "label": "origin_sdk.gql.queries.input_queries",
+              "type": "category"
+            }
+          ],
+          "label": "origin_sdk.gql.queries",
+          "type": "category"
+        }
+      ],
+      "label": "origin_sdk.gql",
+      "type": "category"
+    },
+    {
+      "items": [
+        "docs/origin_sdk/service/Project",
         "docs/origin_sdk/service/Scenario"
       ],
       "label": "origin_sdk.service",
