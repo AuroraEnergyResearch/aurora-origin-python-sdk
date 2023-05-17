@@ -4,14 +4,14 @@ import origin_sdk.gql.queries.project_queries as project_query
 import origin_sdk.gql.queries.scenario_queries as scenario_query
 import origin_sdk.gql.queries.input_queries as input_query
 
-from core.api import APISession
+from core.api import APISession, access_next_data_key_decorator
 from origin_sdk.types.project_types import InputProject, ProjectSummaryType, ProjectType
 from origin_sdk.types.scenario_types import (
     InputScenario,
     ScenarioSummaryType,
     ScenarioType,
 )
-from origin_sdk.types.input_types import Transform
+from origin_sdk.types.input_types import InputsSession, TechnologyNames, Transform
 
 log = logging.getLogger(__name__)
 log.setLevel(logging.DEBUG)
@@ -210,7 +210,7 @@ class OriginSession(APISession):
         url = f"{self.scenario_service_url}/{meta_url}"
         return self._get_request(url)
 
-    def get_inputs_session(self, scenario_id: str):
+    def get_inputs_session(self, scenario_id: str) -> InputsSession:
         """Gets the inputs instance information, as well as rehydrating all the
         data if required"""
         url = f"{self.inputs_service_graphql_url}"
@@ -227,7 +227,8 @@ class OriginSession(APISession):
             )
         return self.inputs_config_cache
 
-    def get_technology_names(self, scenario_id: str):
+    @access_next_data_key_decorator
+    def get_technology_names(self, scenario_id: str) -> TechnologyNames:
         """Gets the technology names available for update, by region, and any
         subtechnology groupings"""
         url = f"{self.inputs_service_graphql_url}"
@@ -236,6 +237,7 @@ class OriginSession(APISession):
             url, input_query.get_technology_names_gql, variables
         )
 
+    @access_next_data_key_decorator
     def get_technology(
         self,
         scenario_id: str,
@@ -263,6 +265,7 @@ class OriginSession(APISession):
             url, input_query.get_technology_gql(config), variables
         )
 
+    @access_next_data_key_decorator
     def update_technology_endogenous(
         self,
         scenario_id: str,
@@ -291,6 +294,7 @@ class OriginSession(APISession):
             url, input_query.update_endo_technology_gql(config), variables
         )
 
+    @access_next_data_key_decorator
     def update_technology_exogenous(
         self,
         scenario_id: str,
