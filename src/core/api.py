@@ -40,8 +40,7 @@ def access_next_data_key(data: dict):
     in there. Useful for graphql resolver returns."""
 
     if len(data) == 1 and type(data) == dict:
-        nextkey = next(iter(data.keys()))
-        data = next(iter(data.values()))
+        nextkey, data = next(iter(data.items()))
         log.debug(f"diving into {nextkey} object on data object")
 
     return data
