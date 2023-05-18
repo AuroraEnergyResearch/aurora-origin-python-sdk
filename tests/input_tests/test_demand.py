@@ -1,6 +1,6 @@
 from origin_sdk.service.InputsEditor import InputsEditor
 from origin_sdk.service.Scenario import Scenario
-from tests.input_tests.utils_for_testing import (
+from .utils_for_testing import (
     get_scenario_for_testing,
     testing_session as session,
 )
@@ -16,7 +16,6 @@ def test_get_demand_regions():
 
 
 def test_get_demand():
-    s = get_scenario_for_testing()
     s = Scenario.get_latest_scenario_from_region(session, "gbr", name_filter="central")
     ie = InputsEditor(s.scenario_id, session)
 
@@ -28,3 +27,19 @@ def test_get_demand():
 
         dem_techs = dem.get("technologies")
         assert dem_techs is not None
+
+
+def test_get_demand_tech_names():
+    s = get_scenario_for_testing()
+    ie = InputsEditor(s.scenario_id, session)
+
+    techs = ie.get_demand_technology_names()
+    assert techs is not None
+
+
+def test_get_all_demand_techs():
+    s = get_scenario_for_testing()
+    ie = InputsEditor(s.scenario_id, session)
+
+    techs = ie.get_demand_technologies()
+    assert techs is not None

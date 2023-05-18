@@ -26,8 +26,8 @@ get_demand_technology_names = create_get_session_gql(
     {"demTechFilter": "GetDemandTechFilterDemandTechnologyInput"},
     {
         "getDemandTechnologies (filter: $demTechFilter)": {
-            "region": None,
-            "originTechnology": None,
+            "region": original_value_only,
+            "originTechnology": original_value_only,
         }
     },
 )

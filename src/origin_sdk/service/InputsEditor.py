@@ -1,7 +1,8 @@
 import logging
-from typing import Optional
+from typing import List, Optional
 from origin_sdk.OriginSession import OriginSession
-from origin_sdk.types.input_types import InputsSession, TechnologyNames
+from origin_sdk.types.input_types import InputsSession, TechnologyNames, Transform
+from functools import partial
 
 
 logger = logging.getLogger(__name__)
@@ -34,6 +35,50 @@ class InputsEditor:
             self.scenario_id, {"region": region} if region else None
         )[0]
 
+    def __get_demand_technology_names(self):
+        """
+        Service doesn't support this atm
+        """
+        return self.session.get_demand_technology_names(self.scenario_id)
+
+    def get_demand_technologies(self):
+        """
+        Gets all the demand techs and the data for them
+        """
+        return self.session.get_demand_technologies(self.scenario_id)
+
+    def update_system_demand_variable(
+        self,
+        region: str,
+        variable: str,
+        transform: List[Transform],
+        auto_capacity_market_target: Optional[bool] = None,
+    ):
+        return self.session.update_system_demand(
+            scenario_id=self.scenario_id,
+            region=region,
+            variable=variable,
+            transform=transform,
+            auto_capacity_market_target=auto_capacity_market_target,
+        )
+
+    def update_demand_technology_variable(
+        self,
+        region: str,
+        technology: str,
+        variable: str,
+        transform: List[Transform],
+        auto_capacity_market_target: Optional[bool] = None,
+    ):
+        return self.session.update_demand_technology_variable(
+            scenario_id=self.scenario_id,
+            region=region,
+            technology=technology,
+            variable=variable,
+            transform=transform,
+            auto_capacity_market_target=auto_capacity_market_target,
+        )
+
     def get_technology_names(self) -> TechnologyNames:
         """
         Gets the technology names available for use in get/update technology
@@ -61,3 +106,43 @@ class InputsEditor:
             self.technology_names = self.session.get_technology_names(self.scenario_id)
 
         return self.technology_names
+
+    def update_exogenous_technology_variable(
+        self,
+        technology_name: str,
+        parameter: str,
+        transform: List[Transform],
+        region: str,
+        sub_region: Optional[str] = None,
+        subsidy: Optional[str] = None,
+        sub_technology: Optional[str] = None,
+    ):
+        return self.session.update_technology_exogenous(
+            scenario_id=self.scenario_id,
+            technology_name=technology_name,
+            parameter=parameter,
+            region=region,
+            sub_region=sub_region,
+            sub_technology=sub_technology,
+            subsidy=subsidy,
+            transform=transform,
+        )
+
+    def update_endogenous_technology_variable(
+        self,
+        technology_name: str,
+        parameter: str,
+        transform: List[Transform],
+        region: str,
+        sub_region: Optional[str] = None,
+        sub_technology: Optional[str] = None,
+    ):
+        return self.session.update_technology_endogenous(
+            scenario_id=self.scenario_id,
+            technology_name=technology_name,
+            parameter=parameter,
+            transform=transform,
+            region=region,
+            sub_region=sub_region,
+            sub_technology=sub_technology,
+        )

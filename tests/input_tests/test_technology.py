@@ -1,5 +1,5 @@
 from origin_sdk.service.InputsEditor import InputsEditor
-from tests.input_tests.utils_for_testing import (
+from .utils_for_testing import (
     get_scenario_for_testing,
     testing_session as session,
 )
