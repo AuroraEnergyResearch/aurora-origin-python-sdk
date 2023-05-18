@@ -402,3 +402,90 @@ class OriginSession(APISession):
         return self.__inputs_gql_request_with_loading_handler(
             url, input_query.get_demand_gql(config), variables
         )
+
+    @access_next_data_key_decorator
+    def update_system_demand(
+        self,
+        scenario_id: str,
+        region: str,
+        variable: str,
+        transform: List[Transform],
+        auto_capacity_market_target: Optional[bool] = None,
+    ):
+        """Updates a system demand parameter (one that appears under variables
+        of the main demand object, and not one of the demand technologies variables)."""
+        url = f"{self.inputs_service_graphql_url}"
+        variables = {
+            "sessionId": scenario_id,
+            "region": region,
+            "variable": variable,
+            "autoCapacityMarketTarget": auto_capacity_market_target,
+            "tx": transform,
+        }
+
+        config = self.__get_inputs_config().get("demand")
+
+        return self.__inputs_gql_request_with_loading_handler(
+            url, input_query.update_system_demand_gql(config), variables
+        )
+
+    @access_next_data_key_decorator
+    def get_demand_technology_names(
+        self, scenario_id: str, demand_technology_filter: Optional[Any] = None
+    ) -> List[InputsDemand]:
+        """Gets just demand technology names available, as well as the regions
+        they each belong to."""
+        url = f"{self.inputs_service_graphql_url}"
+        variables = {
+            "sessionId": scenario_id,
+            "demTechFilter": demand_technology_filter,
+        }
+
+        return self.__inputs_gql_request_with_loading_handler(
+            url, input_query.get_demand_technology_names, variables
+        )
+
+    @access_next_data_key_decorator
+    def get_demand_technologies(
+        self, scenario_id: str, demand_technology_filter: Optional[Any] = None
+    ) -> List[InputsDemand]:
+        """Gets just demand technologies, without system demand information."""
+        url = f"{self.inputs_service_graphql_url}"
+        variables = {
+            "sessionId": scenario_id,
+            "demTechFilter": demand_technology_filter,
+        }
+
+        config = self.__get_inputs_config().get("demand")
+
+        return self.__inputs_gql_request_with_loading_handler(
+            url, input_query.get_demand_technologies_gql(config), variables
+        )
+
+    @access_next_data_key_decorator
+    def update_demand_technology_variable(
+        self,
+        scenario_id: str,
+        region: str,
+        technology: str,
+        variable: str,
+        transform: List[Transform],
+        auto_capacity_market_target: Optional[bool] = None,
+    ) -> List[InputsDemand]:
+        """Updates a demand technology variable (one that appears on a
+        demand technology object, rather than on the system level demand object)."""
+        url = f"{self.inputs_service_graphql_url}"
+        variables = {
+            "sessionId": scenario_id,
+            "region": region,
+            "variable": variable,
+            "technology": technology,
+            "autoCapacityMarketTarget": auto_capacity_market_target,
+            "tx": transform,
+        }
+
+        config = self.__get_inputs_config().get("demand")
+
+        return self.__inputs_gql_request_with_loading_handler(
+            url, input_query.update_demand_technology(config), variables
+        )

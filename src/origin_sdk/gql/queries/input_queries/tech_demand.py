@@ -22,16 +22,15 @@ def create_demand_tech_tree(tech_vars: List[str]) -> RecursiveTree:
     }
 
 
-def get_demand_technology_names():
-    return create_get_session_gql(
-        {"demTechFilter": "GetDemandTechFilterDemandTechnologyInput"},
-        {
-            "getDemandTechnologies (filter: $demTechFilter)": {
-                "region": None,
-                "originTechnology": None,
-            }
-        },
-    )
+get_demand_technology_names = create_get_session_gql(
+    {"demTechFilter": "GetDemandTechFilterDemandTechnologyInput"},
+    {
+        "getDemandTechnologies (filter: $demTechFilter)": {
+            "region": None,
+            "originTechnology": None,
+        }
+    },
+)
 
 
 def get_demand_technologies_gql(demand_config: Any):
