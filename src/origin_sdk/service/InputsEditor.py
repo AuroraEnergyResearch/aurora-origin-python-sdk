@@ -2,7 +2,6 @@ import logging
 from typing import List, Optional
 from origin_sdk.OriginSession import OriginSession
 from origin_sdk.types.input_types import InputsSession, TechnologyNames, Transform
-from functools import partial
 
 
 logger = logging.getLogger(__name__)

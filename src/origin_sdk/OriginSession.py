@@ -473,7 +473,9 @@ class OriginSession(APISession):
         auto_capacity_market_target: Optional[bool] = None,
     ) -> List[InputsDemand]:
         """Updates a demand technology variable (one that appears on a
-        demand technology object, rather than on the system level demand object)."""
+        demand technology object, rather than on the system level demand
+        object)."""
+
         url = f"{self.inputs_service_graphql_url}"
         variables = {
             "sessionId": scenario_id,
