@@ -1,6 +1,7 @@
 import logging
+from typing import Optional
 from origin_sdk.OriginSession import OriginSession
-from origin_sdk.types.input_types import TechnologyNames
+from origin_sdk.types.input_types import InputsSession, TechnologyNames
 
 
 logger = logging.getLogger(__name__)
@@ -22,8 +23,16 @@ class InputsEditor:
         self.inputs_session: InputsSession = session.get_inputs_session(scenario_id)
         self.technology_names: TechnologyNames = None
 
-    def get_regions(self):
-        self.inputs_session
+    def get_demand_regions(self):
+        """Gets the regios available for get/update demand functionality in
+        A Origin. Regional availability is affected by the "main region" the scenario has been
+        configured to run."""
+        return self.session.get_demand_regions(self.scenario_id)
+
+    def get_demand_for_region(self, region: str):
+        return self.session.get_demand(
+            self.scenario_id, {"region": region} if region else None
+        )[0]
 
     def get_technology_names(self) -> TechnologyNames:
         """

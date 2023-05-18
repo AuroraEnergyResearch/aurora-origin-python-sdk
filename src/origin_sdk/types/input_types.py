@@ -7,6 +7,12 @@ class ModelVariableType(Enum):
     EXOGENOUS = "exogenous"
 
 
+class VariableValues(TypedDict):
+    original: Any
+    validationWarnings: List[str]
+    validationErrors: List[str]
+
+
 class TransformType(Enum):
     PERCENTAGE = "Percentage"
     DELTA = "Delta"
@@ -21,6 +27,10 @@ class TransformInput(TypedDict):
 class Transform(TypedDict):
     transform: TransformInput
     year: int
+
+
+class VariableValuesWithTransform(VariableValues):
+    transform: TransformInput
 
 
 class TechGroupingSubTechs(TypedDict):
@@ -84,3 +94,38 @@ class InputsSession(TypedDict):
     defaultCurrency: str
     productRegionInformation: InputsSessionProductRegionInfo
     dataGroupEligibility: Dict[str, Union[bool, str]]
+
+
+class InputsDemandVariables(TypedDict):
+    year: int
+
+
+class InputsDemandVariables(TypedDict):
+    year: int
+    totalDemand: VariableValuesWithTransform
+    baseDemand: VariableValuesWithTransform
+
+
+class YearlyValue(TypedDict):
+    year: int
+
+
+YearlyVariables = Union[YearlyValue, dict[str, VariableValuesWithTransform]]
+
+
+class InputsDemandTechnologies(TypedDict):
+    region: str
+    technology: str
+    originTechnology: str
+    variables: List[YearlyVariables]
+
+
+class InputsDemand(TypedDict):
+    region: str
+    peakLoadDemand: float
+    variables: List[YearlyVariables]
+    technologies: List[YearlyVariables]
+
+
+class InputsDemandFilter(TypedDict):
+    region: str
