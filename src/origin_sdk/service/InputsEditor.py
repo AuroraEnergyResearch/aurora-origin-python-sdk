@@ -106,6 +106,25 @@ class InputsEditor:
 
         return self.technology_names
 
+    def get_supply_technology(
+        self,
+        technology_name: str,
+        region: str,
+        subregion: Optional[str] = None,
+        exogenous_sub_technology: Optional[str] = None,
+        subsidy: Optional[str] = None,
+        endogenous_sub_technology: Optional[str] = None,
+    ):
+        return self.session.get_technology(
+            scenario_id=self.scenario_id,
+            technology_name=technology_name,
+            region=region,
+            subregion=subregion,
+            exogenous_sub_technology=exogenous_sub_technology,
+            subsidy=subsidy,
+            endogenous_sub_technology=endogenous_sub_technology,
+        )
+
     def update_exogenous_technology_variable(
         self,
         technology_name: str,
