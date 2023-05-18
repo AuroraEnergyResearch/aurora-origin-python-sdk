@@ -17,7 +17,7 @@ def test_get_technology_names():
 
 def test_updating_all_capacities(project):
     # Init
-    s = get_copy_of_readonly_scenario_for_updating("update all capacities")
+    s = get_copy_of_readonly_scenario_for_updating("update all tech capacities")
     ie = InputsEditor(s.scenario_id, session)
 
     # Get the main region, and all the technology names for this region
