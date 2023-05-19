@@ -35,6 +35,21 @@ def test_getting_latest_net_zero_scenario():
     assert test_scenario is not None
     assert test_scenario_caps is not None
     assert test_scenario.scenario_id == test_scenario_caps.scenario_id
+    
+    
+def test_getting_central_apr_2022():
+    test_scenario = Scenario.get_latest_scenario_from_region(
+        session=session, region="gbr", name_filter=["central", "apr", "2022"]
+    )
+
+    # This function should be case insensitive
+    test_scenario_caps = Scenario.get_latest_scenario_from_region(
+        session=session, region="gbr", name_filter=["CENTRAL", "APR", "2022"]
+    )
+
+    assert test_scenario is not None
+    assert test_scenario_caps is not None
+    assert test_scenario.scenario_id == test_scenario_caps.scenario_id
 
 
 def test_getting_a_silly_scenario_name_fails():

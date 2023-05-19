@@ -12,6 +12,8 @@ AURORA_API_KEY_FILE_NAME = ".aurora-api-key"
 
 
 def handle_graphql_response(func):
+    """Decorator that handles graphql responses and error handling"""
+
     def parse_data_and_errors_from_gql_response(*args, **kwargs):
         result = func(*args, **kwargs)
 
@@ -19,21 +21,40 @@ def handle_graphql_response(func):
             errors = result.get("errors")
             raise Exception(errors)
 
+        data = None
         if result.get("data"):
             # Data is not null
             data = result.get("data")
 
             # If there was only one resolver requested, shortcut and give to the
             # user
-            while len(data) == 1:
-                try:
-                    data = next(iter(data.values()))
-                except Exception:
-                    break
+            data = access_next_data_key(data)
 
         return data
 
     return parse_data_and_errors_from_gql_response
+
+
+def access_next_data_key(data: dict):
+    """Helper function to access the first key of a dict if it's the only thing
+    in there. Useful for graphql resolver returns."""
+
+    if len(data) == 1 and type(data) == dict:
+        nextkey, data = next(iter(data.items()))
+        log.debug(f"diving into {nextkey} object on data object")
+
+    return data
+
+
+def access_next_data_key_decorator(func):
+    """A decorator version of the above function"""
+
+    def access_next_key_after_execution(*args, **kwargs):
+        result = func(*args, **kwargs)
+
+        return access_next_data_key(result)
+
+    return access_next_key_after_execution
 
 
 class APISession:

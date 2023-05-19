@@ -2,6 +2,9 @@ from typing import Any, List, Optional
 from origin_sdk.gql.queries.input_queries import (
     create_get_session_gql,
 )
+from origin_sdk.gql.queries.input_queries.config import (
+    get_endo_exo_param_list_from_config,
+)
 from origin_sdk.gql.queries.input_queries.utils import (
     yearly_values_with_transform,
     variable_values_with_transform,
@@ -48,23 +51,6 @@ aggregated_plants_fragment: RecursiveTree = {
         **plant_definitions_fragment,
     },
 }
-
-
-def get_endo_exo_param_list_from_config(tech_config: Any):
-    pd = tech_config.get("definitionParameters")
-    ppy = tech_config.get("parameters")
-    exo_params = [
-        param.get("name") for param in ppy if param.get("appliesToExo") is True
-    ]
-    endo_params = [
-        param.get("name") for param in ppy if param.get("appliesToEndoBui") is True
-    ]
-    exo_defs = [param.get("name") for param in pd if param.get("appliesToExo") is True]
-    endo_defs = [
-        param.get("name") for param in pd if param.get("appliesToEndoBui") is True
-    ]
-
-    return (exo_params, endo_params, exo_defs, endo_defs)
 
 
 def get_endo_param_and_def_tree(
@@ -171,7 +157,8 @@ def update_endo_technology_gql(tech_config: Any):
                     get_endo_param_and_def_tree(
                         endo_params,
                         endo_defs
-                    )
+                    ),
+                    level=4
                 )
             }
     }}

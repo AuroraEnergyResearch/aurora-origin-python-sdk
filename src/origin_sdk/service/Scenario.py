@@ -1,6 +1,6 @@
 import logging
 from origin_sdk.OriginSession import OriginSession
-from typing import Optional
+from typing import List, Optional, Union
 from tempfile import TemporaryDirectory
 import pandas as pd
 from io import StringIO
@@ -253,7 +253,9 @@ class Scenario:
 
     @staticmethod
     def get_latest_scenario_from_region(
-        session: OriginSession, region: str, name_filter: Optional[str] = None
+        session: OriginSession,
+        region: str,
+        name_filter: Optional[Union[str, List[str]]] = None,
     ):
         """Given a region (and optional name match) will return the latest
         scenario found."""
@@ -277,24 +279,28 @@ class Scenario:
                 )
 
             else:
-                # Lowercase the name filter if it exists
-                name_filter = name_filter.lower()
+                # Handle the singular name_filter into a multiple
+                name_filter = [name_filter] if type(name_filter) == str else name_filter
 
                 # Now filter the list of scenarios by the name filter if it exists
-                latest = [
-                    scenario
-                    for scenario in regional_scenarios
-                    if name_filter is None
-                    or name_filter in scenario.get("name").lower()
-                ][0]
+                latest = next(
+                    (
+                        scenario
+                        for scenario in regional_scenarios
+                        if all(
+                            filter.lower() in scenario.get("name").lower()
+                            for filter in name_filter
+                        )
+                    )
+                )
 
                 return Scenario(
                     scenario_id=latest.get("scenarioGlobalId"), session=session
                 )
-        except IndexError:
+        except StopIteration:
             raise Exception(
                 f"""Scenario not found for region '{region}' {
-                f'and filter string "{name_filter}"' if name_filter is not None
+                f'and filter "{name_filter}"' if name_filter is not None
                 else ""
                 }"""
             )

@@ -170,7 +170,7 @@ def get_meta_json(meta_url: str)
 #### get\_inputs\_session
 
 ```python
-def get_inputs_session(scenario_id: str)
+def get_inputs_session(scenario_id: str) -> InputsSession
 ```
 
 Gets the inputs instance information, as well as rehydrating all the
@@ -179,7 +179,8 @@ data if required
 #### get\_technology\_names
 
 ```python
-def get_technology_names(scenario_id: str)
+@access_next_data_key_decorator
+def get_technology_names(scenario_id: str) -> TechnologyNames
 ```
 
 Gets the technology names available for update, by region, and any
@@ -188,6 +189,7 @@ subtechnology groupings
 #### get\_technology
 
 ```python
+@access_next_data_key_decorator
 def get_technology(scenario_id: str,
                    technology_name: str,
                    region: str,
@@ -203,6 +205,7 @@ yearly values available for update
 #### update\_technology\_endogenous
 
 ```python
+@access_next_data_key_decorator
 def update_technology_endogenous(scenario_id: str,
                                  technology_name: str,
                                  parameter: str,
@@ -217,6 +220,7 @@ Updates an endogenous technology assumption.
 #### update\_technology\_exogenous
 
 ```python
+@access_next_data_key_decorator
 def update_technology_exogenous(scenario_id: str,
                                 technology_name: str,
                                 parameter: str,

@@ -21,6 +21,7 @@
     },
     {
       "items": [
+        "docs/origin_sdk/service/InputsEditor",
         "docs/origin_sdk/service/Project",
         "docs/origin_sdk/service/Scenario"
       ],
