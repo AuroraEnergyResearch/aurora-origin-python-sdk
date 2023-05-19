@@ -4,6 +4,7 @@ from typing import Optional
 from tempfile import TemporaryDirectory
 import pandas as pd
 from io import StringIO
+from datetime import datetime
 
 logger = logging.getLogger(__name__)
 
@@ -33,7 +34,7 @@ class Scenario:
 
     def __del__(self):
         # Cleanup
-        if self.temp_dir:
+        if self.temp_dir is not None:
             self.temp_dir.cleanup()
 
     def __get_temporary_directory(self):
@@ -249,3 +250,51 @@ class Scenario:
         Shortcut for Scenario.scenario.get()
         """
         return self.scenario.get(key)
+
+    @staticmethod
+    def get_latest_scenario_from_region(
+        session: OriginSession, region: str, name_filter: Optional[str] = None
+    ):
+        """Given a region (and optional name match) will return the latest
+        scenario found."""
+
+        # Get all scenarios from the region
+        regional_scenarios = session.get_aurora_scenarios(region)
+
+        # Sort them based on publication date
+        regional_scenarios.sort(
+            key=lambda scenario: datetime.fromisoformat(
+                scenario["publicationDate"].replace("Z", "")
+            ).timestamp(),
+            reverse=True,
+        )
+        try:
+            if name_filter is None:
+                # Just return the latest scenario
+                return Scenario(
+                    scenario_id=regional_scenarios[0].get("scenarioGlobalId"),
+                    session=session,
+                )
+
+            else:
+                # Lowercase the name filter if it exists
+                name_filter = name_filter.lower()
+
+                # Now filter the list of scenarios by the name filter if it exists
+                latest = [
+                    scenario
+                    for scenario in regional_scenarios
+                    if name_filter is None
+                    or name_filter in scenario.get("name").lower()
+                ][0]
+
+                return Scenario(
+                    scenario_id=latest.get("scenarioGlobalId"), session=session
+                )
+        except IndexError:
+            raise Exception(
+                f"""Scenario not found for region '{region}' {
+                f'and filter string "{name_filter}"' if name_filter is not None
+                else ""
+                }"""
+            )

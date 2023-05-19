@@ -19,6 +19,7 @@ query ($projectId: String!) {{
     description
     productName
     productId
+    isProjectPinned
     scenarios {{
       {scenario_summary_fields}
     }}

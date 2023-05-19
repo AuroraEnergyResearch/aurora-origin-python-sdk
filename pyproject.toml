@@ -7,7 +7,7 @@ where = ["src"]
 
 [project]
 name = "aurora_origin_sdk"
-version = "0.5.0"
+version = "0.8.0"
 authors = [
   { name = "Aurora Development", email = "aurora_development@auroraer.com" },
 ]
@@ -35,7 +35,7 @@ development = [
   "flake8",
   "black",
   "pytest",
-  "snapshottest",
+  "pytest-snapshot",
   "debugpy",
   "novella",
   "pydoc-markdown[novella]",
