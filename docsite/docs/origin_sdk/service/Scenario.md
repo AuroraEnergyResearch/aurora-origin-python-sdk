@@ -159,9 +159,10 @@ Shortcut for Scenario.scenario.get()
 
 ```python
 @staticmethod
-def get_latest_scenario_from_region(session: OriginSession,
-                                    region: str,
-                                    name_filter: Optional[str] = None)
+def get_latest_scenario_from_region(
+        session: OriginSession,
+        region: str,
+        name_filter: Optional[Union[str, List[str]]] = None)
 ```
 
 Given a region (and optional name match) will return the latest

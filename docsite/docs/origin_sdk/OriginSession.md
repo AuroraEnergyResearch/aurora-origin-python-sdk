@@ -233,3 +233,78 @@ def update_technology_exogenous(scenario_id: str,
 
 Updates an exogenous technology assumption.
 
+#### get\_demand\_regions
+
+```python
+def get_demand_regions(scenario_id: str) -> List[str]
+```
+
+Gets the regions of demand available for the current scenario
+
+#### get\_demand
+
+```python
+@access_next_data_key_decorator
+def get_demand(
+        scenario_id: str,
+        demand_filter: Optional[InputsDemandFilter] = None
+) -> List[InputsDemand]
+```
+
+Gets system demand and demand technology assumptions for this scenario
+
+#### update\_system\_demand
+
+```python
+@access_next_data_key_decorator
+def update_system_demand(scenario_id: str,
+                         region: str,
+                         variable: str,
+                         transform: List[Transform],
+                         auto_capacity_market_target: Optional[bool] = None)
+```
+
+Updates a system demand parameter (one that appears under variables
+of the main demand object, and not one of the demand technologies variables).
+
+#### get\_demand\_technology\_names
+
+```python
+@access_next_data_key_decorator
+def get_demand_technology_names(
+        scenario_id: str,
+        demand_technology_filter: Optional[Any] = None) -> List[InputsDemand]
+```
+
+Gets just demand technology names available, as well as the regions
+they each belong to.
+
+#### get\_demand\_technologies
+
+```python
+@access_next_data_key_decorator
+def get_demand_technologies(
+        scenario_id: str,
+        demand_technology_filter: Optional[Any] = None) -> List[InputsDemand]
+```
+
+Gets just demand technologies, without system demand information.
+
+#### update\_demand\_technology\_variable
+
+```python
+@access_next_data_key_decorator
+def update_demand_technology_variable(
+        scenario_id: str,
+        region: str,
+        technology: str,
+        variable: str,
+        transform: List[Transform],
+        auto_capacity_market_target: Optional[bool] = None
+) -> List[InputsDemand]
+```
+
+Updates a demand technology variable (one that appears on a
+demand technology object, rather than on the system level demand
+object).
+

@@ -16,6 +16,24 @@ the Inputs Service API calls.
 
 WARNING: If using, the contract defined here is subject to change.
 
+#### get\_demand\_regions
+
+```python
+def get_demand_regions()
+```
+
+Gets the regios available for get/update demand functionality in
+A Origin. Regional availability is affected by the &quot;main region&quot; the scenario has been
+configured to run.
+
+#### get\_demand\_technologies
+
+```python
+def get_demand_technologies()
+```
+
+Gets all the demand techs and the data for them
+
 #### get\_technology\_names
 
 ```python
