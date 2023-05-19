@@ -1,17 +1,24 @@
+from time import sleep
 from typing import Any, List, Optional, TypedDict
 import logging
 import origin_sdk.gql.queries.project_queries as project_query
 import origin_sdk.gql.queries.scenario_queries as scenario_query
 import origin_sdk.gql.queries.input_queries as input_query
 
-from core.api import APISession
+from core.api import APISession, access_next_data_key_decorator, access_next_data_key
 from origin_sdk.types.project_types import InputProject, ProjectSummaryType, ProjectType
 from origin_sdk.types.scenario_types import (
     InputScenario,
     ScenarioSummaryType,
     ScenarioType,
 )
-from origin_sdk.types.input_types import Transform
+from origin_sdk.types.input_types import (
+    InputsDemand,
+    InputsDemandFilter,
+    InputsSession,
+    TechnologyNames,
+    Transform,
+)
 
 log = logging.getLogger(__name__)
 log.setLevel(logging.DEBUG)
@@ -84,6 +91,42 @@ class OriginSession(APISession):
         # Re-initialise the token, there is no realistic way
         # to allow the user to inject a token in the unpickle
         self.token = self._get_token(self.token)
+
+    def __inputs_gql_request_with_loading_handler(
+        self, url: str, query: str, variables: Any
+    ):
+        data = None
+        while data is None:
+            try:
+                data = self._graphql_request(url, query, variables)
+            except Exception as e:
+                try:
+                    # Get the GQL error array
+                    gql_error_array = e.args[0]
+
+                    # Check the data loading perfect conditions
+                    only_one_error = len(gql_error_array) == 1
+                    error_is_not_ready = "DataNotReady" == gql_error_array[0].get(
+                        "errorKey"
+                    )
+
+                    # If it's only a data loading error, we should feel free to
+                    # try again after a short delay
+                    if only_one_error and error_is_not_ready:
+                        log.info(e)
+                        sleep(2.5)
+                    else:
+                        # Not the right conditions. Re-raise the original error
+                        # and let downstream handle (or not)
+                        raise e
+                except Exception:
+                    # Our parsing of this error message has resulted in
+                    # something we didn't expect. We might not be a GQL error.
+                    # Re-throw the original error instead of a red herring
+                    # KeyError from this error handling function
+                    raise e
+
+        return data
 
     def get_aurora_scenarios(
         self, region: Optional[str] = None
@@ -210,7 +253,7 @@ class OriginSession(APISession):
         url = f"{self.scenario_service_url}/{meta_url}"
         return self._get_request(url)
 
-    def get_inputs_session(self, scenario_id: str):
+    def get_inputs_session(self, scenario_id: str) -> InputsSession:
         """Gets the inputs instance information, as well as rehydrating all the
         data if required"""
         url = f"{self.inputs_service_graphql_url}"
@@ -227,15 +270,17 @@ class OriginSession(APISession):
             )
         return self.inputs_config_cache
 
-    def get_technology_names(self, scenario_id: str):
+    @access_next_data_key_decorator
+    def get_technology_names(self, scenario_id: str) -> TechnologyNames:
         """Gets the technology names available for update, by region, and any
         subtechnology groupings"""
         url = f"{self.inputs_service_graphql_url}"
         variables = {"sessionId": scenario_id}
-        return self._graphql_request(
+        return self.__inputs_gql_request_with_loading_handler(
             url, input_query.get_technology_names_gql, variables
         )
 
+    @access_next_data_key_decorator
     def get_technology(
         self,
         scenario_id: str,
@@ -259,10 +304,11 @@ class OriginSession(APISession):
             "endoSubTechnology": endogenous_sub_technology,
         }
         config = self.__get_inputs_config().get("technology")
-        return self._graphql_request(
+        return self.__inputs_gql_request_with_loading_handler(
             url, input_query.get_technology_gql(config), variables
         )
 
+    @access_next_data_key_decorator
     def update_technology_endogenous(
         self,
         scenario_id: str,
@@ -291,6 +337,7 @@ class OriginSession(APISession):
             url, input_query.update_endo_technology_gql(config), variables
         )
 
+    @access_next_data_key_decorator
     def update_technology_exogenous(
         self,
         scenario_id: str,
@@ -319,4 +366,128 @@ class OriginSession(APISession):
 
         return self._graphql_request(
             url, input_query.update_exo_technology_gql(config), variables
+        )
+
+    def get_demand_regions(self, scenario_id: str) -> List[str]:
+        """Gets the regions of demand available for the current scenario"""
+        url = f"{self.inputs_service_graphql_url}"
+        variables = {
+            "sessionId": scenario_id,
+        }
+
+        # getSession will be accessed by default
+        response = self.__inputs_gql_request_with_loading_handler(
+            url, input_query.get_demand_regions_gql, variables
+        )
+
+        # This will dive into the getDemand object
+        demand_array = access_next_data_key(response)
+
+        # This will be an array of objects with a "region" field
+        return [demand.get("region") for demand in demand_array]
+
+    @access_next_data_key_decorator
+    def get_demand(
+        self, scenario_id: str, demand_filter: Optional[InputsDemandFilter] = None
+    ) -> List[InputsDemand]:
+        """Gets system demand and demand technology assumptions for this scenario"""
+        url = f"{self.inputs_service_graphql_url}"
+        variables = {
+            "sessionId": scenario_id,
+            "demandFilter": demand_filter,
+        }
+
+        config = self.__get_inputs_config().get("demand")
+
+        return self.__inputs_gql_request_with_loading_handler(
+            url, input_query.get_demand_gql(config), variables
+        )
+
+    @access_next_data_key_decorator
+    def update_system_demand(
+        self,
+        scenario_id: str,
+        region: str,
+        variable: str,
+        transform: List[Transform],
+        auto_capacity_market_target: Optional[bool] = None,
+    ):
+        """Updates a system demand parameter (one that appears under variables
+        of the main demand object, and not one of the demand technologies variables)."""
+        url = f"{self.inputs_service_graphql_url}"
+        variables = {
+            "sessionId": scenario_id,
+            "region": region,
+            "variable": variable,
+            "autoCapacityMarketTarget": auto_capacity_market_target,
+            "tx": transform,
+        }
+
+        config = self.__get_inputs_config().get("demand")
+
+        return self.__inputs_gql_request_with_loading_handler(
+            url, input_query.update_system_demand_gql(config), variables
+        )
+
+    @access_next_data_key_decorator
+    def get_demand_technology_names(
+        self, scenario_id: str, demand_technology_filter: Optional[Any] = None
+    ) -> List[InputsDemand]:
+        """Gets just demand technology names available, as well as the regions
+        they each belong to."""
+        url = f"{self.inputs_service_graphql_url}"
+        variables = {
+            "sessionId": scenario_id,
+            "demTechFilter": demand_technology_filter,
+        }
+
+        return self.__inputs_gql_request_with_loading_handler(
+            url, input_query.get_demand_technology_names, variables
+        )
+
+    @access_next_data_key_decorator
+    def get_demand_technologies(
+        self, scenario_id: str, demand_technology_filter: Optional[Any] = None
+    ) -> List[InputsDemand]:
+        """Gets just demand technologies, without system demand information."""
+        url = f"{self.inputs_service_graphql_url}"
+        variables = {
+            "sessionId": scenario_id,
+            "demTechFilter": demand_technology_filter,
+        }
+
+        config = self.__get_inputs_config().get("demand")
+
+        return self.__inputs_gql_request_with_loading_handler(
+            url, input_query.get_demand_technologies_gql(config), variables
+        )
+
+    @access_next_data_key_decorator
+    def update_demand_technology_variable(
+        self,
+        scenario_id: str,
+        region: str,
+        technology: str,
+        variable: str,
+        transform: List[Transform],
+        auto_capacity_market_target: Optional[bool] = None,
+    ) -> List[InputsDemand]:
+        """Updates a demand technology variable (one that appears on a
+        demand technology object, rather than on the system level demand
+        object)."""
+
+        url = f"{self.inputs_service_graphql_url}"
+        variables = {
+            "sessionId": scenario_id,
+            "region": region,
+            "variable": variable,
+            "technology": technology,
+            "autoCapacityMarketTarget": auto_capacity_market_target,
+            "tx": transform,
+        }
+
+        config = self.__get_inputs_config().get("demand")
+
+        return self.__inputs_gql_request_with_loading_handler(
+            url, input_query.update_demand_technology(config), variables
         )

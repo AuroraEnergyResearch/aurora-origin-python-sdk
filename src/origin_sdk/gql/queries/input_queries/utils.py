@@ -33,6 +33,8 @@ transform_fields_with_cause: RecursiveTree = {
     "cause": {"reason": None},
 }
 
+original_value_only = {"original": None}
+
 variable_values: RecursiveTree = {
     "original": None,
     "validationWarnings": None,

@@ -170,7 +170,7 @@ def get_meta_json(meta_url: str)
 #### get\_inputs\_session
 
 ```python
-def get_inputs_session(scenario_id: str)
+def get_inputs_session(scenario_id: str) -> InputsSession
 ```
 
 Gets the inputs instance information, as well as rehydrating all the
@@ -179,7 +179,8 @@ data if required
 #### get\_technology\_names
 
 ```python
-def get_technology_names(scenario_id: str)
+@access_next_data_key_decorator
+def get_technology_names(scenario_id: str) -> TechnologyNames
 ```
 
 Gets the technology names available for update, by region, and any
@@ -188,6 +189,7 @@ subtechnology groupings
 #### get\_technology
 
 ```python
+@access_next_data_key_decorator
 def get_technology(scenario_id: str,
                    technology_name: str,
                    region: str,
@@ -203,6 +205,7 @@ yearly values available for update
 #### update\_technology\_endogenous
 
 ```python
+@access_next_data_key_decorator
 def update_technology_endogenous(scenario_id: str,
                                  technology_name: str,
                                  parameter: str,
@@ -217,6 +220,7 @@ Updates an endogenous technology assumption.
 #### update\_technology\_exogenous
 
 ```python
+@access_next_data_key_decorator
 def update_technology_exogenous(scenario_id: str,
                                 technology_name: str,
                                 parameter: str,
@@ -228,4 +232,79 @@ def update_technology_exogenous(scenario_id: str,
 ```
 
 Updates an exogenous technology assumption.
+
+#### get\_demand\_regions
+
+```python
+def get_demand_regions(scenario_id: str) -> List[str]
+```
+
+Gets the regions of demand available for the current scenario
+
+#### get\_demand
+
+```python
+@access_next_data_key_decorator
+def get_demand(
+        scenario_id: str,
+        demand_filter: Optional[InputsDemandFilter] = None
+) -> List[InputsDemand]
+```
+
+Gets system demand and demand technology assumptions for this scenario
+
+#### update\_system\_demand
+
+```python
+@access_next_data_key_decorator
+def update_system_demand(scenario_id: str,
+                         region: str,
+                         variable: str,
+                         transform: List[Transform],
+                         auto_capacity_market_target: Optional[bool] = None)
+```
+
+Updates a system demand parameter (one that appears under variables
+of the main demand object, and not one of the demand technologies variables).
+
+#### get\_demand\_technology\_names
+
+```python
+@access_next_data_key_decorator
+def get_demand_technology_names(
+        scenario_id: str,
+        demand_technology_filter: Optional[Any] = None) -> List[InputsDemand]
+```
+
+Gets just demand technology names available, as well as the regions
+they each belong to.
+
+#### get\_demand\_technologies
+
+```python
+@access_next_data_key_decorator
+def get_demand_technologies(
+        scenario_id: str,
+        demand_technology_filter: Optional[Any] = None) -> List[InputsDemand]
+```
+
+Gets just demand technologies, without system demand information.
+
+#### update\_demand\_technology\_variable
+
+```python
+@access_next_data_key_decorator
+def update_demand_technology_variable(
+        scenario_id: str,
+        region: str,
+        technology: str,
+        variable: str,
+        transform: List[Transform],
+        auto_capacity_market_target: Optional[bool] = None
+) -> List[InputsDemand]
+```
+
+Updates a demand technology variable (one that appears on a
+demand technology object, rather than on the system level demand
+object).
 
