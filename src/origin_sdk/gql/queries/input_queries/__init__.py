@@ -6,3 +6,4 @@ from .tech_demand import *
 from .session import *
 from .technology import *
 from .utils import *
+from .commodities import *
