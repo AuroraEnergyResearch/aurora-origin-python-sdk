@@ -22,7 +22,6 @@ config_tech_params_subtree = {
     },
 }
 
-
 demand_var_subtree: RecursiveTree = {"name": None, "type": None, "units": None}
 
 
@@ -44,6 +43,9 @@ get_config_gql = tree_to_string(
                 "demandTechnologyVariables": demand_var_subtree,
             },
             "userPermissions": None,
+            "commodities": {
+                "regionMapping": None,
+            },
         }
     }
 )

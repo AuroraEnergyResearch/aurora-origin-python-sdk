@@ -35,7 +35,7 @@ def get_test_scenario_for_reading():
     global readonly_test_scenario
     if readonly_test_scenario is None:
         readonly_test_scenario = Scenario.get_latest_scenario_from_region(
-            session=testing_session, region="gbr"
+            session=testing_session, region="gbr", name_filter="central"
         )
 
     return readonly_test_scenario

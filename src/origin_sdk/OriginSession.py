@@ -37,6 +37,7 @@ AURORA_ORIGIN_INPUTS_STAGE_ENDPOINT = "https://app-staging.auroraer.com/modelInp
 
 class OriginSessionConfig(TypedDict, total=False):
     token: str
+    universe: str
     scenario_base_url: str
     inputs_base_url: str
 
@@ -64,7 +65,7 @@ class OriginSession(APISession):
     inputs_config_cache: Any = None
 
     def __init__(self, config: OriginSessionConfig = {}):
-        super().__init__(config.get("token"))
+        super().__init__(config.get("token"), config.get("universe"))
         self.scenario_service_url = self._get_base_url(
             default_url=AURORA_ORIGIN_SCENARIO_PRODUCTION_ENDPOINT,
             base_url=config.get("scenario_base_url"),
@@ -490,4 +491,105 @@ class OriginSession(APISession):
 
         return self.__inputs_gql_request_with_loading_handler(
             url, input_query.update_demand_technology(config), variables
+        )
+
+    @access_next_data_key_decorator
+    def get_commodities(
+        self,
+        scenario_id: str,
+        native_units_flag: bool = None,
+        regions: Optional[List[str]] = None,
+        commodities: Optional[List[str]] = None,
+    ):
+        """Gets commodities data.
+
+        Arguments:
+            scenario_id (String): ID of the scenario to get the commodities data from
+            native_units_flag (Optional, Boolean): What units should be used
+            on the return data, MWh or the "native units" the commodities
+            come in. Defaults to false.
+            regions (Optional, List[String]): If given, will filter the
+            commodity prices to the region specifically. By default, we will
+            perform an equally weighted global average.
+            commodities (Optional, List[String]): If given, will filter the
+            commodities to the ones specified. By default, we will
+            query for all commodities.
+        """
+        url = self.inputs_service_graphql_url
+
+        variables = {
+            k: v
+            for k, v in {
+                "sessionId": scenario_id,
+                "regions": regions,
+                "nativeUnitFlag": native_units_flag,
+                "commodities": commodities,
+            }.items()
+            if v is not None
+        }
+
+        return self.__inputs_gql_request_with_loading_handler(
+            url, input_query.get_commodities_gql, variables
+        )
+
+    @access_next_data_key_decorator
+    def update_commodity_price(
+        self,
+        scenario_id: str,
+        commodity: str,
+        regions: List[str],
+        transform: List[Transform],
+        native_units_flag: bool = None,
+    ):
+        """Updates a commodity price.
+
+        Arguments:
+            scenario_id (String): ID of the scenario to get the commodities data from
+            come in. Defaults to false.
+            commodity (String): The commodity to update.
+            regions (List[String]): The regions to update. You can use the
+            regions array on the "get commodities" return object to inform the
+            view you should update.
+            transform (List[Transform]): The transform array used in all updates
+            native_units_flag (Optional, Boolean): What units should be used
+            on the return data, MWh or the "native units" the commodities
+
+        """
+        url = self.inputs_service_graphql_url
+        variables = {
+            k: v
+            for k, v in {
+                "sessionId": scenario_id,
+                "commodity": commodity,
+                "regions": regions,
+                "tx": transform,
+                "nativeUnitFlag": native_units_flag,
+            }.items()
+            if v is not None
+        }
+
+        return self.__inputs_gql_request_with_loading_handler(
+            url, input_query.update_commodity_gql, variables
+        )
+
+    @access_next_data_key_decorator
+    def change_base_commodities_assumptions(
+        self, scenario_id: str, rebase_reference_id: str
+    ):
+        """Function to change the underlying commodities assumptions. This
+        changes the *original* values, and then any changes you have made (e.g.
+        +15%) will apply over the top."""
+
+        url = self.inputs_service_graphql_url
+        variables = {
+            k: v
+            for k, v in {
+                "sessionId": scenario_id,
+                "rebaseReferenceId": rebase_reference_id,
+            }.items()
+            if v is not None
+        }
+
+        return self.__inputs_gql_request_with_loading_handler(
+            url, input_query.rebase_commodities_gql, variables
         )

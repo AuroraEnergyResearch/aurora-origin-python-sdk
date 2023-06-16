@@ -60,8 +60,8 @@ def access_next_data_key_decorator(func):
 class APISession:
     """Internal class to hold base methods for interacting with the Aurora HTTP API"""
 
-    def __init__(self, token=None):
-        self.token = self._get_token(token)
+    def __init__(self, token=None, universe=None):
+        self.token = self._get_token(token, universe)
         self.session = self._create_session()
 
     def _get_token(self, token, universe=None):
