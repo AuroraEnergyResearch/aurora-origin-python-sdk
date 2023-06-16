@@ -1,4 +1,3 @@
-from functools import partialmethod
 import logging
 from typing import List, Optional
 from origin_sdk.OriginSession import OriginSession
@@ -23,6 +22,11 @@ class InputsEditor:
         self.session = session
         self.inputs_session: InputsSession = session.get_inputs_session(scenario_id)
         self.technology_names: TechnologyNames = None
+
+    def refresh(self):
+        self.inputs_session: InputsSession = self.session.get_inputs_session(
+            self.scenario_id
+        )
 
     def get_demand_regions(self):
         """Gets the regios available for get/update demand functionality in
@@ -167,11 +171,12 @@ class InputsEditor:
         )
 
     def get_commodities(self, *args, **kwargs):
-        return self.session.get_commodities(
-            scenario_id=self.scenario_id, *args, **kwargs
-        )
+        return self.session.get_commodities(self.scenario_id, *args, **kwargs)
 
     def update_commodity_price(self, *args, **kwargs):
-        return self.session.update_commodity_price(
-            scenario_id=self.scenario_id, *args, **kwargs
+        return self.session.update_commodity_price(self.scenario_id, *args, **kwargs)
+
+    def change_base_commodities_assumptions(self, *args, **kwargs):
+        return self.session.change_base_commodities_assumptions(
+            self.scenario_id, *args, **kwargs
         )

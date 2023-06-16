@@ -1,4 +1,5 @@
 from origin_sdk.OriginSession import OriginSession
+from origin_sdk.service.Scenario import Scenario
 from origin_sdk.service.InputsEditor import InputsEditor
 
 from .utils_for_testing import (
@@ -17,7 +18,7 @@ def test_can_get_commodities():
 
 
 def test_updating_gas_price(project):
-    s = get_copy_of_readonly_scenario_for_updating("update all tech capacities")
+    s = get_copy_of_readonly_scenario_for_updating("update global gas prices to 666")
     ie = InputsEditor(s.scenario_id, session)
 
     # Get global gas
@@ -49,3 +50,36 @@ def test_updating_gas_price(project):
     ]
 
     assert all(after_update_tx)
+
+
+def test_rebasing_commodities(project):
+    s = get_copy_of_readonly_scenario_for_updating(
+        "replace commodity prices with last year's central case"
+    )
+    ie = InputsEditor(s.scenario_id, session)
+    ie.get_commodities()
+    ie.refresh()
+
+    data_groups = ie.inputs_session.get("dataGroups")
+    commodities_data_group = data_groups["commodities"]
+    default_data_group = data_groups["default"]
+    assert commodities_data_group["reference"] == default_data_group["reference"]
+
+    rebase_scenario = Scenario.get_latest_scenario_from_region(
+        s.session, region="gbr", name_filter=["net zero"]
+    )
+    rebase_id = rebase_scenario.scenario_id
+
+    ie.change_base_commodities_assumptions(rebase_id)
+
+    ie.refresh()
+
+    post_update_data_groups = ie.inputs_session.get("dataGroups")
+    post_update_commodities_data_group = post_update_data_groups["commodities"]
+    post_update_default_data_group = post_update_data_groups["default"]
+    
+    assert (
+        post_update_commodities_data_group["reference"]
+        != post_update_default_data_group["reference"]
+    )
+    assert post_update_commodities_data_group["reference"] == rebase_id

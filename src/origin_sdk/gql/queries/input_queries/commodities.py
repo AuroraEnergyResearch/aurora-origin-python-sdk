@@ -46,12 +46,10 @@ update_commodity_gql = f"""mutation (
 rebase_commodities_gql = """mutation (
     $sessionId: String!,
     $rebaseReferenceId: String!,
-    $rebaseReferenceType: EnumRebaseReferenceType
 ) {
     rebaseCommodities (
         sessionId: $sessionId,
         rebaseReferenceId: $rebaseReferenceId,
-        rebaseReferenceType: $rebaseReferenceType
     ) {
         result
     }

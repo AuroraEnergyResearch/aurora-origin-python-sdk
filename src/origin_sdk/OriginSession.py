@@ -571,3 +571,25 @@ class OriginSession(APISession):
         return self.__inputs_gql_request_with_loading_handler(
             url, input_query.update_commodity_gql, variables
         )
+
+    @access_next_data_key_decorator
+    def change_base_commodities_assumptions(
+        self, scenario_id: str, rebase_reference_id: str
+    ):
+        """Function to change the underlying commodities assumptions. This
+        changes the *original* values, and then any changes you have made (e.g.
+        +15%) will apply over the top."""
+
+        url = self.inputs_service_graphql_url
+        variables = {
+            k: v
+            for k, v in {
+                "sessionId": scenario_id,
+                "rebaseReferenceId": rebase_reference_id,
+            }.items()
+            if v is not None
+        }
+
+        return self.__inputs_gql_request_with_loading_handler(
+            url, input_query.rebase_commodities_gql, variables
+        )
