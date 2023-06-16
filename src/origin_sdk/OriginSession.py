@@ -533,7 +533,7 @@ class OriginSession(APISession):
         )
 
     @access_next_data_key_decorator
-    def update_commodity_prices(
+    def update_commodity_price(
         self,
         scenario_id: str,
         commodity: str,
@@ -569,5 +569,5 @@ class OriginSession(APISession):
         }
 
         return self.__inputs_gql_request_with_loading_handler(
-            url, input_query.get_commodities_gql, variables
+            url, input_query.update_commodity_gql, variables
         )

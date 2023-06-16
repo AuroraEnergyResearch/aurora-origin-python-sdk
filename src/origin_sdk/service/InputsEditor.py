@@ -1,3 +1,4 @@
+from functools import partialmethod
 import logging
 from typing import List, Optional
 from origin_sdk.OriginSession import OriginSession
@@ -163,4 +164,14 @@ class InputsEditor:
             region=region,
             sub_region=sub_region,
             sub_technology=sub_technology,
+        )
+
+    def get_commodities(self, *args, **kwargs):
+        return self.session.get_commodities(
+            scenario_id=self.scenario_id, *args, **kwargs
+        )
+
+    def update_commodity_price(self, *args, **kwargs):
+        return self.session.update_commodity_price(
+            scenario_id=self.scenario_id, *args, **kwargs
         )
