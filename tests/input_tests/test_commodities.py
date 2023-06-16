@@ -17,6 +17,14 @@ def test_can_get_commodities():
     assert cmdty is not None
 
 
+def test_can_get_a_single_commodity():
+    s = get_test_scenario_for_reading()
+    ie = InputsEditor(s.scenario_id, session)
+    gas = ie.get_commodities(commodities=["gas"])[0]
+
+    assert gas.get("commodity") == "gas"
+
+
 def test_updating_gas_price(project):
     s = get_copy_of_readonly_scenario_for_updating("update global gas prices to 666")
     ie = InputsEditor(s.scenario_id, session)
@@ -24,7 +32,6 @@ def test_updating_gas_price(project):
     # Get global gas
     # main_region = ie.inputs_session.get("productRegionInformation").get("code")
     gas = ie.get_commodities(commodities=["gas"])[0]
-
     assert gas.get("commodity") == "gas"
 
     before_update_tx = [year.get("transform") is None for year in gas.get("prices")]
@@ -77,7 +84,7 @@ def test_rebasing_commodities(project):
     post_update_data_groups = ie.inputs_session.get("dataGroups")
     post_update_commodities_data_group = post_update_data_groups["commodities"]
     post_update_default_data_group = post_update_data_groups["default"]
-    
+
     assert (
         post_update_commodities_data_group["reference"]
         != post_update_default_data_group["reference"]
