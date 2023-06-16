@@ -308,3 +308,65 @@ Updates a demand technology variable (one that appears on a
 demand technology object, rather than on the system level demand
 object).
 
+#### get\_commodities
+
+```python
+@access_next_data_key_decorator
+def get_commodities(scenario_id: str,
+                    native_units_flag: bool = None,
+                    regions: Optional[List[str]] = None,
+                    commodities: Optional[List[str]] = None)
+```
+
+Gets commodities data.
+
+**Arguments**:
+
+- `scenario_id` _String_ - ID of the scenario to get the commodities data from
+- `native_units_flag` _Optional, Boolean_ - What units should be used
+  on the return data, MWh or the &quot;native units&quot; the commodities
+  come in. Defaults to false.
+- `regions` _Optional, List[String]_ - If given, will filter the
+  commodity prices to the region specifically. By default, we will
+  perform an equally weighted global average.
+- `commodities` _Optional, List[String]_ - If given, will filter the
+  commodities to the ones specified. By default, we will
+  query for all commodities.
+
+#### update\_commodity\_price
+
+```python
+@access_next_data_key_decorator
+def update_commodity_price(scenario_id: str,
+                           commodity: str,
+                           regions: List[str],
+                           transform: List[Transform],
+                           native_units_flag: bool = None)
+```
+
+Updates a commodity price.
+
+**Arguments**:
+
+- `scenario_id` _String_ - ID of the scenario to get the commodities data from
+  come in. Defaults to false.
+- `commodity` _String_ - The commodity to update.
+- `regions` _List[String]_ - The regions to update. You can use the
+  regions array on the &quot;get commodities&quot; return object to inform the
+  view you should update.
+- `transform` _List[Transform]_ - The transform array used in all updates
+- `native_units_flag` _Optional, Boolean_ - What units should be used
+  on the return data, MWh or the &quot;native units&quot; the commodities
+
+#### change\_base\_commodities\_assumptions
+
+```python
+@access_next_data_key_decorator
+def change_base_commodities_assumptions(scenario_id: str,
+                                        rebase_reference_id: str)
+```
+
+Function to change the underlying commodities assumptions. This
+changes the *original* values, and then any changes you have made (e.g.
++15%) will apply over the top.
+
