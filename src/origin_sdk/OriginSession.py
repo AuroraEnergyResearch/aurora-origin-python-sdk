@@ -1,3 +1,4 @@
+from json import dumps
 from time import sleep
 from typing import Any, List, Optional, TypedDict
 import logging
@@ -6,6 +7,7 @@ import origin_sdk.gql.queries.scenario_queries as scenario_query
 import origin_sdk.gql.queries.input_queries as input_query
 
 from core.api import APISession, access_next_data_key_decorator, access_next_data_key
+from origin_sdk.types.error_types import ProjectProductNotFound
 from origin_sdk.types.project_types import InputProject, ProjectSummaryType, ProjectType
 from origin_sdk.types.scenario_types import (
     InputScenario,
@@ -63,6 +65,7 @@ class OriginSession(APISession):
     """
 
     inputs_config_cache: Any = None
+    dash_config_cache: Any = None
 
     def __init__(self, config: OriginSessionConfig = {}):
         super().__init__(config.get("token"), config.get("universe"))
@@ -219,15 +222,45 @@ class OriginSession(APISession):
         variables = {"projectId": project_id}
         return self._graphql_request(url, project_query.get_project, variables)
 
+    def __get_dash_config(self):
+        if self.dash_config_cache is None:
+            url = self.scenario_service_graphql_url
+            self.dash_config_cache = self._graphql_request(
+                url, project_query.get_origin_dash_config
+            )
+
+        return self.dash_config_cache
+
+    def get_project_product_id(self, product: str | int):
+        products = self.__get_dash_config().get("products")
+        product_matches = [
+            p for p in products if product in [p.get("productId"), p.get("name")]
+        ]
+        try:
+            return product_matches[0].get("productId")
+        except IndexError:
+            raise ProjectProductNotFound(
+                f"""Could not use product {product}. Accepted products are any
+                 name or id in: \n{dumps(products, indent=4)}"""
+            )
+
     def create_project(self, project: InputProject) -> ProjectSummaryType:
         """"""
         url = f"{self.scenario_service_graphql_url}"
+        if "productId" in project:
+            project["productId"] = self.get_project_product_id(project["productId"])
+
         variables = {"project": project}
         return self._graphql_request(url, project_query.create_project, variables)
 
     def update_project(self, project_update) -> ProjectSummaryType:
         """ """
         url = f"{self.scenario_service_graphql_url}"
+        if "productId" in project_update:
+            project_update["productId"] = self.get_project_product_id(
+                project_update["productId"]
+            )
+
         variables = {"project": project_update}
         return self._graphql_request(url, project_query.update_project, variables)
 
@@ -497,7 +530,7 @@ class OriginSession(APISession):
     def get_commodities(
         self,
         scenario_id: str,
-        native_units_flag: bool = None,
+        native_units_flag: Optional[bool] = None,
         regions: Optional[List[str]] = None,
         commodities: Optional[List[str]] = None,
     ):
@@ -539,7 +572,7 @@ class OriginSession(APISession):
         commodity: str,
         regions: List[str],
         transform: List[Transform],
-        native_units_flag: bool = None,
+        native_units_flag: Optional[bool] = None,
     ):
         """Updates a commodity price.
 

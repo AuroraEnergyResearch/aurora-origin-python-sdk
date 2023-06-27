@@ -1,5 +1,19 @@
 from origin_sdk.gql.fragments.scenario import scenario_summary_fields
 
+get_origin_dash_config = """
+query {
+  getConfig {
+    regionGroups
+    currencies
+    sensitivities
+    products
+    isAuthor
+    isAdvancedUser
+    appsSupported
+  }
+}
+"""
+
 get_projects = """
 query {
   getProjects {

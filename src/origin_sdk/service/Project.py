@@ -1,6 +1,5 @@
 import logging
 from origin_sdk.OriginSession import OriginSession
-from typing import Optional
 from origin_sdk.service.Scenario import Scenario
 from origin_sdk.types.error_types import ProjectNotFound, ScenarioNotFound
 from origin_sdk.types.project_types import InputProject
@@ -135,7 +134,10 @@ class Project:
 
     @staticmethod
     def get_or_create_project_by_name(
-        session: OriginSession, name: str, pin_project: bool = False
+        session: OriginSession,
+        name: str,
+        create_config: InputProject = {},
+        pin_project: bool = False,
     ) -> "Project":
         """Either creates a project with this name, or returns the project that
         already exists with the same name.
@@ -146,6 +148,8 @@ class Project:
         Arguments:
             session: OriginSession - The session to make API calls with
             name: str - The name of the project to find/create
+            create_config: str - The configuration to use in the case where the
+                project is being created.
             pin_project: Optional, bool - Whether to pin the project if it's not
             already, defaults to False
         """
@@ -153,13 +157,11 @@ class Project:
             project = Project.get_project_by_name(session=session, name=name)
 
         except ProjectNotFound:
-            project = session.create_project({"name": name})
-
-        new_project = Project(
-            session=session, project_id=project.get("projectGlobalId")
-        )
+            project = Project.create(
+                session=session, project={"name": name, **create_config}
+            )
 
         if pin_project is True:
-            new_project.pin()
+            project.pin()
 
-        return new_project
+        return project

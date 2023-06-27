@@ -2,7 +2,11 @@ from origin_sdk.OriginSession import OriginSession
 from origin_sdk.service.Scenario import Scenario
 from origin_sdk.service.Project import Project
 from uuid import uuid4
-from origin_sdk.types.error_types import ProjectNotFound, ScenarioNotFound
+from origin_sdk.types.error_types import (
+    ProjectNotFound,
+    ProjectProductNotFound,
+    ScenarioNotFound,
+)
 
 localhost_testing = {
     "scenario_base_url": "http://localhost:3001",
@@ -93,3 +97,38 @@ def test_projects_pin_and_unpin():
     p1.unpin().refresh()
 
     assert p1.get("isProjectPinned") is False
+
+
+def test_can_get_product_info():
+    config = session._OriginSession__get_dash_config()
+    assert config is not None
+
+
+def test_project_product_id_function_throws_not_found():
+    try:
+        session.get_project_product_id(uuid4())
+        assert False, "This uuid is unlikely a product ID or name"
+    except ProjectProductNotFound:
+        assert True, "This uuid disnae exist"
+
+
+def test_project_product_id_function_finds_ids():
+    config = session._OriginSession__get_dash_config().get("products")
+    test_id = config[0]["productId"]
+    try:
+        id = session.get_project_product_id(test_id)
+        assert id == test_id, "This id came straight from the object"
+    except ProjectProductNotFound:
+        assert False, "This implies the logic or the config caching isn't working."
+
+
+def test_project_product_id_function_finds_names():
+    config = session._OriginSession__get_dash_config().get("products")
+    test_product = config[3]
+    test_id = test_product.get("productId")
+    test_name = test_product.get("name")
+    try:
+        id = session.get_project_product_id(test_name)
+        assert id == test_id
+    except ProjectProductNotFound:
+        assert False, "This implies the logic or the config caching isn't working."
