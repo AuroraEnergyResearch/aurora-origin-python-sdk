@@ -1,6 +1,6 @@
 from json import dumps
 from time import sleep
-from typing import Any, List, Optional, TypedDict
+from typing import Any, List, Optional, TypedDict, Union
 import logging
 import origin_sdk.gql.queries.project_queries as project_query
 import origin_sdk.gql.queries.scenario_queries as scenario_query
@@ -231,7 +231,7 @@ class OriginSession(APISession):
 
         return self.dash_config_cache
 
-    def get_project_product_id(self, product: str | int):
+    def get_project_product_id(self, product: Union[str, int]):
         products = self.__get_dash_config().get("products")
         product_matches = [
             p for p in products if product in [p.get("productId"), p.get("name")]
