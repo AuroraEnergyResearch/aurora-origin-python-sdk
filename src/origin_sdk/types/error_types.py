@@ -4,3 +4,7 @@ class ScenarioNotFound(Exception):
 
 class ProjectNotFound(Exception):
     pass
+
+
+class ProjectProductNotFound(Exception):
+    pass
