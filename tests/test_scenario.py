@@ -35,8 +35,8 @@ def test_getting_latest_net_zero_scenario():
     assert test_scenario is not None
     assert test_scenario_caps is not None
     assert test_scenario.scenario_id == test_scenario_caps.scenario_id
-    
-    
+
+
 def test_getting_central_apr_2022():
     test_scenario = Scenario.get_latest_scenario_from_region(
         session=session, region="gbr", name_filter=["central", "apr", "2022"]
@@ -101,6 +101,7 @@ def test_get_data_dfs():
             region,
             type_granularity_combo.get("type"),
             type_granularity_combo.get("granularity"),
+            force_no_cache=True,
         )
         for region in regions
         for type_granularity_combo in download_types.get(region)

@@ -22,7 +22,9 @@ def get_project_for_testing():
     global test_project
     if test_project is None:
         test_project = Project.get_or_create_project_by_name(
-            session=session, name=f"testing for SDK {str(uuid4())}"
+            session=session,
+            name=f"testing for SDK {str(uuid4())}",
+            create_config={"productId": "SaaS"},
         )
     return test_project
 
@@ -38,7 +40,9 @@ def get_project_by_name_throws_correct_error():
 
 def test_get_or_create_doesnt_create_more():
     p1 = get_project_for_testing()
-    p2 = Project.get_or_create_project_by_name(session=session, name=p1.get("name"))
+    p2 = Project.get_or_create_project_by_name(
+        session=session, name=p1.get("name"), create_config={"productId": "SaaS"}
+    )
 
     assert p1.project_id == p2.project_id
 

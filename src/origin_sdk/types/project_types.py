@@ -1,11 +1,11 @@
-from typing import Optional, TypedDict, List
+from typing import Optional, TypedDict, List, Union
 from origin_sdk.types.scenario_types import ScenarioSummaryType
 
 
 class InputProject(TypedDict):
     name: str
     description: Optional[str]
-    productId: Optional[int]
+    productId: Optional[Union[int, str]]
 
 
 class ProjectSummaryType(TypedDict):

@@ -1,7 +1,12 @@
 import logging
 from origin_sdk.OriginSession import OriginSession
+from core.data import (
+    get_meta_json_from_cache,
+    save_meta_json_to_cache,
+    get_scenario_outputs_from_cache,
+    save_scenario_outputs_to_cache,
+)
 from typing import List, Optional, Union
-from tempfile import TemporaryDirectory
 import pandas as pd
 from io import StringIO
 from datetime import datetime
@@ -30,19 +35,6 @@ class Scenario:
         self.scenario_id = scenario_id
         self.session = session
         self.scenario = self.session.get_scenario_by_id(scenario_id)
-        self.temp_dir: Optional[TemporaryDirectory] = None
-
-    def __del__(self):
-        # Cleanup
-        if self.temp_dir is not None:
-            self.temp_dir.cleanup()
-
-    def __get_temporary_directory(self):
-        # Only create the temp dir if we need one on demand
-        if self.temp_dir:
-            return self.temp_dir
-        else:
-            self.temp_dir = TemporaryDirectory()
 
     def get_downloadable_regions(self):
         """
@@ -84,18 +76,16 @@ class Scenario:
         Returns:
             meta_json object, defining the downloads available and what they contain.
         """
+        from_cache = get_meta_json_from_cache(self.scenario_id, region)
+        if from_cache is not None:
+            return from_cache
 
         meta = self.get_scenario_region(region)
+        meta_json = self.session.get_meta_json(meta.get("metaUrl"))
 
-        # We might have cached the meta_json for this region before
-        if "__meta_json" not in meta:
-            # If not, get the meta json from the service
-            meta_json = self.session.get_meta_json(meta.get("metaUrl"))
+        save_meta_json_to_cache(self.scenario_id, region, meta_json)
 
-            # Store the meta json into state for easier usage later
-            meta["__meta_json"] = meta_json
-
-        return meta.get("__meta_json")
+        return meta_json
 
     def get_download_types(self, region: str):
         """
@@ -126,6 +116,7 @@ class Scenario:
         download_type: str,
         granularity: str,
         currency: Optional[str] = None,
+        force_no_cache: bool = False,
     ):
         """
         Downloads a csv from the service and returns as a string. Recommended to
@@ -145,6 +136,15 @@ class Scenario:
             CSV as text string
 
         """
+
+        # Decide which currency to use, falling back to the defaultCurrency
+        download_currency = currency or self.scenario.get("defaultCurrency")
+
+        from_cache = get_scenario_outputs_from_cache(
+            self.scenario_id, region, download_type, granularity, download_currency
+        )
+        if from_cache is not None and not force_no_cache:
+            return from_cache
 
         # First get the download information
         meta_json = self.__get_download_meta_for_region(region)
@@ -177,9 +177,6 @@ class Scenario:
         # Get the base URL of the download
         base_url = self.get_scenario_region(region).get("dataUrlBase")
 
-        # Decide which currency to use, falling back to the defaultCurrency
-        download_currency = currency or self.scenario.get("defaultCurrency")
-
         # Use a replace to make sure the right currency is used
         filename: str = download_meta.get("filename").replace(
             "{currency}", download_currency
@@ -199,7 +196,18 @@ class Scenario:
         s3_location = s3_request.headers.get("location")
 
         # Make a follow up request for the data
-        return self.session.session.request("GET", s3_location).text
+        csv_as_text = self.session.session.request("GET", s3_location).text
+
+        save_scenario_outputs_to_cache(
+            self.scenario_id,
+            region,
+            download_type,
+            granularity,
+            download_currency,
+            csv_as_text,
+        )
+
+        return csv_as_text
 
     def get_scenario_dataframe(
         self,
@@ -207,6 +215,7 @@ class Scenario:
         download_type: str,
         granularity: str,
         currency: Optional[str] = None,
+        force_no_cache: bool = False,
     ):
         """
         Much the same as `get_scenario_data` but instead parses the CSV as a
@@ -232,6 +241,7 @@ class Scenario:
             download_type=download_type,
             granularity=granularity,
             currency=currency,
+            force_no_cache=force_no_cache,
         )
         buffer = StringIO(data)
         df = pd.read_csv(buffer, header=[0, 1])
@@ -297,7 +307,7 @@ class Scenario:
                 return Scenario(
                     scenario_id=latest.get("scenarioGlobalId"), session=session
                 )
-        except StopIteration:
+        except (StopIteration, IndexError):
             raise Exception(
                 f"""Scenario not found for region '{region}' {
                 f'and filter "{name_filter}"' if name_filter is not None
