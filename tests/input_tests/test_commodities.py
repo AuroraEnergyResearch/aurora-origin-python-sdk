@@ -1,4 +1,3 @@
-from origin_sdk.OriginSession import OriginSession
 from origin_sdk.service.Scenario import Scenario
 from origin_sdk.service.InputsEditor import InputsEditor
 
@@ -79,6 +78,10 @@ def test_rebasing_commodities(project):
 
     ie.change_base_commodities_assumptions(rebase_id)
 
+    # Perform a GET as a follow up, to make sure the rebase completes and the
+    # system is in a stable state
+    ie.get_commodities(commodities=["gas"])
+
     ie.refresh()
 
     post_update_data_groups = ie.inputs_session.get("dataGroups")
@@ -86,7 +89,9 @@ def test_rebasing_commodities(project):
     post_update_default_data_group = post_update_data_groups["default"]
 
     assert (
+        post_update_commodities_data_group["reference"] == rebase_id
+    ), "Rebase ID not set to commodities reference"
+    assert (
         post_update_commodities_data_group["reference"]
         != post_update_default_data_group["reference"]
-    )
-    assert post_update_commodities_data_group["reference"] == rebase_id
+    ), "Commodities References and Default Reference still equal"

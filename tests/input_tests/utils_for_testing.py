@@ -16,7 +16,9 @@ test_project = None
 def setup_test_project():
     global test_project
     test_project = Project.get_or_create_project_by_name(
-        testing_session, f"Pytest project for SDK {uuid4()}"
+        testing_session,
+        f"Pytest project for SDK {uuid4()}",
+        create_config={"productId": "SaaS"},
     )
 
     yield test_project
