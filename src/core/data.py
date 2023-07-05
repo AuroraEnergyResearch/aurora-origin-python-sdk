@@ -1,7 +1,7 @@
 from json import dump, load
 from appdirs import user_data_dir
 
-from aer_test_framework.core.logger import get_logger
+import logging
 from pathlib import Path
 from os import makedirs
 
@@ -19,7 +19,7 @@ if TYPE_CHECKING:
 app_name = "aer-origin-sdk"
 app_author = "auroraenergyresearch"
 
-logger = get_logger(__name__)
+logger = logging.getLogger(__name__)
 
 
 def get_data_directory():
