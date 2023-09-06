@@ -94,6 +94,8 @@ class InputsSession(TypedDict):
     defaultCurrency: str
     productRegionInformation: InputsSessionProductRegionInfo
     dataGroupEligibility: Dict[str, Union[bool, str]]
+    modelMaxYear: int
+    modelMinYear: int
 
 
 class InputsDemandVariables(TypedDict):
