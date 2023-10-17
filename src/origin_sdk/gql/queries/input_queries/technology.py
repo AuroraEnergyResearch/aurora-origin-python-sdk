@@ -118,7 +118,6 @@ def get_technology_gql(tech_config: Any):
     exo_tree = get_exo_param_and_def_tree(
         exo_params_yearly=exo_params_yearly,
         exo_params_monthly=exo_params_monthly,
-        exo_defs=exo_defs,
     )
     endo_tree = get_endo_param_and_def_tree(
         endo_params_yearly=endo_params_yearly,
