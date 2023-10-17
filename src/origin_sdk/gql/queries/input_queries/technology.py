@@ -59,25 +59,41 @@ def get_endo_param_and_def_tree(
     endo_params_monthly: Optional[List[str]] = None,
     endo_defs: Optional[List[str]] = None,
 ) -> dict:
-    result = {}
-
-    # Handling endo_params_yearly
-    if endo_params_yearly:
-        result["parameters"] = {
-            param: yearly_values_with_transform for param in endo_params_yearly
-        }
-    # Handling endo_params_monthly
-    if endo_params_monthly:
-        result.setdefault("parameters", {}).update(
-            {param: monthly_values_with_transform for param in endo_params_monthly}
-        )
-    # Handling endo_defs
-    if endo_defs:
-        result["definitions"] = {
-            param: variable_values_with_transform for param in endo_defs
-        }
-
-    return result
+    return {
+        **(
+            {
+                "parameters": {
+                    **(
+                        {
+                            param: yearly_values_with_transform
+                            for param in endo_params_yearly
+                        }
+                        if endo_params_yearly is not None
+                        else {}
+                    ),
+                    **(
+                        {
+                            param: monthly_values_with_transform
+                            for param in endo_params_monthly
+                        }
+                        if endo_params_monthly is not None
+                        else {}
+                    ),
+                }
+            }
+            if endo_params_yearly is not None or endo_params_monthly is not None
+            else {}
+        ),
+        **(
+            {
+                "definitions": {
+                    param: variable_values_with_transform for param in endo_defs
+                }
+            }
+            if endo_defs is not None
+            else {}
+        ),
+    }
 
 
 def get_exo_param_and_def_tree(
@@ -85,25 +101,41 @@ def get_exo_param_and_def_tree(
     exo_params_monthly: Optional[List[str]] = None,
     exo_defs: Optional[List[str]] = None,
 ) -> dict:
-    result = {}
-
-    # Handling exo_params_yearly
-    if exo_params_yearly:
-        result["parameters"] = {
-            param: yearly_values_with_transform for param in exo_params_yearly
-        }
-    # Handling exo_params_monthly
-    if exo_params_monthly:
-        result.setdefault("parameters", {}).update(
-            {param: monthly_values_with_transform for param in exo_params_monthly}
-        )
-    # Handling exo_defs
-    if exo_defs:
-        result["definitions"] = {
-            param: variable_values_with_transform for param in exo_defs
-        }
-
-    return result
+    return {
+        **(
+            {
+                "parameters": {
+                    **(
+                        {
+                            param: yearly_values_with_transform
+                            for param in exo_params_yearly
+                        }
+                        if exo_params_yearly is not None
+                        else {}
+                    ),
+                    **(
+                        {
+                            param: monthly_values_with_transform
+                            for param in exo_params_monthly
+                        }
+                        if exo_params_monthly is not None
+                        else {}
+                    ),
+                }
+            }
+            if exo_params_yearly is not None or exo_params_monthly is not None
+            else {}
+        ),
+        **(
+            {
+                "definitions": {
+                    param: variable_values_with_transform for param in exo_defs
+                }
+            }
+            if exo_defs is not None
+            else {}
+        ),
+    }
 
 
 def get_technology_gql(tech_config: Any):
