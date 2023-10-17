@@ -20,6 +20,7 @@ config_tech_params_subtree = {
         "upper": None,
         "lower": None,
     },
+    "isMonthlyRegionTechParameter": None,
 }
 
 demand_var_subtree: RecursiveTree = {"name": None, "type": None, "units": None}
@@ -54,18 +55,43 @@ get_config_gql = tree_to_string(
 def get_endo_exo_param_list_from_config(tech_config: Any):
     pd = tech_config.get("definitionParameters")
     ppy = tech_config.get("parameters")
-    exo_params = [
-        param.get("name") for param in ppy if param.get("appliesToExo") is True
+    exo_params_yearly = [
+        param.get("name")
+        for param in ppy
+        if param.get("appliesToExo") is True
+        and param.get("isMonthlyRegionTechParameter", False) is False
     ]
-    endo_params = [
-        param.get("name") for param in ppy if param.get("appliesToEndoBui") is True
+    exo_params_monthly = [
+        param.get("name")
+        for param in ppy
+        if param.get("appliesToExo") is True
+        and param.get("isMonthlyRegionTechParameter", False) is True
+    ]
+    endo_params_yearly = [
+        param.get("name")
+        for param in ppy
+        if param.get("appliesToEndoBui") is True
+        and param.get("isMonthlyRegionTechParameter", False) is False
+    ]
+    endo_params_monthly = [
+        param.get("name")
+        for param in ppy
+        if param.get("appliesToEndoBui") is True
+        and param.get("isMonthlyRegionTechParameter", False) is True
     ]
     exo_defs = [param.get("name") for param in pd if param.get("appliesToExo") is True]
     endo_defs = [
         param.get("name") for param in pd if param.get("appliesToEndoBui") is True
     ]
 
-    return (exo_params, endo_params, exo_defs, endo_defs)
+    return (
+        exo_params_yearly,
+        exo_params_monthly,
+        endo_params_yearly,
+        endo_params_monthly,
+        exo_defs,
+        endo_defs,
+    )
 
 
 def get_demand_variables_from_config(demand_config: Any):

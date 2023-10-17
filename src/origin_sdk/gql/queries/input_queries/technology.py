@@ -7,6 +7,7 @@ from origin_sdk.gql.queries.input_queries.config import (
 )
 from origin_sdk.gql.queries.input_queries.utils import (
     yearly_values_with_transform,
+    monthly_values_with_transform,
     variable_values_with_transform,
     variable_values,
 )
@@ -54,62 +55,75 @@ aggregated_plants_fragment: RecursiveTree = {
 
 
 def get_endo_param_and_def_tree(
-    endo_params: Optional[List[str]] = None, endo_defs: Optional[List[str]] = None
-):
-    return {
-        **(
-            {
-                "parameters": {
-                    param: yearly_values_with_transform for param in endo_params
-                }
-            }
-            if endo_params is not None
-            else {}
-        ),
-        **(
-            {
-                "definitions": {
-                    param: variable_values_with_transform for param in endo_defs
-                }
-            }
-            if endo_defs is not None
-            else {}
-        ),
-    }
+    endo_params_yearly: Optional[List[str]] = None,
+    endo_params_monthly: Optional[List[str]] = None,
+    endo_defs: Optional[List[str]] = None,
+) -> dict:
+    result = {}
+
+    # Handling endo_params_yearly
+    if endo_params_yearly:
+        result["parameters"] = {
+            param: yearly_values_with_transform for param in endo_params_yearly
+        }
+    # Handling endo_params_monthly
+    if endo_params_monthly:
+        result.setdefault("parameters", {}).update(
+            {param: monthly_values_with_transform for param in endo_params_monthly}
+        )
+    # Handling endo_defs
+    if endo_defs:
+        result["definitions"] = {
+            param: variable_values_with_transform for param in endo_defs
+        }
+
+    return result
 
 
 def get_exo_param_and_def_tree(
-    exo_params: Optional[List[str]] = None, exo_defs: Optional[List[str]] = None
-):
-    return {
-        **(
-            {
-                "parameters": {
-                    param: yearly_values_with_transform for param in exo_params
-                }
-            }
-            if exo_params is not None
-            else {}
-        ),
-        **(
-            {
-                "definitions": {
-                    param: variable_values_with_transform for param in exo_defs
-                }
-            }
-            if exo_defs is not None
-            else {}
-        ),
-    }
+    exo_params_yearly: Optional[List[str]] = None,
+    exo_params_monthly: Optional[List[str]] = None,
+    exo_defs: Optional[List[str]] = None,
+) -> dict:
+    result = {}
+
+    # Handling exo_params_yearly
+    if exo_params_yearly:
+        result["parameters"] = {
+            param: yearly_values_with_transform for param in exo_params_yearly
+        }
+    # Handling exo_params_monthly
+    if exo_params_monthly:
+        result.setdefault("parameters", {}).update(
+            {param: monthly_values_with_transform for param in exo_params_monthly}
+        )
+    # Handling exo_defs
+    if exo_defs:
+        result["definitions"] = {
+            param: variable_values_with_transform for param in exo_defs
+        }
+
+    return result
 
 
 def get_technology_gql(tech_config: Any):
-    exo_params, endo_params, exo_defs, endo_defs = get_endo_exo_param_list_from_config(
-        tech_config
+    (
+        exo_params_yearly,
+        exo_params_monthly,
+        endo_params_yearly,
+        endo_params_monthly,
+        exo_defs,
+        endo_defs,
+    ) = get_endo_exo_param_list_from_config(tech_config)
+    exo_tree = get_exo_param_and_def_tree(
+        exo_params_yearly=exo_params_yearly,
+        exo_params_monthly=exo_params_monthly,
+        exo_defs=exo_defs,
     )
-    exo_tree = get_exo_param_and_def_tree(exo_params=exo_params)
     endo_tree = get_endo_param_and_def_tree(
-        endo_params=endo_params, endo_defs=endo_defs
+        endo_params_yearly=endo_params_yearly,
+        endo_params_monthly=endo_params_monthly,
+        endo_defs=endo_defs,
     )
     return create_get_session_gql(
         {
