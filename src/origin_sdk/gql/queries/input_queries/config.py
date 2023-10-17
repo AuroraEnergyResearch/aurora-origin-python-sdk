@@ -59,25 +59,25 @@ def get_endo_exo_param_list_from_config(tech_config: Any):
         param.get("name")
         for param in ppy
         if param.get("appliesToExo") is True
-        and param.get("isMonthlyRegionTechParameter", False) is False
+        and param.get("isMonthlyRegionTechParameter") is False
     ]
     exo_params_monthly = [
         param.get("name")
         for param in ppy
         if param.get("appliesToExo") is True
-        and param.get("isMonthlyRegionTechParameter", False) is True
+        and param.get("isMonthlyRegionTechParameter") is True
     ]
     endo_params_yearly = [
         param.get("name")
         for param in ppy
         if param.get("appliesToEndoBui") is True
-        and param.get("isMonthlyRegionTechParameter", False) is False
+        and param.get("isMonthlyRegionTechParameter") is False
     ]
     endo_params_monthly = [
         param.get("name")
         for param in ppy
         if param.get("appliesToEndoBui") is True
-        and param.get("isMonthlyRegionTechParameter", False) is True
+        and param.get("isMonthlyRegionTechParameter") is True
     ]
     exo_defs = [param.get("name") for param in pd if param.get("appliesToExo") is True]
     endo_defs = [
