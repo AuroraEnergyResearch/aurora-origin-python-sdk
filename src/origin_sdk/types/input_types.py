@@ -24,9 +24,10 @@ class TransformInput(TypedDict):
     value: Any
 
 
-class Transform(TypedDict):
+class Transform(TypedDict, total=False):
     transform: TransformInput
     year: int
+    month: int
 
 
 class VariableValuesWithTransform(VariableValues):

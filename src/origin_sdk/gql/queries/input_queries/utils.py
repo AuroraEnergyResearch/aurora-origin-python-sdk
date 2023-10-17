@@ -43,6 +43,8 @@ variable_values: RecursiveTree = {
 
 yearly_values_fragment: RecursiveTree = {"year": None, **variable_values}
 
+monthly_values_fragment: RecursiveTree = {"month": None, **yearly_values_fragment}
+
 variable_values_with_transform: RecursiveTree = {
     **variable_values,
     "transform": transform_fields,
@@ -51,4 +53,9 @@ variable_values_with_transform: RecursiveTree = {
 yearly_values_with_transform: RecursiveTree = {
     "year": None,
     **variable_values_with_transform,
+}
+
+monthly_values_with_transform: RecursiveTree = {
+    "month": None,
+    **yearly_values_with_transform,
 }
