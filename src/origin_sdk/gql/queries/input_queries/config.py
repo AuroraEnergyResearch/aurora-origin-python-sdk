@@ -46,7 +46,7 @@ get_config_gql = tree_to_string(
             "userPermissions": None,
             "commodities": {
                 "regionMapping": None,
-                "commmoditiesAvailable": {"units": None, "name": None},
+                "commoditiesAvailable": {"units": None, "name": None},
             },
         }
     }
