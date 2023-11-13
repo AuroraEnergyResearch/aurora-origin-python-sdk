@@ -639,7 +639,7 @@ class OriginSession(APISession):
 
         url = self.inputs_service_graphql_url
         variables = {
-            "filter": {
+            "interconnectorFilter": {
                 "OR": [
                     {
                         "from": from_region,
