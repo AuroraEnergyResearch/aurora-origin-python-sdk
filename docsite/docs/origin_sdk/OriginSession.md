@@ -370,3 +370,36 @@ Function to change the underlying commodities assumptions. This
 changes the *original* values, and then any changes you have made (e.g.
 +15%) will apply over the top.
 
+#### get\_interconnectors
+
+```python
+@access_next_data_key_decorator
+def get_interconnectors(scenario_id: str, from_region: str, to_region: str)
+```
+
+Gets the interconnector data between two regions.
+
+**Arguments**:
+
+- `scenario_id` _String_ - ID of the scenario to get the interconnector data from
+- `from_region` _String_ - The region the interconnector is from
+- `to_region` _String_ - The region the interconnector is to
+
+#### update\_interconnectors
+
+```python
+@access_next_data_key_decorator
+def update_interconnectors(scenario_id: str, from_region: str, to_region: str,
+                           variable: str, transform: List[Transform])
+```
+
+Function to update a interconnector variable between two regions.
+
+**Arguments**:
+
+- `scenario_id` _String_ - ID of the scenario to update the interconnector data from
+- `from_region` _String_ - The region the interconnector is from
+- `to_region` _String_ - The region the interconnector is to
+- `variable` _String_ - The variable to update
+- `transform` _List[Transform]_ - The transform array used in all updates
+

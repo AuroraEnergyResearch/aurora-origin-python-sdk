@@ -629,7 +629,7 @@ class OriginSession(APISession):
 
     @access_next_data_key_decorator
     def get_interconnectors(self, scenario_id: str, from_region: str, to_region: str):
-        """Function to get interconnector data.
+        """Gets the interconnector data between two regions.
 
         Arguments:
             scenario_id (String): ID of the scenario to get the interconnector data from
@@ -671,7 +671,7 @@ class OriginSession(APISession):
         variable: str,
         transform: List[Transform],
     ):
-        """Function to update interconnector data.
+        """Function to update a interconnector variable between two regions.
 
         Arguments:
             scenario_id (String): ID of the scenario to update the interconnector data from
