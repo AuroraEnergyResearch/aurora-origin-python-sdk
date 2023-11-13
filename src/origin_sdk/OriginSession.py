@@ -626,3 +626,74 @@ class OriginSession(APISession):
         return self.__inputs_gql_request_with_loading_handler(
             url, input_query.rebase_commodities_gql, variables
         )
+
+    @access_next_data_key_decorator
+    def get_interconnectors(self, scenario_id: str, from_region: str, to_region: str):
+        """Function to get interconnector data.
+
+        Arguments:
+            scenario_id (String): ID of the scenario to get the interconnector data from
+            from_region (String): The region the interconnector is from
+            to_region (String): The region the interconnector is to
+        """
+
+        url = self.inputs_service_graphql_url
+        variables = {
+            "filter": {
+                "OR": [
+                    {
+                        "from": from_region,
+                        "to": to_region,
+                    },
+                    {
+                        "from": to_region,
+                        "to": from_region,
+                    },
+                ]
+            },
+            "sessionId": scenario_id,
+        }
+
+        config = self.__get_inputs_config().get("interconnectors")
+
+        return self.__inputs_gql_request_with_loading_handler(
+            url,
+            input_query.get_interconnectors_gql(config),
+            variables,
+        )
+
+    @access_next_data_key_decorator
+    def update_interconnectors(
+        self,
+        scenario_id: str,
+        from_region: str,
+        to_region: str,
+        variable: str,
+        transform: List[Transform],
+    ):
+        """Function to update interconnector data.
+
+        Arguments:
+            scenario_id (String): ID of the scenario to update the interconnector data from
+            from_region (String): The region the interconnector is from
+            to_region (String): The region the interconnector is to
+            variable (String): The variable to update
+            transform (List[Transform]): The transform array used in all updates
+        """
+
+        url = self.inputs_service_graphql_url
+        variables = {
+            "sessionId": scenario_id,
+            "from": from_region,
+            "to": to_region,
+            "variable": variable,
+            "tx": transform,
+        }
+
+        config = self.__get_inputs_config().get("interconnectors")
+
+        return self.__inputs_gql_request_with_loading_handler(
+            url,
+            input_query.update_interconnectors(config),
+            variables,
+        )
