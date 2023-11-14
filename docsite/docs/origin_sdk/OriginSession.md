@@ -313,7 +313,7 @@ object).
 ```python
 @access_next_data_key_decorator
 def get_commodities(scenario_id: str,
-                    native_units_flag: bool = None,
+                    native_units_flag: Optional[bool] = None,
                     regions: Optional[List[str]] = None,
                     commodities: Optional[List[str]] = None)
 ```
@@ -341,7 +341,7 @@ def update_commodity_price(scenario_id: str,
                            commodity: str,
                            regions: List[str],
                            transform: List[Transform],
-                           native_units_flag: bool = None)
+                           native_units_flag: Optional[bool] = None)
 ```
 
 Updates a commodity price.
@@ -388,7 +388,7 @@ the given scenario.
 
 ```python
 @access_next_data_key_decorator
-def get_interconnectors(scenario_id: str, from_region: str, to_region: str)
+def get_interconnectors(scenario_id: str, region: str, connection_region: str)
 ```
 
 Gets the interconnector data between two regions.
@@ -396,8 +396,8 @@ Gets the interconnector data between two regions.
 **Arguments**:
 
 - `scenario_id` _String_ - ID of the scenario to get the interconnector data from
-- `from_region` _String_ - The region the interconnector is from
-- `to_region` _String_ - The region the interconnector is to
+- `region` _String_ - The region the interconnector is to/from
+- `connection_region` _String_ - The connected region the interconnector is from/to
 
 #### update\_interconnectors
 

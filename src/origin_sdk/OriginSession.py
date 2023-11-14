@@ -659,25 +659,27 @@ class OriginSession(APISession):
         return {k: list(v) for k, v in connection_dict.items()}
 
     @access_next_data_key_decorator
-    def get_interconnectors(self, scenario_id: str, from_region: str, to_region: str):
+    def get_interconnectors(
+        self, scenario_id: str, region: str, connection_region: str
+    ):
         """Gets the interconnector data between two regions.
 
         Arguments:
             scenario_id (String): ID of the scenario to get the interconnector data from
-            from_region (String): The region the interconnector is from
-            to_region (String): The region the interconnector is to
+            region (String): The region the interconnector is to/from
+            connection_region (String): The connected region the interconnector is from/to
         """
 
         variables = {
             "interconnectorFilter": {
                 "OR": [
                     {
-                        "from": from_region,
-                        "to": to_region,
+                        "from": region,
+                        "to": connection_region,
                     },
                     {
-                        "from": to_region,
-                        "to": from_region,
+                        "from": connection_region,
+                        "to": region,
                     },
                 ]
             },
