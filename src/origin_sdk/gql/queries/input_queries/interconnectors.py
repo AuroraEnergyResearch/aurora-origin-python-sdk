@@ -23,6 +23,12 @@ def create_interconnector_tree(variables: List[str]) -> RecursiveTree:
     }
 
 
+def create_interconnector_end_tree() -> RecursiveTree:
+    return {
+        "ends": None,
+    }
+
+
 def get_interconnectors_gql(interconnector_config: Any):
     return create_get_session_gql(
         {"interconnectorFilter": "GetInterconnectorsFilterInterconnectorInput"},
@@ -30,6 +36,15 @@ def get_interconnectors_gql(interconnector_config: Any):
             "getInterconnectors (filter: $interconnectorFilter)": create_interconnector_tree(
                 get_interconnector_variables_from_config(interconnector_config)
             )
+        },
+    )
+
+
+def get_interconnectors_regions_gql():
+    return create_get_session_gql(
+        {"interconnectorFilter": "GetInterconnectorsFilterInterconnectorInput"},
+        {
+            "getInterconnectors (filter: $interconnectorFilter)": create_interconnector_end_tree()
         },
     )
 

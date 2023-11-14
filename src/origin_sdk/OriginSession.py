@@ -1,6 +1,7 @@
 from json import dumps
 from time import sleep
-from typing import Any, List, Optional, TypedDict, Union
+from collections import defaultdict
+from typing import Any, List, Optional, TypedDict, Union, Dict
 import logging
 import origin_sdk.gql.queries.project_queries as project_query
 import origin_sdk.gql.queries.scenario_queries as scenario_query
@@ -628,6 +629,36 @@ class OriginSession(APISession):
         )
 
     @access_next_data_key_decorator
+    def get_interconnectors_connections(self, scenario_id: str) -> Dict[str, List[str]]:
+        """Gets a dictionary of interconnector connections between regions for
+        the given scenario.
+
+        Arguments:
+            scenario_id (String): ID of the scenario to get the interconnector data from
+        """
+
+        variables = {
+            "sessionId": scenario_id,
+        }
+
+        interconnector_ends = self.__inputs_gql_request_with_loading_handler(
+            self.inputs_service_graphql_url,
+            input_query.get_interconnectors_regions_gql(),
+            variables,
+        )
+
+        all_connections = list(
+            map(lambda x: x["ends"], interconnector_ends["getInterconnectors"])
+        )
+
+        connection_dict = defaultdict(set)
+        for pair in all_connections:
+            connection_dict[pair[0]].add(pair[1])
+            connection_dict[pair[1]].add(pair[0])
+
+        return {k: list(v) for k, v in connection_dict.items()}
+
+    @access_next_data_key_decorator
     def get_interconnectors(self, scenario_id: str, from_region: str, to_region: str):
         """Gets the interconnector data between two regions.
 
@@ -637,7 +668,6 @@ class OriginSession(APISession):
             to_region (String): The region the interconnector is to
         """
 
-        url = self.inputs_service_graphql_url
         variables = {
             "interconnectorFilter": {
                 "OR": [
@@ -657,7 +687,7 @@ class OriginSession(APISession):
         config = self.__get_inputs_config().get("interconnectors")
 
         return self.__inputs_gql_request_with_loading_handler(
-            url,
+            self.inputs_service_graphql_url,
             input_query.get_interconnectors_gql(config),
             variables,
         )
@@ -681,7 +711,6 @@ class OriginSession(APISession):
             transform (List[Transform]): The transform array used in all updates
         """
 
-        url = self.inputs_service_graphql_url
         variables = {
             "sessionId": scenario_id,
             "from": from_region,
@@ -693,7 +722,7 @@ class OriginSession(APISession):
         config = self.__get_inputs_config().get("interconnectors")
 
         return self.__inputs_gql_request_with_loading_handler(
-            url,
+            self.inputs_service_graphql_url,
             input_query.update_interconnectors(config),
             variables,
         )
