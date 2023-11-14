@@ -370,6 +370,20 @@ Function to change the underlying commodities assumptions. This
 changes the *original* values, and then any changes you have made (e.g.
 +15%) will apply over the top.
 
+#### get\_interconnectors\_connections
+
+```python
+@access_next_data_key_decorator
+def get_interconnectors_connections(scenario_id: str) -> Dict[str, List[str]]
+```
+
+Gets a dictionary of interconnector connections between regions for
+the given scenario.
+
+**Arguments**:
+
+- `scenario_id` _String_ - ID of the scenario to get the interconnector data from
+
 #### get\_interconnectors
 
 ```python
