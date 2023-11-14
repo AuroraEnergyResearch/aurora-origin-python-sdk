@@ -46,6 +46,7 @@ get_config_gql = tree_to_string(
             "userPermissions": None,
             "commodities": {
                 "regionMapping": None,
+                "commoditiesAvailable": {"units": None, "name": None},
             },
             "interconnectors": {
                 "variables": {
