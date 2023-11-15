@@ -651,11 +651,17 @@ class OriginSession(APISession):
             map(lambda x: x["ends"], interconnector_ends["getInterconnectors"])
         )
 
+        # Initialize a dictionary with default value of set to store connections
         connection_dict = defaultdict(set)
+
+        # For each pair in all connections, add the pair to the dictionary. Since
+        # the dictionary has a default value of set, the set will be created if
+        # it doesn't exist, and the pair will be added to the set.
         for pair in all_connections:
             connection_dict[pair[0]].add(pair[1])
             connection_dict[pair[1]].add(pair[0])
 
+        # Convert the sets in the dictionary to lists and return the dictionary
         return {k: list(v) for k, v in connection_dict.items()}
 
     @access_next_data_key_decorator
