@@ -48,6 +48,12 @@ get_config_gql = tree_to_string(
                 "regionMapping": None,
                 "commoditiesAvailable": {"units": None, "name": None},
             },
+            "interconnectors": {
+                "variables": {
+                    "name": None,
+                    "units": None,
+                },
+            },
         }
     }
 )
@@ -100,3 +106,7 @@ def get_demand_variables_from_config(demand_config: Any):
     tech = [var.get("name") for var in demand_config.get("demandTechnologyVariables")]
 
     return (system, tech)
+
+
+def get_interconnector_variables_from_config(interconnector_config: Any):
+    return [var.get("name") for var in interconnector_config.get("variables")]

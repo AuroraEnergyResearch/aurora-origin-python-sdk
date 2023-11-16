@@ -1,6 +1,7 @@
 from json import dumps
 from time import sleep
-from typing import Any, List, Optional, TypedDict, Union
+from collections import defaultdict
+from typing import Any, List, Optional, TypedDict, Union, Dict
 import logging
 import origin_sdk.gql.queries.project_queries as project_query
 import origin_sdk.gql.queries.scenario_queries as scenario_query
@@ -625,4 +626,111 @@ class OriginSession(APISession):
 
         return self.__inputs_gql_request_with_loading_handler(
             url, input_query.rebase_commodities_gql, variables
+        )
+
+    @access_next_data_key_decorator
+    def get_interconnectors_connections(self, scenario_id: str) -> Dict[str, List[str]]:
+        """Gets a dictionary of interconnector connections between regions for
+        the given scenario.
+
+        Arguments:
+            scenario_id (String): ID of the scenario to get the interconnector data from
+        """
+
+        variables = {
+            "sessionId": scenario_id,
+        }
+
+        interconnector_ends = self.__inputs_gql_request_with_loading_handler(
+            self.inputs_service_graphql_url,
+            input_query.get_interconnectors_regions_gql(),
+            variables,
+        )
+
+        all_connections = list(
+            map(lambda x: x["ends"], interconnector_ends["getInterconnectors"])
+        )
+
+        # Initialize a dictionary with default value of set to store connections
+        connection_dict = defaultdict(set)
+
+        # For each pair in all connections, add the pair to the dictionary. Since
+        # the dictionary has a default value of set, the set will be created if
+        # it doesn't exist, and the pair will be added to the set.
+        for pair in all_connections:
+            connection_dict[pair[0]].add(pair[1])
+            connection_dict[pair[1]].add(pair[0])
+
+        # Convert the sets in the dictionary to lists and return the dictionary
+        return {k: list(v) for k, v in connection_dict.items()}
+
+    @access_next_data_key_decorator
+    def get_interconnectors(
+        self, scenario_id: str, region: str, connection_region: str
+    ):
+        """Gets the interconnector data between two regions.
+
+        Arguments:
+            scenario_id (String): ID of the scenario to get the interconnector data from
+            region (String): The region the interconnector is to/from
+            connection_region (String): The connected region the interconnector is from/to
+        """
+
+        variables = {
+            "interconnectorFilter": {
+                "OR": [
+                    {
+                        "from": region,
+                        "to": connection_region,
+                    },
+                    {
+                        "from": connection_region,
+                        "to": region,
+                    },
+                ]
+            },
+            "sessionId": scenario_id,
+        }
+
+        config = self.__get_inputs_config().get("interconnectors")
+
+        return self.__inputs_gql_request_with_loading_handler(
+            self.inputs_service_graphql_url,
+            input_query.get_interconnectors_gql(config),
+            variables,
+        )
+
+    @access_next_data_key_decorator
+    def update_interconnectors(
+        self,
+        scenario_id: str,
+        from_region: str,
+        to_region: str,
+        variable: str,
+        transform: List[Transform],
+    ):
+        """Function to update a interconnector variable between two regions.
+
+        Arguments:
+            scenario_id (String): ID of the scenario to update the interconnector data from
+            from_region (String): The region the interconnector is from
+            to_region (String): The region the interconnector is to
+            variable (String): The variable to update
+            transform (List[Transform]): The transform array used in all updates
+        """
+
+        variables = {
+            "sessionId": scenario_id,
+            "from": from_region,
+            "to": to_region,
+            "variable": variable,
+            "tx": transform,
+        }
+
+        config = self.__get_inputs_config().get("interconnectors")
+
+        return self.__inputs_gql_request_with_loading_handler(
+            self.inputs_service_graphql_url,
+            input_query.update_interconnectors(config),
+            variables,
         )
