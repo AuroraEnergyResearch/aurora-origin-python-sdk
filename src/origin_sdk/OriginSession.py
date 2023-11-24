@@ -53,7 +53,7 @@ ENDPOINTS = {
 
 
 def get_endpoints(universe: str = PRODUCTION) -> Dict[str, str]:
-    return ENDPOINTS[universe]
+    return ENDPOINTS.get(universe, ENDPOINTS.get(PRODUCTION))
 
 
 class OriginSessionConfig(TypedDict, total=False):
