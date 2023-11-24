@@ -34,8 +34,8 @@ AURORA_ORIGIN_INPUTS_API_BASE_URL_ENVIRONMENT_VARIABLE_NAME = (
 )
 AURORA_ORIGIN_SCENARIO_PRODUCTION_ENDPOINT = "https://api.auroraer.com/scenarioExplr"
 AURORA_ORIGIN_SCENARIO_STAGE_ENDPOINT = "https://api-staging.auroraer.com/scenarioExplr"
-AURORA_ORIGIN_INPUTS_PRODUCTION_ENDPOINT = "https://app.auroraer.com/modelInputs"
-AURORA_ORIGIN_INPUTS_STAGE_ENDPOINT = "https://app-staging.auroraer.com/modelInputs"
+AURORA_ORIGIN_INPUTS_PRODUCTION_ENDPOINT = "https://api.auroraer.com/modelInputs"
+AURORA_ORIGIN_INPUTS_STAGE_ENDPOINT = "https://api-staging.auroraer.com/modelInputs"
 
 
 class OriginSessionConfig(TypedDict, total=False):
@@ -71,13 +71,17 @@ class OriginSession(APISession):
     def __init__(self, config: OriginSessionConfig = {}):
         super().__init__(config.get("token"), config.get("universe"))
         self.scenario_service_url = self._get_base_url(
-            default_url=AURORA_ORIGIN_SCENARIO_PRODUCTION_ENDPOINT,
+            default_url=AURORA_ORIGIN_SCENARIO_STAGE_ENDPOINT
+            if config.get("universe", None) == "staging"
+            else AURORA_ORIGIN_SCENARIO_PRODUCTION_ENDPOINT,
             base_url=config.get("scenario_base_url"),
             environment_variable=AURORA_ORIGIN_SCENARIO_API_BASE_URL_ENVIRONMENT_VARIABLE_NAME,
         )
         self.scenario_service_graphql_url = f"{self.scenario_service_url}/v1/graphql"
         self.inputs_service_url = self._get_base_url(
-            default_url=AURORA_ORIGIN_INPUTS_PRODUCTION_ENDPOINT,
+            default_url=AURORA_ORIGIN_INPUTS_STAGE_ENDPOINT
+            if config.get("universe", None) == "staging"
+            else AURORA_ORIGIN_INPUTS_PRODUCTION_ENDPOINT,
             base_url=config.get("inputs_base_url"),
             environment_variable=AURORA_ORIGIN_INPUTS_API_BASE_URL_ENVIRONMENT_VARIABLE_NAME,
         )
