@@ -89,15 +89,15 @@ class OriginSession(APISession):
     def __init__(self, config: OriginSessionConfig = {}):
         super().__init__(config.get("token"), config.get("universe"))
         self.scenario_service_url = self._get_base_url(
-            default_url=get_endpoints(config.get("universe", PRODUCTION)).get(
-                "scenario"
-            ),
+            # It'll default to production endpoints if universe is not set
+            default_url=get_endpoints(config.get("universe")).get("scenario"),
             base_url=config.get("scenario_base_url"),
             environment_variable=AURORA_ORIGIN_SCENARIO_API_BASE_URL_ENVIRONMENT_VARIABLE_NAME,
         )
         self.scenario_service_graphql_url = f"{self.scenario_service_url}/v1/graphql"
         self.inputs_service_url = self._get_base_url(
-            default_url=get_endpoints(config.get("universe", PRODUCTION)).get("inputs"),
+            # It'll default to production endpoints if universe is not set
+            default_url=get_endpoints(config.get("universe")).get("inputs"),
             base_url=config.get("inputs_base_url"),
             environment_variable=AURORA_ORIGIN_INPUTS_API_BASE_URL_ENVIRONMENT_VARIABLE_NAME,
         )
