@@ -153,6 +153,40 @@ class OriginSession(APISession):
 
         return data
 
+    def __inputs_gql_workbook_status_recursive(self, scenario_id: str):
+        request_id = None
+
+        while True:
+            variables = {
+                "sessionId": scenario_id,
+                "requestId": request_id,
+            }
+
+            # Get the workbook status
+            response = self._graphql_request(
+                self.inputs_service_graphql_url,
+                input_query.get_workbook_status,
+                variables,
+            )
+
+            workbook_status = response["getWorkbookStatus"]
+
+            if workbook_status["generationStatus"] == "Requested":
+                # We will get a request ID back, so we can use that to check
+                # the status again.
+                log.info("Waiting for workbook generation to complete")
+                sleep(2.5)
+                request_id = workbook_status["requestId"]
+                continue
+
+            elif workbook_status["generationStatus"] == "Completed":
+                # We will get a download URL back, so we can use that to
+                # download the workbook.
+                return workbook_status["downloadURL"]
+
+            else:
+                raise Exception("Workbook generation failed.")
+
     def get_aurora_scenarios(
         self, region: Optional[str] = None
     ) -> List[ScenarioSummaryType]:
@@ -754,3 +788,15 @@ class OriginSession(APISession):
             input_query.update_interconnectors(config),
             variables,
         )
+
+    @access_next_data_key_decorator
+    def get_workbook_download_url(self, scenario_id: str):
+        """
+        Will request for the generation of a input workbook, and then return
+        a URL to download the workbook from once it's ready.
+
+        Arguments:
+            scenario_id (String): ID of the scenario to get the workbook download URL from
+        """
+
+        return self.__inputs_gql_workbook_status_recursive(scenario_id)
