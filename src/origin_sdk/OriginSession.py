@@ -317,6 +317,83 @@ class OriginSession(APISession):
             url, input_query.get_session_information_gql, variables
         )
 
+    def get_model_files(self, scenario_id: str) -> Dict[str, Any]:
+        """
+        Lists the model files for a scenario, for all runs and years.
+        Each file is represented by a file URL, which maybe used to generate
+        downloadable URLs later. Please note that the files will not be available
+        after the retention period has expired.
+
+        This feature is for internal use only.
+
+        Args:
+           scenario_id (string) - The Scenario ID of the scenario to get model files for.
+        """
+
+        # Retrieve scenario information once and handle the absence of 'runDetails' early.
+        scenario = self.get_scenario_by_id(scenario_id)
+        run_details = scenario.get("runDetails")
+        if run_details is None:
+            raise ValueError(
+                f"Scenario {scenario_id} has no run details. Please run the scenario first."
+            )
+
+        model_files = {}
+
+        # Build all URLs before making requests.
+        urls = []
+        for i, run in enumerate(run_details):
+            base_url = f"{self.scenario_service_url}/v1/modelFiles/{scenario_id}?runGlobalId={run['runGlobalId']}"
+            run_type = run.get("runType", "UnknownRunType_" + str(i))
+            years = run.get("years")
+
+            if years:
+                # Non Sample Year Runs have a list of years
+                model_files[run_type] = {}
+                for year in years:
+                    year_str = str(year.get("year"))
+                    year_full_data_url = f"{base_url}&year={year_str}"
+                    urls.append((year_full_data_url, run_type, year_str))
+            else:
+                urls.append((base_url, run_type, None))
+
+        # Make all HTTP requests and handle responses.
+        for url, run_type, year_str in urls:
+            response = self.session.request("GET", url)
+            if response.status_code == 200:
+                if year_str:
+                    model_files[run_type][year_str] = response.json()
+                else:
+                    model_files[run_type] = response.json()
+            else:
+                log.info(
+                    f"""Failed to get model files for run type {run_type} and year {year_str}.
+                    Status: {response.status_code}."""
+                )
+
+        return model_files
+
+    def get_model_file_download_url(self, file_url: str) -> str:
+        """
+        Gets the model file downloadable URL for a given model file url.
+        This feature is for internal use only.
+
+        Args:
+            file_url (string) - The model file URL to get the download URL for
+        """
+
+        base_url = f"{self.scenario_service_url}"
+        full_data_url = f"{base_url}/{file_url}"
+
+        response = self.session.request("GET", full_data_url)
+
+        if response.status_code != 200:
+            raise ValueError(
+                f"Failed to get model file download URL. Status: {response.status_code}. Please check the File URL."
+            )
+
+        return response.url
+
     def __get_inputs_config(self):
         if self.inputs_config_cache is None:
             url = self.inputs_service_graphql_url
