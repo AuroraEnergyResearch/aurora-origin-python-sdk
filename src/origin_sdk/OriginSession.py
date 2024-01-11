@@ -358,8 +358,12 @@ class OriginSession(APISession):
                 urls.append((base_url, run_type, None))
 
         # Make all HTTP requests and handle responses.
-        for url, run_type, year_str in urls:
-            response = self.session.request("GET", url)
+        # The url_for_requesting_model_files is the complete
+        # url for requesting model files for a given run type and year.
+        # The response is a json object containing the model files for
+        # the given run type and year.
+        for url_for_requesting_model_files, run_type, year_str in urls:
+            response = self.session.request("GET", url_for_requesting_model_files)
             if response.status_code == 200:
                 if year_str:
                     model_files[run_type][year_str] = response.json()
