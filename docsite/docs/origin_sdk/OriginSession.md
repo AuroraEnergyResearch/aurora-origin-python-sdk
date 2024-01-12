@@ -176,6 +176,36 @@ def get_inputs_session(scenario_id: str) -> InputsSession
 Gets the inputs instance information, as well as rehydrating all the
 data if required
 
+#### get\_model\_files
+
+```python
+def get_model_files(scenario_id: str) -> Dict[str, Any]
+```
+
+Lists the model files for a scenario, for all runs and years.
+Each file is represented by a file URL, which maybe used to generate
+downloadable URLs later. Please note that the files will not be available
+after the retention period has expired.
+
+This feature is for internal use only.
+
+**Arguments**:
+
+  scenario_id (string) - The Scenario ID of the scenario to get model files for.
+
+#### get\_model\_file\_download\_url
+
+```python
+def get_model_file_download_url(file_url: str) -> str
+```
+
+Gets the model file downloadable URL for a given model file url.
+This feature is for internal use only.
+
+**Arguments**:
+
+  file_url (string) - The model file URL to get the download URL for
+
 #### get\_technology\_names
 
 ```python
