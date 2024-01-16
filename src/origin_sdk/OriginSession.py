@@ -153,7 +153,7 @@ class OriginSession(APISession):
 
         return data
 
-    def __inputs_gql_workbook_status_recursive(self, scenario_id: str):
+    def __inputs_gql_workbook_status(self, scenario_id: str):
         request_id = None
 
         while True:
@@ -185,7 +185,10 @@ class OriginSession(APISession):
                 return workbook_status["downloadURL"]
 
             else:
-                raise Exception("Workbook generation failed.")
+                raise Exception(
+                    f"""Workbook generation failed for scenario: {scenario_id}.
+                        Request ID: {request_id}. Please try again."""
+                )
 
     def get_aurora_scenarios(
         self, region: Optional[str] = None
@@ -873,11 +876,11 @@ class OriginSession(APISession):
     @access_next_data_key_decorator
     def get_workbook_download_url(self, scenario_id: str):
         """
-        Will request for the generation of a input workbook, and then return
+        Will request the generation of an inputs workbook and then return
         a URL to download the workbook from once it's ready.
 
         Arguments:
             scenario_id (String): ID of the scenario to get the workbook download URL from
         """
 
-        return self.__inputs_gql_workbook_status_recursive(scenario_id)
+        return self.__inputs_gql_workbook_status(scenario_id)
