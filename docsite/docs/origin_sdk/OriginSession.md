@@ -447,3 +447,17 @@ Function to update a interconnector variable between two regions.
 - `variable` _String_ - The variable to update
 - `transform` _List[Transform]_ - The transform array used in all updates
 
+#### get\_workbook\_download\_url
+
+```python
+@access_next_data_key_decorator
+def get_workbook_download_url(scenario_id: str)
+```
+
+Will request the generation of an inputs workbook and then return
+a URL to download the workbook from once it&#x27;s ready.
+
+**Arguments**:
+
+- `scenario_id` _String_ - ID of the scenario to get the workbook download URL from
+
