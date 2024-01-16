@@ -103,6 +103,7 @@ first one will be returned as ordered by the service.
 @staticmethod
 def get_or_create_project_by_name(session: OriginSession,
                                   name: str,
+                                  create_config: InputProject = {},
                                   pin_project: bool = False) -> "Project"
 ```
 
@@ -116,6 +117,8 @@ first one will be returned as ordered by the service.
 
 - `session` - OriginSession - The session to make API calls with
 - `name` - str - The name of the project to find/create
+- `create_config` - str - The configuration to use in the case where the
+  project is being created.
 - `pin_project` - Optional, bool - Whether to pin the project if it&#x27;s not
   already, defaults to False
 

@@ -86,7 +86,8 @@ respectively.
 def get_scenario_data_csv(region: str,
                           download_type: str,
                           granularity: str,
-                          currency: Optional[str] = None)
+                          currency: Optional[str] = None,
+                          force_no_cache: bool = False)
 ```
 
 Downloads a csv from the service and returns as a string. Recommended to
@@ -114,7 +115,8 @@ use if looking to generate a csv file on disk.
 def get_scenario_dataframe(region: str,
                            download_type: str,
                            granularity: str,
-                           currency: Optional[str] = None)
+                           currency: Optional[str] = None,
+                           force_no_cache: bool = False)
 ```
 
 Much the same as `get_scenario_data` but instead parses the CSV as a
