@@ -33,7 +33,7 @@ def setup_test_project():
 #     Scenario.
 
 
-def get_test_scenario_for_reading():
+def get_default_test_scenario_for_reading():
     global readonly_test_scenario
     if readonly_test_scenario is None:
         readonly_test_scenario = Scenario.get_latest_scenario_from_region(
@@ -43,13 +43,17 @@ def get_test_scenario_for_reading():
     return readonly_test_scenario
 
 
-def get_copy_of_readonly_scenario_for_updating(name: Optional[str] = None):
-    ro_scenario = get_test_scenario_for_reading()
+def get_copy_of_default_readonly_scenario_for_updating(name: Optional[str] = None):
+    ro_scenario = get_default_test_scenario_for_reading()
+    return get_copy_of_scenario_for_updating(ro_scenario, name)
+
+
+def get_copy_of_scenario_for_updating(scenario: Scenario, name: Optional[str] = None):
     if test_project is not None:
         s = test_project.create_scenario(
             {
                 "name": f"test scenario: {name}",
-                "baseScenarioGlobalId": ro_scenario.scenario_id,
+                "baseScenarioGlobalId": scenario.scenario_id,
             }
         )
         return s

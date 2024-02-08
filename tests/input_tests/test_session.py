@@ -1,13 +1,13 @@
 from origin_sdk.service.Scenario import Scenario
 from origin_sdk.service.InputsEditor import InputsEditor
 from .utils_for_testing import (
-    get_test_scenario_for_reading,
+    get_default_test_scenario_for_reading,
     testing_session as session,
 )
 
 
 def test_get_main_region():
-    s = get_test_scenario_for_reading()
+    s = get_default_test_scenario_for_reading()
     ie = InputsEditor(s.scenario_id, session)
     assert (
         ie.inputs_session.get("productRegionInformation").get("code").lower() == "gbr"
