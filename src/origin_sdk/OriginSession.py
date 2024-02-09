@@ -138,7 +138,12 @@ class OriginSession(APISession):
                     # If it's only a data loading error, we should feel free to
                     # try again after a short delay
                     if only_one_error and error_is_not_ready:
-                        log.info(e)
+                        retry_sleep_in_seconds = 2.5
+                        log.info(
+                            f"""The inputs for this scenario/dataset combination
+                             are still loading, will auto retry in
+                             {retry_sleep_in_seconds}s."""
+                        )
                         sleep(2.5)
                     else:
                         # Not the right conditions. Re-raise the original error

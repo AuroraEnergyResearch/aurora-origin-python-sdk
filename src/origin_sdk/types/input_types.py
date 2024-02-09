@@ -132,3 +132,4 @@ class InputsDemand(TypedDict):
 
 class InputsDemandFilter(TypedDict):
     region: str
+    regions: List[str]
