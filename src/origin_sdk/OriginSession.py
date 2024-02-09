@@ -589,8 +589,9 @@ class OriginSession(APISession):
         transform: List[Transform],
         auto_capacity_market_target: Optional[bool] = None,
     ):
-        """Updates a system demand parameter (one that appears under variables
-        of the main demand object, and not one of the demand technologies variables)."""
+        """Updates a system demand parameter for one or more regions. (A system
+        demand parameter is one that appears under variables of the main demand
+        object, and not one of the demand technologies variables)."""
         url = f"{self.inputs_service_graphql_url}"
         variables = {
             "sessionId": scenario_id,
@@ -649,9 +650,9 @@ class OriginSession(APISession):
         transform: List[Transform],
         auto_capacity_market_target: Optional[bool] = None,
     ) -> List[InputsDemand]:
-        """Updates a demand technology variable (one that appears on a
-        demand technology object, rather than on the system level demand
-        object)."""
+        """Updates a demand technology variable for one or more regions. (A
+        demand technology variable is one that appears on a demand technology
+        object, rather than on the system level demand object)."""
 
         url = f"{self.inputs_service_graphql_url}"
         variables = {
