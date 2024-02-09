@@ -45,5 +45,6 @@ get_session_information_gql = create_get_session_gql(
         "dataGroupEligibility": None,
         "modelMaxYear": None,
         "modelMinYear": None,
+        "transforms": {"updateParameters": None, "steps": None, "reason": None},
     },
 )
