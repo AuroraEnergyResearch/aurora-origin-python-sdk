@@ -26,9 +26,12 @@ def create_demand_query_tree(system: List[str], tech: List[str]) -> RecursiveTre
 
 def get_demand_gql(demand_config: Any):
     return create_get_session_gql(
-        {"demandFilter": "GetDemandFilterDemandInput"},
         {
-            "getDemand (filter: $demandFilter)": create_demand_query_tree(
+            "demandFilter": "GetDemandFilterDemandInput",
+            "aggregateRegions": "Boolean",
+        },
+        {
+            "getDemand (filter: $demandFilter, aggregateRegions: $aggregateRegions)": create_demand_query_tree(
                 *get_demand_variables_from_config(demand_config)
             ),
         },
@@ -42,7 +45,8 @@ def update_system_demand_gql(demand_config: Any):
     return f"""mutation (
     $sessionId: String!,
     $technology: EnumDemandTechnology,
-    $region: ModelRegion!,
+    $region: ModelRegion,
+    $regions: [ModelRegion!],
     $variable: String!,
     $autoCapacityMarketTarget: Boolean,
     $tx: [YearlyNumberItemInput]!
@@ -52,6 +56,7 @@ def update_system_demand_gql(demand_config: Any):
         variable: $variable,
         technology: $technology,
         region: $region,
+        regions: $regions,
         autoCapacityMarketTarget: $autoCapacityMarketTarget,
         tx: $tx,
     ) {

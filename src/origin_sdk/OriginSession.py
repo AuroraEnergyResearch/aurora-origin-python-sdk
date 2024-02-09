@@ -561,13 +561,17 @@ class OriginSession(APISession):
 
     @access_next_data_key_decorator
     def get_demand(
-        self, scenario_id: str, demand_filter: Optional[InputsDemandFilter] = None
+        self,
+        scenario_id: str,
+        demand_filter: Optional[InputsDemandFilter] = None,
+        aggregate_regions=False,
     ) -> List[InputsDemand]:
         """Gets system demand and demand technology assumptions for this scenario"""
         url = f"{self.inputs_service_graphql_url}"
         variables = {
             "sessionId": scenario_id,
             "demandFilter": demand_filter,
+            "aggregateRegions": aggregate_regions,
         }
 
         config = self.__get_inputs_config().get("demand")
@@ -580,17 +584,18 @@ class OriginSession(APISession):
     def update_system_demand(
         self,
         scenario_id: str,
-        region: str,
+        region: Union[str, List[str]],
         variable: str,
         transform: List[Transform],
         auto_capacity_market_target: Optional[bool] = None,
     ):
-        """Updates a system demand parameter (one that appears under variables
-        of the main demand object, and not one of the demand technologies variables)."""
+        """Updates a system demand parameter for one or more regions. (A system
+        demand parameter is one that appears under variables of the main demand
+        object, and not one of the demand technologies variables)."""
         url = f"{self.inputs_service_graphql_url}"
         variables = {
             "sessionId": scenario_id,
-            "region": region,
+            "regions": [region] if type(region) is str else region,
             "variable": variable,
             "autoCapacityMarketTarget": auto_capacity_market_target,
             "tx": transform,
@@ -639,20 +644,20 @@ class OriginSession(APISession):
     def update_demand_technology_variable(
         self,
         scenario_id: str,
-        region: str,
+        region: Union[str, List[str]],
         technology: str,
         variable: str,
         transform: List[Transform],
         auto_capacity_market_target: Optional[bool] = None,
     ) -> List[InputsDemand]:
-        """Updates a demand technology variable (one that appears on a
-        demand technology object, rather than on the system level demand
-        object)."""
+        """Updates a demand technology variable for one or more regions. (A
+        demand technology variable is one that appears on a demand technology
+        object, rather than on the system level demand object)."""
 
         url = f"{self.inputs_service_graphql_url}"
         variables = {
             "sessionId": scenario_id,
-            "region": region,
+            "regions": [region] if type(region) is str else region,
             "variable": variable,
             "technology": technology,
             "autoCapacityMarketTarget": auto_capacity_market_target,

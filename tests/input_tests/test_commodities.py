@@ -2,14 +2,14 @@ from origin_sdk.service.Scenario import Scenario
 from origin_sdk.service.InputsEditor import InputsEditor
 
 from .utils_for_testing import (
-    get_test_scenario_for_reading,
+    get_default_test_scenario_for_reading,
     testing_session as session,
-    get_copy_of_readonly_scenario_for_updating,
+    get_copy_of_default_readonly_scenario_for_updating,
 )
 
 
 def test_can_get_commodities():
-    s = get_test_scenario_for_reading()
+    s = get_default_test_scenario_for_reading()
     ie = InputsEditor(s.scenario_id, session)
     cmdty = ie.get_commodities()
 
@@ -17,7 +17,7 @@ def test_can_get_commodities():
 
 
 def test_can_get_a_single_commodity():
-    s = get_test_scenario_for_reading()
+    s = get_default_test_scenario_for_reading()
     ie = InputsEditor(s.scenario_id, session)
     gas = ie.get_commodities(commodities=["gas"])[0]
 
@@ -25,7 +25,7 @@ def test_can_get_a_single_commodity():
 
 
 def test_updating_gas_price(project):
-    s = get_copy_of_readonly_scenario_for_updating("update global gas prices to 666")
+    s = get_copy_of_default_readonly_scenario_for_updating("update global gas prices to 666")
     ie = InputsEditor(s.scenario_id, session)
 
     # Get global gas
@@ -59,7 +59,7 @@ def test_updating_gas_price(project):
 
 
 def test_rebasing_commodities(project):
-    s = get_copy_of_readonly_scenario_for_updating(
+    s = get_copy_of_default_readonly_scenario_for_updating(
         "replace commodity prices with last year's central case"
     )
     ie = InputsEditor(s.scenario_id, session)
