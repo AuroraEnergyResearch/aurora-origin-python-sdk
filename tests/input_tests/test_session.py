@@ -18,3 +18,10 @@ def test_get_main_region():
     assert (
         ie.inputs_session.get("productRegionInformation").get("code").lower() == "deu"
     )
+
+
+def test_get_session_transforms():
+    s = get_default_test_scenario_for_reading()
+    ie = InputsEditor(s.scenario_id, session)
+    ie_session = ie.inputs_session
+    assert ie_session.get("transforms") is not None

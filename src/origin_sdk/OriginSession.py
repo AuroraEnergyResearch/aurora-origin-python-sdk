@@ -1,4 +1,5 @@
 from json import dumps
+from textwrap import dedent
 from time import sleep
 from collections import defaultdict
 from typing import Any, List, Optional, TypedDict, Union, Dict
@@ -131,15 +132,25 @@ class OriginSession(APISession):
 
                     # Check the data loading perfect conditions
                     only_one_error = len(gql_error_array) == 1
-                    error_is_not_ready = "DataNotReady" == gql_error_array[0].get(
-                        "errorKey"
-                    )
+                    error = gql_error_array[0] if only_one_error else {}
+                    error_is_not_ready = "DataNotReady" == error.get("errorKey")
 
                     # If it's only a data loading error, we should feel free to
                     # try again after a short delay
                     if only_one_error and error_is_not_ready:
-                        log.info(e)
-                        sleep(2.5)
+                        retry_sleep_in_seconds = 2.5
+                        message = error.get("message")
+                        log.info(
+                            dedent(
+                                f"""\
+                                Data not ready.
+                                Will auto retry in
+                                {retry_sleep_in_seconds}s.
+                                ({message})
+                                """
+                            ).replace("\n", " ")
+                        )
+                        sleep(retry_sleep_in_seconds)
                     else:
                         # Not the right conditions. Re-raise the original error
                         # and let downstream handle (or not)
