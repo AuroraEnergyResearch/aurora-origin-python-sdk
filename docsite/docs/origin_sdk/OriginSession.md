@@ -275,10 +275,9 @@ Gets the regions of demand available for the current scenario
 
 ```python
 @access_next_data_key_decorator
-def get_demand(
-        scenario_id: str,
-        demand_filter: Optional[InputsDemandFilter] = None
-) -> List[InputsDemand]
+def get_demand(scenario_id: str,
+               demand_filter: Optional[InputsDemandFilter] = None,
+               aggregate_regions=False) -> List[InputsDemand]
 ```
 
 Gets system demand and demand technology assumptions for this scenario
@@ -288,14 +287,15 @@ Gets system demand and demand technology assumptions for this scenario
 ```python
 @access_next_data_key_decorator
 def update_system_demand(scenario_id: str,
-                         region: str,
+                         region: Union[str, List[str]],
                          variable: str,
                          transform: List[Transform],
                          auto_capacity_market_target: Optional[bool] = None)
 ```
 
-Updates a system demand parameter (one that appears under variables
-of the main demand object, and not one of the demand technologies variables).
+Updates a system demand parameter for one or more regions. (A system
+demand parameter is one that appears under variables of the main demand
+object, and not one of the demand technologies variables).
 
 #### get\_demand\_technology\_names
 
@@ -326,7 +326,7 @@ Gets just demand technologies, without system demand information.
 @access_next_data_key_decorator
 def update_demand_technology_variable(
         scenario_id: str,
-        region: str,
+        region: Union[str, List[str]],
         technology: str,
         variable: str,
         transform: List[Transform],
@@ -334,9 +334,9 @@ def update_demand_technology_variable(
 ) -> List[InputsDemand]
 ```
 
-Updates a demand technology variable (one that appears on a
-demand technology object, rather than on the system level demand
-object).
+Updates a demand technology variable for one or more regions. (A
+demand technology variable is one that appears on a demand technology
+object, rather than on the system level demand object).
 
 #### get\_commodities
 

@@ -1,5 +1,5 @@
 import logging
-from typing import List, Optional
+from typing import List, Optional, Union
 from origin_sdk.OriginSession import OriginSession
 from origin_sdk.types.input_types import InputsSession, TechnologyNames, Transform
 
@@ -34,9 +34,15 @@ class InputsEditor:
         configured to run."""
         return self.session.get_demand_regions(self.scenario_id)
 
-    def get_demand_for_region(self, region: str):
+    def get_demand_for_region(
+        self,
+        region: str,
+    ):
         return self.session.get_demand(
-            self.scenario_id, {"region": region} if region else None
+            self.scenario_id,
+            demand_filter={
+                "region": region,
+            },
         )[0]
 
     def __get_demand_technology_names(self):
@@ -53,22 +59,24 @@ class InputsEditor:
 
     def update_system_demand_variable(
         self,
-        region: str,
+        region: Union[str, List[str]],
         variable: str,
         transform: List[Transform],
         auto_capacity_market_target: Optional[bool] = None,
     ):
         return self.session.update_system_demand(
             scenario_id=self.scenario_id,
-            region=region,
             variable=variable,
             transform=transform,
             auto_capacity_market_target=auto_capacity_market_target,
+            # For backwards compatibility, we accept both a list and a string on
+            # the region parameter
+            region=[region] if type(region) is str else region,
         )
 
     def update_demand_technology_variable(
         self,
-        region: str,
+        region: Union[str, List[str]],
         technology: str,
         variable: str,
         transform: List[Transform],
@@ -76,7 +84,7 @@ class InputsEditor:
     ):
         return self.session.update_demand_technology_variable(
             scenario_id=self.scenario_id,
-            region=region,
+            region=[region] if type(region) is str else region,
             technology=technology,
             variable=variable,
             transform=transform,

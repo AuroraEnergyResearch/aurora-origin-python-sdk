@@ -1,14 +1,15 @@
 from origin_sdk.service.InputsEditor import InputsEditor
 from origin_sdk.service.Scenario import Scenario
 from .utils_for_testing import (
-    get_copy_of_readonly_scenario_for_updating,
-    get_test_scenario_for_reading,
+    get_copy_of_default_readonly_scenario_for_updating,
+    get_copy_of_scenario_for_updating,
+    get_default_test_scenario_for_reading,
     testing_session as session,
 )
 
 
 def test_get_demand_regions():
-    s = get_test_scenario_for_reading()
+    s = get_default_test_scenario_for_reading()
     ie = InputsEditor(s.scenario_id, session)
 
     regs = ie.get_demand_regions()
@@ -30,10 +31,28 @@ def test_get_demand():
         assert dem_techs is not None
 
 
+def test_get_all_regions_demand():
+    s = Scenario.get_latest_scenario_from_region(session, "aus", name_filter="central")
+    ie = InputsEditor(s.scenario_id, session)
+
+    regs = ie.get_demand_regions()
+
+    dem = session.get_demand(
+        scenario_id=s.scenario_id,
+        demand_filter={"regions": regs},
+        aggregate_regions=True,
+    )[0]
+    assert dem is not None
+    assert dem.get("region").split(",") == regs
+
+    dem_techs = dem.get("technologies")
+    assert dem_techs is not None
+
+
 def test_get_demand_tech_names():
     return
     # This isn't supported by the service, throws a 500
-    s = get_test_scenario_for_reading()
+    s = get_default_test_scenario_for_reading()
     ie = InputsEditor(s.scenario_id, session)
 
     techs = ie.get_demand_technology_names()
@@ -41,7 +60,7 @@ def test_get_demand_tech_names():
 
 
 def test_get_all_demand_techs():
-    s = get_test_scenario_for_reading()
+    s = get_default_test_scenario_for_reading()
     ie = InputsEditor(s.scenario_id, session)
 
     techs = ie.get_demand_technologies()
@@ -50,7 +69,9 @@ def test_get_all_demand_techs():
 
 def test_update_all_main_region_items(project):
     # Init
-    s = get_copy_of_readonly_scenario_for_updating("update all main region items")
+    s = get_copy_of_default_readonly_scenario_for_updating(
+        "update all main region items"
+    )
     ie = InputsEditor(s.scenario_id, session)
 
     # Get the main region. Demand is one document per region, so get the
@@ -128,3 +149,36 @@ def test_update_all_main_region_items(project):
     # malformed object and the resolver is "null" without throwing a service
     # error
     assert all([res is not None for res in tech_update_responses])
+
+
+def test_update_total_demand_across_all_regions(project):
+    aus = Scenario.get_latest_scenario_from_region(
+        session, "aus", name_filter="central"
+    )
+    s = get_copy_of_scenario_for_updating(aus, "update all regions at once")
+    ie = InputsEditor(s.scenario_id, session)
+    last_year = s.scenario.get("years")[-1]
+    regs = ie.get_demand_regions()
+
+    update_response = ie.update_system_demand_variable(
+        region=regs,
+        variable="totalDemand",
+        transform=[
+            {
+                "year": last_year,
+                "transform": {"type": "Percentage", "value": 10},
+            }
+        ],
+    )
+    assert update_response is not None
+    last_base_demand_year = update_response.get("variables")[-1].get("baseDemand")
+
+    tx = last_base_demand_year.get("transform")
+    assert tx is not None
+    assert round(tx.get("value"), 0) == 10
+
+    for tech_doc in update_response.get("technologies"):
+        last_tech_demand_year = tech_doc.get("variables")[-1].get("totalDemand")
+        tech_tx = last_tech_demand_year.get("transform")
+        assert tech_tx is not None
+        assert round(tech_tx.get("value"), 0) == 10

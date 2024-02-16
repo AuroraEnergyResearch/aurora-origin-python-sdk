@@ -36,9 +36,12 @@ get_demand_technology_names = create_get_session_gql(
 def get_demand_technologies_gql(demand_config: Any):
     _, tech = get_demand_variables_from_config(demand_config)
     return create_get_session_gql(
-        {"demTechFilter": "GetDemandTechFilterDemandTechnologyInput"},
         {
-            "getDemandTechnologies (filter: $demTechFilter)": create_demand_tech_tree(
+            "demTechFilter": "GetDemandTechFilterDemandTechnologyInput",
+            "aggregateRegions": "Boolean",
+        },
+        {
+            "getDemandTechnologies (filter: $demTechFilter, aggregateRegions: $aggregateRegions)": create_demand_tech_tree(
                 tech
             )
         },
@@ -50,7 +53,8 @@ def update_demand_technology(demand_config: Any):
     return f"""mutation(
     $sessionId: String!,
     $technology: String!,
-    $region: String!,
+    $region: String,
+    $regions: [String!],
     $variable: EnumDemandTechnologyVariable!
     $autoCapacityMarketTarget: Boolean,
     $tx: [YearlyNumberItemInput!]!,
@@ -58,6 +62,7 @@ def update_demand_technology(demand_config: Any):
     updateDemandTechnologyVariable (
         sessionId: $sessionId,
         region: $region,
+        regions: $regions,
         technology: $technology,
         variable: $variable,
         autoCapacityMarketTarget: $autoCapacityMarketTarget,

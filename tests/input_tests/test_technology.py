@@ -1,13 +1,13 @@
 from origin_sdk.service.InputsEditor import InputsEditor
 from .utils_for_testing import (
-    get_test_scenario_for_reading,
+    get_default_test_scenario_for_reading,
     testing_session as session,
-    get_copy_of_readonly_scenario_for_updating,
+    get_copy_of_default_readonly_scenario_for_updating,
 )
 
 
 def test_get_technology_names():
-    s = get_test_scenario_for_reading()
+    s = get_default_test_scenario_for_reading()
     ie = InputsEditor(s.scenario_id, session)
 
     techs = ie.get_technology_names()
@@ -17,7 +17,7 @@ def test_get_technology_names():
 
 def test_updating_all_capacities(project):
     # Init
-    s = get_copy_of_readonly_scenario_for_updating("update all tech capacities")
+    s = get_copy_of_default_readonly_scenario_for_updating("update all tech capacities")
     ie = InputsEditor(s.scenario_id, session)
 
     # Get the main region, and all the technology names for this region

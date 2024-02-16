@@ -88,6 +88,12 @@ class InputsSessionProductRegionInfo(TypedDict):
     enabledRegions: List[InputsSessionEnabledRegion]
 
 
+class InputsSessionTransform(TypedDict):
+    updateParameters: Any
+    reason: str
+    steps: List[Any]
+
+
 class InputsSession(TypedDict):
     meta: InputsSessionMeta
     dataGroups: Dict[str, InputsSessionDataGroup]
@@ -97,6 +103,7 @@ class InputsSession(TypedDict):
     dataGroupEligibility: Dict[str, Union[bool, str]]
     modelMaxYear: int
     modelMinYear: int
+    transforms: List[InputsSessionTransform]
 
 
 class InputsDemandVariables(TypedDict):
@@ -132,3 +139,4 @@ class InputsDemand(TypedDict):
 
 class InputsDemandFilter(TypedDict):
     region: str
+    regions: List[str]
