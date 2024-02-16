@@ -10,6 +10,7 @@ scenario_summary_fields = """
   inputTypesSupported
   scenarioType
   scenarioRunType
+  useExogifiedInputs
   projectGlobalId
   scenarioInputsAvailable
   scenarioOutputsAvailable

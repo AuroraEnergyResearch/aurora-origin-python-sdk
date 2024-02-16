@@ -4,6 +4,7 @@ understand what options you have when interacting with functions, or what
 outputs to expect from queries. Enums are available in
 [scenario_enums](/docs/origin_sdk/types/scenario_enums) for import and usage.
 """
+
 from typing import Dict, TypedDict, List, Any, Optional
 from origin_sdk.types.scenario_enums import (
     ScenarioRunStatus,
@@ -52,13 +53,13 @@ class InputScenario(TypedDict):
             that a "regionGroup" would be AUS, whereas a "region" would then be
             "VIC" or "NSW". For most regions, the "regionGroup" and it's three
             letter region code are identical.
-        useExogifiedInputs (optional, boolean): A true value here is equivalent to the
-            "Model Determined Capacity" toggled off in the interface. When this
-            is set to false, the model automatically builds capacity to support
-            demand. If you unselect this, you are choosing to take control of
-            defining the capacity build assumptions (this runs much more
-            quickly). Whether these options are available, depends on the
-            scenario this is based on.
+        useExogifiedInputs (boolean): **Required for non-Aurorean use.** A true
+            value here is equivalent to the "Model Determined Capacity" toggled
+            off in the interface. When this is set to false, the model automatically
+            builds capacity to support demand. When set to true, you are
+            choosing to take control of defining the capacity build assumptions
+            (this runs much more quickly). Whether these options are available,
+            depends on the scenario this is based on.
         defaultCurrency (optional, string): Should be set automatically once a
             `regionGroupCode` is chosen, but can be overridden
         retentionPolicy (optional, string): Internal only.
