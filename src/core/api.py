@@ -111,6 +111,8 @@ class APISession:
                 key_found = (
                     reader.readline().strip()
                 )  # Read the first line and strip newline characters
+                if not key_found:
+                    raise RuntimeError(f"Could not parse key from file {file}")
                 return key_found
         else:
             raise RuntimeError(
