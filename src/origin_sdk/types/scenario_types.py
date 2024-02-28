@@ -53,10 +53,10 @@ class InputScenario(TypedDict):
             that a "regionGroup" would be AUS, whereas a "region" would then be
             "VIC" or "NSW". For most regions, the "regionGroup" and it's three
             letter region code are identical.
-        useExogifiedInputs (boolean): **Required for non-Aurorean use.** A true
-            value here is equivalent to the "Model Determined Capacity" toggled
-            off in the interface. When this is set to false, the model automatically
-            builds capacity to support demand. When set to true, you are
+        useExogifiedInputs (boolean): A true value here is equivalent to the
+            "Model Determined Capacity" toggled off in the interface.
+            When this is set to false, the model automatically builds
+            capacity to support demand. If you unselect this, you are
             choosing to take control of defining the capacity build assumptions
             (this runs much more quickly). Whether these options are available,
             depends on the scenario this is based on.
@@ -122,6 +122,7 @@ class ScenarioSummaryType(TypedDict):
     years: List[int]
     scenarioTransformStatus: ScenarioTransformStatus
     weatherYear: Optional[int]
+    useExogifiedInputs: bool
 
 
 class RegionDict(TypedDict):
