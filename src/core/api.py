@@ -106,14 +106,14 @@ class APISession:
             file = Path.joinpath(Path.home(), f"{AURORA_API_KEY_FILE_NAME}.{universe}")
 
         log.debug(f"Looking for token in '{file}'")
-        key_found = []
         if Path.exists(file):
             with open(file, "r") as reader:
-                key_found = reader.readlines()
-            if len(key_found) == 1:
-                return key_found[0]
-            else:
-                raise RuntimeError(f"Could not parse key from file {file}")
+                key_found = (
+                    reader.readline().strip()
+                )  # Read the first line and strip newline characters
+                if not key_found:
+                    raise RuntimeError(f"Could not parse key from file {file}")
+                return key_found
         else:
             raise RuntimeError(
                 f"""No aurora api key file found '{file}'. Please create the
