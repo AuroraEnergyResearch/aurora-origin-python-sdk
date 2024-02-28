@@ -4,6 +4,7 @@ understand what options you have when interacting with functions, or what
 outputs to expect from queries. Enums are available in
 [scenario_enums](/docs/origin_sdk/types/scenario_enums) for import and usage.
 """
+
 from typing import Dict, TypedDict, List, Any, Optional
 from origin_sdk.types.scenario_enums import (
     ScenarioRunStatus,
@@ -121,6 +122,7 @@ class ScenarioSummaryType(TypedDict):
     years: List[int]
     scenarioTransformStatus: ScenarioTransformStatus
     weatherYear: Optional[int]
+    useExogifiedInputs: bool
 
 
 class RegionDict(TypedDict):
