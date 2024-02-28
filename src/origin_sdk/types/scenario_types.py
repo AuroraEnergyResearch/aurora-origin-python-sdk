@@ -54,12 +54,12 @@ class InputScenario(TypedDict):
             "VIC" or "NSW". For most regions, the "regionGroup" and it's three
             letter region code are identical.
         useExogifiedInputs (boolean): A true value here is equivalent to the
-            "Model Determined Capacity" toggled off in the interface.
-            When this is set to false, the model automatically builds
-            capacity to support demand. If you unselect this, you are
-            choosing to take control of defining the capacity build assumptions
-            (this runs much more quickly). Whether these options are available,
-            depends on the scenario this is based on.
+            "Model Determined Capacity" toggled off in the interface. When this
+            is set to false, the model automatically builds capacity to support
+            demand. If you unselect this, you are choosing to take control of
+            defining the capacity build assumptions (this runs much more
+            quickly). Whether these options are available, depends on the
+            scenario this is based on.
         defaultCurrency (optional, string): Should be set automatically once a
             `regionGroupCode` is chosen, but can be overridden
         retentionPolicy (optional, string): Internal only.
