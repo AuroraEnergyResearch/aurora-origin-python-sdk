@@ -900,3 +900,23 @@ class OriginSession(APISession):
         """
 
         return self.__inputs_gql_workbook_status(scenario_id)
+
+    def get_weather_year_list(self, scenario_id: str):
+        """
+        Provides list of weather years that are supported for this scenario.
+        Returns empty list if weather year feature not supported.
+
+        Arguments:
+            scenario_id (String): ID of the scenario for which to check for supported weather years
+        """
+
+        variables = {"scenarioGlobalId": scenario_id}
+        get_weather_years = f"""
+        query ($scenarioGlobalId: String!) {{
+            getWeatherYearList(scenarioGlobalId: $scenarioGlobalId) {{
+                years
+            }}
+        }}
+        """
+
+        return self._graphql_request(self.scenario_service_graphql_url, get_weather_years, variables)["years"]
