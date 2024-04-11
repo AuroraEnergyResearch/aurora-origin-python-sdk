@@ -911,12 +911,5 @@ class OriginSession(APISession):
         """
 
         variables = {"scenarioGlobalId": scenario_id}
-        get_weather_years = f"""
-        query ($scenarioGlobalId: String!) {{
-            getWeatherYearList(scenarioGlobalId: $scenarioGlobalId) {{
-                years
-            }}
-        }}
-        """
 
-        return self._graphql_request(self.scenario_service_graphql_url, get_weather_years, variables)["years"]
+        return self._graphql_request(self.scenario_service_graphql_url, scenario_query.get_weather_years, variables)["years"]

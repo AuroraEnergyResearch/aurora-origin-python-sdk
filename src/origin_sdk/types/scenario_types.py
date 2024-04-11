@@ -71,8 +71,9 @@ class InputScenario(TypedDict):
             this to one of the ModelPriceSpikiness enum values if you wish to
             use the feature.
         years (optional, List[int]): Internal only.
-        weatherYear (optional, int): Internal only, but a form of this coming
-            soon for non-Aurorean usage.
+        weatherYear (optional, int): The Weather Year for which to simulate (half)hourly profiles - if supported.
+            Should only be used for scenarios with "fixed capacities" and without further edits; i.e.
+            `useExogifiedInputs` = `True`, or `scenarioRunType` = `FYR`
         advancedSettings (optional, AdvancedScenarioSettings): Internal only.
     """
 

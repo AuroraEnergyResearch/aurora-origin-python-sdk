@@ -52,8 +52,9 @@ parameters, the service ought to tell you what is missing.
   this to one of the ModelPriceSpikiness enum values if you wish to
   use the feature.
 - `years` _optional, List[int]_ - Internal only.
-- `weatherYear` _optional, int_ - Internal only, but a form of this coming
-  soon for non-Aurorean usage.
+- `weatherYear` _optional, int_ - The Weather Year for which to simulate (half)hourly profiles - if supported.
+  Should only be used for scenarios with &quot;fixed capacities&quot; and without further edits; i.e.
+  `useExogifiedInputs` = `True`, or `scenarioRunType` = `FYR`
 - `advancedSettings` _optional, AdvancedScenarioSettings_ - Internal only.
 
 ## ScenarioSummaryType Objects

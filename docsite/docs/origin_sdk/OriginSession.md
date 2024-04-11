@@ -461,3 +461,16 @@ a URL to download the workbook from once it&#x27;s ready.
 
 - `scenario_id` _String_ - ID of the scenario to get the workbook download URL from
 
+#### get\_weather\_year\_list
+
+```python
+def get_weather_year_list(scenario_id: str)
+```
+
+Provides list of weather years that are supported for this scenario.
+Returns empty list if weather year feature not supported.
+
+**Arguments**:
+
+- `scenario_id` _String_ - ID of the scenario for which to check for supported weather years
+

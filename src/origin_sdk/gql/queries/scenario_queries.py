@@ -54,3 +54,11 @@ mutation ($scenarioGlobalId: String!) {{
   }}
 }}
 """
+
+get_weather_years = f"""
+query ($scenarioGlobalId: String!) {{
+    getWeatherYearList(scenarioGlobalId: $scenarioGlobalId) {{
+        years
+    }}
+}}
+"""
