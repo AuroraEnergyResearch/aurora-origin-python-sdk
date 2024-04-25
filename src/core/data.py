@@ -27,9 +27,11 @@ AURORA_ORIGIN_CACHE_DIRECTORY = "AURORA_ORIGIN_CACHE_DIRECTORY"
 def get_data_directory():
     """Lazy create the data directory. All requests for the data directory
     should come through this function"""
-    data_directory = environ.get(
-        AURORA_ORIGIN_CACHE_DIRECTORY,
-        Path(user_data_dir(appname=app_name, appauthor=app_author)),
+    data_directory = Path(
+        environ.get(
+            AURORA_ORIGIN_CACHE_DIRECTORY,
+            user_data_dir(appname=app_name, appauthor=app_author),
+        )
     )
 
     if not data_directory.exists():
