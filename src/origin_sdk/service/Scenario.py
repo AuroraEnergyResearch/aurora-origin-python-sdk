@@ -117,7 +117,6 @@ class Scenario:
         granularity: str,
         currency: Optional[str] = None,
         force_no_cache: bool = False,
-        save_to_cache: bool = True,
     ):
         """
         Downloads a csv from the service and returns as a string. Recommended to
@@ -199,15 +198,14 @@ class Scenario:
         # Make a follow up request for the data
         csv_as_text = self.session.session.request("GET", s3_location).text
 
-        if save_to_cache:
-            save_scenario_outputs_to_cache(
-                self.scenario_id,
-                region,
-                download_type,
-                granularity,
-                download_currency,
-                csv_as_text,
-            )
+        save_scenario_outputs_to_cache(
+            self.scenario_id,
+            region,
+            download_type,
+            granularity,
+            download_currency,
+            csv_as_text,
+        )
 
         return csv_as_text
 
@@ -218,7 +216,6 @@ class Scenario:
         granularity: str,
         currency: Optional[str] = None,
         force_no_cache: bool = False,
-        save_to_cache: bool = True,
     ):
         """
         Much the same as `get_scenario_data` but instead parses the CSV as a
@@ -245,7 +242,6 @@ class Scenario:
             granularity=granularity,
             currency=currency,
             force_no_cache=force_no_cache,
-            save_to_cache=save_to_cache,
         )
         buffer = StringIO(data)
         df = pd.read_csv(buffer, header=[0, 1])

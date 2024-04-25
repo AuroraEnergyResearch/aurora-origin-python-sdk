@@ -3,7 +3,7 @@ from appdirs import user_data_dir
 
 import logging
 from pathlib import Path
-from os import makedirs
+from os import makedirs, environ
 
 # Circular imports causing an issue.
 # This pattern taken from
@@ -21,15 +21,23 @@ app_author = "auroraenergyresearch"
 
 logger = logging.getLogger(__name__)
 
+AURORA_ORIGIN_CACHE_DIRECTORY = "AURORA_ORIGIN_CACHE_DIRECTORY"
+
 
 def get_data_directory():
     """Lazy create the data directory. All requests for the data directory
     should come through this function"""
-    user_data_directory = Path(user_data_dir(appname=app_name, appauthor=app_author))
-    if not user_data_directory.exists():
-        makedirs(user_data_directory)
+    data_directory = Path(
+        environ.get(
+            AURORA_ORIGIN_CACHE_DIRECTORY,
+            user_data_dir(appname=app_name, appauthor=app_author),
+        )
+    )
 
-    return user_data_directory
+    if not data_directory.exists():
+        makedirs(data_directory)
+
+    return data_directory
 
 
 def get_scenario_cache(id: str):
