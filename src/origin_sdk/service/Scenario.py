@@ -137,13 +137,18 @@ class Scenario:
             CSV as text string
 
         """
-        params = params or {}
+        addon_params = params or {}
 
         # Decide which currency to use, falling back to the defaultCurrency
         download_currency = currency or self.scenario.get("defaultCurrency")
 
         from_cache = get_scenario_outputs_from_cache(
-            self.scenario_id, region, download_type, granularity, download_currency
+            self.scenario_id,
+            region,
+            download_type,
+            granularity,
+            download_currency,
+            addon_params,
         )
         if from_cache is not None and not force_no_cache:
             return from_cache
@@ -187,12 +192,12 @@ class Scenario:
         # Request the data url. Use noredirect in order to make the re-request
         # to s3 ourselves.
         full_data_url = f"{self.session.scenario_service_url}/{base_url}{filename}"
-        params["noredirect"] = "true"
+        full_params = {"noredirect": "true", **addon_params}
 
         logger.debug(full_data_url)
 
         # Make the request for the timed URL
-        s3_request = self.session.session.request("GET", full_data_url, params)
+        s3_request = self.session.session.request("GET", full_data_url, full_params)
 
         # Get the location of the redirect
         s3_location = s3_request.headers.get("location")
@@ -207,6 +212,7 @@ class Scenario:
             granularity,
             download_currency,
             csv_as_text,
+            addon_params,
         )
 
         return csv_as_text
