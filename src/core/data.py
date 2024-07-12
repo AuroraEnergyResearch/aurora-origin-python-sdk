@@ -82,8 +82,14 @@ def get_scenario_output_filename(
     params: dict[str, str],
 ):
     """Single entry point for filename string creation for scenario downloads"""
-    params_hash = hash(frozenset(params.items()))
-    return f"{params_hash}-{region}-{download_type}-{granularity}-{currency}.csv"
+
+    filename = f"{region}-{download_type}-{granularity}-{currency}.csv"
+
+    if bool(params) is True:
+        params_hash = hash(frozenset(params.items()))
+        filename = f"{params_hash}-{filename}"
+
+    return filename
 
 
 def save_scenario_outputs_to_cache(
