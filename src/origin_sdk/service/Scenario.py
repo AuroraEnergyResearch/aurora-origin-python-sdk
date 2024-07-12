@@ -245,8 +245,6 @@ class Scenario:
         Returns:
             Pandas Dataframe
         """
-        params = params or {}
-
         data = self.get_scenario_data_csv(
             region=region,
             download_type=download_type,
