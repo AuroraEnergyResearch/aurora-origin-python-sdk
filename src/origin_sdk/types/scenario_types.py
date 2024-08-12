@@ -124,6 +124,7 @@ class ScenarioSummaryType(TypedDict):
     scenarioTransformStatus: ScenarioTransformStatus
     weatherYear: Optional[int]
     useExogifiedInputs: bool
+    runDetails: Any
 
 
 class RegionDict(TypedDict):
@@ -153,7 +154,6 @@ class ScenarioType(ScenarioSummaryType):
     sensitivity: str
     regions: Dict[str, RegionDict]
     baseScenarioGlobalId: str
-    runDetails: Any
     appReleaseStatus: Any
     launchedByEmail: str
     userInputReference: str

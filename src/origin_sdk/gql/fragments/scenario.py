@@ -29,6 +29,7 @@ scenario_summary_fields = """
     modelReference
     controlFileName
   }
+  runDetails
 """
 
 all_scenario_fields = f"""
@@ -37,7 +38,6 @@ all_scenario_fields = f"""
   sensitivity
   regions
   baseScenarioGlobalId
-  runDetails
   appReleaseStatus
   launchedByEmail
   userInputReference
