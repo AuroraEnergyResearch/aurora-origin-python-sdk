@@ -46,5 +46,4 @@ notebooks = ["matplotlib", "pandas", "ipykernel"]
 version = { file = "VERSION" }
 
 [tool.mypy]
-exclude = ["src/origin_sdk"]
 ignore_missing_imports = true

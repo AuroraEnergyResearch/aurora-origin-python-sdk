@@ -108,10 +108,6 @@ class InputsSession(TypedDict):
 
 class InputsDemandVariables(TypedDict):
     year: int
-
-
-class InputsDemandVariables(TypedDict):
-    year: int
     totalDemand: VariableValuesWithTransform
     baseDemand: VariableValuesWithTransform
 

@@ -54,7 +54,7 @@ ENDPOINTS = {
 
 
 def get_endpoints(universe: str = PRODUCTION) -> Dict[str, str]:
-    return ENDPOINTS.get(universe, ENDPOINTS.get(PRODUCTION))
+    return ENDPOINTS.get(universe, ENDPOINTS.get(PRODUCTION))  # type: ignore
 
 
 class OriginSessionConfig(TypedDict, total=False):
@@ -91,14 +91,14 @@ class OriginSession(APISession):
         super().__init__(config.get("token"), config.get("universe"))
         self.scenario_service_url = self._get_base_url(
             # It'll default to production endpoints if universe is not set
-            default_url=get_endpoints(config.get("universe")).get("scenario"),
+            default_url=get_endpoints(config.get("universe")).get("scenario"),  # type: ignore
             base_url=config.get("scenario_base_url"),
             environment_variable=AURORA_ORIGIN_SCENARIO_API_BASE_URL_ENVIRONMENT_VARIABLE_NAME,
         )
         self.scenario_service_graphql_url = f"{self.scenario_service_url}/v1/graphql"
         self.inputs_service_url = self._get_base_url(
             # It'll default to production endpoints if universe is not set
-            default_url=get_endpoints(config.get("universe")).get("inputs"),
+            default_url=get_endpoints(config.get("universe")).get("inputs"),  # type: ignore
             base_url=config.get("inputs_base_url"),
             environment_variable=AURORA_ORIGIN_INPUTS_API_BASE_URL_ENVIRONMENT_VARIABLE_NAME,
         )
@@ -386,10 +386,10 @@ class OriginSession(APISession):
                 f"Scenario {scenario_id} has no run details. Please run the scenario first."
             )
 
-        model_files = {}
+        model_files: Dict[str, Dict[str, str]] = {}
 
         # Build all URLs before making requests.
-        urls = []
+        urls: list[tuple[str, Any, Optional[str]]] = []
         for i, run in enumerate(run_details):
             base_url = f"{self.scenario_service_url}/v1/modelFiles/{scenario_id}?runGlobalId={run['runGlobalId']}"
             run_type = run.get("runType", "UnknownRunType_" + str(i))
@@ -410,7 +410,7 @@ class OriginSession(APISession):
         # url for requesting model files for a given run type and year.
         # The response is a json object containing the model files for
         # the given run type and year.
-        for url_for_requesting_model_files, run_type, year_str in urls:
+        for url_for_requesting_model_files, run_type, year_str in urls:  # type: ignore
             response = self.session.request("GET", url_for_requesting_model_files)
             if response.status_code == 200:
                 if year_str:
