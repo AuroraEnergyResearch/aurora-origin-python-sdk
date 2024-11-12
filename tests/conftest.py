@@ -8,6 +8,6 @@ for key, value in os.environ.items():
 
 # Disable tests in code build due to lack of internet access
 collect_ignore = ["setup.py"]
-if os.getenv("PYTEST_IGNORE"):
+if os.getenv("CODEBUILD_BUILD_ID"):
     collect_ignore.append("tests/*")
     collect_ignore_glob = ["*.py"]
