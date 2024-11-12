@@ -2,8 +2,6 @@ import os
 
 import pytest
 
-pytest_plugins = ["input_tests.utils_for_testing"]
-
 for key, value in os.environ.items():
     print(f"{key}: {value}")
 
