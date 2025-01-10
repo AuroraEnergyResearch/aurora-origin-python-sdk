@@ -1,4 +1,6 @@
 import logging
+import pandas as pd
+
 from origin_sdk.OriginSession import OriginSession
 from core.data import (
     get_meta_json_from_cache,
@@ -7,9 +9,9 @@ from core.data import (
     save_scenario_outputs_to_cache,
 )
 from typing import List, Optional, Union
-import pandas as pd
 from io import StringIO
 from datetime import datetime
+from time import sleep
 
 logger = logging.getLogger(__name__)
 
@@ -192,30 +194,38 @@ class Scenario:
         # Request the data url. Use noredirect in order to make the re-request
         # to s3 ourselves.
         full_data_url = f"{self.session.scenario_service_url}/{base_url}{filename}"
-        full_params = {"noredirect": "true", **addon_params}
+        full_params = {"noredirect": "true", "checkstatus": "true", **addon_params}
 
         logger.debug(full_data_url)
 
-        # Make the request for the timed URL
-        s3_request = self.session.session.request("GET", full_data_url, full_params)
+        while True:
+            # Make the request for the timed URL
+            s3_request = self.session.session.request("GET", full_data_url, full_params)
 
-        # Get the location of the redirect
-        s3_location = s3_request.headers.get("location")
+            # If we get a 425, we need to wait and try again. Another instance may be
+            # generating the file.
+            if s3_request.status_code == 425:
+                logger.debug("Received 425 Too Early, retrying after 15 seconds...")
+                sleep(15)
+                continue
 
-        # Make a follow up request for the data
-        csv_as_text = self.session.session.request("GET", s3_location).text
+            # Get the location of the redirect
+            s3_location = s3_request.headers.get("location")
 
-        save_scenario_outputs_to_cache(
-            self.scenario_id,
-            region,
-            download_type,
-            granularity,
-            download_currency,
-            csv_as_text,
-            addon_params,
-        )
+            # Make a follow up request for the data
+            csv_as_text = self.session.session.request("GET", s3_location).text
 
-        return csv_as_text
+            save_scenario_outputs_to_cache(
+                self.scenario_id,
+                region,
+                download_type,
+                granularity,
+                download_currency,
+                csv_as_text,
+                addon_params,
+            )
+
+            return csv_as_text
 
     def get_scenario_dataframe(
         self,
