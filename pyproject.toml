@@ -7,7 +7,7 @@ where = ["src"]
 
 [project]
 name = "aurora_origin_sdk"
-dynamic = ["version"]
+version = "0.25.1"
 authors = [
   { name = "Aurora Development", email = "aurora_development@auroraer.com" },
 ]
@@ -41,9 +41,6 @@ development = [
   "pydoc-markdown[novella]",
 ]
 notebooks = ["matplotlib", "pandas", "ipykernel"]
-
-[tool.setuptools.dynamic]
-version = { file = "VERSION" }
 
 [tool.mypy]
 ignore_missing_imports = true
