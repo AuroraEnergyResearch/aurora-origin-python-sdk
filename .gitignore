@@ -262,3 +262,5 @@ dist
 
 # personal testing stuff
 test.ipynb
+
+test*.py

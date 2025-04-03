@@ -13,6 +13,7 @@ from origin_sdk.types.scenario_enums import (
     ScenarioTransformStatus,
     InputTypesSupported,
     ModelPriceSpikiness,
+    ModelType,
 )
 
 
@@ -30,6 +31,7 @@ class AdvancedScenarioSettings(TypedDict):
     isHistoricRun: Optional[str]
     isPriorityRun: Optional[str]
     moduloOfYearToConfigForFYR: Optional[str]
+    originMarketScenarioGlobalId: Optional[str]
 
 
 class InputScenario(TypedDict):
@@ -67,6 +69,8 @@ class InputScenario(TypedDict):
             `MYR_AND_FYR`. Non-Auroreans should look to using the
             `useExogifiedInputs` flag over the scenarioRunType. The behaviour
             between the two differs slightly for a better Origin experience.
+        modelType (optional, ModelType): Internal only. Can be values `AERES`, `NODAL`, `REGIONAL` or
+            `NETWORK`.
         modelPriceSpikiness (optional, ModelPriceSpikiness): Used for AUS, set
             this to one of the ModelPriceSpikiness enum values if you wish to
             use the feature.
@@ -83,6 +87,7 @@ class InputScenario(TypedDict):
     description: Optional[str]
     regionGroupCode: Optional[str]
     scenarioRunType: Optional[ScenarioRunType]
+    modelType: Optional[ModelType]
     useExogifiedInputs: Optional[bool]
     defaultCurrency: Optional[str]
     retentionPolicy: Optional[str]
