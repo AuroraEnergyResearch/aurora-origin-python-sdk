@@ -35,6 +35,15 @@ class ModelType(Enum):
     NETWORK = "network"
 
 
+class SimulationMode(Enum):
+    """Internal only. Used to set a `simulationMode`."""
+
+    EUROPEAN_NETWORK = "EUROPEAN_NETWORK"
+    NO_FLOW_CONSTRAINTS = "NO_FLOW_CONSTRAINTS"
+    WITH_FLOW_CONSTRAINTS = "WITH_FLOW_CONSTRAINTS"
+    WITH_FLOW_CONSTRAINTS_AND_N1 = "WITH_FLOW_CONSTRAINTS_AND_N1"
+
+
 class ScenarioOwner(Enum):
     AURORA_SCENARIO = "AURORA_SCENARIO"
     TENANTED_SCENARIO = "TENANTED_SCENARIO"

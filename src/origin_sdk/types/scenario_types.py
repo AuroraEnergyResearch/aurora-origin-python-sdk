@@ -32,6 +32,7 @@ class AdvancedScenarioSettings(TypedDict):
     isPriorityRun: Optional[str]
     moduloOfYearToConfigForFYR: Optional[str]
     originMarketScenarioGlobalId: Optional[str]
+    simulationMode: Optional[str]
 
 
 class InputScenario(TypedDict):

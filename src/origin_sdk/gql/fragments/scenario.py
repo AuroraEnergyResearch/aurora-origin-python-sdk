@@ -55,5 +55,6 @@ advanced_settings_fields = """
     isPriorityRun
     moduloOfYearToConfigForFYR
     originMarketScenarioGlobalId
+    simulationMode
   }
 """
