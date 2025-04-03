@@ -24,11 +24,8 @@ scenario_summary_fields = """
   years
   weatherYear
   supportsExogenousInputs
+  modelType
   lastUpdated
-  advancedSettings {
-    modelReference
-    controlFileName
-  }
   runDetails
 """
 
@@ -57,5 +54,7 @@ advanced_settings_fields = """
     isHistoricRun
     isPriorityRun
     moduloOfYearToConfigForFYR
+    originMarketScenarioGlobalId
+    simulationMode
   }
 """

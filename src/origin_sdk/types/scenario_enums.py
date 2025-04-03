@@ -17,12 +17,31 @@ class ScenarioRunType(Enum):
     MYR_AND_FYR = "MYR_AND_FYR"
     MYR = "MYR"
     FYR = "FYR"
+    # Internal Only
     NODAL = "NODAL"
     NODAL_PLACEMENT = "NODAL_PLACEMENT"
     REGIONAL_MYR = "REGIONAL_MYR"
     REGIONAL_FYR = "REGIONAL_FYR"
     REGIONAL_MYR_AND_FYR = "REGIONAL_MYR_AND_FYR"
     NETWORK = "NETWORK"
+
+
+class ModelType(Enum):
+    """Internal only. Used to set a `modelType`."""
+
+    AERES = "aeres"
+    NODAL = "nodal"
+    REGIONAL = "regional"
+    NETWORK = "network"
+
+
+class SimulationMode(Enum):
+    """Internal only. Used to set a `simulationMode`."""
+
+    EUROPEAN_NETWORK = "EUROPEAN_NETWORK"
+    NO_FLOW_CONSTRAINTS = "NO_FLOW_CONSTRAINTS"
+    WITH_FLOW_CONSTRAINTS = "WITH_FLOW_CONSTRAINTS"
+    WITH_FLOW_CONSTRAINTS_AND_N1 = "WITH_FLOW_CONSTRAINTS_AND_N1"
 
 
 class ScenarioOwner(Enum):

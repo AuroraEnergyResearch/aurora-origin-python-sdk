@@ -21,7 +21,6 @@ parameters, the service ought to tell you what is missing.
 
 **Attributes**:
 
-  
 - `projectGlobalId` _string_ - The ID of the project to create the scenario
   in
 - `name` _string_ - The name of the scenario
@@ -48,6 +47,7 @@ parameters, the service ought to tell you what is missing.
   `MYR_AND_FYR`. Non-Auroreans should look to using the
   `useExogifiedInputs` flag over the scenarioRunType. The behaviour
   between the two differs slightly for a better Origin experience.
+- `modelType` _optional, ModelType_ - Internal only.
 - `modelPriceSpikiness` _optional, ModelPriceSpikiness_ - Used for AUS, set
   this to one of the ModelPriceSpikiness enum values if you wish to
   use the feature.
@@ -90,4 +90,3 @@ class ScenarioType(ScenarioSummaryType)
 ```
 
 Extended scenario details received when requesting a single scenario
-
