@@ -11,6 +11,14 @@ class ScenarioRunType(Enum)
 
 Internal only. Used to set a `scenarioRunType`.
 
+## ModelType Objects
+
+```python
+class ModelType(Enum)
+```
+
+Internal only. Used to set a `modelType`.
+
 ## ModelPriceSpikiness Objects
 
 ```python
