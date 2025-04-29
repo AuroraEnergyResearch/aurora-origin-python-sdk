@@ -1,6 +1,4 @@
 import logging
-import pandas as pd
-
 from origin_sdk.OriginSession import OriginSession
 from core.data import (
     get_meta_json_from_cache,
@@ -9,7 +7,6 @@ from core.data import (
     save_scenario_outputs_to_cache,
 )
 from typing import List, Optional, Union
-from io import StringIO
 from datetime import datetime
 from time import sleep
 
@@ -125,6 +122,9 @@ class Scenario:
         Downloads a csv from the service and returns as a string. Recommended to
         use if looking to generate a csv file on disk.
 
+        To convert this to a pandas data frame, pass the output of this method to
+          pandas' read_csv() method, via a buffer.
+
         Arguments:
             region (String): The region to download for. Use
             "get_downloadable_regions" to see a list of options.
@@ -226,46 +226,6 @@ class Scenario:
             )
 
             return csv_as_text
-
-    def get_scenario_dataframe(
-        self,
-        region: str,
-        download_type: str,
-        granularity: str,
-        currency: Optional[str] = None,
-        force_no_cache: bool = False,
-        params: Optional[dict[str, str]] = None,
-    ):
-        """
-        Much the same as `get_scenario_data` but instead parses the CSV as a
-        pandas data frame for easier consumption via a script. In general, our
-        CSVs have two header rows. The first identifies the column of data and
-        the second is a unit string or other contextual information if relevant.
-
-        Arguments:
-            region (String): The region to download for. Use
-            "get_downloadable_regions" to see a list of options.
-            type (String): The "type" of file to download. You can use
-            "get_download_types" to query the available options.
-            granularity (String): The "granularity" of file to download. You can use
-            "get_download_types" to query the available options.
-            currency (Optional, String): The currency year to download the file
-            in. Will default to `defaultCurrency` on the scenario if available.
-
-        Returns:
-            Pandas Dataframe
-        """
-        data = self.get_scenario_data_csv(
-            region=region,
-            download_type=download_type,
-            granularity=granularity,
-            currency=currency,
-            force_no_cache=force_no_cache,
-            params=params,
-        )
-        buffer = StringIO(data)
-        df = pd.read_csv(buffer, header=[0, 1])
-        return df
 
     def refresh(self):
         """
