@@ -22,7 +22,7 @@ keywords = [
   "sdk",
 ]
 license = { file = "LICENSE" }
-dependencies = ["requests==2.28.2", "appdirs==1.4.4"]
+dependencies = ["requests>=2.28.2,<3.0", "appdirs>=1.4.4,<2.0"]
 requires-python = ">=3.9"
 
 [project.urls]
