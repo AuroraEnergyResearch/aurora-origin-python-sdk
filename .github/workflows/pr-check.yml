@@ -1,0 +1,28 @@
+name: Run Tests and Linters
+on:
+  pull_request:
+    branches: [main]
+
+jobs:
+  run_tests:
+    strategy:
+      matrix:
+        python_version:
+          - 3.9
+          - "3.10"
+          - 3.11
+          # - 3.12
+          # - 3.13
+    runs-on:
+      - codebuild-aurora-origin-sdk-GitHub-Runner-${{ github.run_id }}-${{ github.run_attempt }}
+    steps:
+      - uses: actions/setup-python@v5
+        with:
+          python-version: ${{ matrix.python_version }}
+      - name: Check out repository code
+        uses: actions/checkout@v4
+
+      - run: pip install -e .[development]
+      - run: pytest
+        env:
+          AURORA_API_KEY: ${{ secrets.AURORA_API_KEY }}
