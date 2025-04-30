@@ -111,6 +111,26 @@ def test_get_data_dfs():
     assert all([df is not None for df in yearly_dfs])
 
 
+def test_get_data_csvs():
+    scenario = get_scenario_for_testing()
+    regions = scenario.get_downloadable_regions()
+    download_types = {region: scenario.get_download_types(region) for region in regions}
+
+    yearly_csvs = [
+        scenario.get_scenario_data_csv(
+            region,
+            type_granularity_combo.get("type"),
+            type_granularity_combo.get("granularity"),
+            force_no_cache=True,
+        )
+        for region in regions
+        for type_granularity_combo in download_types.get(region)
+        if type_granularity_combo.get("granularity") == "1y"
+    ]
+
+    assert all([len(csv) > 0 for csv in yearly_csvs])
+
+
 def test_refresh():
     scenario = get_scenario_for_testing()
     scenario.refresh()
