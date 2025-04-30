@@ -2,6 +2,12 @@
 
 ## This is under development and not for general use.
 
+## PR Checks
+
+GitHub Actions is set up to run the test suite against multiple versions of Python so that changes can be checked for compatibility.
+
+The tests run against the production API using an API token associated with the `origin-python-sdk-tests@service.auroraer.com` user account. The API token is stored as a secret in GitHub and injected as an environment variable.
+
 ## Developing
 
 ### Create a venv and activate if required
@@ -15,9 +21,9 @@ python -m venv .venv
 ### Install dependencies
 
 ```powershell
-# This install this module as symlinks to and all dependencies including the ones needed locally.
-# It uses setup.py to find dependancies.
-pip install -e  .[development] # This install this module as symlinks to and all dependencies including the ones needed locally.
+# This installs this module and all dependencies, including the ones needed locally for development:
+# It uses the pyproject.toml to find dependancies.
+pip install -e  .[development]
 
 # If you haven't installed the documentation packages before
 cd docsite; npm i;
