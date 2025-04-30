@@ -125,6 +125,17 @@ class Scenario:
         Downloads a csv from the service and returns as a string. Recommended to
         use if looking to generate a csv file on disk.
 
+        In general, our  csvs have two header rows. The first identifies the
+        column of data and the second is a unit string or other contextual
+        information if relevant. To convert this to a pandas data frame,
+        pass the output of this method to pandas' read_csv() method via a buffer.
+
+        Example:
+
+            csv_data = scenario.get_scenario_data_csv('gbr', 'system', '1y')
+            buffer = StringIO(csv_data)
+            df = pd.read_csv(buffer, header=[0,1])
+
         Arguments:
             region (String): The region to download for. Use
             "get_downloadable_regions" to see a list of options.
@@ -237,6 +248,17 @@ class Scenario:
         params: Optional[dict[str, str]] = None,
     ):
         """
+        This method is deprecated. Use get_scenario_data_csv instead.
+
+        Example:
+
+            csv_data = scenario.get_scenario_data_csv('gbr', 'system', '1y')
+            buffer = StringIO(csv_data)
+            df = pd.read_csv(buffer, header=[0,1])
+
+        ---
+
+
         Much the same as `get_scenario_data` but instead parses the CSV as a
         pandas data frame for easier consumption via a script. In general, our
         CSVs have two header rows. The first identifies the column of data and
@@ -255,6 +277,11 @@ class Scenario:
         Returns:
             Pandas Dataframe
         """
+        logger.warning(
+            "get_scenario_dataframe is deprecated. "
+            "Use get_scanario_data_csv instead."
+        )
+
         data = self.get_scenario_data_csv(
             region=region,
             download_type=download_type,
