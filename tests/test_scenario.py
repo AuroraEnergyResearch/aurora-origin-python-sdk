@@ -1,3 +1,4 @@
+import pytest
 from origin_sdk.OriginSession import OriginSession
 from origin_sdk.service.Scenario import Scenario
 
@@ -91,6 +92,7 @@ def test_get_download_types():
     assert len(download_types) == len(regions)
 
 
+@pytest.mark.skip("Method is deprecated now.")
 def test_get_data_dfs():
     scenario = get_scenario_for_testing()
     regions = scenario.get_downloadable_regions()
