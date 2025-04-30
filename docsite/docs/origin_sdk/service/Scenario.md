@@ -18,7 +18,6 @@ interface for Scenario building and downloading outputs
   the scenario details and populate itself with details
 - `session` _OriginSession_ - You should first instantiate an OriginSession
   and pass this over to the Scenario.
-  
 
 **Attributes**:
 
@@ -26,7 +25,7 @@ interface for Scenario building and downloading outputs
 - `session` _OriginSession_ - The OriginSession attached to this scenario
 - `scenario` _ScenarioType_ - The full Scenario object from the service
 
-#### get\_downloadable\_regions
+#### get_downloadable_regions
 
 ```python
 def get_downloadable_regions()
@@ -37,9 +36,9 @@ this scenario
 
 **Returns**:
 
-  A list of regions available
+A list of regions available
 
-#### get\_scenario\_regions
+#### get_scenario_regions
 
 ```python
 def get_scenario_regions()
@@ -48,7 +47,7 @@ def get_scenario_regions()
 Helper function to get the regions object on the Scenario, as it&#x27;s a
 common access pattern.
 
-#### get\_scenario\_region
+#### get_scenario_region
 
 ```python
 def get_scenario_region(region: str)
@@ -59,9 +58,9 @@ it&#x27;s a common access pattern.
 
 **Returns**:
 
-  RegionDict
+RegionDict
 
-#### get\_download\_types
+#### get_download_types
 
 ```python
 def get_download_types(region: str)
@@ -73,14 +72,13 @@ respectively.
 
 **Arguments**:
 
-  region (String)
-  
+region (String)
 
 **Returns**:
 
-  A list of type and granularity downloads available for the region.
+A list of type and granularity downloads available for the region.
 
-#### get\_scenario\_data\_csv
+#### get_scenario_data_csv
 
 ```python
 def get_scenario_data_csv(region: str,
@@ -94,6 +92,19 @@ def get_scenario_data_csv(region: str,
 Downloads a csv from the service and returns as a string. Recommended to
 use if looking to generate a csv file on disk.
 
+In general, our csvs have two header rows. The first identifies the
+column of data and the second is a unit string or other contextual
+information if relevant. To convert this to a pandas data frame,
+pass the output of this method to pandas&#x27; read_csv() method via a buffer.
+
+**Example**:
+
+```python
+  csv_data = scenario.get_scenario_data_csv("gbr", "system", "1y")
+  buffer = StringIO(csv_data)
+  df = pd.read_csv(buffer, header=[0,1])
+```
+
 **Arguments**:
 
 - `region` _String_ - The region to download for. Use
@@ -104,13 +115,12 @@ use if looking to generate a csv file on disk.
   &quot;get_download_types&quot; to query the available options.
 - `currency` _Optional, String_ - The currency year to download the file
   in. Will default to `defaultCurrency` on the scenario if available.
-  
 
 **Returns**:
 
-  CSV as text string
+CSV as text string
 
-#### get\_scenario\_dataframe
+#### get_scenario_dataframe
 
 ```python
 def get_scenario_dataframe(region: str,
@@ -120,6 +130,18 @@ def get_scenario_dataframe(region: str,
                            force_no_cache: bool = False,
                            params: Optional[dict[str, str]] = None)
 ```
+
+This method is deprecated. Use get_scenario_data_csv instead.
+
+**Example**:
+
+```python
+  csv_data = scenario.get_scenario_data_csv("gbr", "system", "1y")
+  buffer = StringIO(csv_data)
+  df = pd.read_csv(buffer, header=[0,1])
+```
+
+---
 
 Much the same as `get_scenario_data` but instead parses the CSV as a
 pandas data frame for easier consumption via a script. In general, our
@@ -136,11 +158,10 @@ the second is a unit string or other contextual information if relevant.
   &quot;get_download_types&quot; to query the available options.
 - `currency` _Optional, String_ - The currency year to download the file
   in. Will default to `defaultCurrency` on the scenario if available.
-  
 
 **Returns**:
 
-  Pandas Dataframe
+Pandas Dataframe
 
 #### refresh
 
@@ -159,7 +180,7 @@ def get(key: str)
 
 Shortcut for Scenario.scenario.get()
 
-#### get\_latest\_scenario\_from\_region
+#### get_latest_scenario_from_region
 
 ```python
 @staticmethod
@@ -171,4 +192,3 @@ def get_latest_scenario_from_region(
 
 Given a region (and optional name match) will return the latest
 scenario found.
-
