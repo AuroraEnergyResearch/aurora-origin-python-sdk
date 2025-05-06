@@ -1,3 +1,4 @@
+import pytest
 from origin_sdk.OriginSession import OriginSession
 from origin_sdk.service.Scenario import Scenario
 from origin_sdk.service.Project import Project
@@ -7,6 +8,7 @@ from origin_sdk.types.error_types import (
     ProjectProductNotFound,
     ScenarioNotFound,
 )
+from utils import is_running_in_ci
 
 localhost_testing = {
     "scenario_base_url": "http://localhost:3001",
@@ -24,7 +26,7 @@ def get_project_for_testing():
         test_project = Project.get_or_create_project_by_name(
             session=session,
             name=f"testing for SDK {str(uuid4())}",
-            create_config={"productId": "SaaS"},
+            create_config={"productId": "SaaS"} if not is_running_in_ci() else {},
         )
     return test_project
 
@@ -41,7 +43,10 @@ def get_project_by_name_throws_correct_error():
 def test_get_or_create_doesnt_create_more():
     p1 = get_project_for_testing()
     p2 = Project.get_or_create_project_by_name(
-        session=session, name=p1.get("name"), create_config={"productId": "SaaS"}
+        session=session,
+        name=p1.get("name"),
+        # CI runs against a customer tenant: no product id.
+        create_config={"productId": "SaaS"} if not is_running_in_ci() else {},
     )
 
     assert p1.project_id == p2.project_id
@@ -108,6 +113,9 @@ def test_can_get_product_info():
     assert config is not None
 
 
+@pytest.mark.skipif(
+    is_running_in_ci(), reason="We run these tests as a client in CI tests"
+)
 def test_project_product_id_function_throws_not_found():
     try:
         session.get_project_product_id(uuid4())
@@ -116,6 +124,9 @@ def test_project_product_id_function_throws_not_found():
         assert True, "This uuid disnae exist"
 
 
+@pytest.mark.skipif(
+    is_running_in_ci(), reason="We run these tests as a client in CI tests"
+)
 def test_project_product_id_function_finds_ids():
     config = session._OriginSession__get_dash_config().get("products")
     test_id = config[0]["productId"]
@@ -126,6 +137,9 @@ def test_project_product_id_function_finds_ids():
         assert False, "This implies the logic or the config caching isn't working."
 
 
+@pytest.mark.skipif(
+    is_running_in_ci(), reason="We run these tests as a client in CI tests"
+)
 def test_project_product_id_function_finds_names():
     config = session._OriginSession__get_dash_config().get("products")
     test_product = config[3]

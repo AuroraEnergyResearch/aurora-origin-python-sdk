@@ -1,3 +1,4 @@
+import os
 from typing import Optional
 from origin_sdk.OriginSession import OriginSession
 from origin_sdk.service.Scenario import Scenario
@@ -18,7 +19,8 @@ def setup_test_project():
     test_project = Project.get_or_create_project_by_name(
         testing_session,
         f"Pytest project for SDK {uuid4()}",
-        create_config={"productId": "SaaS"},
+        # CI runs against a customer tenant: no product id.
+        create_config={"productId": "SaaS"} if ("CI" not in os.environ) else {},
     )
 
     yield test_project
