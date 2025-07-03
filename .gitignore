@@ -260,7 +260,4 @@ dist
 .yarn/install-state.gz
 .pnp.*
 
-# personal testing stuff
-test.ipynb
-
-test*.py
+scripts/*
