@@ -13,6 +13,8 @@ from io import StringIO
 from datetime import datetime
 from time import sleep
 
+from origin_sdk.types.error_types import ScenarioRegionNotFound
+
 logger = logging.getLogger(__name__)
 
 
@@ -63,7 +65,26 @@ class Scenario:
         Returns:
             RegionDict
         """
-        return self.get_scenario_regions().get(region)
+        scenario_regions = self.get_scenario_regions()
+
+        if not scenario_regions:
+            raise ScenarioRegionNotFound(
+                "No regions available for this scenario. "
+                "Please check the scenario or scenario ID and try again."
+            )
+
+        if region in scenario_regions:
+            return scenario_regions.get(region)
+        else:
+            next_available_region_code = next(iter(scenario_regions))
+            region_details = next(iter(scenario_regions.values()))
+            keys_to_update = ["metaUrl", "dataUrlBase"]
+            for key in keys_to_update:
+                region_details[key] = region_details[key].replace(
+                    f"/{next_available_region_code}", f"/{region}"
+                )
+            region_details["regionCode"] = region
+            return region_details
 
     def __get_download_meta_for_region(self, region: str):
         """

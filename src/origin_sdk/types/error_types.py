@@ -8,3 +8,7 @@ class ProjectNotFound(Exception):
 
 class ProjectProductNotFound(Exception):
     pass
+
+
+class ScenarioRegionNotFound(Exception):
+    pass
