@@ -279,7 +279,7 @@ class Scenario:
         """
         logger.warning(
             "get_scenario_dataframe is deprecated. "
-            "Use get_scanario_data_csv instead."
+            "Use get_scenario_data_csv instead."
         )
 
         data = self.get_scenario_data_csv(
