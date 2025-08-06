@@ -57,7 +57,7 @@ class Scenario:
         """
         return self.scenario.get("regions")
 
-    def get_scenario_region(self, region: str):
+    def get_scenario_region(self, region: str, sensitivity: Optional[str] = None):
         """
         Helper function to get a specific region from the regions object, as
         it's a common access pattern.
@@ -84,9 +84,25 @@ class Scenario:
                     f"/{next_available_region_code}", f"/{region}"
                 )
             region_details["regionCode"] = region
+            if sensitivity:
+                region_details["dataUrlBase"] = (
+                    (region_details["dataUrlBase"] + f"{sensitivity}/")
+                    .replace("tenant", "pmf")
+                    .replace("auroraer.com/", "")
+                )
+                region_details["metaUrl"] = (
+                    (
+                        "/".join(region_details["metaUrl"].split("/")[:-1])
+                        + f"/{sensitivity}/{"".join(region_details["metaUrl"].split("/")[-1])}"
+                    )
+                    .replace("tenant", "pmf")
+                    .replace("auroraer.com/", "")
+                )
             return region_details
 
-    def __get_download_meta_for_region(self, region: str):
+    def __get_download_meta_for_region(
+        self, region: str, sensitivity: Optional[str] = None
+    ):
         """
         A helper function that gets the meta json for the region. Caches into
         internal state for future use. Required to see what downloads are
@@ -103,7 +119,7 @@ class Scenario:
         if from_cache is not None:
             return from_cache
 
-        meta = self.get_scenario_region(region)
+        meta = self.get_scenario_region(region, sensitivity)
         meta_json = self.session.get_meta_json(meta.get("metaUrl"))
 
         save_meta_json_to_cache(self.scenario_id, region, meta_json)
@@ -188,7 +204,9 @@ class Scenario:
             return from_cache
 
         # First get the download information
-        meta_json = self.__get_download_meta_for_region(region)
+        meta_json = self.__get_download_meta_for_region(
+            region, addon_params.get("sensitivity")
+        )
 
         # Then filter the data definitions by requested type and granularity
         download_meta_list = [
@@ -216,7 +234,9 @@ class Scenario:
         download_meta = download_meta_list[0]
 
         # Get the base URL of the download
-        base_url = self.get_scenario_region(region).get("dataUrlBase")
+        base_url = self.get_scenario_region(region, addon_params["sensitivity"]).get(
+            "dataUrlBase"
+        )
 
         # Use a replace to make sure the right currency is used
         filename: str = download_meta.get("filename").replace(
