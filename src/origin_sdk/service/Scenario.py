@@ -84,7 +84,7 @@ class Scenario:
                     f"/{next_available_region_code}", f"/{region}"
                 )
             region_details["regionCode"] = region
-            if sensitivity:
+            if sensitivity and "pmf" not in region_details["dataUrlBase"]:
                 region_details["dataUrlBase"] = (
                     (region_details["dataUrlBase"] + f"{sensitivity}/")
                     .replace("tenant", "pmf")
