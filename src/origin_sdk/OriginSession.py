@@ -710,7 +710,7 @@ class OriginSession(APISession):
             for k, v in {
                 "sessionId": scenario_id,
                 "regions": regions,
-                "nativeUnitFlag": native_units_flag,
+                "nativeUnitsFlag": native_units_flag,
                 "commodities": commodities,
             }.items()
             if v is not None
@@ -751,7 +751,7 @@ class OriginSession(APISession):
                 "commodity": commodity,
                 "regions": regions,
                 "tx": transform,
-                "nativeUnitFlag": native_units_flag,
+                "nativeUnitsFlag": native_units_flag,
             }.items()
             if v is not None
         }
