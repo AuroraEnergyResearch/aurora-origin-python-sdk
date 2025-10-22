@@ -20,6 +20,7 @@ from origin_sdk.types.scenario_enums import (
 class AdvancedScenarioSettings(TypedDict):
     baseInputReference: Optional[str]
     baseInputReferenceType: Optional[str]
+    baseInputRepository: Optional[str]
     modelReference: Optional[str]
     controlFileName: Optional[str]
     stateFile: Optional[str]
@@ -95,6 +96,7 @@ class InputScenario(TypedDict):
     modelPriceSpikiness: Optional[ModelPriceSpikiness]
     preserveBaseScenarioTransformations: Optional[bool]
     userInputReference: Optional[str]
+    userInputRepository: Optional[str]
     years: Optional[List[int]]
     weatherYear: Optional[int]
     advancedSettings: Optional[AdvancedScenarioSettings]
@@ -163,6 +165,7 @@ class ScenarioType(ScenarioSummaryType):
     appReleaseStatus: Any
     launchedByEmail: str
     userInputReference: str
+    userInputRepository: str
     inputImportStatus: str
     currencies: Any
     # controlFileList: List[str]

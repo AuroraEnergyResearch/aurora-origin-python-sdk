@@ -38,6 +38,7 @@ all_scenario_fields = f"""
   appReleaseStatus
   launchedByEmail
   userInputReference
+  userInputRepository
   inputImportStatus
   currencies
 """
@@ -56,5 +57,6 @@ advanced_settings_fields = """
     moduloOfYearToConfigForFYR
     originMarketScenarioGlobalId
     simulationMode
+    baseInputRepository
   }
 """
