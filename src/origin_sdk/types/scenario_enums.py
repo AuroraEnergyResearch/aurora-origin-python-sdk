@@ -72,7 +72,6 @@ class ModelPriceSpikiness(Enum):
 
 
 class ServerName(Enum):
-    AWS = "AWS"
     AZATHOTH = "Azathoth"
     BRYNHILDR = "Brynhildr"
     HASTUR = "Hastur"
