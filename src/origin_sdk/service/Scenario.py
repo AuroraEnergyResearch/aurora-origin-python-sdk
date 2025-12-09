@@ -83,6 +83,11 @@ class Scenario:
             return from_cache
 
         meta = self.get_scenario_region(region)
+        if not meta:
+            raise Exception(
+                f"Region '{region}' not found for scenario with ID '{self.scenario_id}'"
+            )
+
         meta_json = self.session.get_meta_json(meta.get("metaUrl"))
 
         save_meta_json_to_cache(self.scenario_id, region, meta_json)
@@ -195,7 +200,14 @@ class Scenario:
         download_meta = download_meta_list[0]
 
         # Get the base URL of the download
-        base_url = self.get_scenario_region(region).get("dataUrlBase")
+        region_details = self.get_scenario_region(region)
+
+        if not region_details:
+            raise Exception(
+                f"Region '{region}' not found for scenario with ID '{self.scenario_id}'"
+            )
+
+        base_url = region_details.get("dataUrlBase")
 
         # Use a replace to make sure the right currency is used
         filename: str = download_meta.get("filename").replace(
@@ -222,6 +234,12 @@ class Scenario:
 
             # Get the location of the redirect
             s3_location = s3_request.headers.get("location")
+
+            if not s3_location:
+                raise Exception(
+                    f"Could not get download location for "
+                    f"{download_type}, {granularity} for {region}."
+                )
 
             # Make a follow up request for the data
             csv_as_text = self.session.session.request("GET", s3_location).text
