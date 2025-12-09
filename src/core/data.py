@@ -9,7 +9,7 @@ from os import makedirs, environ
 # This pattern taken from
 # https://adamj.eu/tech/2021/05/13/python-type-hints-how-to-fix-circular-imports/
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Optional
 
 if TYPE_CHECKING:
     # Any imports required for typing that might result in circular deps go here
@@ -79,11 +79,18 @@ def get_scenario_output_filename(
     download_type: str,
     granularity: str,
     currency: str,
+    node: Optional[str],
     params: dict[str, str],
 ):
     """Single entry point for filename string creation for scenario downloads"""
 
-    filename = f"{region}-{download_type}-{granularity}-{currency}.csv"
+    suffix = ".csv"
+    stem = f"{region}-{download_type}-{granularity}-{currency}"
+
+    if node:
+        stem += f"-{node}"
+
+    filename = f"{stem}{suffix}"
 
     if bool(params) is True:
         params_hash = hash(frozenset(params.items()))
@@ -98,13 +105,14 @@ def save_scenario_outputs_to_cache(
     download_type: str,
     granularity: str,
     currency: str,
+    node: Optional[str],
     csv: str,
     params: dict[str, str],
 ):
     """Takes care of saving any scenario outputs to the cache"""
     scenario_dir = get_scenario_cache(id)
     filename = get_scenario_output_filename(
-        region, download_type, granularity, currency, params
+        region, download_type, granularity, currency, node, params
     )
     file = scenario_dir / filename
 
@@ -118,12 +126,13 @@ def get_scenario_outputs_from_cache(
     download_type: str,
     granularity: str,
     currency: str,
+    node: Optional[str],
     params: dict[str, str],
 ):
     """Gets the scenario output from disk if it exists"""
     scenario_dir = get_scenario_cache(id)
     filename = get_scenario_output_filename(
-        region, download_type, granularity, currency, params
+        region, download_type, granularity, currency, node, params
     )
     file = scenario_dir / filename
 
