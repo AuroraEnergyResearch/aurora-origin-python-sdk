@@ -99,8 +99,8 @@ class Scenario:
         Returns the types and granularities of download available for the region. Expect something
         like "system"|"technology" and "1y"|"1m" for type and granularity
         respectively.
-
         Arguments:
+
             region (String)
 
         Returns:
@@ -123,6 +123,7 @@ class Scenario:
         download_type: str,
         granularity: str,
         currency: Optional[str] = None,
+        node: Optional[str] = None,
         force_no_cache: bool = False,
         params: Optional[dict[str, str]] = None,
     ):
@@ -166,6 +167,7 @@ class Scenario:
             download_type,
             granularity,
             download_currency,
+            node,
             addon_params,
         )
         if from_cache is not None and not force_no_cache:
@@ -209,9 +211,21 @@ class Scenario:
 
         base_url = region_details.get("dataUrlBase")
 
+        if "{nodename}" not in download_meta.get("filename") and node:
+            logger.warning(
+                f"Node parameter provided but download with download type {download_type} does not support it."
+            )
+            # TODO: Should this raise an exception?
+            # raise Exception(
+            #     f"Download type '{download_type}' with granularity "
+            #     f"'{granularity}' does not support node parameter."
+            # )
+
         # Use a replace to make sure the right currency is used
-        filename: str = download_meta.get("filename").replace(
-            "{currency}", download_currency
+        filename: str = (
+            download_meta.get("filename")
+            .replace("{currency}", download_currency)
+            .replace("{nodename}", node or "")
         )
 
         # Request the data url. Use noredirect in order to make the re-request
@@ -250,6 +264,7 @@ class Scenario:
                 download_type,
                 granularity,
                 download_currency,
+                node,
                 csv_as_text,
                 addon_params,
             )
