@@ -140,6 +140,7 @@ class Scenario:
         Returns the types and granularities of download available for the region. Expect something
         like "system"|"technology" and "1y"|"1m" for type and granularity
         respectively.
+
         Arguments:
 
             region (String)
