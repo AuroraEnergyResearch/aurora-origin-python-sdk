@@ -920,7 +920,7 @@ class OriginSession(APISession):
         )["years"]
 
     @lru_cache
-    def _get_regions(self, region_filter: Optional[list[str]] = None):
+    def _get_regions(self):
         return self._graphql_request(
             self.scenario_service_graphql_url, project_query.get_origin_regions
         )
