@@ -8,10 +8,12 @@ from core.data import (
     get_scenario_outputs_from_cache,
     save_scenario_outputs_to_cache,
 )
-from typing import List, Optional, Union
+from typing import Callable, List, Optional, Union
 from io import StringIO
 from datetime import datetime
 from time import sleep
+
+from origin_sdk.types.scenario_types import RegionDict
 
 logger = logging.getLogger(__name__)
 
@@ -53,7 +55,46 @@ class Scenario:
         Helper function to get the regions object on the Scenario, as it's a
         common access pattern.
         """
-        return self.scenario.get("regions")
+        scenario_regions = self.scenario.get("regions")
+
+        scenario_region = next(iter(scenario_regions))
+        scenario_region_meta = self.scenario.get("regions").get(scenario_region)
+
+        additional_region_codes: list[str] = [
+            region_code
+            for region_code in list(
+                next(
+                    filter(
+                        lambda x: scenario_region in x["regions"],
+                        next(iter(self.session._get_regions().values())).values(),
+                    ),
+                )["regions"].keys()
+            )
+            if region_code not in scenario_regions
+        ]
+
+        construct_region_meta: Callable[[RegionDict, str, str], RegionDict] = (
+            lambda base_meta, from_region_code, to_region_code: {
+                "dataUrlBase": base_meta["dataUrlBase"].replace(
+                    f"/{from_region_code}/", f"/{to_region_code}/"
+                ),
+                "metaUrl": base_meta["metaUrl"].replace(
+                    f"/{from_region_code}/", f"/{to_region_code}/"
+                ),
+                "regionCode": to_region_code,
+                "__meta_json": None,
+            }
+        )
+
+        additional_regions: dict[str, RegionDict] = {}
+        if scenario_region_meta:
+            for additional_region_code in additional_region_codes or []:
+                constructed_meta: RegionDict = construct_region_meta(
+                    scenario_region_meta, scenario_region, additional_region_code
+                )
+                additional_regions[additional_region_code] = constructed_meta
+
+        return {**scenario_regions, **additional_regions}
 
     def get_scenario_region(self, region: str):
         """
