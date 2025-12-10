@@ -8,7 +8,7 @@ from core.data import (
     get_scenario_outputs_from_cache,
     save_scenario_outputs_to_cache,
 )
-from typing import Callable, List, Optional, Union
+from typing import Callable, List, Optional, Union, cast
 from io import StringIO
 from datetime import datetime
 from time import sleep
@@ -57,8 +57,11 @@ class Scenario:
         """
         scenario_regions = self.scenario.get("regions")
 
+        if not scenario_regions:
+            return cast(dict[str, RegionDict], {})
+
         scenario_region = next(iter(scenario_regions))
-        scenario_region_meta = self.scenario.get("regions").get(scenario_region)
+        scenario_region_meta = scenario_regions.get(scenario_region)
 
         additional_region_codes: list[str] = [
             region_code
@@ -68,7 +71,10 @@ class Scenario:
                         lambda x: scenario_region in x["regions"],
                         next(iter(self.session._get_regions().values())).values(),
                     ),
-                )["regions"].keys()
+                    {},
+                )
+                .get("regions", {})
+                .keys()
             )
             if region_code not in scenario_regions
         ]
