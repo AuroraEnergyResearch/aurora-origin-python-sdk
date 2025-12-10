@@ -264,22 +264,30 @@ class Scenario:
 
         base_url = region_details.get("dataUrlBase")
 
-        if node and "{nodename}" not in download_meta.get("filename"):
+        # Validate node parameter against download metadata
+        filename_template = download_meta.get("filename", "")
+        node_supported = "{nodename}" in filename_template
+
+        if node and not node_supported:
+            # User provided node but download doesn't support it
             logger.warning(
                 f"Node parameter provided but download with download type {download_type} does not support it."
             )
-            # TODO: Should this raise an exception?
-            # raise Exception(
-            #     f"Download type '{download_type}' with granularity "
-            #     f"'{granularity}' does not support node parameter."
-            # )
+            raise Exception(
+                f"Download type '{download_type}' with granularity "
+                f"'{granularity}' does not support node parameter."
+            )
+        elif node_supported and not node:
+            # Download requires node but user didn't provide it
+            raise Exception(
+                f"Download type '{download_type}' with granularity "
+                f"'{granularity}' requires node parameter, but none was provided."
+            )
 
         # Use a replace to make sure the right currency is used
-        filename: str = (
-            download_meta.get("filename")
-            .replace("{currency}", download_currency)
-            .replace("{nodename}", node or "")
-        )
+        filename: str = filename_template.replace(
+            "{currency}", download_currency
+        ).replace("{nodename}", node or "")
 
         # Request the data url. Use noredirect in order to make the re-request
         # to s3 ourselves.
