@@ -55,45 +55,37 @@ class Scenario:
         base_region: str,
         base_region_meta: RegionDict | None,
         base_scenario_regions: dict[str, RegionDict],
-    ):
-        additional_region_codes: list[str] = [
-            region_code
-            for region_code in list(
-                next(
-                    filter(
-                        lambda x: base_region in x["regions"],
-                        next(iter(self.session._get_regions().values())).values(),
-                    ),
-                    {},
-                )
-                .get("regions", {})
-                .keys()
-            )
-            if region_code not in base_scenario_regions
-        ]
+    ) -> dict[str, RegionDict]:
+        """Get additional regions for a scenario based on region groups."""
 
-        construct_region_meta: Callable[[RegionDict, str, str], RegionDict] = (
-            lambda base_meta, from_region_code, to_region_code: {
-                "dataUrlBase": base_meta["dataUrlBase"].replace(
-                    f"/{from_region_code}/", f"/{to_region_code}/"
-                ),
-                "metaUrl": base_meta["metaUrl"].replace(
-                    f"/{from_region_code}/", f"/{to_region_code}/"
-                ),
-                "regionCode": to_region_code,
-                "__meta_json": None,
-            }
+        if not base_region_meta:
+            return {}
+
+        # Find the region group containing base_region
+        regions_data = next(iter(self.session._get_regions().values())).values()
+        region_group = next(
+            (x for x in regions_data if base_region in x["regions"]), {}
         )
 
-        additional_regions: dict[str, RegionDict] = {}
-        if base_region_meta:
-            for additional_region_code in additional_region_codes or []:
-                constructed_meta: RegionDict = construct_region_meta(
-                    base_region_meta, base_region, additional_region_code
-                )
-                additional_regions[additional_region_code] = constructed_meta
+        # Get region codes not already in base_scenario_regions
+        all_region_codes = region_group.get("regions", {}).keys()
+        additional_codes = [
+            code for code in all_region_codes if code not in base_scenario_regions
+        ]
 
-        return additional_regions
+        # Construct metadata for each additional region
+        def replace_region_in_urls(meta: RegionDict, old: str, new: str) -> RegionDict:
+            return {
+                "dataUrlBase": meta["dataUrlBase"].replace(f"/{old}/", f"/{new}/"),
+                "metaUrl": meta["metaUrl"].replace(f"/{old}/", f"/{new}/"),
+                "regionCode": new,
+                "__meta_json": None,
+            }
+
+        return {
+            code: replace_region_in_urls(base_region_meta, base_region, code)
+            for code in additional_codes
+        }
 
     def get_scenario_regions(self):
         """
@@ -372,8 +364,7 @@ class Scenario:
             Pandas Dataframe
         """
         logger.warning(
-            "get_scenario_dataframe is deprecated. "
-            "Use get_scenario_data_csv instead."
+            "get_scenario_dataframe is deprecated. Use get_scenario_data_csv instead."
         )
 
         data = self.get_scenario_data_csv(
@@ -451,7 +442,6 @@ class Scenario:
         except (StopIteration, IndexError):
             raise Exception(
                 f"""Scenario not found for region '{region}' {
-                f'and filter "{name_filter}"' if name_filter is not None
-                else ""
+                    f'and filter "{name_filter}"' if name_filter is not None else ""
                 }"""
             )
