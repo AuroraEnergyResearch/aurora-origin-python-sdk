@@ -50,25 +50,18 @@ class Scenario:
         """
         return [region for region in self.scenario.get("regions")]
 
-    def get_scenario_regions(self):
-        """
-        Helper function to get the regions object on the Scenario, as it's a
-        common access pattern.
-        """
-        scenario_regions = self.scenario.get("regions")
-
-        if not scenario_regions:
-            return cast(dict[str, RegionDict], {})
-
-        scenario_region = next(iter(scenario_regions))
-        scenario_region_meta = scenario_regions.get(scenario_region)
-
+    def __get_additional_scenario_regions(
+        self,
+        base_region: str,
+        base_region_meta: RegionDict | None,
+        base_scenario_regions: dict[str, RegionDict],
+    ):
         additional_region_codes: list[str] = [
             region_code
             for region_code in list(
                 next(
                     filter(
-                        lambda x: scenario_region in x["regions"],
+                        lambda x: base_region in x["regions"],
                         next(iter(self.session._get_regions().values())).values(),
                     ),
                     {},
@@ -76,7 +69,7 @@ class Scenario:
                 .get("regions", {})
                 .keys()
             )
-            if region_code not in scenario_regions
+            if region_code not in base_scenario_regions
         ]
 
         construct_region_meta: Callable[[RegionDict, str, str], RegionDict] = (
@@ -93,12 +86,31 @@ class Scenario:
         )
 
         additional_regions: dict[str, RegionDict] = {}
-        if scenario_region_meta:
+        if base_region_meta:
             for additional_region_code in additional_region_codes or []:
                 constructed_meta: RegionDict = construct_region_meta(
-                    scenario_region_meta, scenario_region, additional_region_code
+                    base_region_meta, base_region, additional_region_code
                 )
                 additional_regions[additional_region_code] = constructed_meta
+
+        return additional_regions
+
+    def get_scenario_regions(self):
+        """
+        Helper function to get the regions object on the Scenario, as it's a
+        common access pattern.
+        """
+        scenario_regions = self.scenario.get("regions")
+
+        if not scenario_regions:
+            return cast(dict[str, RegionDict], {})
+
+        scenario_region = next(iter(scenario_regions))
+        scenario_region_meta = scenario_regions.get(scenario_region)
+
+        additional_regions = self.__get_additional_scenario_regions(
+            scenario_region, scenario_region_meta, scenario_regions
+        )
 
         return {**scenario_regions, **additional_regions}
 
@@ -193,12 +205,13 @@ class Scenario:
         Arguments:
             region (String): The region to download for. Use
             "get_downloadable_regions" to see a list of options.
-            type (String): The "type" of file to download. You can use
+            download_type (String): The "type" of file to download. You can use
             "get_download_types" to query the available options.
             granularity (String): The "granularity" of file to download. You can use
             "get_download_types" to query the available options.
             currency (Optional, String): The currency year to download the file
             in. Will default to `defaultCurrency` on the scenario if available.
+            node (Optional, String): The node identifier to download nodal data for.
 
         Returns:
             CSV as text string
@@ -259,7 +272,7 @@ class Scenario:
 
         base_url = region_details.get("dataUrlBase")
 
-        if "{nodename}" not in download_meta.get("filename") and node:
+        if node and "{nodename}" not in download_meta.get("filename"):
             logger.warning(
                 f"Node parameter provided but download with download type {download_type} does not support it."
             )
