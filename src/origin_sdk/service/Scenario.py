@@ -183,16 +183,30 @@ class Scenario:
         Downloads a csv from the service and returns as a string. Recommended to
         use if looking to generate a csv file on disk.
 
-        In general, our  csvs have two header rows. The first identifies the
+        In general, our csvs have two header rows. The first identifies the
         column of data and the second is a unit string or other contextual
         information if relevant. To convert this to a pandas data frame,
         pass the output of this method to pandas' read_csv() method via a buffer.
 
-        Example:
+        Examples:
 
-            csv_data = scenario.get_scenario_data_csv('gbr', 'system', '1y')
-            buffer = StringIO(csv_data)
-            df = pd.read_csv(buffer, header=[0,1])
+        ```py
+        csv_data = scenario.get_scenario_data_csv('gbr', 'system', '1y')
+        buffer = StringIO(csv_data)
+        df = pd.read_csv(buffer, header=[0,1])
+        ```
+
+        ```py
+        csv_data = scenario.get_scenario_data_csv(
+            region='erc',
+            download_type='nodal',
+            granularity='1h',
+            currency='usd2024',
+            node='ZONDWD_6_B1',
+        )
+        buffer = StringIO(csv_data)
+        df = pd.read_csv(buffer, header=[0,1])
+        ```
 
         Arguments:
             region (String): The region to download for. Use
