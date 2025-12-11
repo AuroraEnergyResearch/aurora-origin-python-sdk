@@ -8,10 +8,12 @@ from core.data import (
     get_scenario_outputs_from_cache,
     save_scenario_outputs_to_cache,
 )
-from typing import List, Optional, Union
+from typing import List, Optional, Union, cast
 from io import StringIO
 from datetime import datetime
 from time import sleep
+
+from origin_sdk.types.scenario_types import RegionDict
 
 logger = logging.getLogger(__name__)
 
@@ -48,12 +50,61 @@ class Scenario:
         """
         return [region for region in self.scenario.get("regions")]
 
+    def __get_additional_scenario_regions(
+        self,
+        base_region: str,
+        base_region_meta: Union[RegionDict, None],
+        base_scenario_regions: dict[str, RegionDict],
+    ) -> dict[str, RegionDict]:
+        """Get additional regions for a scenario based on region groups."""
+
+        if not base_region_meta:
+            return {}
+
+        # Find the region group containing base_region
+        regions_data = next(iter(self.session._get_regions().values())).values()
+        region_group = next(
+            (x for x in regions_data if base_region in x["regions"]), {}
+        )
+
+        # Get region codes not already in base_scenario_regions
+        all_region_codes = region_group.get("regions", {}).keys()
+        additional_codes = [
+            code for code in all_region_codes if code not in base_scenario_regions
+        ]
+
+        # Construct metadata for each additional region
+        def replace_region_in_urls(meta: RegionDict, old: str, new: str) -> RegionDict:
+            return {
+                "dataUrlBase": meta["dataUrlBase"].replace(f"/{old}/", f"/{new}/"),
+                "metaUrl": meta["metaUrl"].replace(f"/{old}/", f"/{new}/"),
+                "regionCode": new,
+                "__meta_json": None,
+            }
+
+        return {
+            code: replace_region_in_urls(base_region_meta, base_region, code)
+            for code in additional_codes
+        }
+
     def get_scenario_regions(self):
         """
         Helper function to get the regions object on the Scenario, as it's a
         common access pattern.
         """
-        return self.scenario.get("regions")
+        scenario_regions = self.scenario.get("regions")
+
+        if not scenario_regions:
+            return cast(dict[str, RegionDict], {})
+
+        scenario_region = next(iter(scenario_regions))
+        scenario_region_meta = scenario_regions.get(scenario_region)
+
+        additional_regions = self.__get_additional_scenario_regions(
+            scenario_region, scenario_region_meta, scenario_regions
+        )
+
+        return {**scenario_regions, **additional_regions}
 
     def get_scenario_region(self, region: str):
         """
@@ -83,6 +134,11 @@ class Scenario:
             return from_cache
 
         meta = self.get_scenario_region(region)
+        if not meta:
+            raise Exception(
+                f"Region '{region}' not found for scenario with ID '{self.scenario_id}'"
+            )
+
         meta_json = self.session.get_meta_json(meta.get("metaUrl"))
 
         save_meta_json_to_cache(self.scenario_id, region, meta_json)
@@ -96,6 +152,7 @@ class Scenario:
         respectively.
 
         Arguments:
+
             region (String)
 
         Returns:
@@ -118,6 +175,7 @@ class Scenario:
         download_type: str,
         granularity: str,
         currency: Optional[str] = None,
+        node: Optional[str] = None,
         force_no_cache: bool = False,
         params: Optional[dict[str, str]] = None,
     ):
@@ -125,26 +183,41 @@ class Scenario:
         Downloads a csv from the service and returns as a string. Recommended to
         use if looking to generate a csv file on disk.
 
-        In general, our  csvs have two header rows. The first identifies the
+        In general, our csvs have two header rows. The first identifies the
         column of data and the second is a unit string or other contextual
         information if relevant. To convert this to a pandas data frame,
         pass the output of this method to pandas' read_csv() method via a buffer.
 
-        Example:
+        Examples:
 
-            csv_data = scenario.get_scenario_data_csv('gbr', 'system', '1y')
-            buffer = StringIO(csv_data)
-            df = pd.read_csv(buffer, header=[0,1])
+        ```py
+        csv_data = scenario.get_scenario_data_csv('gbr', 'system', '1y')
+        buffer = StringIO(csv_data)
+        df = pd.read_csv(buffer, header=[0,1])
+        ```
+
+        ```py
+        csv_data = scenario.get_scenario_data_csv(
+            region='erc',
+            download_type='nodal',
+            granularity='1h',
+            currency='usd2024',
+            node='ZONDWD_6_B1',
+        )
+        buffer = StringIO(csv_data)
+        df = pd.read_csv(buffer, header=[0,1])
+        ```
 
         Arguments:
             region (String): The region to download for. Use
             "get_downloadable_regions" to see a list of options.
-            type (String): The "type" of file to download. You can use
+            download_type (String): The "type" of file to download. You can use
             "get_download_types" to query the available options.
             granularity (String): The "granularity" of file to download. You can use
             "get_download_types" to query the available options.
             currency (Optional, String): The currency year to download the file
             in. Will default to `defaultCurrency` on the scenario if available.
+            node (Optional, String): The node identifier to download nodal data for.
 
         Returns:
             CSV as text string
@@ -161,6 +234,7 @@ class Scenario:
             download_type,
             granularity,
             download_currency,
+            node,
             addon_params,
         )
         if from_cache is not None and not force_no_cache:
@@ -195,12 +269,39 @@ class Scenario:
         download_meta = download_meta_list[0]
 
         # Get the base URL of the download
-        base_url = self.get_scenario_region(region).get("dataUrlBase")
+        region_details = self.get_scenario_region(region)
+
+        if not region_details:
+            raise Exception(
+                f"Region '{region}' not found for scenario with ID '{self.scenario_id}'"
+            )
+
+        base_url = region_details.get("dataUrlBase")
+
+        # Validate node parameter against download metadata
+        filename_template = download_meta.get("filename", "")
+        node_supported = "{nodename}" in filename_template
+
+        if node and not node_supported:
+            # User provided node but download doesn't support it
+            logger.warning(
+                f"Node parameter provided but download with download type {download_type} does not support it."
+            )
+            raise Exception(
+                f"Download type '{download_type}' with granularity "
+                f"'{granularity}' does not support node parameter."
+            )
+        elif node_supported and not node:
+            # Download requires node but user didn't provide it
+            raise Exception(
+                f"Download type '{download_type}' with granularity "
+                f"'{granularity}' requires node parameter, but none was provided."
+            )
 
         # Use a replace to make sure the right currency is used
-        filename: str = download_meta.get("filename").replace(
+        filename: str = filename_template.replace(
             "{currency}", download_currency
-        )
+        ).replace("{nodename}", node or "")
 
         # Request the data url. Use noredirect in order to make the re-request
         # to s3 ourselves.
@@ -223,6 +324,12 @@ class Scenario:
             # Get the location of the redirect
             s3_location = s3_request.headers.get("location")
 
+            if not s3_location:
+                raise Exception(
+                    f"Could not get download location for "
+                    f"{download_type}, {granularity} for {region}."
+                )
+
             # Make a follow up request for the data
             csv_as_text = self.session.session.request("GET", s3_location).text
 
@@ -232,6 +339,7 @@ class Scenario:
                 download_type,
                 granularity,
                 download_currency,
+                node,
                 csv_as_text,
                 addon_params,
             )
@@ -278,8 +386,7 @@ class Scenario:
             Pandas Dataframe
         """
         logger.warning(
-            "get_scenario_dataframe is deprecated. "
-            "Use get_scenario_data_csv instead."
+            "get_scenario_dataframe is deprecated. Use get_scenario_data_csv instead."
         )
 
         data = self.get_scenario_data_csv(
@@ -357,7 +464,6 @@ class Scenario:
         except (StopIteration, IndexError):
             raise Exception(
                 f"""Scenario not found for region '{region}' {
-                f'and filter "{name_filter}"' if name_filter is not None
-                else ""
+                    f'and filter "{name_filter}"' if name_filter is not None else ""
                 }"""
             )

@@ -1,3 +1,4 @@
+from functools import lru_cache
 from json import dumps
 from textwrap import dedent
 from time import sleep
@@ -5,6 +6,7 @@ from collections import defaultdict
 from typing import Any, List, Optional, TypedDict, Union, Dict
 import logging
 import origin_sdk.gql.queries.project_queries as project_query
+import origin_sdk.gql.queries.config_queries as config_query
 import origin_sdk.gql.queries.scenario_queries as scenario_query
 import origin_sdk.gql.queries.input_queries as input_query
 
@@ -912,4 +914,14 @@ class OriginSession(APISession):
 
         variables = {"scenarioGlobalId": scenario_id}
 
-        return self._graphql_request(self.scenario_service_graphql_url, scenario_query.get_weather_years, variables)["years"]
+        return self._graphql_request(
+            self.scenario_service_graphql_url,
+            scenario_query.get_weather_years,
+            variables,
+        )["years"]
+
+    @lru_cache
+    def _get_regions(self):
+        return self._graphql_request(
+            self.scenario_service_graphql_url, config_query.get_origin_regions
+        )
