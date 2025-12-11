@@ -53,7 +53,7 @@ class Scenario:
     def __get_additional_scenario_regions(
         self,
         base_region: str,
-        base_region_meta: RegionDict | None,
+        base_region_meta: Union[RegionDict, None],
         base_scenario_regions: dict[str, RegionDict],
     ) -> dict[str, RegionDict]:
         """Get additional regions for a scenario based on region groups."""
