@@ -8,7 +8,7 @@ from core.data import (
     get_scenario_outputs_from_cache,
     save_scenario_outputs_to_cache,
 )
-from typing import Callable, List, Optional, Union, cast
+from typing import List, Optional, Union, cast
 from io import StringIO
 from datetime import datetime
 from time import sleep
