@@ -11,7 +11,7 @@ def get_scenario_for_testing():
     global test_scenario
     if test_scenario is None:
         test_scenario = Scenario.get_latest_scenario_from_region(
-            session=session, region="gbr"
+            session=session, region="gbr", name_filter="central"
         )
 
     return test_scenario
@@ -85,6 +85,7 @@ def test_get_scenario_region_function():
     assert len([info for info in all_info if info is not None]) > 0
 
 
+# TEST:
 def test_get_download_types():
     scenario = get_scenario_for_testing()
     regions = scenario.get_downloadable_regions()
@@ -113,6 +114,7 @@ def test_get_data_dfs():
     assert all([df is not None for df in yearly_dfs])
 
 
+# TEST:
 def test_get_data_csvs():
     scenario = get_scenario_for_testing()
     regions = scenario.get_downloadable_regions()
