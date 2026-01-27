@@ -64,7 +64,12 @@ class Scenario:
         # Find the region group containing base_region
         regions_data = next(iter(self.session._get_regions().values())).values()
         region_group = next(
-            (x for x in regions_data if base_region in x["regions"]), {}
+            (
+                x
+                for x in regions_data
+                if base_region in x["regions"] or base_region == x["regionGroupCode"]
+            ),
+            {},
         )
 
         # Get region codes not already in base_scenario_regions
