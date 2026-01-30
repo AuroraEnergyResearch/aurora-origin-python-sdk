@@ -10,32 +10,24 @@ The tests run against the production API using an API token associated with the 
 
 ## Developing
 
-### Create a venv and activate if required
+Use [uv](https://docs.astral.sh/uv/getting-started/installation/) to install dependencies and set up your virtual environment:
 
-```powershell
-python -m venv .venv
-#enable python virtual environment
-.\.venv\Scripts\activate
-```
-
-### Install dependencies
-
-```powershell
-# This installs this module and all dependencies, including the ones needed locally for development:
-# It uses the pyproject.toml to find dependancies.
-pip install -e  .[development]
-
-# If you haven't installed the documentation packages before
-cd docsite; npm i;
+```sh
+uv sync
 ```
 
 ### Building the documentation
 
-```powershell
-.\.venv\Scripts\Activate.ps1
+The documentation requires node
 
+```powershell
+# If you haven't installed the documentation packages before
+cd docsite; npm i;
+```
+
+```powershell
 # Generate markdown from pydoc strings
-pydoc-markdown
+uv run pydoc-markdown
 
 # Also update any of the markdown inside docsite/docs
 cd docsite

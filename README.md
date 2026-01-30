@@ -4,6 +4,9 @@ This is under development
 
 # Installation
 
+> [!NOTE]
+> We support running the SDK in all currently supported versions of Python: 3.10 - 3.14.
+
 1. Install the package from the git repository
 
 ```bash
