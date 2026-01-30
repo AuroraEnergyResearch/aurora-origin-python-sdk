@@ -8,21 +8,27 @@ jobs:
     strategy:
       matrix:
         python_version:
-          - 3.9
           - "3.10"
           - 3.11
           - 3.12
           - 3.13
+          - 3.14
     runs-on:
-      - codebuild-aurora-origin-sdk-GitHub-Runner-${{ github.run_id }}-${{ github.run_attempt }}
+      - ubuntu-latest
     steps:
       - uses: actions/setup-python@v5
         with:
           python-version: ${{ matrix.python_version }}
       - name: Check out repository code
-        uses: actions/checkout@v4
+        uses: actions/checkout@v6
 
-      - run: pip install -e .[development]
-      - run: pytest
+      - name: Install uv
+        uses: astral-sh/setup-uv@v7
+        with:
+          enable-cache: true
+          python-version: ${{ matrix.python_version }}
+
+      - run: uv sync --locked
+      - run: uv run pytest
         env:
           AURORA_API_KEY: ${{ secrets.AURORA_API_KEY }}

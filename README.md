@@ -4,10 +4,16 @@ This is under development
 
 # Installation
 
+> [!NOTE]
+> We support running the SDK in all currently supported versions of Python: 3.10 - 3.14.
+
 1. Install the package from the git repository
 
 ```bash
+# Use pip:
 pip install git+https://github.com/AuroraEnergyResearch/aurora-origin-python-sdk
+# Or uv:
+uv add git+https://github.com/AuroraEnergyResearch/aurora-origin-python-sdk
 ```
 
 2. Add your Aurora API key to the file $home/.aurora-api-key. for example `C:\Users\Joe Bloggs\.aurora-api-key` or set as the environment variable `AURORA_API_KEY`.

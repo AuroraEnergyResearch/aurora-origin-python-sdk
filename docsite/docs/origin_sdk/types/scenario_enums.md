@@ -19,6 +19,14 @@ class ModelType(Enum)
 
 Internal only. Used to set a `modelType`.
 
+## SimulationMode Objects
+
+```python
+class SimulationMode(Enum)
+```
+
+Internal only. Used to set a `simulationMode`.
+
 ## ModelPriceSpikiness Objects
 
 ```python

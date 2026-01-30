@@ -85,6 +85,7 @@ def get_scenario_data_csv(region: str,
                           download_type: str,
                           granularity: str,
                           currency: Optional[str] = None,
+                          node: Optional[str] = None,
                           force_no_cache: bool = False,
                           params: Optional[dict[str, str]] = None)
 ```
@@ -99,13 +100,12 @@ pass the output of this method to pandas&#x27; read_csv() method via a buffer.
 
 **Examples**:
 
-  
 ```py
 csv_data = scenario.get_scenario_data_csv('gbr', 'system', '1y')
 buffer = StringIO(csv_data)
 df = pd.read_csv(buffer, header=[0,1])
 ```
-  
+
 ```py
 csv_data = scenario.get_scenario_data_csv(
     region='erc',
@@ -117,7 +117,6 @@ csv_data = scenario.get_scenario_data_csv(
 buffer = StringIO(csv_data)
 df = pd.read_csv(buffer, header=[0,1])
 ```
-  
 
 **Arguments**:
 
@@ -130,7 +129,6 @@ df = pd.read_csv(buffer, header=[0,1])
 - `currency` _Optional, String_ - The currency year to download the file
   in. Will default to `defaultCurrency` on the scenario if available.
 - `node` _Optional, String_ - The node identifier to download nodal data for.
-  
 
 **Returns**:
 
@@ -152,9 +150,9 @@ This method is deprecated. Use get_scenario_data_csv instead.
 **Example**:
 
 ```python
-  csv_data = scenario.get_scenario_data_csv("gbr", "system", "1y")
-  buffer = StringIO(csv_data)
-  df = pd.read_csv(buffer, header=[0,1])
+csv_data = scenario.get_scenario_data_csv(&#x27;gbr&#x27;, &#x27;system&#x27;, &#x27;1y&#x27;)
+buffer = StringIO(csv_data)
+df = pd.read_csv(buffer, header=[0,1])
 ```
 
 ---
