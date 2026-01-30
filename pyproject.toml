@@ -25,6 +25,9 @@ license = { file = "LICENSE" }
 dependencies = ["requests>=2.28.2,<3.0", "appdirs>=1.4.4,<2.0", "pandas"]
 requires-python = ">=3.10,<3.15"
 
+[dependency-groups]
+dev = ["aurora_origin_sdk[development]"]
+
 [project.urls]
 repository = "https://github.com/AuroraEnergyResearch/aurora-origin-python-sdk"
 

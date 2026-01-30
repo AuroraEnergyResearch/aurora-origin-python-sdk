@@ -76,6 +76,11 @@ tests = [
     { name = "pytest" },
 ]
 
+[package.dev-dependencies]
+dev = [
+    { name = "aurora-origin-sdk", extra = ["development"] },
+]
+
 [package.metadata]
 requires-dist = [
     { name = "appdirs", specifier = ">=1.4.4,<2.0" },
@@ -96,6 +101,9 @@ requires-dist = [
     { name = "requests", specifier = ">=2.28.2,<3.0" },
 ]
 provides-extras = ["setup", "tests", "development", "notebooks"]
+
+[package.metadata.requires-dev]
+dev = [{ name = "aurora-origin-sdk", extras = ["development"] }]
 
 [[package]]
 name = "black"

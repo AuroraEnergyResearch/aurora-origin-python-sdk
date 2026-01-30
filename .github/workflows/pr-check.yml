@@ -20,9 +20,15 @@ jobs:
         with:
           python-version: ${{ matrix.python_version }}
       - name: Check out repository code
-        uses: actions/checkout@v4
+        uses: actions/checkout@v6
 
-      - run: pip install -e .[development]
-      - run: pytest
+      - name: Install uv
+        uses: astral-sh/setup-uv@v7
+        with:
+          enable-cache: true
+          python-version: ${{ matrix.python_version }}
+
+      - run: uv sync --locked
+      - run: uv run pytest
         env:
           AURORA_API_KEY: ${{ secrets.AURORA_API_KEY }}
