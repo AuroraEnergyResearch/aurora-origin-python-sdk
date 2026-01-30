@@ -23,7 +23,7 @@ keywords = [
 ]
 license = { file = "LICENSE" }
 dependencies = ["requests>=2.28.2,<3.0", "appdirs>=1.4.4,<2.0", "pandas"]
-requires-python = ">=3.10"
+requires-python = ">=3.10,<3.15"
 
 [project.urls]
 repository = "https://github.com/AuroraEnergyResearch/aurora-origin-python-sdk"
