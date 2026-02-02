@@ -1,11 +1,14 @@
 # Aurora Origin SDK
 
-This is under development
+Python SDK for accessing data from Origin, Aurora's Market model platform.
 
 # Installation
 
 > [!NOTE]
 > We support running the SDK in all currently supported versions of Python: 3.10 - 3.14.
+
+> [!WARNING]
+> Python 3.9 support is deprecated and will be removed in a future release. Please upgrade to Python 3.10 or later.
 
 1. Install the package from the git repository
 
