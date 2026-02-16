@@ -45,8 +45,8 @@ def update_system_demand_gql(demand_config: Any):
     return f"""mutation (
     $sessionId: String!,
     $technology: EnumDemandTechnology,
-    $region: ModelRegion,
-    $regions: [ModelRegion!],
+    $region: String,
+    $regions: [String!],
     $variable: String!,
     $autoCapacityMarketTarget: Boolean,
     $tx: [YearlyNumberItemInput]!
