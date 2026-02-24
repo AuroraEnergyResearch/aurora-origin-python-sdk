@@ -68,11 +68,11 @@ class InputScenario(TypedDict):
             `regionGroupCode` is chosen, but can be overridden
         retentionPolicy (optional, string): Internal only.
         scenarioRunType (optional, ScenarioRunType): **Deprecated for external use.**
-            Internal only. External users should use `useExogifiedInputs` instead:
-            - `useExogifiedInputs: True` = MDC off (fixed capacities)
-            - `useExogifiedInputs: False` = MDC on (model-determined capacities)
-        modelType (optional, ModelType): Internal only. Can be values `AERES`, `NODAL`, `REGIONAL` or
-            `NETWORK`.
+            Internal only. External users should use `useExogifiedInputs` instead.
+            Set useExogifiedInputs=True for MDC off (fixed capacities), or
+            useExogifiedInputs=False for MDC on (model-determined capacities).
+        modelType (optional, ModelType): Internal only. Can be values AERES, NODAL, REGIONAL or
+            NETWORK.
         modelPriceSpikiness (optional, ModelPriceSpikiness): Used for AUS, set
             this to one of the ModelPriceSpikiness enum values if you wish to
             use the feature.
