@@ -67,12 +67,12 @@ class InputScenario(TypedDict):
         defaultCurrency (optional, string): Should be set automatically once a
             `regionGroupCode` is chosen, but can be overridden
         retentionPolicy (optional, string): Internal only.
-        scenarioRunType (optional, ScenarioRunType): Internal only. Can be values `MYR`, `FYR` or
-            `MYR_AND_FYR`. Non-Auroreans should look to using the
-            `useExogifiedInputs` flag over the scenarioRunType. The behaviour
-            between the two differs slightly for a better Origin experience.
-        modelType (optional, ModelType): Internal only. Can be values `AERES`, `NODAL`, `REGIONAL` or
-            `NETWORK`.
+        scenarioRunType (optional, ScenarioRunType): **Deprecated for external use.**
+            Internal only. External users should use `useExogifiedInputs` instead.
+            Set useExogifiedInputs=True for MDC off (fixed capacities), or
+            useExogifiedInputs=False for MDC on (model-determined capacities).
+        modelType (optional, ModelType): Internal only. Can be values AERES, NODAL, REGIONAL or
+            NETWORK.
         modelPriceSpikiness (optional, ModelPriceSpikiness): Used for AUS, set
             this to one of the ModelPriceSpikiness enum values if you wish to
             use the feature.

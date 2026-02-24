@@ -43,10 +43,10 @@ parameters, the service ought to tell you what is missing.
 - `defaultCurrency` _optional, string_ - Should be set automatically once a
   `regionGroupCode` is chosen, but can be overridden
 - `retentionPolicy` _optional, string_ - Internal only.
-- `scenarioRunType` _optional, ScenarioRunType_ - Internal only. Can be values `MYR`, `FYR` or
-  `MYR_AND_FYR`. Non-Auroreans should look to using the
-  `useExogifiedInputs` flag over the scenarioRunType. The behaviour
-  between the two differs slightly for a better Origin experience.
+- `scenarioRunType` _optional, ScenarioRunType_ - **Deprecated for external use.**
+  Internal only. External users should use `useExogifiedInputs` instead.
+  Set useExogifiedInputs=True for MDC off (fixed capacities), or
+  useExogifiedInputs=False for MDC on (model-determined capacities).
 - `modelType` _optional, ModelType_ - Internal only.
 - `modelPriceSpikiness` _optional, ModelPriceSpikiness_ - Used for AUS, set
   this to one of the ModelPriceSpikiness enum values if you wish to
