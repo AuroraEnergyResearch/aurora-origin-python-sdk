@@ -170,6 +170,11 @@ class Scenario:
             {
                 "type": definition.get("type"),
                 "granularity": definition.get("granularity"),
+                **(
+                    {"subType": definition.get("subType")}
+                    if definition.get("subType") is not None
+                    else {}
+                ),
             }
             for definition in meta_json["dataDefinitions"]
         ]
@@ -181,6 +186,7 @@ class Scenario:
         granularity: str,
         currency: Optional[str] = None,
         node: Optional[str] = None,
+        sub_type: Optional[str] = None,
         force_no_cache: bool = False,
         params: Optional[dict[str, str]] = None,
     ):
@@ -223,6 +229,10 @@ class Scenario:
             currency (Optional, String): The currency year to download the file
             in. Will default to `defaultCurrency` on the scenario if available.
             node (Optional, String): The node identifier to download nodal data for.
+            sub_type (Optional, String): The "subType" to disambiguate downloads
+            that share the same type and granularity (e.g. "generation" vs
+            "generation_pre_curtailment" for GBR technology downloads). You can
+            use "get_download_types" to see available subTypes.
 
         Returns:
             CSV as text string
@@ -252,7 +262,9 @@ class Scenario:
         download_meta_list = [
             d
             for d in meta_json.get("dataDefinitions")
-            if d.get("granularity") == granularity and d.get("type") == download_type
+            if d.get("granularity") == granularity
+            and d.get("type") == download_type
+            and (sub_type is None or d.get("subType") == sub_type)
         ]
 
         number_of_downloads = len(download_meta_list)
@@ -262,11 +274,16 @@ class Scenario:
                 if number_of_downloads == 0
                 else "Ambiguous download"
             )
+            sub_type_hint = (
+                " Try specifying the sub_type parameter to disambiguate."
+                if number_of_downloads > 1 and sub_type is None
+                else ""
+            )
             ex_msg = (
                 f"{issue_str} for {download_type}, {granularity} for {region}. "
                 f"Expected 1, found {number_of_downloads}. "
                 "Use Scenario.get_download_types to see what available "
-                "combinations there are for the scenario."
+                f"combinations there are for the scenario.{sub_type_hint}"
             )
             raise Exception(ex_msg)
 
@@ -357,6 +374,7 @@ class Scenario:
         download_type: str,
         granularity: str,
         currency: Optional[str] = None,
+        sub_type: Optional[str] = None,
         force_no_cache: bool = False,
         params: Optional[dict[str, str]] = None,
     ):
@@ -401,6 +419,7 @@ class Scenario:
             download_type=download_type,
             granularity=granularity,
             currency=currency,
+            sub_type=sub_type,
             force_no_cache=force_no_cache,
             params=params,
         )

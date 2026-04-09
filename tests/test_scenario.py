@@ -125,6 +125,7 @@ def test_get_data_csvs():
             region,
             type_granularity_combo.get("type"),
             type_granularity_combo.get("granularity"),
+            sub_type=type_granularity_combo.get("subType"),
             force_no_cache=True,
         )
         for region in regions
