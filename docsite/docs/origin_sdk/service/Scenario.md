@@ -78,6 +78,23 @@ region (String)
 
 A list of type and granularity downloads available for the region.
 
+#### get_download_years
+
+```python
+def get_download_years(region: str)
+```
+
+Returns the valid download years for the region, as defined in the
+region metadata.
+
+**Arguments**:
+
+region (String)
+
+**Returns**:
+
+A list of valid years for downloads in the region.
+
 #### get_scenario_data_csv
 
 ```python
@@ -85,6 +102,7 @@ def get_scenario_data_csv(region: str,
                           download_type: str,
                           granularity: str,
                           currency: Optional[str] = None,
+                          year: Optional[int] = None,
                           node: Optional[str] = None,
                           force_no_cache: bool = False,
                           params: Optional[dict[str, str]] = None)
@@ -118,6 +136,15 @@ buffer = StringIO(csv_data)
 df = pd.read_csv(buffer, header=[0,1])
 ```
 
+```py
+csv_data = scenario.get_scenario_data_csv(
+    region='peu_deu',
+    download_type='interconnector',
+    granularity='1h',
+    year=2028,
+)
+```
+
 **Arguments**:
 
 - `region` _String_ - The region to download for. Use
@@ -128,6 +155,8 @@ df = pd.read_csv(buffer, header=[0,1])
   &quot;get_download_types&quot; to query the available options.
 - `currency` _Optional, String_ - The currency year to download the file
   in. Will default to `defaultCurrency` on the scenario if available.
+- `year` _Optional, int_ - The scenario year to download when supported by the
+  download filename template.
 - `node` _Optional, String_ - The node identifier to download nodal data for.
 
 **Returns**:
@@ -141,6 +170,7 @@ def get_scenario_dataframe(region: str,
                            download_type: str,
                            granularity: str,
                            currency: Optional[str] = None,
+                           year: Optional[int] = None,
                            force_no_cache: bool = False,
                            params: Optional[dict[str, str]] = None)
 ```
@@ -172,6 +202,8 @@ the second is a unit string or other contextual information if relevant.
   &quot;get_download_types&quot; to query the available options.
 - `currency` _Optional, String_ - The currency year to download the file
   in. Will default to `defaultCurrency` on the scenario if available.
+- `year` _Optional, int_ - The scenario year to download when supported by the
+  download filename template.
 
 **Returns**:
 

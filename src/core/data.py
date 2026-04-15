@@ -79,6 +79,7 @@ def get_scenario_output_filename(
     download_type: str,
     granularity: str,
     currency: str,
+    year: Optional[int],
     node: Optional[str],
     params: dict[str, str],
 ):
@@ -86,6 +87,9 @@ def get_scenario_output_filename(
 
     suffix = ".csv"
     stem = f"{region}-{download_type}-{granularity}-{currency}"
+
+    if year is not None:
+        stem += f"-{year}"
 
     if node:
         stem += f"-{node}"
@@ -105,6 +109,7 @@ def save_scenario_outputs_to_cache(
     download_type: str,
     granularity: str,
     currency: str,
+    year: Optional[int],
     node: Optional[str],
     csv: str,
     params: dict[str, str],
@@ -112,7 +117,7 @@ def save_scenario_outputs_to_cache(
     """Takes care of saving any scenario outputs to the cache"""
     scenario_dir = get_scenario_cache(id)
     filename = get_scenario_output_filename(
-        region, download_type, granularity, currency, node, params
+        region, download_type, granularity, currency, year, node, params
     )
     file = scenario_dir / filename
 
@@ -126,13 +131,14 @@ def get_scenario_outputs_from_cache(
     download_type: str,
     granularity: str,
     currency: str,
+    year: Optional[int],
     node: Optional[str],
     params: dict[str, str],
 ):
     """Gets the scenario output from disk if it exists"""
     scenario_dir = get_scenario_cache(id)
     filename = get_scenario_output_filename(
-        region, download_type, granularity, currency, node, params
+        region, download_type, granularity, currency, year, node, params
     )
     file = scenario_dir / filename
 

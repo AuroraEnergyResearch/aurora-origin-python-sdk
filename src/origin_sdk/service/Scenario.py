@@ -174,12 +174,40 @@ class Scenario:
             for definition in meta_json["dataDefinitions"]
         ]
 
+    def get_download_years(self, region: str):
+        """
+        Returns the valid download years for the region, as defined in the
+        region metadata.
+
+        Arguments:
+
+            region (String)
+
+        Returns:
+            A list of valid years for downloads in the region.
+        """
+
+        meta_json = self.__get_download_meta_for_region(region)
+        years = meta_json.get("years")
+
+        if years is None:
+            return []
+
+        if not isinstance(years, list):
+            raise Exception(
+                "Invalid download years metadata "
+                f"for region '{region}'."
+            )
+
+        return years
+
     def get_scenario_data_csv(
         self,
         region: str,
         download_type: str,
         granularity: str,
         currency: Optional[str] = None,
+        year: Optional[int] = None,
         node: Optional[str] = None,
         force_no_cache: bool = False,
         params: Optional[dict[str, str]] = None,
@@ -213,6 +241,15 @@ class Scenario:
         df = pd.read_csv(buffer, header=[0,1])
         ```
 
+        ```py
+        csv_data = scenario.get_scenario_data_csv(
+            region='peu_deu',
+            download_type='interconnector',
+            granularity='1h',
+            year=2028,
+        )
+        ```
+
         Arguments:
             region (String): The region to download for. Use
             "get_downloadable_regions" to see a list of options.
@@ -222,6 +259,8 @@ class Scenario:
             "get_download_types" to query the available options.
             currency (Optional, String): The currency year to download the file
             in. Will default to `defaultCurrency` on the scenario if available.
+            year (Optional, int): The scenario year to download when supported by
+            the download filename template.
             node (Optional, String): The node identifier to download nodal data for.
 
         Returns:
@@ -239,6 +278,7 @@ class Scenario:
             download_type,
             granularity,
             download_currency,
+            year,
             node,
             addon_params,
         )
@@ -286,6 +326,26 @@ class Scenario:
         # Validate node parameter against download metadata
         filename_template = download_meta.get("filename", "")
         node_supported = "{nodename}" in filename_template
+        year_supported = "{year}" in filename_template
+
+        if year_supported and year is None:
+            valid_years = self.get_download_years(region)
+            raise Exception(
+                f"Download type '{download_type}' with granularity '{granularity}' "
+                f"requires year parameter. Valid years: {valid_years}."
+            )
+        elif year is not None and not year_supported:
+            raise Exception(
+                f"Download type '{download_type}' with granularity "
+                f"'{granularity}' does not support year parameter."
+            )
+        elif year is not None:
+            valid_years = self.get_download_years(region)
+            if year not in valid_years:
+                raise Exception(
+                    f"Year '{year}' is not valid for region '{region}'. "
+                    f"Valid years: {valid_years}."
+                )
 
         if node and not node_supported:
             # User provided node but download doesn't support it
@@ -304,9 +364,11 @@ class Scenario:
             )
 
         # Use a replace to make sure the right currency is used
-        filename: str = filename_template.replace(
-            "{currency}", download_currency
-        ).replace("{nodename}", node or "")
+        filename: str = (
+            filename_template.replace("{currency}", download_currency)
+            .replace("{nodename}", node or "")
+            .replace("{year}", str(year or ""))
+        )
 
         # Request the data url. Use noredirect in order to make the re-request
         # to s3 ourselves.
@@ -344,6 +406,7 @@ class Scenario:
                 download_type,
                 granularity,
                 download_currency,
+                year,
                 node,
                 csv_as_text,
                 addon_params,
@@ -357,6 +420,7 @@ class Scenario:
         download_type: str,
         granularity: str,
         currency: Optional[str] = None,
+        year: Optional[int] = None,
         force_no_cache: bool = False,
         params: Optional[dict[str, str]] = None,
     ):
@@ -388,6 +452,8 @@ class Scenario:
             "get_download_types" to query the available options.
             currency (Optional, String): The currency year to download the file
             in. Will default to `defaultCurrency` on the scenario if available.
+            year (Optional, int): The scenario year to download when supported by
+            the download filename template.
 
         Returns:
             Pandas Dataframe
@@ -401,6 +467,7 @@ class Scenario:
             download_type=download_type,
             granularity=granularity,
             currency=currency,
+            year=year,
             force_no_cache=force_no_cache,
             params=params,
         )
