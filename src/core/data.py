@@ -74,7 +74,49 @@ def get_meta_json_from_cache(id: str, region: str):
         return load(f)
 
 
+def _build_scenario_output_stem(
+    region: str,
+    download_type: str,
+    granularity: str,
+    currency: str,
+    node: Optional[str] = None,
+    sub_type: Optional[str] = None,
+):
+    """Builds the filename stem for scenario output artifacts."""
+    stem = f"{region}-{download_type}-{granularity}-{currency}"
+
+    if sub_type:
+        stem += f"-subtype-{sub_type}"
+
+    if node:
+        stem += f"-{node}"
+    return stem
+
+
+def _apply_params_hash(filename: str, params: dict[str, str]):
+    if bool(params) is True:
+        params_hash = hash(frozenset(params.items()))
+        return f"{params_hash}-{filename}"
+    return filename
+
+
 def get_scenario_output_filename(
+    region: str,
+    download_type: str,
+    granularity: str,
+    currency: str,
+    node: Optional[str],
+    params: dict[str, str],
+):
+    """Single entry point for filename string creation for scenario downloads."""
+    stem = _build_scenario_output_stem(
+        region, download_type, granularity, currency, node=node
+    )
+    filename = f"{stem}.csv"
+    return _apply_params_hash(filename, params)
+
+
+def _get_scenario_output_cache_filename(
     region: str,
     download_type: str,
     granularity: str,
@@ -83,23 +125,17 @@ def get_scenario_output_filename(
     params: dict[str, str],
     sub_type: Optional[str] = None,
 ):
-    """Single entry point for filename string creation for scenario downloads"""
-
-    suffix = ".csv"
-    stem = f"{region}-{download_type}-{granularity}-{currency}"
-
-    if sub_type:
-        stem += f"-subtype-{sub_type}"
-
-    if node:
-        stem += f"-{node}"
-    filename = f"{stem}{suffix}"
-
-    if bool(params) is True:
-        params_hash = hash(frozenset(params.items()))
-        filename = f"{params_hash}-{filename}"
-
-    return filename
+    """Builds cache filename for scenario downloads, including sub_type disambiguation."""
+    stem = _build_scenario_output_stem(
+        region,
+        download_type,
+        granularity,
+        currency,
+        node=node,
+        sub_type=sub_type,
+    )
+    filename = f"{stem}.csv"
+    return _apply_params_hash(filename, params)
 
 
 def save_scenario_outputs_to_cache(
@@ -115,7 +151,7 @@ def save_scenario_outputs_to_cache(
 ):
     """Takes care of saving any scenario outputs to the cache"""
     scenario_dir = get_scenario_cache(id)
-    filename = get_scenario_output_filename(
+    filename = _get_scenario_output_cache_filename(
         region, download_type, granularity, currency, node, params, sub_type=sub_type
     )
     file = scenario_dir / filename
@@ -136,7 +172,7 @@ def get_scenario_outputs_from_cache(
 ):
     """Gets the scenario output from disk if it exists"""
     scenario_dir = get_scenario_cache(id)
-    filename = get_scenario_output_filename(
+    filename = _get_scenario_output_cache_filename(
         region, download_type, granularity, currency, node, params, sub_type=sub_type
     )
     file = scenario_dir / filename

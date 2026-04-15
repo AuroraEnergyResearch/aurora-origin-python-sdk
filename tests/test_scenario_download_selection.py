@@ -1,5 +1,8 @@
 import pytest
-from core.data import get_scenario_output_filename
+from core.data import (
+    _get_scenario_output_cache_filename,
+    get_scenario_output_filename,
+)
 from origin_sdk.service.Scenario import Scenario, _get_matching_download_definitions
 
 
@@ -44,8 +47,8 @@ def test_get_matching_download_definitions_without_sub_type_keeps_all_matches():
     assert len(matches) == 2
 
 
-def test_get_scenario_output_filename_includes_sub_type_in_cache_key():
-    without_sub_type = get_scenario_output_filename(
+def test_get_scenario_output_filename_preserves_download_filename_contract():
+    filename = get_scenario_output_filename(
         region="gbr",
         download_type="technology",
         granularity="30M",
@@ -53,7 +56,20 @@ def test_get_scenario_output_filename_includes_sub_type_in_cache_key():
         node=None,
         params={},
     )
-    with_sub_type = get_scenario_output_filename(
+
+    assert filename == "gbr-technology-30M-gbp2024.csv"
+
+
+def test_get_scenario_output_cache_filename_includes_sub_type_in_cache_key():
+    without_sub_type = _get_scenario_output_cache_filename(
+        region="gbr",
+        download_type="technology",
+        granularity="30M",
+        currency="gbp2024",
+        node=None,
+        params={},
+    )
+    with_sub_type = _get_scenario_output_cache_filename(
         region="gbr",
         download_type="technology",
         granularity="30M",
