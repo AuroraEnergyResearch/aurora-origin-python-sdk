@@ -66,7 +66,7 @@ RegionDict
 def get_download_types(region: str)
 ```
 
-Returns the types and granularities of download available for the region. Expect something
+Returns the types, granularities, and optional sub-types of downloads available for the region. Expect something
 like &quot;system&quot;|&quot;technology&quot; and &quot;1y&quot;|&quot;1m&quot; for type and granularity
 respectively.
 
@@ -76,7 +76,7 @@ region (String)
 
 **Returns**:
 
-A list of type and granularity downloads available for the region.
+A list of download descriptors including type, granularity, and subType (where available).
 
 #### get_scenario_data_csv
 
@@ -86,6 +86,7 @@ def get_scenario_data_csv(region: str,
                           granularity: str,
                           currency: Optional[str] = None,
                           node: Optional[str] = None,
+                          sub_type: Optional[str] = None,
                           force_no_cache: bool = False,
                           params: Optional[dict[str, str]] = None)
 ```
@@ -129,6 +130,8 @@ df = pd.read_csv(buffer, header=[0,1])
 - `currency` _Optional, String_ - The currency year to download the file
   in. Will default to `defaultCurrency` on the scenario if available.
 - `node` _Optional, String_ - The node identifier to download nodal data for.
+- `sub_type` _Optional, String_ - Metadata sub-type used to disambiguate
+  downloads that share the same type and granularity.
 
 **Returns**:
 
@@ -141,6 +144,7 @@ def get_scenario_dataframe(region: str,
                            download_type: str,
                            granularity: str,
                            currency: Optional[str] = None,
+                           sub_type: Optional[str] = None,
                            force_no_cache: bool = False,
                            params: Optional[dict[str, str]] = None)
 ```
@@ -172,6 +176,8 @@ the second is a unit string or other contextual information if relevant.
   &quot;get_download_types&quot; to query the available options.
 - `currency` _Optional, String_ - The currency year to download the file
   in. Will default to `defaultCurrency` on the scenario if available.
+- `sub_type` _Optional, String_ - Metadata sub-type used to disambiguate
+  downloads that share the same type and granularity.
 
 **Returns**:
 
