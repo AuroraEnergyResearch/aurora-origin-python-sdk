@@ -1,6 +1,6 @@
 import pytest
 from core.data import _get_scenario_output_cache_filename
-from origin_sdk.service.Scenario import Scenario, _get_matching_download_definitions
+from origin_sdk.service.Scenario import Scenario
 
 
 def test_get_matching_download_definitions_filters_by_sub_type():
@@ -13,7 +13,7 @@ def test_get_matching_download_definitions_filters_by_sub_type():
         },
     ]
 
-    matches = _get_matching_download_definitions(
+    matches = Scenario._Scenario__get_matching_download_definitions(
         data_definitions,
         download_type="technology",
         granularity="30M",
@@ -35,14 +35,13 @@ def test_get_matching_download_definitions_without_sub_type_keeps_all_matches():
         {"type": "system", "granularity": "30M"},
     ]
 
-    matches = _get_matching_download_definitions(
+    matches = Scenario._Scenario__get_matching_download_definitions(
         data_definitions,
         download_type="technology",
         granularity="30M",
     )
 
     assert len(matches) == 2
-
 
 
 def test_get_scenario_output_cache_filename_includes_sub_type_in_cache_key():
@@ -99,9 +98,9 @@ def _build_test_scenario(meta_definitions, http_client):
     scenario.scenario = {"defaultCurrency": "gbp2024"}
     scenario.session = _FakeOriginSession(http_client)
     scenario.get_scenario_region = lambda region: {"dataUrlBase": "download/"}
-    scenario._Scenario__get_download_meta_for_region = (
-        lambda region: {"dataDefinitions": meta_definitions}
-    )
+    scenario._Scenario__get_download_meta_for_region = lambda region: {
+        "dataDefinitions": meta_definitions
+    }
     return scenario
 
 

@@ -18,22 +18,6 @@ from origin_sdk.types.scenario_types import RegionDict
 logger = logging.getLogger(__name__)
 
 
-def _get_matching_download_definitions(
-    data_definitions: list[dict],
-    download_type: str,
-    granularity: str,
-    sub_type: Optional[str] = None,
-) -> list[dict]:
-    """Filters download metadata to entries matching requested attributes."""
-    return [
-        definition
-        for definition in data_definitions
-        if definition.get("granularity") == granularity
-        and definition.get("type") == download_type
-        and (sub_type is None or definition.get("subType") == sub_type)
-    ]
-
-
 class Scenario:
     """
     A Scenario class that holds state in order to provide a more Pythonic
@@ -192,6 +176,22 @@ class Scenario:
             for definition in meta_json["dataDefinitions"]
         ]
 
+    @staticmethod
+    def __get_matching_download_definitions(
+        data_definitions: list[dict],
+        download_type: str,
+        granularity: str,
+        sub_type: Optional[str] = None,
+    ) -> list[dict]:
+        """Filters download metadata to entries matching requested attributes."""
+        return [
+            definition
+            for definition in data_definitions
+            if definition.get("granularity") == granularity
+            and definition.get("type") == download_type
+            and (sub_type is None or definition.get("subType") == sub_type)
+        ]
+
     def get_scenario_data_csv(
         self,
         region: str,
@@ -270,7 +270,7 @@ class Scenario:
         meta_json = self.__get_download_meta_for_region(region)
 
         # Then filter the data definitions by requested type and granularity
-        download_meta_list = _get_matching_download_definitions(
+        download_meta_list = Scenario.__get_matching_download_definitions(
             meta_json.get("dataDefinitions", []), download_type, granularity, sub_type
         )
 
