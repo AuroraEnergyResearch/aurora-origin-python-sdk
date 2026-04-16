@@ -91,21 +91,6 @@ def _apply_params_hash(filename: str, params: dict[str, str]):
     return filename
 
 
-def get_scenario_output_filename(
-    region: str,
-    download_type: str,
-    granularity: str,
-    currency: str,
-    node: Optional[str],
-    params: dict[str, str],
-):
-    """Single entry point for filename string creation for scenario downloads."""
-    stem = _build_scenario_output_stem(region, download_type, granularity, currency)
-    if node:
-        stem += f"-{node}"
-    filename = f"{stem}.csv"
-    return _apply_params_hash(filename, params)
-
 
 def _get_scenario_output_cache_filename(
     region: str,
