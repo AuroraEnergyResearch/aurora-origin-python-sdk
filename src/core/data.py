@@ -79,18 +79,9 @@ def _build_scenario_output_stem(
     download_type: str,
     granularity: str,
     currency: str,
-    node: Optional[str] = None,
-    sub_type: Optional[str] = None,
 ):
-    """Builds the filename stem for scenario output artifacts."""
-    stem = f"{region}-{download_type}-{granularity}-{currency}"
-
-    if sub_type:
-        stem += f"-subtype-{sub_type}"
-
-    if node:
-        stem += f"-{node}"
-    return stem
+    """Builds the base filename stem for scenario output artifacts."""
+    return f"{region}-{download_type}-{granularity}-{currency}"
 
 
 def _apply_params_hash(filename: str, params: dict[str, str]):
@@ -109,9 +100,9 @@ def get_scenario_output_filename(
     params: dict[str, str],
 ):
     """Single entry point for filename string creation for scenario downloads."""
-    stem = _build_scenario_output_stem(
-        region, download_type, granularity, currency, node=node
-    )
+    stem = _build_scenario_output_stem(region, download_type, granularity, currency)
+    if node:
+        stem += f"-{node}"
     filename = f"{stem}.csv"
     return _apply_params_hash(filename, params)
 
@@ -126,14 +117,11 @@ def _get_scenario_output_cache_filename(
     sub_type: Optional[str] = None,
 ):
     """Builds cache filename for scenario downloads, including sub_type disambiguation."""
-    stem = _build_scenario_output_stem(
-        region,
-        download_type,
-        granularity,
-        currency,
-        node=node,
-        sub_type=sub_type,
-    )
+    stem = _build_scenario_output_stem(region, download_type, granularity, currency)
+    if sub_type:
+        stem += f"-subtype-{sub_type}"
+    if node:
+        stem += f"-{node}"
     filename = f"{stem}.csv"
     return _apply_params_hash(filename, params)
 
