@@ -18,6 +18,34 @@ from origin_sdk.types.scenario_types import RegionDict
 logger = logging.getLogger(__name__)
 
 
+def _validate_year_parameter(
+    year, year_supported, valid_years, download_type, granularity, region
+):
+    """
+    Validates the year parameter against the download's filename template.
+
+    Raises if:
+    - The download requires a year but none was provided
+    - A year was provided but the download does not support it
+    - The year is not in the list of valid years
+    """
+    if year_supported and year is None:
+        raise Exception(
+            f"Download type '{download_type}' with granularity '{granularity}' "
+            f"requires year parameter. Valid years: {valid_years}."
+        )
+    elif year is not None and not year_supported:
+        raise Exception(
+            f"Download type '{download_type}' with granularity "
+            f"'{granularity}' does not support year parameter."
+        )
+    elif year is not None and year not in valid_years:
+        raise Exception(
+            f"Year '{year}' is not valid for region '{region}'. "
+            f"Valid years: {valid_years}."
+        )
+
+
 class Scenario:
     """
     A Scenario class that holds state in order to provide a more Pythonic
@@ -195,8 +223,7 @@ class Scenario:
 
         if not isinstance(years, list):
             raise Exception(
-                "Invalid download years metadata "
-                f"for region '{region}'."
+                "Invalid download years metadata " f"for region '{region}'."
             )
 
         return years
@@ -328,24 +355,14 @@ class Scenario:
         node_supported = "{nodename}" in filename_template
         year_supported = "{year}" in filename_template
 
-        if year_supported and year is None:
-            valid_years = self.get_download_years(region)
-            raise Exception(
-                f"Download type '{download_type}' with granularity '{granularity}' "
-                f"requires year parameter. Valid years: {valid_years}."
-            )
-        elif year is not None and not year_supported:
-            raise Exception(
-                f"Download type '{download_type}' with granularity "
-                f"'{granularity}' does not support year parameter."
-            )
-        elif year is not None:
-            valid_years = self.get_download_years(region)
-            if year not in valid_years:
-                raise Exception(
-                    f"Year '{year}' is not valid for region '{region}'. "
-                    f"Valid years: {valid_years}."
-                )
+        valid_years = (
+            self.get_download_years(region)
+            if year_supported or year is not None
+            else []
+        )
+        _validate_year_parameter(
+            year, year_supported, valid_years, download_type, granularity, region
+        )
 
         if node and not node_supported:
             # User provided node but download doesn't support it
