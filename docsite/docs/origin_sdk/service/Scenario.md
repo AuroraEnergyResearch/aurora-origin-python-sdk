@@ -66,7 +66,7 @@ RegionDict
 def get_download_types(region: str)
 ```
 
-Returns the types and granularities of download available for the region. Expect something
+Returns the types, granularities, and optional sub-types of downloads available for the region. Expect something
 like &quot;system&quot;|&quot;technology&quot; and &quot;1y&quot;|&quot;1m&quot; for type and granularity
 respectively.
 
@@ -76,7 +76,7 @@ region (String)
 
 **Returns**:
 
-A list of type and granularity downloads available for the region.
+A list of download descriptors including type, granularity, and subType (where available).
 
 #### get_download_years
 
@@ -104,6 +104,7 @@ def get_scenario_data_csv(region: str,
                           currency: Optional[str] = None,
                           year: Optional[int] = None,
                           node: Optional[str] = None,
+                          sub_type: Optional[str] = None,
                           force_no_cache: bool = False,
                           params: Optional[dict[str, str]] = None)
 ```
@@ -158,6 +159,8 @@ csv_data = scenario.get_scenario_data_csv(
 - `year` _Optional, int_ - The scenario year to download when supported by the
   download filename template.
 - `node` _Optional, String_ - The node identifier to download nodal data for.
+- `sub_type` _Optional, String_ - Metadata sub-type used to disambiguate
+  downloads that share the same type and granularity.
 
 **Returns**:
 
@@ -171,6 +174,7 @@ def get_scenario_dataframe(region: str,
                            granularity: str,
                            currency: Optional[str] = None,
                            year: Optional[int] = None,
+                           sub_type: Optional[str] = None,
                            force_no_cache: bool = False,
                            params: Optional[dict[str, str]] = None)
 ```
@@ -204,6 +208,8 @@ the second is a unit string or other contextual information if relevant.
   in. Will default to `defaultCurrency` on the scenario if available.
 - `year` _Optional, int_ - The scenario year to download when supported by the
   download filename template.
+- `sub_type` _Optional, String_ - Metadata sub-type used to disambiguate
+  downloads that share the same type and granularity.
 
 **Returns**:
 

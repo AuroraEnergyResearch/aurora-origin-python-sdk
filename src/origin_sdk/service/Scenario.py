@@ -180,16 +180,17 @@ class Scenario:
 
     def get_download_types(self, region: str):
         """
-        Returns the types and granularities of download available for the region. Expect something
-        like "system"|"technology" and "1y"|"1m" for type and granularity
-        respectively.
+        Returns the types, granularities, and optional sub-types of downloads
+        available for the region. Expect something like "system"|"technology"
+        and "1y"|"1m" for type and granularity respectively.
 
         Arguments:
 
             region (String)
 
         Returns:
-            A list of type and granularity downloads available for the region.
+            A list of download descriptors including type, granularity, and
+            subType (where available) for the scenario region.
         """
 
         meta_json = self.__get_download_meta_for_region(region)
@@ -198,6 +199,7 @@ class Scenario:
             {
                 "type": definition.get("type"),
                 "granularity": definition.get("granularity"),
+                "subType": definition.get("subType"),
             }
             for definition in meta_json["dataDefinitions"]
         ]
@@ -223,10 +225,26 @@ class Scenario:
 
         if not isinstance(years, list):
             raise Exception(
-                "Invalid download years metadata " f"for region '{region}'."
+                f"Invalid download years metadata for region '{region}'."
             )
 
         return years
+
+    @staticmethod
+    def __get_matching_download_definitions(
+        data_definitions: list[dict],
+        download_type: str,
+        granularity: str,
+        sub_type: Optional[str] = None,
+    ) -> list[dict]:
+        """Filters download metadata to entries matching requested attributes."""
+        return [
+            definition
+            for definition in data_definitions
+            if definition.get("granularity") == granularity
+            and definition.get("type") == download_type
+            and (sub_type is None or definition.get("subType") == sub_type)
+        ]
 
     def get_scenario_data_csv(
         self,
@@ -236,6 +254,7 @@ class Scenario:
         currency: Optional[str] = None,
         year: Optional[int] = None,
         node: Optional[str] = None,
+        sub_type: Optional[str] = None,
         force_no_cache: bool = False,
         params: Optional[dict[str, str]] = None,
     ):
@@ -289,7 +308,8 @@ class Scenario:
             year (Optional, int): The scenario year to download when supported by
             the download filename template.
             node (Optional, String): The node identifier to download nodal data for.
-
+            sub_type (Optional, String): Metadata sub-type used to disambiguate
+            downloads that share the same type and granularity.
         Returns:
             CSV as text string
 
@@ -308,6 +328,7 @@ class Scenario:
             year,
             node,
             addon_params,
+            sub_type=sub_type,
         )
         if from_cache is not None and not force_no_cache:
             return from_cache
@@ -316,11 +337,9 @@ class Scenario:
         meta_json = self.__get_download_meta_for_region(region)
 
         # Then filter the data definitions by requested type and granularity
-        download_meta_list = [
-            d
-            for d in meta_json.get("dataDefinitions")
-            if d.get("granularity") == granularity and d.get("type") == download_type
-        ]
+        download_meta_list = Scenario.__get_matching_download_definitions(
+            meta_json.get("dataDefinitions", []), download_type, granularity, sub_type
+        )
 
         number_of_downloads = len(download_meta_list)
         if number_of_downloads != 1:
@@ -329,12 +348,15 @@ class Scenario:
                 if number_of_downloads == 0
                 else "Ambiguous download"
             )
+            sub_type_description = f", sub_type={sub_type}" if sub_type else ""
             ex_msg = (
-                f"{issue_str} for {download_type}, {granularity} for {region}. "
+                f"{issue_str} for {download_type}, {granularity}{sub_type_description} for {region}. "
                 f"Expected 1, found {number_of_downloads}. "
                 "Use Scenario.get_download_types to see what available "
                 "combinations there are for the scenario."
             )
+            if number_of_downloads > 1 and sub_type is None:
+                ex_msg += " Multiple downloads matched; pass sub_type to disambiguate."
             raise Exception(ex_msg)
 
         # Now we have asserted there is only one, get this meta info.
@@ -427,6 +449,7 @@ class Scenario:
                 node,
                 csv_as_text,
                 addon_params,
+                sub_type=sub_type,
             )
 
             return csv_as_text
@@ -438,6 +461,7 @@ class Scenario:
         granularity: str,
         currency: Optional[str] = None,
         year: Optional[int] = None,
+        sub_type: Optional[str] = None,
         force_no_cache: bool = False,
         params: Optional[dict[str, str]] = None,
     ):
@@ -471,6 +495,8 @@ class Scenario:
             in. Will default to `defaultCurrency` on the scenario if available.
             year (Optional, int): The scenario year to download when supported by
             the download filename template.
+            sub_type (Optional, String): Metadata sub-type used to disambiguate
+            downloads that share the same type and granularity.
 
         Returns:
             Pandas Dataframe
@@ -485,6 +511,7 @@ class Scenario:
             granularity=granularity,
             currency=currency,
             year=year,
+            sub_type=sub_type,
             force_no_cache=force_no_cache,
             params=params,
         )
