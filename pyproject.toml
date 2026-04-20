@@ -39,8 +39,8 @@ development = [
   "pytest",
   "pytest-snapshot",
   "debugpy",
-  "novella",
-  "pydoc-markdown[novella]",
+  "sphinx",
+  "myst-parser",
 ]
 notebooks = ["matplotlib", "pandas", "ipykernel"]
 
