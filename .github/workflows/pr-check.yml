@@ -54,3 +54,11 @@ jobs:
       - run: |
           uv run sphinx-build -M clean docs docs/_build
           uv run sphinx-build -E -b html docs docs/_build/html
+
+      - name: Upload PR docs artifact
+        if: github.event_name == 'pull_request'
+        uses: actions/upload-artifact@v4
+        with:
+          name: sdk-docs-preview-pr-${{ github.event.pull_request.number }}
+          path: docs/_build/html
+          retention-days: 7
