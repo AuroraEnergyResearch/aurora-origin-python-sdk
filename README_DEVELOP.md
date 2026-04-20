@@ -1,7 +1,5 @@
 # Aurora Origin SDK
 
-## This is under development and not for general use.
-
 ## PR Checks
 
 GitHub Actions is set up to run the test suite against multiple versions of Python so that changes can be checked for compatibility.
@@ -45,3 +43,14 @@ Then check the result into `main`.
 
 The site will deploy automatically within a few minutes. The expected documentation can be found
 [here](https://auroraenergyresearch.github.io/aurora-origin-python-sdk/).
+
+
+## Releasing a new version to PyPi
+
+We have a github workflow set up in [./.github/workflows/python-publish.yml](./.github/workflows/python-publish.yml) which is triggered when a "Release" is created in github, and publishes the new version of the package to github.
+
+To cut a new release:
+
+1. Create the new release in Github (name it `v0.XX.YY`)
+2. When you click "publish", the build and publish workflow will kick off
+3. The workflow won't publish until you approve that step. Currently only Richard can do that.
