@@ -31,5 +31,5 @@ print(res[0])
 ```
 
 4. See
-   [the documentation](https://auroraenergyresearch.github.io/aurora-origin-python-sdk)
+   [the documentation](https://ghp.auroraer.com/aurora-origin-python-sdk/)
    for further details on the SDK.

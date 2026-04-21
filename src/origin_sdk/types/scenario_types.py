@@ -1,8 +1,8 @@
 """
 The scenario_types module contains type hinting and can be useful when trying to
 understand what options you have when interacting with functions, or what
-outputs to expect from queries. Enums are available in
-[scenario_enums](/docs/origin_sdk/types/scenario_enums) for import and usage.
+outputs to expect from queries. Related enums are available in the
+``origin_sdk.types.scenario_enums`` module.
 """
 
 from typing import Dict, TypedDict, List, Any, Optional
@@ -38,51 +38,50 @@ class AdvancedScenarioSettings(TypedDict):
 
 class InputScenario(TypedDict):
     """
-    Interface for creating or updating scenarios. Note that while you may be
-    able to create a scenario partially, the values required to put it into a
-    launchable state varies based on configuration. If you are missing
-    parameters, the service ought to tell you what is missing.
+    Interface for creating or updating scenarios.
 
-    Attributes:
+    Note that while you may be able to create a scenario partially, the values
+    required to put it into a launchable state vary based on configuration. If
+    you are missing parameters, the service ought to tell you what is missing.
 
-        projectGlobalId (string): The ID of the project to create the scenario
-        in
-        name (string): The name of the scenario
-        baseScenarioGlobalId (string): **Required only for non-Aurorean use.** The
-            "base" scenario you wish to use. This is equivalent to your own
-            scenario, or a published AER scenario that you wish to "copy".
-        description (optional, string): A description for the scenario. Purely for user
-            purposes, not used by the system.
-        regionGroupCode (optional, string): A region group for the scenario. Be aware
-            that a "regionGroup" would be AUS, whereas a "region" would then be
-            "VIC" or "NSW". For most regions, the "regionGroup" and it's three
-            letter region code are identical.
-        useExogifiedInputs (optional, boolean): A true value here is equivalent to the
-            "Model Determined Capacity" toggled off in the interface. When this
-            is set to false, the model automatically builds capacity to support
-            demand. If you unselect this, you are choosing to take control of
-            defining the capacity build assumptions (this runs much more
-            quickly). Whether these options are available, depends on the
-            scenario this is based on.
-        defaultCurrency (optional, string): Should be set automatically once a
-            `regionGroupCode` is chosen, but can be overridden
-        retentionPolicy (optional, string): Internal only.
-        scenarioRunType (optional, ScenarioRunType): **Deprecated for external use.**
-            Internal only. External users should use `useExogifiedInputs` instead.
-            Set useExogifiedInputs=True for MDC off (fixed capacities), or
-            useExogifiedInputs=False for MDC on (model-determined capacities).
-        modelType (optional, ModelType): Internal only. Can be values AERES, NODAL, REGIONAL or
-            NETWORK.
-        modelType (optional, ModelType): Internal only. Can be values `AERES`, `NODAL`, `REGIONAL` or
-            `NETWORK`.
-        modelPriceSpikiness (optional, ModelPriceSpikiness): Used for AUS, set
-            this to one of the ModelPriceSpikiness enum values if you wish to
-            use the feature.
-        years (optional, List[int]): Internal only.
-        weatherYear (optional, int): The Weather Year for which to simulate (half)hourly profiles - if supported.
-            Should only be used for scenarios with "fixed capacities" and without further edits; i.e.
-            `useExogifiedInputs` = `True`, or `scenarioRunType` = `FYR`
-        advancedSettings (optional, AdvancedScenarioSettings): Internal only.
+    Notes:
+        Field details:
+
+        * ``projectGlobalId``: The ID of the project to create the scenario in.
+        * ``name``: The name of the scenario.
+        * ``baseScenarioGlobalId``: Required only for non-Aurorean use. The
+          "base" scenario you wish to use. This is equivalent to your own
+          scenario, or a published AER scenario that you wish to "copy".
+        * ``description``: A description for the scenario. Purely for user
+          purposes, not used by the system.
+        * ``regionGroupCode``: A region group for the scenario. Be aware that
+          a region group would be ``AUS``, whereas a region would then be
+          ``VIC`` or ``NSW``. For most regions, the region group and its
+          three-letter region code are identical.
+        * ``useExogifiedInputs``: Equivalent to "Model Determined Capacity"
+          being toggled off in the interface. When this is set to ``False``,
+          the model automatically builds capacity to support demand. If you
+          unset this, you are choosing to take control of the capacity build
+          assumptions yourself. Whether these options are available depends on
+          the scenario this is based on.
+        * ``defaultCurrency``: Should be set automatically once a
+          ``regionGroupCode`` is chosen, but can be overridden.
+        * ``retentionPolicy``: Internal only.
+        * ``scenarioRunType``: Deprecated for external use. External users
+          should use ``useExogifiedInputs`` instead. Set
+          ``useExogifiedInputs=True`` for MDC off (fixed capacities), or
+          ``useExogifiedInputs=False`` for MDC on (model-determined
+          capacities).
+        * ``modelType``: Internal only. Can be values ``AERES``, ``NODAL``,
+          ``REGIONAL``, or ``NETWORK``.
+        * ``modelPriceSpikiness``: Used for AUS. Set this to one of the
+          ``ModelPriceSpikiness`` enum values if you wish to use the feature.
+        * ``years``: Internal only.
+        * ``weatherYear``: The weather year for which to simulate
+          (half-)hourly profiles, if supported. This should only be used for
+          scenarios with fixed capacities and without further edits, for
+          example ``useExogifiedInputs=True`` or ``scenarioRunType=FYR``.
+        * ``advancedSettings``: Internal only.
     """
 
     projectGlobalId: str
@@ -141,14 +140,17 @@ class RegionDict(TypedDict):
     """
     Regional information object.
 
-    Attributes:
-        regionCode (String): ISO code or similar from the service
-        metaUrl (String): URL used to get the meta json file for this region's downloads
-        dataUrlBase (String): URL used as the base to construct a download URL
-        for output data
-        __meta_json (Optional): Not provided by the service. This field is
-        populated as required by internal implementation of the Scenario class.
-        Observe this at your own risk.
+    Notes:
+        Field details:
+
+        * ``regionCode``: ISO code or similar from the service.
+        * ``metaUrl``: URL used to get the meta JSON file for this region's
+          downloads.
+        * ``dataUrlBase``: URL used as the base to construct a download URL
+          for output data.
+        * ``__meta_json``: Not provided by the service. This field is
+          populated as required by the internal implementation of the
+          ``Scenario`` class. Observe this at your own risk.
     """
 
     regionCode: str

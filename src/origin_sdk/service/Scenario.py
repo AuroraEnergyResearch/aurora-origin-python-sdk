@@ -204,49 +204,48 @@ class Scenario:
         params: Optional[dict[str, str]] = None,
     ):
         """
-        Downloads a csv from the service and returns as a string. Recommended to
-        use if looking to generate a csv file on disk.
+        Downloads a CSV from the service and returns it as a string. Recommended
+        to use if you are looking to generate a CSV file on disk.
 
-        In general, our csvs have two header rows. The first identifies the
-        column of data and the second is a unit string or other contextual
-        information if relevant. To convert this to a pandas data frame,
-        pass the output of this method to pandas' read_csv() method via a buffer.
+        In general, Origin CSV outputs have two header rows. The first identifies
+        the data column and the second carries unit or contextual metadata. To
+        convert this to a pandas DataFrame, pass the output of this method to
+        ``pandas.read_csv()`` via a buffer.
 
         Examples:
+            Basic usage::
 
-        ```py
-        csv_data = scenario.get_scenario_data_csv('gbr', 'system', '1y')
-        buffer = StringIO(csv_data)
-        df = pd.read_csv(buffer, header=[0,1])
-        ```
+                csv_data = scenario.get_scenario_data_csv("gbr", "system", "1y")
+                buffer = StringIO(csv_data)
+                df = pd.read_csv(buffer, header=[0, 1])
 
-        ```py
-        csv_data = scenario.get_scenario_data_csv(
-            region='erc',
-            download_type='nodal',
-            granularity='1h',
-            currency='usd2024',
-            node='ZONDWD_6_B1',
-        )
-        buffer = StringIO(csv_data)
-        df = pd.read_csv(buffer, header=[0,1])
-        ```
+            Nodal download::
+
+                csv_data = scenario.get_scenario_data_csv(
+                    region="erc",
+                    download_type="nodal",
+                    granularity="1h",
+                    currency="usd2024",
+                    node="ZONDWD_6_B1",
+                )
+                buffer = StringIO(csv_data)
+                df = pd.read_csv(buffer, header=[0, 1])
 
         Arguments:
             region (String): The region to download for. Use
-            "get_downloadable_regions" to see a list of options.
-            download_type (String): The "type" of file to download. You can use
-            "get_download_types" to query the available options.
-            granularity (String): The "granularity" of file to download. You can use
-            "get_download_types" to query the available options.
+                ``get_downloadable_regions`` to see a list of options.
+            download_type (String): The file type to download. Use
+                ``get_download_types`` to query the available options.
+            granularity (String): The file granularity to download. Use
+                ``get_download_types`` to query the available options.
             currency (Optional, String): The currency year to download the file
-            in. Will default to `defaultCurrency` on the scenario if available.
+                in. Defaults to ``defaultCurrency`` on the scenario if available.
             node (Optional, String): The node identifier to download nodal data for.
             sub_type (Optional, String): Metadata sub-type used to disambiguate
-            downloads that share the same type and granularity.
-        Returns:
-            CSV as text string
+                downloads that share the same type and granularity.
 
+        Returns:
+            CSV as text string.
         """
         addon_params = params or {}
 
@@ -385,37 +384,34 @@ class Scenario:
         params: Optional[dict[str, str]] = None,
     ):
         """
-        This method is deprecated. Use get_scenario_data_csv instead.
+        Deprecated wrapper around :meth:`get_scenario_data_csv` that returns a
+        DataFrame.
 
-        Example:
+        Example::
 
-            ```python
-            csv_data = scenario.get_scenario_data_csv('gbr', 'system', '1y')
+            csv_data = scenario.get_scenario_data_csv("gbr", "system", "1y")
             buffer = StringIO(csv_data)
-            df = pd.read_csv(buffer, header=[0,1])
-            ```
+            df = pd.read_csv(buffer, header=[0, 1])
 
-        ---
-
-
-        Much the same as `get_scenario_data` but instead parses the CSV as a
-        pandas data frame for easier consumption via a script. In general, our
+        Much the same as ``get_scenario_data_csv`` but instead parses the CSV as
+        a pandas DataFrame for easier consumption via a script. In general, our
         CSVs have two header rows. The first identifies the column of data and
         the second is a unit string or other contextual information if relevant.
 
         Arguments:
             region (String): The region to download for. Use
-            "get_downloadable_regions" to see a list of options.
-            type (String): The "type" of file to download. You can use
-            "get_download_types" to query the available options.
-            granularity (String): The "granularity" of file to download. You can use
-            "get_download_types" to query the available options.
+                ``get_downloadable_regions`` to see a list of options.
+            download_type (String): The file type to download. Use
+                ``get_download_types`` to query the available options.
+            granularity (String): The file granularity to download. Use
+                ``get_download_types`` to query the available options.
             currency (Optional, String): The currency year to download the file
-            in. Will default to `defaultCurrency` on the scenario if available.
+                in. Defaults to ``defaultCurrency`` on the scenario if available.
             sub_type (Optional, String): Metadata sub-type used to disambiguate
-            downloads that share the same type and granularity.
+                downloads that share the same type and granularity.
+
         Returns:
-            Pandas Dataframe
+            Pandas DataFrame.
         """
         logger.warning(
             "get_scenario_dataframe is deprecated. Use get_scenario_data_csv instead."
