@@ -42,23 +42,19 @@ autodoc_default_options = {
 autosummary_imported_members = False
 myst_heading_anchors = 3
 
-html_theme = "alabaster"
+html_theme = "shibuya"
 html_title = "Aurora Origin SDK Docs"
 html_logo = "_static/logo.svg"
 html_baseurl = "https://ghp.auroraer.com/aurora-origin-python-sdk/"
 html_static_path = ["_static"]
 html_theme_options = {
-    "description": "Python software development kit documentation for Origin",
-    "github_banner": True,
-    "github_repo": "aurora-origin-python-sdk",
-    "github_user": "AuroraEnergyResearch",
-    "fixed_sidebar": True,
+    "accent_color": "orange",
+    "color_mode": "auto",
+    "dark_code": False,
+    "page_layout": "default",
 }
 html_sidebars = {
     "**": [
-        "about.html",
-        "navigation.html",
-        "relations.html",
-        "searchbox.html",
+        "sidebars/localtoc.html",
     ]
 }
