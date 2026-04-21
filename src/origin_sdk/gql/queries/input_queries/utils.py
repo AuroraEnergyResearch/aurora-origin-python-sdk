@@ -13,11 +13,13 @@ def tree_to_string(tree: RecursiveTree, level=1):
             [
                 "{",
                 *[
-                    key
-                    if type(value) != dict
-                    else f"""{key} {
+                    (
+                        key
+                        if type(value) != dict
+                        else f"""{key} {
                 tree_to_string(value, level=level+1)
             }"""
+                    )
                     for key, value in tree.items()
                 ],
             ]
