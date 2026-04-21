@@ -1,4 +1,12 @@
-html[data-accent-color='orange'] {
+html.light[data-accent-color='orange'] {
+  --accent-9: #3c3c3b;
+  --accent-a2: rgba(60, 60, 59, 0.08);
+  --accent-a3: rgba(60, 60, 59, 0.14);
+  --accent-a9: rgba(60, 60, 59, 0.78);
+  --accent-a11: rgba(60, 60, 59, 0.92);
+}
+
+html.dark[data-accent-color='orange'] {
   --accent-9: #ffcc00;
   --accent-a2: rgba(255, 204, 0, 0.12);
   --accent-a3: rgba(255, 204, 0, 0.2);
