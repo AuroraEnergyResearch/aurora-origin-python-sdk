@@ -1,0 +1,7 @@
+html[data-accent-color='orange'] {
+  --accent-9: #ffcc00;
+  --accent-a2: rgba(255, 204, 0, 0.12);
+  --accent-a3: rgba(255, 204, 0, 0.2);
+  --accent-a9: rgba(255, 204, 0, 0.78);
+  --accent-a11: rgba(255, 204, 0, 0.92);
+}
