@@ -93,13 +93,32 @@ class InputsEditor:
 
     def get_technology_names(self) -> TechnologyNames:
         """
-        Gets the technology names available for get/update technology functionality in Origin.
+        Gets the technology names available for use in get/update technology
+        functionality in Origin.
 
-        Caches the result on the instance for reuse.
+        Caches into the state of the instance for ease of use.
 
         Returns:
-            TechnologyNames: Mapping of regions to technology groupings, sub-technologies,
-                and optional sub-region subsidy groupings.
+            TechnologyNames: See ``origin_sdk.types.input_types`` for the full
+                definition. The structure is:
+
+                ::
+
+                    {
+                        region: {
+                            technologyName: {
+                                "subTechnologiesExogenous": List[str],
+                                "subTechnologiesEndogenous": List[str],
+                                "subRegions": {
+                                    subregion: {
+                                        "subsidies": List[str],
+                                        "subTechnologiesExogenous": List[str],
+                                        "subTechnologiesEndogenous": List[str],
+                                    }
+                                },
+                            }
+                        }
+                    }
         """
         if self.technology_names is None:
             self.technology_names = self.session.get_technology_names(self.scenario_id)
