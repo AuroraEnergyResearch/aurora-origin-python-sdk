@@ -19,7 +19,6 @@ from origin_sdk.types.scenario_enums import (
 
 class AdvancedScenarioSettings(TypedDict):
     baseInputReference: Optional[str]
-    baseInputReferenceType: Optional[str]
     baseInputRepository: Optional[str]
     modelReference: Optional[str]
     controlFileName: Optional[str]
@@ -85,7 +84,6 @@ class InputScenario(TypedDict):
     """
 
     projectGlobalId: str
-    name: str
     baseScenarioGlobalId: Optional[str]
     description: Optional[str]
     regionGroupCode: Optional[str]

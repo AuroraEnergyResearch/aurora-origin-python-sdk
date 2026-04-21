@@ -41,6 +41,7 @@ development = [
   "debugpy",
   "sphinx",
   "myst-parser",
+  "shibuya",
 ]
 notebooks = ["matplotlib", "pandas", "ipykernel"]
 

@@ -25,7 +25,13 @@ uv run sphinx-build -M clean docs docs/_build
 uv run sphinx-build -E -b html docs docs/_build/html
 ```
 
-Then open `docs/_build/html/index.html` to inspect the rendered site locally.
+Serve the built docs locally with:
+
+```sh
+uv run python -m http.server 8000 --directory docs/_build/html
+```
+
+Then visit `http://localhost:8000/` to inspect the rendered site locally.
 
 ### Deploying the documentation
 
