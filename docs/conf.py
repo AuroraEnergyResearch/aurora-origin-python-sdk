@@ -47,6 +47,7 @@ html_title = "Aurora Origin SDK Docs"
 html_logo = "_static/logo.svg"
 html_baseurl = "https://ghp.auroraer.com/aurora-origin-python-sdk/"
 html_static_path = ["_static"]
+html_css_files = ["custom.css"]
 html_theme_options = {
     "accent_color": "orange",
     "color_mode": "auto",
