@@ -1,5 +1,5 @@
 [project]
-name = "aurora_origin_sdk"
+name = "auroraer_origin_sdk"
 version = "0.30.0"
 authors = [
   { name = "Aurora Development", email = "aurora_development@auroraer.com" },
@@ -24,7 +24,7 @@ dependencies = [
 requires-python = ">=3.9,<3.15"
 
 [dependency-groups]
-dev = ["aurora_origin_sdk[development]"]
+dev = ["auroraer_origin_sdk[development]"]
 
 [project.urls]
 repository = "https://github.com/AuroraEnergyResearch/aurora-origin-python-sdk"
