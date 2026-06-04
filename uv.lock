@@ -48,7 +48,7 @@ wheels = [
 ]
 
 [[package]]
-name = "aurora-origin-sdk"
+name = "auroraer-origin-sdk"
 version = "0.30.0"
 source = { editable = "." }
 dependencies = [
@@ -85,7 +85,7 @@ tests = [
 
 [package.dev-dependencies]
 dev = [
-    { name = "aurora-origin-sdk", extra = ["development"] },
+    { name = "auroraer-origin-sdk", extra = ["development"] },
 ]
 
 [package.metadata]
@@ -111,7 +111,7 @@ requires-dist = [
 provides-extras = ["setup", "tests", "development", "notebooks"]
 
 [package.metadata.requires-dev]
-dev = [{ name = "aurora-origin-sdk", extras = ["development"] }]
+dev = [{ name = "auroraer-origin-sdk", extras = ["development"] }]
 
 [[package]]
 name = "black"
