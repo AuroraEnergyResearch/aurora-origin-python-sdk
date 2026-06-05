@@ -47,7 +47,7 @@ parameters, the service ought to tell you what is missing.
   Internal only. External users should use `useExogifiedInputs` instead.
   Set useExogifiedInputs=True for MDC off (fixed capacities), or
   useExogifiedInputs=False for MDC on (model-determined capacities).
-- `modelType` _optional, ModelType_ - Internal only.
+- `modelType` _optional, ModelType_ - **Deprecated** Internal users should use `scenarioRunType` instead. Can be values `AERES`, `NODAL`, `REGIONAL` or `NETWORK`.
 - `modelPriceSpikiness` _optional, ModelPriceSpikiness_ - Used for AUS, set
   this to one of the ModelPriceSpikiness enum values if you wish to
   use the feature.
