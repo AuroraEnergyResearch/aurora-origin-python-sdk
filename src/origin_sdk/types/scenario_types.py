@@ -44,9 +44,8 @@ class InputScenario(TypedDict):
     parameters, the service ought to tell you what is missing.
 
     Attributes:
-
         projectGlobalId (string): The ID of the project to create the scenario
-        in
+            in
         name (string): The name of the scenario
         baseScenarioGlobalId (string): **Required only for non-Aurorean use.** The
             "base" scenario you wish to use. This is equivalent to your own
@@ -71,9 +70,7 @@ class InputScenario(TypedDict):
             Internal only. External users should use `useExogifiedInputs` instead.
             Set useExogifiedInputs=True for MDC off (fixed capacities), or
             useExogifiedInputs=False for MDC on (model-determined capacities).
-        modelType (optional, ModelType): Internal only. Can be values AERES, NODAL, REGIONAL or
-            NETWORK.
-        modelType (optional, ModelType): Internal only. Can be values `AERES`, `NODAL`, `REGIONAL` or
+        modelType (optional, ModelType): **Deprecated** Internal users should use `scenarioRunType` instead. Can be values `AERES`, `NODAL`, `REGIONAL` or `NETWORK`.
             `NETWORK`.
         modelPriceSpikiness (optional, ModelPriceSpikiness): Used for AUS, set
             this to one of the ModelPriceSpikiness enum values if you wish to
