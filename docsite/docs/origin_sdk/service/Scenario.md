@@ -95,6 +95,45 @@ region (String)
 
 A list of valid years for downloads in the region.
 
+#### get_scenario_data_download_url
+
+```python
+def get_scenario_data_download_url(region: str,
+                                   download_type: str,
+                                   granularity: str,
+                                   currency: Optional[str] = None,
+                                   year: Optional[int] = None,
+                                   node: Optional[str] = None,
+                                   sub_type: Optional[str] = None,
+                                   params: Optional[dict[str, str]] = None) -> str
+```
+
+Gets a short-lived download URL for scenario output CSV data without downloading
+the CSV into memory.
+
+Use this when the caller should stream, download, or hand off a large CSV rather
+than loading it through Python memory or an LLM context.
+
+**Arguments**:
+
+- `region` _String_ - The region to download for. Use
+  &quot;get_downloadable_regions&quot; to see a list of options.
+- `download_type` _String_ - The &quot;type&quot; of file to download. You can use
+  &quot;get_download_types&quot; to query the available options.
+- `granularity` _String_ - The &quot;granularity&quot; of file to download. You can use
+  &quot;get_download_types&quot; to query the available options.
+- `currency` _Optional, String_ - The currency year to download the file
+  in. Will default to `defaultCurrency` on the scenario if available.
+- `year` _Optional, int_ - The scenario year to download when supported by the
+  download filename template.
+- `node` _Optional, String_ - The node identifier to download nodal data for.
+- `sub_type` _Optional, String_ - Metadata sub-type used to disambiguate
+  downloads that share the same type and granularity.
+
+**Returns**:
+
+Short-lived URL for downloading CSV data.
+
 #### get_scenario_data_csv
 
 ```python
