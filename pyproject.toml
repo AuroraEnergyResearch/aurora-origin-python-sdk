@@ -1,5 +1,5 @@
 [project]
-name = "auroraer_origin_sdk"
+name = "aurora_origin_sdk"
 version = "0.30.0"
 authors = [
   { name = "Aurora Development", email = "aurora_development@auroraer.com" },
