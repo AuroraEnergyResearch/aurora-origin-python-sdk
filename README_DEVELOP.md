@@ -37,4 +37,4 @@ Then visit `http://localhost:8000/` to inspect the rendered site locally.
 
 Documentation deployment is handled by GitHub Actions on pushes to `main`. The deploy workflow builds the Sphinx site and publishes the generated HTML to GitHub Pages.
 
-The expected documentation can be found [here](https://ghp.auroraer.com/aurora-origin-python-sdk/).
+The expected documentation can be found [here](https://auroraenergyresearch.github.io/aurora-origin-python-sdk/).
