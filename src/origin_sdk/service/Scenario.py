@@ -269,32 +269,35 @@ class Scenario:
 
         Examples:
 
-        ```py
-        csv_data = scenario.get_scenario_data_csv('gbr', 'system', '1y')
-        buffer = StringIO(csv_data)
-        df = pd.read_csv(buffer, header=[0,1])
-        ```
+        .. code-block:: python
 
-        ```py
-        csv_data = scenario.get_scenario_data_csv(
-            region='erc',
-            download_type='nodal',
-            granularity='1h',
-            currency='usd2024',
-            node='ZONDWD_6_B1',
-        )
-        buffer = StringIO(csv_data)
-        df = pd.read_csv(buffer, header=[0,1])
-        ```
+            csv_data = scenario.get_scenario_data_csv('gbr', 'system', '1y')
+            buffer = StringIO(csv_data)
+            df = pd.read_csv(buffer, header=[0,1])
+        
 
-        ```py
-        csv_data = scenario.get_scenario_data_csv(
-            region='peu_deu',
-            download_type='interconnector',
-            granularity='1h',
-            year=2028,
-        )
-        ```
+        .. code-block:: python
+
+            csv_data = scenario.get_scenario_data_csv(
+                region='erc',
+                download_type='nodal',
+                granularity='1h',
+                currency='usd2024',
+                node='ZONDWD_6_B1',
+            )
+            buffer = StringIO(csv_data)
+            df = pd.read_csv(buffer, header=[0,1])
+        
+
+        .. code-block:: python
+        
+            csv_data = scenario.get_scenario_data_csv(
+                region='peu_deu',
+                download_type='interconnector',
+                granularity='1h',
+                year=2028,
+            )
+        
 
         Arguments:
             region (String): The region to download for. Use
@@ -470,11 +473,12 @@ class Scenario:
 
         Example:
 
-            ```python
+        .. code-block:: python
+
             csv_data = scenario.get_scenario_data_csv('gbr', 'system', '1y')
             buffer = StringIO(csv_data)
             df = pd.read_csv(buffer, header=[0,1])
-            ```
+        
 
         ---
 
