@@ -4,6 +4,7 @@ import logging
 import os
 from pathlib import Path
 import json
+from origin_sdk import __version__ as SDK_VERSION
 
 log = logging.getLogger(__name__)
 
@@ -128,6 +129,7 @@ class APISession:
             "Content-Type": "application/json",
             "Private-Token": self.token,
             "EOS-Cookie": self.token,
+            "User-Agent": f"origin-python-sdk/{SDK_VERSION}",
         }
         return session
 
