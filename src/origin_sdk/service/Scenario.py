@@ -294,16 +294,22 @@ class Scenario:
 
         logger.debug(request.url)
 
+        # Request the data url. Use noredirect in order to make the re-request
+        # to s3 ourselves.
         while True:
+            # Make the request for the timed URL
             s3_request = self.session.session.request(
                 "GET", request.url, request.params
             )
 
+            # If we get a 425, we need to wait and try again. Another instance may be
+            # generating the file.
             if s3_request.status_code == 425:
                 logger.debug("Received 425 Too Early, retrying after 15 seconds...")
                 sleep(15)
                 continue
 
+            # Get the location of the redirect
             s3_location = s3_request.headers.get("location")
 
             if not s3_location:
@@ -326,8 +332,11 @@ class Scenario:
         params: Optional[dict[str, str]] = None,
     ) -> _ScenarioDataDownloadRequest:
         addon_params = params or {}
+        # Decide which currency to use, falling back to the defaultCurrency
         download_currency = currency or self.scenario.get("defaultCurrency")
 
+        # First get the download information
+        # Then filter the data definitions by requested type and granularity
         meta_json = self.__get_download_meta_for_region(region)
         download_meta_list = Scenario.__get_matching_download_definitions(
             meta_json.get("dataDefinitions", []), download_type, granularity, sub_type
@@ -351,6 +360,8 @@ class Scenario:
                 ex_msg += " Multiple downloads matched; pass sub_type to disambiguate."
             raise Exception(ex_msg)
 
+        # Now we have asserted there is only one, get this meta info.
+        # Get the base URL of the download
         download_meta = download_meta_list[0]
         region_details = self.get_scenario_region(region)
 
@@ -360,6 +371,7 @@ class Scenario:
             )
 
         base_url = region_details.get("dataUrlBase")
+        # Validate node and year parameters against download metadata.
         filename_template = download_meta.get("filename", "")
         node_supported = "{nodename}" in filename_template
         year_supported = "{year}" in filename_template
@@ -373,6 +385,7 @@ class Scenario:
             year, year_supported, valid_years, download_type, granularity, region
         )
 
+        # User provided node but download doesn't support it.
         if node and not node_supported:
             logger.warning(
                 f"Node parameter provided but download with download type {download_type} does not support it."
@@ -381,12 +394,14 @@ class Scenario:
                 f"Download type '{download_type}' with granularity "
                 f"'{granularity}' does not support node parameter."
             )
+        # Download requires node but user didn't provide it.
         elif node_supported and not node:
             raise Exception(
                 f"Download type '{download_type}' with granularity "
                 f"'{granularity}' requires node parameter, but none was provided."
             )
 
+        # Use a replace to make sure the right currency is used.
         filename: str = (
             filename_template.replace("{currency}", download_currency)
             .replace("{nodename}", node or "")
@@ -495,6 +510,7 @@ class Scenario:
             params=params,
         )
 
+        # Make a follow up request for the data
         csv_as_text = self.session.session.request("GET", s3_location).text
 
         save_scenario_outputs_to_cache(
