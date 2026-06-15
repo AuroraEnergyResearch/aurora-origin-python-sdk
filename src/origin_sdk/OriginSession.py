@@ -204,7 +204,10 @@ class OriginSession(APISession):
                 )
 
     def get_aurora_scenarios(
-        self, region: Optional[str] = None
+        self,
+        region: Optional[str] = None,
+        limit: Optional[int] = None,
+        offset: Optional[int] = None,
     ) -> List[ScenarioSummaryType]:
         """
         Gets a list of all published Aurora scenarios.
@@ -216,6 +219,13 @@ class OriginSession(APISession):
             browsing the platform. You will see something like
             ".../launcher/aer/<REGION>"
 
+            limit (int, optional) - The maximum number of scenarios to return.
+            When omitted, all matching scenarios are returned.
+
+            offset (int, optional) - The number of scenarios to skip from the
+            start of the (most-recent-first) list. Only takes effect alongside
+            ``limit``.
+
         Returns:
             List[ScenarioSummaryType]
         """
@@ -223,7 +233,8 @@ class OriginSession(APISession):
         variables = {
             "filter": {
                 **({"regionGroupCode": region} if region is not None else {}),
-                # **(query_filter if query_filter is not None else {}),
+                **({"limit": limit} if limit is not None else {}),
+                **({"offset": offset} if offset is not None else {}),
                 "scenarioType": "AURORA_SCENARIO",
             }
         }
@@ -282,16 +293,78 @@ class OriginSession(APISession):
         variables = {"scenarioGlobalId": scenario_id}
         return self._graphql_request(url, scenario_query.launch_scenario, variables)
 
-    def get_projects(self) -> List[ProjectSummaryType]:
-        """ """
-        url = f"{self.scenario_service_graphql_url}"
-        return self._graphql_request(url, project_query.get_projects)
+    def get_projects(
+        self,
+        limit: Optional[int] = None,
+        offset: Optional[int] = None,
+        name: Optional[str] = None,
+    ) -> List[ProjectSummaryType]:
+        """
+        Gets the list of projects visible to the authenticated user.
 
-    def get_project(self, project_id: str) -> ProjectType:
-        """ """
+        Args:
+            limit (int, optional) - The maximum number of projects to return.
+            When omitted, all projects are returned.
+
+            offset (int, optional) - The number of projects to skip from the
+            start of the list. Only takes effect alongside ``limit``.
+
+            name (string, optional) - Case-insensitive substring filter on the
+            project name.
+
+        Returns:
+            List[ProjectSummaryType]
+        """
         url = f"{self.scenario_service_graphql_url}"
-        variables = {"projectId": project_id}
-        return self._graphql_request(url, project_query.get_project, variables)
+        variables = {
+            **({"limit": limit} if limit is not None else {}),
+            **({"offset": offset} if offset is not None else {}),
+            **({"name": name} if name is not None else {}),
+        }
+        query = project_query.build_get_projects(
+            limit=limit is not None,
+            offset=offset is not None,
+            name=name is not None,
+        )
+        return self._graphql_request(url, query, variables)
+
+    def get_project(
+        self,
+        project_id: str,
+        scenario_limit: Optional[int] = None,
+        scenario_offset: Optional[int] = None,
+    ) -> ProjectType:
+        """
+        Gets a single project, including its scenarios.
+
+        Args:
+            project_id (string) - The global id of the project.
+
+            scenario_limit (int, optional) - The maximum number of nested
+            scenarios to return. When omitted, all scenarios are returned.
+
+            scenario_offset (int, optional) - The number of nested scenarios to
+            skip from the start of the (most-recent-first) list. Only takes
+            effect alongside ``scenario_limit``.
+
+        Returns:
+            ProjectType
+        """
+        url = f"{self.scenario_service_graphql_url}"
+        variables = {
+            "projectId": project_id,
+            **({"scenarioLimit": scenario_limit} if scenario_limit is not None else {}),
+            **(
+                {"scenarioOffset": scenario_offset}
+                if scenario_offset is not None
+                else {}
+            ),
+        }
+        query = project_query.build_get_project(
+            scenario_limit=scenario_limit is not None,
+            scenario_offset=scenario_offset is not None,
+        )
+        return self._graphql_request(url, query, variables)
 
     def __get_dash_config(self):
         if self.dash_config_cache is None:

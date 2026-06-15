@@ -14,19 +14,64 @@ query {
 }
 """
 
-get_projects = """
-query {
-  getProjects {
+
+def build_get_projects(limit=False, offset=False, name=False):
+    """Build the getProjects query.
+
+    Pagination variables are only declared/forwarded when the caller actually
+    supplies them. When none are supplied the query is identical to the
+    original, so it remains compatible with backends that predate pagination
+    support.
+    """
+    declarations = []
+    arguments = []
+    if limit:
+        declarations.append("$limit: Int")
+        arguments.append("limit: $limit")
+    if offset:
+        declarations.append("$offset: Int")
+        arguments.append("offset: $offset")
+    if name:
+        declarations.append("$name: String")
+        arguments.append("name: $name")
+
+    declaration_str = f" ({', '.join(declarations)})" if declarations else ""
+    argument_str = f" ({', '.join(arguments)})" if arguments else ""
+
+    return f"""
+query{declaration_str} {{
+  getProjects{argument_str} {{
     projectGlobalId
     name
     description
     isProjectPinned
-  }
-}
+  }}
+}}
 """
 
-get_project = f"""
-query ($projectId: String!) {{
+
+def build_get_project(scenario_limit=False, scenario_offset=False):
+    """Build the getProject query.
+
+    Nested-scenario pagination args are only declared/forwarded when supplied,
+    keeping the default query compatible with backends that predate pagination
+    support.
+    """
+    declarations = ["$projectId: String!"]
+    scenario_arguments = []
+    if scenario_limit:
+        declarations.append("$scenarioLimit: Int")
+        scenario_arguments.append("limit: $scenarioLimit")
+    if scenario_offset:
+        declarations.append("$scenarioOffset: Int")
+        scenario_arguments.append("offset: $scenarioOffset")
+
+    scenario_argument_str = (
+        f" ({', '.join(scenario_arguments)})" if scenario_arguments else ""
+    )
+
+    return f"""
+query ({', '.join(declarations)}) {{
   getProject (projectGlobalId: $projectId) {{
     projectGlobalId
     name
@@ -34,12 +79,13 @@ query ($projectId: String!) {{
     productName
     productId
     isProjectPinned
-    scenarios {{
+    scenarios{scenario_argument_str} {{
       {scenario_summary_fields}
     }}
   }}
 }}
 """
+
 
 create_project = """
 mutation ($project: InputProject!) {
