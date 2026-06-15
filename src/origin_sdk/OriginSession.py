@@ -60,6 +60,9 @@ def get_endpoints(universe: str = PRODUCTION) -> Dict[str, str]:
 
 
 class OriginSessionConfig(TypedDict, total=False):
+    """Configuration accepted by :class:`OriginSession`."""
+
+    #: Override the API authentication token used for access.
     token: str
     universe: str
     scenario_base_url: str

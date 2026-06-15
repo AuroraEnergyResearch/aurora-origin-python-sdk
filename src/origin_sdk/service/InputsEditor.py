@@ -99,20 +99,26 @@ class InputsEditor:
         Caches into the state of the instance for ease of use.
 
         Returns:
-            TechnologyNames object (see types.input_types for details) General
-            structure is as follows: {
-                [region]: {
-                    [technologyName]: {
-                        subTechnologiesExogenous: List[str],
-                        subTechnologiesEndogenous: List[str], subRegions: {
-                            [subregion]: {
-                                subsidies: List[str] subTechnologiesExogenous:
-                                List[str], subTechnologiesEndogenous: List[str],
+            TechnologyNames: See ``origin_sdk.types.input_types`` for the full
+                definition. The structure is:
+
+                ::
+
+                    {
+                        region: {
+                            technologyName: {
+                                "subTechnologiesExogenous": List[str],
+                                "subTechnologiesEndogenous": List[str],
+                                "subRegions": {
+                                    subregion: {
+                                        "subsidies": List[str],
+                                        "subTechnologiesExogenous": List[str],
+                                        "subTechnologiesEndogenous": List[str],
+                                    }
+                                },
                             }
                         }
                     }
-                }
-            }
         """
         if self.technology_names is None:
             self.technology_names = self.session.get_technology_names(self.scenario_id)

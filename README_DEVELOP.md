@@ -18,30 +18,23 @@ uv sync
 
 ### Building the documentation
 
-The documentation requires node
+Build the documentation locally with Sphinx:
 
-```powershell
-# If you haven't installed the documentation packages before
-cd docsite; npm i;
+```sh
+uv run sphinx-build -M clean docs docs/_build
+uv run sphinx-build -E -b html docs docs/_build/html
 ```
 
-```powershell
-# Generate markdown from pydoc strings
-uv run pydoc-markdown
+Serve the built docs locally with:
 
-# Also update any of the markdown inside docsite/docs
-cd docsite
-npm run build
+```sh
+uv run python -m http.server 8000 --directory docs/_build/html
 ```
+
+Then visit `http://localhost:8000/` to inspect the rendered site locally.
 
 ### Deploying the documentation
 
-```powershell
-cd docsite
-npm run deploy_ghpages
-```
+Documentation deployment is handled by GitHub Actions on pushes to `main`. The deploy workflow builds the Sphinx site and publishes the generated HTML to GitHub Pages.
 
-Then check the result into `main`.
-
-The site will deploy automatically within a few minutes. The expected documentation can be found
-[here](https://auroraenergyresearch.github.io/aurora-origin-python-sdk/).
+The expected documentation can be found [here](https://auroraenergyresearch.github.io/aurora-origin-python-sdk/).
