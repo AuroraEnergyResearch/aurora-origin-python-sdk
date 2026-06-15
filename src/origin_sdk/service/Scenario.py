@@ -8,7 +8,7 @@ from core.data import (
     get_scenario_outputs_from_cache,
     save_scenario_outputs_to_cache,
 )
-from typing import List, Optional, Union, cast
+from typing import List, NamedTuple, Optional, Union, cast
 from io import StringIO
 from datetime import datetime
 from time import sleep
@@ -44,6 +44,11 @@ def _validate_year_parameter(
             f"Year '{year}' is not valid for region '{region}'. "
             f"Valid years: {valid_years}."
         )
+
+
+class _ScenarioDataDownloadRequest(NamedTuple):
+    url: str
+    params: dict[str, str]
 
 
 class Scenario:
@@ -224,9 +229,7 @@ class Scenario:
             return []
 
         if not isinstance(years, list):
-            raise Exception(
-                f"Invalid download years metadata for region '{region}'."
-            )
+            raise Exception(f"Invalid download years metadata for region '{region}'.")
 
         return years
 
@@ -245,6 +248,169 @@ class Scenario:
             and definition.get("type") == download_type
             and (sub_type is None or definition.get("subType") == sub_type)
         ]
+
+    def get_scenario_data_download_url(
+        self,
+        region: str,
+        download_type: str,
+        granularity: str,
+        currency: Optional[str] = None,
+        year: Optional[int] = None,
+        node: Optional[str] = None,
+        sub_type: Optional[str] = None,
+        params: Optional[dict[str, str]] = None,
+    ) -> str:
+        """
+        Gets a short-lived download URL for scenario output CSV data without
+        downloading the CSV into memory.
+
+        Arguments:
+            region (String): The region to download for. Use
+            "get_downloadable_regions" to see a list of options.
+            download_type (String): The "type" of file to download. You can use
+            "get_download_types" to query the available options.
+            granularity (String): The "granularity" of file to download. You can use
+            "get_download_types" to query the available options.
+            currency (Optional, String): The currency year to download the file
+            in. Will default to `defaultCurrency` on the scenario if available.
+            year (Optional, int): The scenario year to download when supported by
+            the download filename template.
+            node (Optional, String): The node identifier to download nodal data for.
+            sub_type (Optional, String): Metadata sub-type used to disambiguate
+            downloads that share the same type and granularity.
+        Returns:
+            Short-lived URL for downloading CSV data.
+        """
+        request = self.__build_scenario_data_download_request(
+            region=region,
+            download_type=download_type,
+            granularity=granularity,
+            currency=currency,
+            year=year,
+            node=node,
+            sub_type=sub_type,
+            params=params,
+        )
+
+        logger.debug(request.url)
+
+        # Request the data url. Use noredirect in order to make the re-request
+        # to s3 ourselves.
+        while True:
+            # Make the request for the timed URL
+            s3_request = self.session.session.request(
+                "GET", request.url, request.params
+            )
+
+            # If we get a 425, we need to wait and try again. Another instance may be
+            # generating the file.
+            if s3_request.status_code == 425:
+                logger.debug("Received 425 Too Early, retrying after 15 seconds...")
+                sleep(15)
+                continue
+
+            # Get the location of the redirect
+            s3_location = s3_request.headers.get("location")
+
+            if not s3_location:
+                raise Exception(
+                    f"Could not get download location for "
+                    f"{download_type}, {granularity} for {region}."
+                )
+
+            return s3_location
+
+    def __build_scenario_data_download_request(
+        self,
+        region: str,
+        download_type: str,
+        granularity: str,
+        currency: Optional[str] = None,
+        year: Optional[int] = None,
+        node: Optional[str] = None,
+        sub_type: Optional[str] = None,
+        params: Optional[dict[str, str]] = None,
+    ) -> _ScenarioDataDownloadRequest:
+        addon_params = params or {}
+        # Decide which currency to use, falling back to the defaultCurrency
+        download_currency = currency or self.scenario.get("defaultCurrency")
+
+        # First get the download information
+        # Then filter the data definitions by requested type and granularity
+        meta_json = self.__get_download_meta_for_region(region)
+        download_meta_list = Scenario.__get_matching_download_definitions(
+            meta_json.get("dataDefinitions", []), download_type, granularity, sub_type
+        )
+
+        number_of_downloads = len(download_meta_list)
+        if number_of_downloads != 1:
+            issue_str = (
+                "Could not find download"
+                if number_of_downloads == 0
+                else "Ambiguous download"
+            )
+            sub_type_description = f", sub_type={sub_type}" if sub_type else ""
+            ex_msg = (
+                f"{issue_str} for {download_type}, {granularity}{sub_type_description} for {region}. "
+                f"Expected 1, found {number_of_downloads}. "
+                "Use Scenario.get_download_types to see what available "
+                "combinations there are for the scenario."
+            )
+            if number_of_downloads > 1 and sub_type is None:
+                ex_msg += " Multiple downloads matched; pass sub_type to disambiguate."
+            raise Exception(ex_msg)
+
+        # Now we have asserted there is only one, get this meta info.
+        # Get the base URL of the download
+        download_meta = download_meta_list[0]
+        region_details = self.get_scenario_region(region)
+
+        if not region_details:
+            raise Exception(
+                f"Region '{region}' not found for scenario with ID '{self.scenario_id}'"
+            )
+
+        base_url = region_details.get("dataUrlBase")
+        # Validate node and year parameters against download metadata.
+        filename_template = download_meta.get("filename", "")
+        node_supported = "{nodename}" in filename_template
+        year_supported = "{year}" in filename_template
+
+        valid_years = (
+            self.get_download_years(region)
+            if year_supported or year is not None
+            else []
+        )
+        _validate_year_parameter(
+            year, year_supported, valid_years, download_type, granularity, region
+        )
+
+        # User provided node but download doesn't support it.
+        if node and not node_supported:
+            logger.warning(
+                f"Node parameter provided but download with download type {download_type} does not support it."
+            )
+            raise Exception(
+                f"Download type '{download_type}' with granularity "
+                f"'{granularity}' does not support node parameter."
+            )
+        # Download requires node but user didn't provide it.
+        elif node_supported and not node:
+            raise Exception(
+                f"Download type '{download_type}' with granularity "
+                f"'{granularity}' requires node parameter, but none was provided."
+            )
+
+        # Use a replace to make sure the right currency is used.
+        filename: str = (
+            filename_template.replace("{currency}", download_currency)
+            .replace("{nodename}", node or "")
+            .replace("{year}", str(year or ""))
+        )
+        return _ScenarioDataDownloadRequest(
+            url=f"{self.session.scenario_service_url}/{base_url}{filename}",
+            params={"noredirect": "true", "checkstatus": "true", **addon_params},
+        )
 
     def get_scenario_data_csv(
         self,
@@ -333,126 +499,34 @@ class Scenario:
         if from_cache is not None and not force_no_cache:
             return from_cache
 
-        # First get the download information
-        meta_json = self.__get_download_meta_for_region(region)
-
-        # Then filter the data definitions by requested type and granularity
-        download_meta_list = Scenario.__get_matching_download_definitions(
-            meta_json.get("dataDefinitions", []), download_type, granularity, sub_type
+        s3_location = self.get_scenario_data_download_url(
+            region=region,
+            download_type=download_type,
+            granularity=granularity,
+            currency=currency,
+            year=year,
+            node=node,
+            sub_type=sub_type,
+            params=params,
         )
 
-        number_of_downloads = len(download_meta_list)
-        if number_of_downloads != 1:
-            issue_str = (
-                "Could not find download"
-                if number_of_downloads == 0
-                else "Ambiguous download"
-            )
-            sub_type_description = f", sub_type={sub_type}" if sub_type else ""
-            ex_msg = (
-                f"{issue_str} for {download_type}, {granularity}{sub_type_description} for {region}. "
-                f"Expected 1, found {number_of_downloads}. "
-                "Use Scenario.get_download_types to see what available "
-                "combinations there are for the scenario."
-            )
-            if number_of_downloads > 1 and sub_type is None:
-                ex_msg += " Multiple downloads matched; pass sub_type to disambiguate."
-            raise Exception(ex_msg)
+        # Make a follow up request for the data
+        csv_as_text = self.session.session.request("GET", s3_location).text
 
-        # Now we have asserted there is only one, get this meta info.
-        download_meta = download_meta_list[0]
-
-        # Get the base URL of the download
-        region_details = self.get_scenario_region(region)
-
-        if not region_details:
-            raise Exception(
-                f"Region '{region}' not found for scenario with ID '{self.scenario_id}'"
-            )
-
-        base_url = region_details.get("dataUrlBase")
-
-        # Validate node parameter against download metadata
-        filename_template = download_meta.get("filename", "")
-        node_supported = "{nodename}" in filename_template
-        year_supported = "{year}" in filename_template
-
-        valid_years = (
-            self.get_download_years(region)
-            if year_supported or year is not None
-            else []
-        )
-        _validate_year_parameter(
-            year, year_supported, valid_years, download_type, granularity, region
+        save_scenario_outputs_to_cache(
+            self.scenario_id,
+            region,
+            download_type,
+            granularity,
+            download_currency,
+            year,
+            node,
+            csv_as_text,
+            addon_params,
+            sub_type=sub_type,
         )
 
-        if node and not node_supported:
-            # User provided node but download doesn't support it
-            logger.warning(
-                f"Node parameter provided but download with download type {download_type} does not support it."
-            )
-            raise Exception(
-                f"Download type '{download_type}' with granularity "
-                f"'{granularity}' does not support node parameter."
-            )
-        elif node_supported and not node:
-            # Download requires node but user didn't provide it
-            raise Exception(
-                f"Download type '{download_type}' with granularity "
-                f"'{granularity}' requires node parameter, but none was provided."
-            )
-
-        # Use a replace to make sure the right currency is used
-        filename: str = (
-            filename_template.replace("{currency}", download_currency)
-            .replace("{nodename}", node or "")
-            .replace("{year}", str(year or ""))
-        )
-
-        # Request the data url. Use noredirect in order to make the re-request
-        # to s3 ourselves.
-        full_data_url = f"{self.session.scenario_service_url}/{base_url}{filename}"
-        full_params = {"noredirect": "true", "checkstatus": "true", **addon_params}
-
-        logger.debug(full_data_url)
-
-        while True:
-            # Make the request for the timed URL
-            s3_request = self.session.session.request("GET", full_data_url, full_params)
-
-            # If we get a 425, we need to wait and try again. Another instance may be
-            # generating the file.
-            if s3_request.status_code == 425:
-                logger.debug("Received 425 Too Early, retrying after 15 seconds...")
-                sleep(15)
-                continue
-
-            # Get the location of the redirect
-            s3_location = s3_request.headers.get("location")
-
-            if not s3_location:
-                raise Exception(
-                    f"Could not get download location for "
-                    f"{download_type}, {granularity} for {region}."
-                )
-
-            # Make a follow up request for the data
-            csv_as_text = self.session.session.request("GET", s3_location).text
-
-            save_scenario_outputs_to_cache(
-                self.scenario_id,
-                region,
-                download_type,
-                granularity,
-                download_currency,
-                year,
-                node,
-                csv_as_text,
-                addon_params,
-                sub_type=sub_type,
-            )
-
-            return csv_as_text
+        return csv_as_text
 
     def get_scenario_dataframe(
         self,
