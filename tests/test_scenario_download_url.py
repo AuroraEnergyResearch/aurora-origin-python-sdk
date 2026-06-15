@@ -52,6 +52,28 @@ def test_get_scenario_data_download_url_returns_signed_location() -> None:
     ]
 
 
+def test_get_scenario_data_download_url_retries_while_file_generates(
+    monkeypatch,
+) -> None:
+    http = FakeHttpSession()
+    first_response = FakeResponse()
+    first_response.status_code = 425
+    http.responses.extend(
+        [first_response, FakeResponse(location="https://signed.example/file.csv")]
+    )
+    scenario = _scenario(http)
+    monkeypatch.setattr(scenario_module, "sleep", lambda seconds: None)
+
+    result = scenario.get_scenario_data_download_url(
+        region="gbr",
+        download_type="system",
+        granularity="1y",
+    )
+
+    assert result == "https://signed.example/file.csv"
+    assert len(http.requests) == 2
+
+
 def test_get_scenario_data_download_url_validates_required_node() -> None:
     scenario = _scenario(FakeHttpSession(), filename="nodal_{nodename}.csv")
 
@@ -127,6 +149,24 @@ def test_get_scenario_data_csv_uses_download_url_and_preserves_cache(
         {},
     )
     assert saved["kwargs"] == {"sub_type": None}
+
+
+def test_get_scenario_data_csv_returns_cached_value_without_request(
+    monkeypatch,
+) -> None:
+    http = FakeHttpSession()
+    scenario = _scenario(http)
+
+    monkeypatch.setattr(
+        scenario_module,
+        "get_scenario_outputs_from_cache",
+        lambda *args, **kwargs: "cached,csv\n",
+    )
+
+    result = scenario.get_scenario_data_csv("gbr", "system", "1y")
+
+    assert result == "cached,csv\n"
+    assert http.requests == []
 
 
 def _scenario(

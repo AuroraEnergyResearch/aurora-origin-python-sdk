@@ -108,11 +108,12 @@ def get_scenario_data_download_url(region: str,
                                    params: Optional[dict[str, str]] = None) -> str
 ```
 
-Gets a short-lived download URL for scenario output CSV data without downloading
-the CSV into memory.
+Gets a short-lived signed download URL for scenario output CSV data without
+downloading the CSV into memory.
 
 Use this when the caller should stream, download, or hand off a large CSV rather
-than loading it through Python memory or an LLM context.
+than loading it through Python memory. The returned URL grants read access until
+it expires, so treat it like a secret and do not log it.
 
 **Arguments**:
 

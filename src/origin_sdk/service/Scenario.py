@@ -8,7 +8,7 @@ from core.data import (
     get_scenario_outputs_from_cache,
     save_scenario_outputs_to_cache,
 )
-from typing import List, Optional, Union, cast
+from typing import List, NamedTuple, Optional, Union, cast
 from io import StringIO
 from datetime import datetime
 from time import sleep
@@ -44,6 +44,11 @@ def _validate_year_parameter(
             f"Year '{year}' is not valid for region '{region}'. "
             f"Valid years: {valid_years}."
         )
+
+
+class _ScenarioDataDownloadRequest(NamedTuple):
+    url: str
+    params: dict[str, str]
 
 
 class Scenario:
@@ -276,6 +281,50 @@ class Scenario:
         Returns:
             Short-lived URL for downloading CSV data.
         """
+        request = self.__build_scenario_data_download_request(
+            region=region,
+            download_type=download_type,
+            granularity=granularity,
+            currency=currency,
+            year=year,
+            node=node,
+            sub_type=sub_type,
+            params=params,
+        )
+
+        logger.debug(request.url)
+
+        while True:
+            s3_request = self.session.session.request(
+                "GET", request.url, request.params
+            )
+
+            if s3_request.status_code == 425:
+                logger.debug("Received 425 Too Early, retrying after 15 seconds...")
+                sleep(15)
+                continue
+
+            s3_location = s3_request.headers.get("location")
+
+            if not s3_location:
+                raise Exception(
+                    f"Could not get download location for "
+                    f"{download_type}, {granularity} for {region}."
+                )
+
+            return s3_location
+
+    def __build_scenario_data_download_request(
+        self,
+        region: str,
+        download_type: str,
+        granularity: str,
+        currency: Optional[str] = None,
+        year: Optional[int] = None,
+        node: Optional[str] = None,
+        sub_type: Optional[str] = None,
+        params: Optional[dict[str, str]] = None,
+    ) -> _ScenarioDataDownloadRequest:
         addon_params = params or {}
         download_currency = currency or self.scenario.get("defaultCurrency")
 
@@ -343,28 +392,10 @@ class Scenario:
             .replace("{nodename}", node or "")
             .replace("{year}", str(year or ""))
         )
-        full_data_url = f"{self.session.scenario_service_url}/{base_url}{filename}"
-        full_params = {"noredirect": "true", "checkstatus": "true", **addon_params}
-
-        logger.debug(full_data_url)
-
-        while True:
-            s3_request = self.session.session.request("GET", full_data_url, full_params)
-
-            if s3_request.status_code == 425:
-                logger.debug("Received 425 Too Early, retrying after 15 seconds...")
-                sleep(15)
-                continue
-
-            s3_location = s3_request.headers.get("location")
-
-            if not s3_location:
-                raise Exception(
-                    f"Could not get download location for "
-                    f"{download_type}, {granularity} for {region}."
-                )
-
-            return s3_location
+        return _ScenarioDataDownloadRequest(
+            url=f"{self.session.scenario_service_url}/{base_url}{filename}",
+            params={"noredirect": "true", "checkstatus": "true", **addon_params},
+        )
 
     def get_scenario_data_csv(
         self,
