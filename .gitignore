@@ -235,9 +235,6 @@ dist
 .temp
 .cache
 
-# Generated API docs
-docs/api/generated/
-docs/_apidoc/
 # Serverless directories
 .serverless/
 

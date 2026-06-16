@@ -2,12 +2,9 @@ from __future__ import annotations
 
 from datetime import date
 from pathlib import Path
-import sys
 import tomllib
 
 ROOT = Path(__file__).resolve().parents[1]
-SRC = ROOT / "src"
-sys.path.insert(0, str(SRC))
 
 project_metadata = tomllib.loads((ROOT / "pyproject.toml").read_text(encoding="utf-8"))["project"]
 
@@ -19,27 +16,36 @@ version = release
 
 extensions = [
     "myst_parser",
-    "sphinx.ext.autodoc",
-    "sphinx.ext.autosummary",
+    "autodoc2",
     "sphinx.ext.githubpages",
-    "sphinx.ext.napoleon",
-    "sphinx.ext.viewcode",
 ]
 source_suffix = {
     ".rst": "restructuredtext",
     ".md": "markdown",
 }
-exclude_patterns = ["_build", "_apidoc"]
+exclude_patterns = ["_build"]
 
-autosummary_generate = True
-autodoc_typehints = "signature"
-autodoc_mock_imports = ["pandas"]
-autodoc_default_options = {
-    "members": True,
-    "undoc-members": True,
-    "show-inheritance": True,
-}
-autosummary_imported_members = False
+# sphinx-autodoc2 statically analyses the package and renders docstrings as MyST
+# Markdown, so docstrings are authored in Markdown directly -- fenced code blocks
+# and inline code render natively. The `service`, `types` and `gql` subpackages
+# are PEP-420 namespace packages (no __init__.py), so autodoc2 auto_mode cannot
+# traverse into them; we use manual mode and curate the modules in docs/api/.
+autodoc2_packages = [
+    {
+        "path": "../src/origin_sdk",
+        "module": "origin_sdk",
+        "auto_mode": False,
+    },
+]
+autodoc2_render_plugin = "myst"
+autodoc2_hidden_objects = ["dunder", "private"]
+# `dict`-subclass TypedDicts (e.g. InputsDemandVariables) re-expose every inherited
+# dict method, which autodoc2 reports as duplicate items. They are noise.
+suppress_warnings = ["autodoc2.dup_item"]
+
+# Enable sphinx-style field lists (:param:/:returns:/:raises:) inside Markdown
+# docstrings so parameter documentation renders as a definition list.
+myst_enable_extensions = ["fieldlist"]
 myst_heading_anchors = 3
 
 html_theme = "shibuya"

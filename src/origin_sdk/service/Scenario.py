@@ -56,16 +56,11 @@ class Scenario:
     A Scenario class that holds state in order to provide a more Pythonic
     interface for Scenario building and downloading outputs
 
-    Arguments:
-        scenario_id (str): The ID to initialise the scenario with. Will fetch
-        the scenario details and populate itself with details
-        session (OriginSession): You should first instantiate an OriginSession
-        and pass this over to the Scenario.
-
-    Attributes:
-        scenario_id (str): The scenario ID
-        session (OriginSession): The OriginSession attached to this scenario
-        scenario (ScenarioType): The full Scenario object from the service
+    :param scenario_id: The ID to initialise the scenario with. Will fetch the scenario details and populate itself with details.
+    :param session: An already-instantiated `OriginSession` to attach to the Scenario.
+    :ivar scenario_id: The scenario ID.
+    :ivar session: The `OriginSession` attached to this scenario.
+    :ivar scenario: The full Scenario object from the service.
     """
 
     def __init__(self, scenario_id: str, session: OriginSession):
@@ -78,8 +73,7 @@ class Scenario:
         A helper function to return the regions available for download from
         this scenario
 
-        Returns:
-            A list of regions available
+        :returns: A list of regions available.
         """
         return [region for region in self.scenario.get("regions")]
 
@@ -149,8 +143,7 @@ class Scenario:
         Helper function to get a specific region from the regions object, as
         it's a common access pattern.
 
-        Returns:
-            RegionDict
+        :returns: The region's `RegionDict`.
         """
         return self.get_scenario_regions().get(region)
 
@@ -164,8 +157,7 @@ class Scenario:
         This function is not likely to be useful outside of internal
         implementation.
 
-        Returns:
-            meta_json object, defining the downloads available and what they contain.
+        :returns: meta_json object, defining the downloads available and what they contain.
         """
         from_cache = get_meta_json_from_cache(self.scenario_id, region)
         if from_cache is not None:
@@ -189,13 +181,8 @@ class Scenario:
         available for the region. Expect something like "system"|"technology"
         and "1y"|"1m" for type and granularity respectively.
 
-        Arguments:
-
-            region (String)
-
-        Returns:
-            A list of download descriptors including type, granularity, and
-            subType (where available) for the scenario region.
+        :param region: The scenario region.
+        :returns: A list of download descriptors including type, granularity, and subType (where available) for the scenario region.
         """
 
         meta_json = self.__get_download_meta_for_region(region)
@@ -214,12 +201,8 @@ class Scenario:
         Returns the valid download years for the region, as defined in the
         region metadata.
 
-        Arguments:
-
-            region (String)
-
-        Returns:
-            A list of valid years for downloads in the region.
+        :param region: The scenario region.
+        :returns: A list of valid years for downloads in the region.
         """
 
         meta_json = self.__get_download_meta_for_region(region)
@@ -264,22 +247,14 @@ class Scenario:
         Gets a short-lived download URL for scenario output CSV data without
         downloading the CSV into memory.
 
-        Arguments:
-            region (String): The region to download for. Use
-            "get_downloadable_regions" to see a list of options.
-            download_type (String): The "type" of file to download. You can use
-            "get_download_types" to query the available options.
-            granularity (String): The "granularity" of file to download. You can use
-            "get_download_types" to query the available options.
-            currency (Optional, String): The currency year to download the file
-            in. Will default to `defaultCurrency` on the scenario if available.
-            year (Optional, int): The scenario year to download when supported by
-            the download filename template.
-            node (Optional, String): The node identifier to download nodal data for.
-            sub_type (Optional, String): Metadata sub-type used to disambiguate
-            downloads that share the same type and granularity.
-        Returns:
-            Short-lived URL for downloading CSV data.
+        :param region: The region to download for. Use `get_downloadable_regions` to see a list of options.
+        :param download_type: The type of file to download. Use `get_download_types` to query the available options.
+        :param granularity: The granularity of file to download. Use `get_download_types` to query the available options.
+        :param currency: The currency year to download the file in. Defaults to `defaultCurrency` on the scenario if available.
+        :param year: The scenario year to download when supported by the download filename template.
+        :param node: The node identifier to download nodal data for.
+        :param sub_type: Metadata sub-type used to disambiguate downloads that share the same type and granularity.
+        :returns: Short-lived URL for downloading CSV data.
         """
         request = self.__build_scenario_data_download_request(
             region=region,
@@ -433,54 +408,43 @@ class Scenario:
         information if relevant. To convert this to a pandas data frame,
         pass the output of this method to pandas' read_csv() method via a buffer.
 
-        Examples:
+        **Examples**
 
-        .. code-block:: python
+        ```python
+        csv_data = scenario.get_scenario_data_csv('gbr', 'system', '1y')
+        buffer = StringIO(csv_data)
+        df = pd.read_csv(buffer, header=[0,1])
+        ```
 
-            csv_data = scenario.get_scenario_data_csv('gbr', 'system', '1y')
-            buffer = StringIO(csv_data)
-            df = pd.read_csv(buffer, header=[0,1])
-        
+        ```python
+        csv_data = scenario.get_scenario_data_csv(
+            region='erc',
+            download_type='nodal',
+            granularity='1h',
+            currency='usd2024',
+            node='ZONDWD_6_B1',
+        )
+        buffer = StringIO(csv_data)
+        df = pd.read_csv(buffer, header=[0,1])
+        ```
 
-        .. code-block:: python
+        ```python
+        csv_data = scenario.get_scenario_data_csv(
+            region='peu_deu',
+            download_type='interconnector',
+            granularity='1h',
+            year=2028,
+        )
+        ```
 
-            csv_data = scenario.get_scenario_data_csv(
-                region='erc',
-                download_type='nodal',
-                granularity='1h',
-                currency='usd2024',
-                node='ZONDWD_6_B1',
-            )
-            buffer = StringIO(csv_data)
-            df = pd.read_csv(buffer, header=[0,1])
-        
-
-        .. code-block:: python
-        
-            csv_data = scenario.get_scenario_data_csv(
-                region='peu_deu',
-                download_type='interconnector',
-                granularity='1h',
-                year=2028,
-            )
-        
-
-        Arguments:
-            region (String): The region to download for. Use
-            "get_downloadable_regions" to see a list of options.
-            download_type (String): The "type" of file to download. You can use
-            "get_download_types" to query the available options.
-            granularity (String): The "granularity" of file to download. You can use
-            "get_download_types" to query the available options.
-            currency (Optional, String): The currency year to download the file
-            in. Will default to `defaultCurrency` on the scenario if available.
-            year (Optional, int): The scenario year to download when supported by
-            the download filename template.
-            node (Optional, String): The node identifier to download nodal data for.
-            sub_type (Optional, String): Metadata sub-type used to disambiguate
-            downloads that share the same type and granularity.
-        Returns:
-            CSV as text string
+        :param region: The region to download for. Use `get_downloadable_regions` to see a list of options.
+        :param download_type: The type of file to download. Use `get_download_types` to query the available options.
+        :param granularity: The granularity of file to download. Use `get_download_types` to query the available options.
+        :param currency: The currency year to download the file in. Defaults to `defaultCurrency` on the scenario if available.
+        :param year: The scenario year to download when supported by the download filename template.
+        :param node: The node identifier to download nodal data for.
+        :param sub_type: Metadata sub-type used to disambiguate downloads that share the same type and granularity.
+        :returns: CSV as text string
 
         """
         addon_params = params or {}
@@ -545,39 +509,26 @@ class Scenario:
         """
         This method is deprecated. Use get_scenario_data_csv instead.
 
-        Example:
+        **Example**
 
-        .. code-block:: python
-
-            csv_data = scenario.get_scenario_data_csv('gbr', 'system', '1y')
-            buffer = StringIO(csv_data)
-            df = pd.read_csv(buffer, header=[0,1])
-        
-
-        ---
-
+        ```python
+        csv_data = scenario.get_scenario_data_csv('gbr', 'system', '1y')
+        buffer = StringIO(csv_data)
+        df = pd.read_csv(buffer, header=[0,1])
+        ```
 
         Much the same as `get_scenario_data` but instead parses the CSV as a
         pandas data frame for easier consumption via a script. In general, our
         CSVs have two header rows. The first identifies the column of data and
         the second is a unit string or other contextual information if relevant.
 
-        Arguments:
-            region (String): The region to download for. Use
-            "get_downloadable_regions" to see a list of options.
-            type (String): The "type" of file to download. You can use
-            "get_download_types" to query the available options.
-            granularity (String): The "granularity" of file to download. You can use
-            "get_download_types" to query the available options.
-            currency (Optional, String): The currency year to download the file
-            in. Will default to `defaultCurrency` on the scenario if available.
-            year (Optional, int): The scenario year to download when supported by
-            the download filename template.
-            sub_type (Optional, String): Metadata sub-type used to disambiguate
-            downloads that share the same type and granularity.
-
-        Returns:
-            Pandas Dataframe
+        :param region: The region to download for. Use `get_downloadable_regions` to see a list of options.
+        :param download_type: The type of file to download. Use `get_download_types` to query the available options.
+        :param granularity: The granularity of file to download. Use `get_download_types` to query the available options.
+        :param currency: The currency year to download the file in. Defaults to `defaultCurrency` on the scenario if available.
+        :param year: The scenario year to download when supported by the download filename template.
+        :param sub_type: Metadata sub-type used to disambiguate downloads that share the same type and granularity.
+        :returns: Pandas Dataframe
         """
         logger.warning(
             "get_scenario_dataframe is deprecated. Use get_scenario_data_csv instead."

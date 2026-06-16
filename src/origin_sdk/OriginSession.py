@@ -82,11 +82,9 @@ class OriginSession(APISession):
     be overridden by passing the token into the constructor or by setting the
     environment variable *AURORA_API_KEY*.
 
-    Args:
-        token (string, optional): Override the api authentication token used for
-        API access. Defaults to None.
-        scenario_base_url (string, optional): Override the scenario service base url
-        inputs_base_url (string, optional): Override the model inputs service base url
+    :param token: Override the api authentication token used for API access. Defaults to None.
+    :param scenario_base_url: Override the scenario service base url
+    :param inputs_base_url: Override the model inputs service base url
     """
 
     inputs_config_cache: Any = None
@@ -212,15 +210,8 @@ class OriginSession(APISession):
         """
         Gets a list of all published Aurora scenarios.
 
-        Args:
-            region (string, optional) - A regional filter. We accept three
-            letter ISO codes where appropriate. If in doubt as to which code to
-            use for a region (e.g. Iberia), you can check the Origin URL while
-            browsing the platform. You will see something like
-            ".../launcher/aer/<REGION>"
-
-        Returns:
-            List[ScenarioSummaryType]
+        :param region: A regional filter. We accept three letter ISO codes where appropriate. If in doubt as to which code to use for a region (e.g. Iberia), you can check the Origin URL while browsing the platform. You will see something like ".../launcher/aer/<REGION>"
+        :returns: List[ScenarioSummaryType]
         """
         url = f"{self.scenario_service_graphql_url}"
         variables = {
@@ -244,11 +235,8 @@ class OriginSession(APISession):
         """
         Get a single scenario by it's ID.
 
-        Args:
-            scenario_id (string) - The ID of the scenario
-
-        Returns:
-            ScenarioType
+        :param scenario_id: The ID of the scenario
+        :returns: ScenarioType
         """
         url = f"{self.scenario_service_graphql_url}"
         variables = {"filter": {"scenarioGlobalId": scenario_id}}
@@ -260,8 +248,7 @@ class OriginSession(APISession):
         """
         Creates a new scenario
 
-        Args:
-            scenario (InputScenario) -
+        :param scenario:
         """
         url = f"{self.scenario_service_graphql_url}"
         variables = {"scenario": scenario}
@@ -379,8 +366,7 @@ class OriginSession(APISession):
 
         This feature is for internal use only.
 
-        Args:
-           scenario_id (string) - The Scenario ID of the scenario to get model files for.
+        :param scenario_id: The Scenario ID of the scenario to get model files for.
         """
 
         # Retrieve scenario information once and handle the absence of 'runDetails' early.
@@ -435,8 +421,7 @@ class OriginSession(APISession):
         Gets the model file downloadable URL for a given model file url.
         This feature is for internal use only.
 
-        Args:
-            file_url (string) - The model file URL to get the download URL for
+        :param file_url: The model file URL to get the download URL for
         """
 
         base_url = f"{self.scenario_service_url}"
@@ -696,17 +681,10 @@ class OriginSession(APISession):
     ):
         """Gets commodities data.
 
-        Arguments:
-            scenario_id (String): ID of the scenario to get the commodities data from
-            native_units_flag (Optional, Boolean): What units should be used
-            on the return data, MWh or the "native units" the commodities
-            come in. Defaults to false.
-            regions (Optional, List[String]): If given, will filter the
-            commodity prices to the region specifically. By default, we will
-            perform an equally weighted global average.
-            commodities (Optional, List[String]): If given, will filter the
-            commodities to the ones specified. By default, we will
-            query for all commodities.
+        :param scenario_id: ID of the scenario to get the commodities data from
+        :param native_units_flag: What units should be used on the return data, MWh or the "native units" the commodities come in. Defaults to false.
+        :param regions: If given, will filter the commodity prices to the region specifically. By default, we will perform an equally weighted global average.
+        :param commodities: If given, will filter the commodities to the ones specified. By default, we will query for all commodities.
         """
         url = self.inputs_service_graphql_url
 
@@ -736,16 +714,11 @@ class OriginSession(APISession):
     ):
         """Updates a commodity price.
 
-        Arguments:
-            scenario_id (String): ID of the scenario to get the commodities data from
-            come in. Defaults to false.
-            commodity (String): The commodity to update.
-            regions (List[String]): The regions to update. You can use the
-            regions array on the "get commodities" return object to inform the
-            view you should update.
-            transform (List[Transform]): The transform array used in all updates
-            native_units_flag (Optional, Boolean): What units should be used
-            on the return data, MWh or the "native units" the commodities
+        :param scenario_id: ID of the scenario to get the commodities data from come in. Defaults to false.
+        :param commodity: The commodity to update.
+        :param regions: The regions to update. You can use the regions array on the "get commodities" return object to inform the view you should update.
+        :param transform: The transform array used in all updates
+        :param native_units_flag: What units should be used on the return data, MWh or the "native units" the commodities
 
         """
         url = self.inputs_service_graphql_url
@@ -792,8 +765,7 @@ class OriginSession(APISession):
         """Gets a dictionary of interconnector connections between regions for
         the given scenario.
 
-        Arguments:
-            scenario_id (String): ID of the scenario to get the interconnector data from
+        :param scenario_id: ID of the scenario to get the interconnector data from
         """
 
         variables = {
@@ -829,10 +801,9 @@ class OriginSession(APISession):
     ):
         """Gets the interconnector data between two regions.
 
-        Arguments:
-            scenario_id (String): ID of the scenario to get the interconnector data from
-            region (String): The region the interconnector is to/from
-            connection_region (String): The connected region the interconnector is from/to
+        :param scenario_id: ID of the scenario to get the interconnector data from
+        :param region: The region the interconnector is to/from
+        :param connection_region: The connected region the interconnector is from/to
         """
 
         variables = {
@@ -870,12 +841,11 @@ class OriginSession(APISession):
     ):
         """Function to update a interconnector variable between two regions.
 
-        Arguments:
-            scenario_id (String): ID of the scenario to update the interconnector data from
-            from_region (String): The region the interconnector is from
-            to_region (String): The region the interconnector is to
-            variable (String): The variable to update
-            transform (List[Transform]): The transform array used in all updates
+        :param scenario_id: ID of the scenario to update the interconnector data from
+        :param from_region: The region the interconnector is from
+        :param to_region: The region the interconnector is to
+        :param variable: The variable to update
+        :param transform: The transform array used in all updates
         """
 
         variables = {
@@ -900,8 +870,7 @@ class OriginSession(APISession):
         Will request the generation of an inputs workbook and then return
         a URL to download the workbook from once it's ready.
 
-        Arguments:
-            scenario_id (String): ID of the scenario to get the workbook download URL from
+        :param scenario_id: ID of the scenario to get the workbook download URL from
         """
 
         return self.__inputs_gql_workbook_status(scenario_id)
@@ -911,8 +880,7 @@ class OriginSession(APISession):
         Provides list of weather years that are supported for this scenario.
         Returns empty list if weather year feature not supported.
 
-        Arguments:
-            scenario_id (String): ID of the scenario for which to check for supported weather years
+        :param scenario_id: ID of the scenario for which to check for supported weather years
         """
 
         variables = {"scenarioGlobalId": scenario_id}

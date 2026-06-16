@@ -87,10 +87,8 @@ class Project:
         NOTE: In the case of more than one scenario with the same name, the
         first one will be returned as ordered by the service.
 
-        Arguments:
-            scenario_name: str - The name of the scenario to look for
-            base_id: str - The ID of the scenario to use as a base in the case
-            that the scenario doesn't exist
+        :param scenario_name: The name of the scenario to look for
+        :param base_id: The ID of the scenario to use as a base in the case that the scenario doesn't exist
         """
 
         scenario = None
@@ -145,13 +143,10 @@ class Project:
         NOTE: In the case of more than one project with the same name, the
         first one will be returned as ordered by the service.
 
-        Arguments:
-            session: OriginSession - The session to make API calls with
-            name: str - The name of the project to find/create
-            create_config: str - The configuration to use in the case where the
-                project is being created.
-            pin_project: Optional, bool - Whether to pin the project if it's not
-            already, defaults to False
+        :param session: The session to make API calls with
+        :param name: The name of the project to find/create
+        :param create_config: The configuration to use in the case where the project is being created.
+        :param pin_project: Whether to pin the project if it's not already, defaults to False
         """
         try:
             project = Project.get_project_by_name(session=session, name=name)
