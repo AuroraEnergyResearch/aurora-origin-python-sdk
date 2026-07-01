@@ -1,0 +1,28 @@
+# .aurora-architecture.yml — aurora-origin-python-sdk
+
+services:
+  - id: origin_sdk
+    label: "Aurora Origin Python SDK"
+    shortLabel: "Origin SDK"
+    fullName: "aurora-origin-python-sdk"
+    cluster: external_clients
+    awsService: "Python Package"
+    runtime: "Python 3.10+"
+    runtimeLang: python
+    description: >
+      Python SDK for accessing data from Origin, Aurora's Market model platform.
+      Provides a programmatic interface via OriginSession for scenarios, outputs,
+      and publications.
+    details:
+      - "Installed via pip/uv from GitHub"
+      - "Authenticates with Aurora API key (~/.aurora-api-key or AURORA_API_KEY env var)"
+      - "Entry point: OriginSession class"
+      - "Supports Python 3.10 – 3.14"
+      - "Wraps REST and GraphQL endpoints exposed by API Gateway"
+    icon: python
+    iconType: svg
+    color: "bg-slate-200"
+    connections:
+      - to: api_gateway
+        label: "REST + GraphQL (SDK)"
+        interaction: api
