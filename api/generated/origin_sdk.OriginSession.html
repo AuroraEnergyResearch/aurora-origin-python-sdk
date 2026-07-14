@@ -1,0 +1,580 @@
+<!DOCTYPE html>
+<html lang="en" data-accent-color="orange" data-content_root="../../">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"><title>origin_sdk.OriginSession - Aurora Origin SDK Docs</title><link rel="index" title="Index" href="../../genindex.html" /><link rel="search" title="Search" href="../../search.html" /><link rel="next" title="origin_sdk.service.InputsEditor" href="origin_sdk.service.InputsEditor.html" /><link rel="prev" title="API reference" href="../index.html" />
+      <link rel="canonical" href="https://ghp.auroraer.com/aurora-origin-python-sdk/api/generated/origin_sdk.OriginSession.html" /><script>
+    function setColorMode(t){let e=document.documentElement;e.setAttribute("data-color-mode",t);let a=window.matchMedia&&window.matchMedia("(prefers-color-scheme: dark)").matches,s=t;"auto"===t&&(s=a?"dark":"light"),"light"===s?(e.classList.remove("dark"),e.classList.add("light")):(e.classList.remove("light"),e.classList.add("dark"))}
+    setColorMode(localStorage._theme||"auto");
+  </script><link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=e1a1ceaf" />
+    <link rel="stylesheet" type="text/css" href="../../_static/shibuya.css?v=44020203" />
+    <link media="print" rel="stylesheet" type="text/css" href="../../_static/print.css?v=20ff2c19" />
+    <link rel="stylesheet" type="text/css" href="../../_static/custom.css?v=2c016416" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --sy-f-text: "Inter", var(--sy-f-sys), var(--sy-f-cjk), sans-serif;
+  --sy-f-heading: "Inter", var(--sy-f-sys), var(--sy-f-cjk), sans-serif;
+}
+</style>
+    <meta property="og:type" content="website"/>
+  <meta property="og:url" content="https://ghp.auroraer.com/aurora-origin-python-sdk/api/generated/origin_sdk.OriginSession.html"/>
+  <meta property="og:title" content="origin_sdk.OriginSession"/>
+    <meta name="twitter:card" content="summary"/>
+  </head>
+<body><div class="sy-head">
+  <div class="sy-head-blur"></div>
+  <div class="sy-head-inner sy-container mx-auto">
+    <a class="sy-head-brand" href="../../index.html">
+      <img class="light-logo" src="../../_static/logo.svg" alt="Aurora Origin SDK" height="28" loading="lazy" />
+      <img class="dark-logo" src="../../_static/logo.svg" alt="Aurora Origin SDK" height="28" loading="lazy" />
+      <strong>Aurora Origin SDK</strong>
+    </a>
+    <div class="sy-head-nav" id="head-nav">
+      <nav class="sy-head-links"></nav>
+      <div class="sy-head-extra flex items-center print:hidden"><form class="searchbox flex items-center" action="../../search.html" method="get">
+  <input type="text" name="q" placeholder="Search" />
+  <kbd>/</kbd>
+</form><div class="sy-head-socials"></div></div>
+    </div>
+    <div class="sy-head-actions flex items-center shrink-0 print:hidden"><button class="js-theme theme-switch flex items-center"
+data-aria-auto="Switch to light color mode"
+data-aria-light="Switch to dark color mode"
+data-aria-dark="Switch to auto color mode">
+<i class="i-lucide theme-icon"></i>
+</button><button class="md:hidden flex items-center js-menu" aria-label="Menu" type="button" aria-controls="head-nav" aria-expanded="false">
+        <div class="hamburger">
+          <span class="hamburger_1"></span>
+          <span class="hamburger_2"></span>
+          <span class="hamburger_3"></span>
+        </div>
+      </button>
+    </div>
+  </div>
+</div>
+<div class="sy-page sy-container flex mx-auto">
+  <aside id="lside" class="sy-lside md:w-72 md:shrink-0 print:hidden">
+    <div class="sy-lside-inner md:sticky">
+      <div class="sy-scrollbar p-6">
+        <div class="globaltoc" data-expand-depth="0"><ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../../installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../common-patterns.html">Common Patterns</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../index.html">API reference</a><ul class="current">
+<li class="toctree-l2 current"><a class="current reference internal" href="#">origin_sdk.OriginSession</a></li>
+<li class="toctree-l2"><a class="reference internal" href="origin_sdk.service.InputsEditor.html">origin_sdk.service.InputsEditor</a></li>
+<li class="toctree-l2"><a class="reference internal" href="origin_sdk.service.Project.html">origin_sdk.service.Project</a></li>
+<li class="toctree-l2"><a class="reference internal" href="origin_sdk.service.Scenario.html">origin_sdk.service.Scenario</a></li>
+<li class="toctree-l2"><a class="reference internal" href="origin_sdk.types.scenario_enums.html">origin_sdk.types.scenario_enums</a></li>
+<li class="toctree-l2"><a class="reference internal" href="origin_sdk.types.scenario_types.html">origin_sdk.types.scenario_types</a></li>
+<li class="toctree-l2"><a class="reference internal" href="origin_sdk.gql.queries.input_queries.session.html">origin_sdk.gql.queries.input_queries.session</a></li>
+</ul>
+</li>
+</ul>
+
+        </div>
+      </div>
+    </div>
+  </aside>
+  <div class="lside-overlay js-menu" role="button" aria-label="Close left sidebar" aria-controls="lside" aria-expanded="false"></div>
+  <aside id="rside" class="sy-rside pb-3 w-64 shrink-0 order-last">
+    <button class="rside-close js-menu xl:hidden" aria-label="Close Table of Contents" type="button" aria-controls="rside" aria-expanded="false">
+      <i class="i-lucide close"></i>
+    </button>
+    <div class="sy-scrollbar sy-rside-inner px-6 xl:top-16 xl:sticky xl:pl-0 pt-6 pb-4"><div class="localtoc"><h3>On this page</h3><ul>
+<li><a class="reference internal" href="#origin_sdk.OriginSession.OriginSession"><code class="docutils literal notranslate"><span class="pre">OriginSession</span></code></a><ul>
+<li><a class="reference internal" href="#origin_sdk.OriginSession.OriginSession.change_base_commodities_assumptions"><code class="docutils literal notranslate">change_base_commodities_assumptions()</span></code></a></li>
+<li><a class="reference internal" href="#origin_sdk.OriginSession.OriginSession.create_project"><code class="docutils literal notranslate">create_project()</span></code></a></li>
+<li><a class="reference internal" href="#origin_sdk.OriginSession.OriginSession.create_scenario"><code class="docutils literal notranslate">create_scenario()</span></code></a></li>
+<li><a class="reference internal" href="#origin_sdk.OriginSession.OriginSession.dash_config_cache"><code class="docutils literal notranslate">dash_config_cache</span></code></a></li>
+<li><a class="reference internal" href="#origin_sdk.OriginSession.OriginSession.delete_project"><code class="docutils literal notranslate">delete_project()</span></code></a></li>
+<li><a class="reference internal" href="#origin_sdk.OriginSession.OriginSession.delete_scenario"><code class="docutils literal notranslate">delete_scenario()</span></code></a></li>
+<li><a class="reference internal" href="#origin_sdk.OriginSession.OriginSession.get_aurora_scenarios"><code class="docutils literal notranslate">get_aurora_scenarios()</span></code></a></li>
+<li><a class="reference internal" href="#origin_sdk.OriginSession.OriginSession.get_commodities"><code class="docutils literal notranslate">get_commodities()</span></code></a></li>
+<li><a class="reference internal" href="#origin_sdk.OriginSession.OriginSession.get_demand"><code class="docutils literal notranslate">get_demand()</span></code></a></li>
+<li><a class="reference internal" href="#origin_sdk.OriginSession.OriginSession.get_demand_regions"><code class="docutils literal notranslate">get_demand_regions()</span></code></a></li>
+<li><a class="reference internal" href="#origin_sdk.OriginSession.OriginSession.get_demand_technologies"><code class="docutils literal notranslate">get_demand_technologies()</span></code></a></li>
+<li><a class="reference internal" href="#origin_sdk.OriginSession.OriginSession.get_demand_technology_names"><code class="docutils literal notranslate">get_demand_technology_names()</span></code></a></li>
+<li><a class="reference internal" href="#origin_sdk.OriginSession.OriginSession.get_inputs_session"><code class="docutils literal notranslate">get_inputs_session()</span></code></a></li>
+<li><a class="reference internal" href="#origin_sdk.OriginSession.OriginSession.get_interconnectors"><code class="docutils literal notranslate">get_interconnectors()</span></code></a></li>
+<li><a class="reference internal" href="#origin_sdk.OriginSession.OriginSession.get_interconnectors_connections"><code class="docutils literal notranslate">get_interconnectors_connections()</span></code></a></li>
+<li><a class="reference internal" href="#origin_sdk.OriginSession.OriginSession.get_meta_json"><code class="docutils literal notranslate">get_meta_json()</span></code></a></li>
+<li><a class="reference internal" href="#origin_sdk.OriginSession.OriginSession.get_model_file_download_url"><code class="docutils literal notranslate">get_model_file_download_url()</span></code></a></li>
+<li><a class="reference internal" href="#origin_sdk.OriginSession.OriginSession.get_model_files"><code class="docutils literal notranslate">get_model_files()</span></code></a></li>
+<li><a class="reference internal" href="#origin_sdk.OriginSession.OriginSession.get_project"><code class="docutils literal notranslate">get_project()</span></code></a></li>
+<li><a class="reference internal" href="#origin_sdk.OriginSession.OriginSession.get_project_product_id"><code class="docutils literal notranslate">get_project_product_id()</span></code></a></li>
+<li><a class="reference internal" href="#origin_sdk.OriginSession.OriginSession.get_projects"><code class="docutils literal notranslate">get_projects()</span></code></a></li>
+<li><a class="reference internal" href="#origin_sdk.OriginSession.OriginSession.get_scenario_by_id"><code class="docutils literal notranslate">get_scenario_by_id()</span></code></a></li>
+<li><a class="reference internal" href="#origin_sdk.OriginSession.OriginSession.get_technology"><code class="docutils literal notranslate">get_technology()</span></code></a></li>
+<li><a class="reference internal" href="#origin_sdk.OriginSession.OriginSession.get_technology_names"><code class="docutils literal notranslate">get_technology_names()</span></code></a></li>
+<li><a class="reference internal" href="#origin_sdk.OriginSession.OriginSession.get_weather_year_list"><code class="docutils literal notranslate">get_weather_year_list()</span></code></a></li>
+<li><a class="reference internal" href="#origin_sdk.OriginSession.OriginSession.get_workbook_download_url"><code class="docutils literal notranslate">get_workbook_download_url()</span></code></a></li>
+<li><a class="reference internal" href="#origin_sdk.OriginSession.OriginSession.inputs_config_cache"><code class="docutils literal notranslate">inputs_config_cache</span></code></a></li>
+<li><a class="reference internal" href="#origin_sdk.OriginSession.OriginSession.launch_scenario"><code class="docutils literal notranslate">launch_scenario()</span></code></a></li>
+<li><a class="reference internal" href="#origin_sdk.OriginSession.OriginSession.pin_project"><code class="docutils literal notranslate">pin_project()</span></code></a></li>
+<li><a class="reference internal" href="#origin_sdk.OriginSession.OriginSession.unpin_project"><code class="docutils literal notranslate">unpin_project()</span></code></a></li>
+<li><a class="reference internal" href="#origin_sdk.OriginSession.OriginSession.update_commodity_price"><code class="docutils literal notranslate">update_commodity_price()</span></code></a></li>
+<li><a class="reference internal" href="#origin_sdk.OriginSession.OriginSession.update_demand_technology_variable"><code class="docutils literal notranslate">update_demand_technology_variable()</span></code></a></li>
+<li><a class="reference internal" href="#origin_sdk.OriginSession.OriginSession.update_interconnectors"><code class="docutils literal notranslate">update_interconnectors()</span></code></a></li>
+<li><a class="reference internal" href="#origin_sdk.OriginSession.OriginSession.update_project"><code class="docutils literal notranslate">update_project()</span></code></a></li>
+<li><a class="reference internal" href="#origin_sdk.OriginSession.OriginSession.update_scenario"><code class="docutils literal notranslate">update_scenario()</span></code></a></li>
+<li><a class="reference internal" href="#origin_sdk.OriginSession.OriginSession.update_system_demand"><code class="docutils literal notranslate">update_system_demand()</span></code></a></li>
+<li><a class="reference internal" href="#origin_sdk.OriginSession.OriginSession.update_technology_endogenous"><code class="docutils literal notranslate">update_technology_endogenous()</span></code></a></li>
+<li><a class="reference internal" href="#origin_sdk.OriginSession.OriginSession.update_technology_exogenous"><code class="docutils literal notranslate">update_technology_exogenous()</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#origin_sdk.OriginSession.OriginSessionConfig"><code class="docutils literal notranslate"><span class="pre">OriginSessionConfig</span></code></a><ul>
+<li><a class="reference internal" href="#origin_sdk.OriginSession.OriginSessionConfig.inputs_base_url"><code class="docutils literal notranslate">inputs_base_url</span></code></a></li>
+<li><a class="reference internal" href="#origin_sdk.OriginSession.OriginSessionConfig.scenario_base_url"><code class="docutils literal notranslate">scenario_base_url</span></code></a></li>
+<li><a class="reference internal" href="#origin_sdk.OriginSession.OriginSessionConfig.token"><code class="docutils literal notranslate">token</span></code></a></li>
+<li><a class="reference internal" href="#origin_sdk.OriginSession.OriginSessionConfig.universe"><code class="docutils literal notranslate">universe</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#origin_sdk.OriginSession.get_endpoints"><code class="docutils literal notranslate"><span class="pre">get_endpoints()</span></code></a></li>
+</ul>
+</div></div>
+  </aside>
+  <div class="rside-overlay js-menu" role="button" aria-label="Close Table of Contents" aria-controls="rside" aria-expanded="false"></div>
+  <main class="sy-main w-full max-sm:max-w-full print:pt-6">
+<div class="sy-breadcrumbs" role="navigation">
+  <div class="sy-breadcrumbs-inner flex items-center">
+    <div class="md:hidden mr-3">
+      <button class="js-menu" aria-label="Menu" type="button" aria-controls="lside" aria-expanded="false">
+        <i class="i-lucide menu"></i>
+      </button>
+    </div>
+    <ol class="flex-1" itemscope itemtype="https://schema.org/BreadcrumbList"><li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
+        <a itemprop="item" href="../../index.html"><span itemprop="name">Aurora Origin SDK</span></a>
+        <span>/</span>
+        <meta itemprop="position" content="1" />
+      </li><li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
+        <a itemprop="item" href="../index.html"><span itemprop="name">API reference</span></a>
+        <span>/</span>
+        <meta itemprop="position" content="2" />
+      </li><li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
+        <strong itemprop="name">origin_sdk.OriginSession</strong>
+        <meta itemprop="position" content="3" />
+      </li></ol>
+    <div class="xl:hidden ml-1">
+      <button class="js-menu" aria-label="Show table of contents" type="button" aria-controls="rside"
+        aria-expanded="false">
+        <i class="i-lucide outdent"></i>
+      </button>
+    </div>
+  </div>
+</div><div class="flex flex-col break-words justify-between">
+      <div class="relative min-w-0 max-w-6xl px-6 pb-6 pt-8 xl:px-12">
+  <div class="copy-page-wrapper relative pb-4 lg:absolute lg:top-8 lg:right-6 xl:right-12">
+  <div id="copy-page-trigger">
+    <button
+      type="button"
+      class="js-copy px-3 py-1 inline-flex items-center gap-1"
+      data-url="https://ghp.auroraer.com/aurora-origin-python-sdk/_sources/api/generated/origin_sdk.OriginSession.rst.txt"
+    >
+      <i class="i-lucide" data-icon="copy"></i>
+      <span>Copy page</span>
+    </button>
+    <button class="js-menu px-2 py-1" type="button" aria-label="More actions"
+      aria-haspopup="menu" aria-expanded="false" aria-controls="copy-page-content">
+      <i class="i-lucide chevron-down"></i>
+    </button>
+  </div>
+  <div id="copy-page-content" role="menu" aria-orientation="vertical" aria-hidden="true">
+    <div role="presentation">
+      <div class="flex flex-col" role="group">
+        <button class="js-copy" type="button" role="menuitem"
+          data-url="https://ghp.auroraer.com/aurora-origin-python-sdk/_sources/api/generated/origin_sdk.OriginSession.rst.txt">
+          <span class="iconify-icon">
+            <i class="i-lucide" data-icon="copy"></i>
+          </span>
+          <span>Copy page</span>
+        </button>
+        <a role="menuitem" href="https://ghp.auroraer.com/aurora-origin-python-sdk/_sources/api/generated/origin_sdk.OriginSession.rst.txt" target="_blank" rel="nofollow"><iconify-icon icon="bi:code-slash"></iconify-icon>
+            <span>View Source</span></a><a role="menuitem" href="https://chatgpt.com/?hints=search&q=Read%20https%3A//ghp.auroraer.com/aurora-origin-python-sdk/_sources/api/generated/origin_sdk.OriginSession.rst.txt%20so%20I%20can%20ask%20questions%20about%20it." target="_blank" rel="nofollow">
+          <iconify-icon icon="bi:openai"></iconify-icon>
+          <span>Open in ChatGPT</span>
+        </a><a role="menuitem" href="https://claude.ai/new?q=Read%20https%3A//ghp.auroraer.com/aurora-origin-python-sdk/_sources/api/generated/origin_sdk.OriginSession.rst.txt%20so%20I%20can%20ask%20questions%20about%20it." target="_blank" rel="nofollow">
+          <iconify-icon icon="bi:claude"></iconify-icon>
+          <span>Open in Claude</span>
+        </a></div>
+    </div>
+  </div>
+</div><article class="yue" role="main">
+          <section id="module-origin_sdk.OriginSession">
+<span id="origin-sdk-originsession"></span><h1>origin_sdk.OriginSession<a class="headerlink" href="#module-origin_sdk.OriginSession" title="Link to this heading">¶</a></h1>
+<p class="rubric">Functions</p>
+<div class="table-wrapper autosummary longtable docutils container">
+<table class="autosummary longtable docutils align-default">
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="#origin_sdk.OriginSession.get_endpoints" title="origin_sdk.OriginSession.get_endpoints"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_endpoints</span></code></a>([universe])</p></td>
+<td><p></p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p class="rubric">Classes</p>
+<div class="table-wrapper autosummary longtable docutils container">
+<table class="autosummary longtable docutils align-default">
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="#origin_sdk.OriginSession.OriginSession" title="origin_sdk.OriginSession.OriginSession"><code class="xref py py-obj docutils literal notranslate"><span class="pre">OriginSession</span></code></a>([config])</p></td>
+<td><p>Manage access to the Origin API.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#origin_sdk.OriginSession.OriginSessionConfig" title="origin_sdk.OriginSession.OriginSessionConfig"><code class="xref py py-obj docutils literal notranslate"><span class="pre">OriginSessionConfig</span></code></a></p></td>
+<td><p>Configuration accepted by <a class="reference internal" href="#origin_sdk.OriginSession.OriginSession" title="origin_sdk.OriginSession.OriginSession"><code class="xref py py-class docutils literal notranslate"><span class="pre">OriginSession</span></code></a>.</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<dl class="py class">
+<dt class="sig sig-object py" id="origin_sdk.OriginSession.OriginSession">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">origin_sdk.OriginSession.</span></span><span class="sig-name descname"><span class="pre">OriginSession</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">config</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#origin_sdk.OriginSession.OriginSessionConfig" title="origin_sdk.OriginSession.OriginSessionConfig"><span class="pre">OriginSessionConfig</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">{}</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/origin_sdk/OriginSession.html#OriginSession"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#origin_sdk.OriginSession.OriginSession" title="Link to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">APISession</span></code></p>
+<p>Manage access to the Origin API.</p>
+<p>By default the session will connect to the production Origin API endpoint.
+This can be overridden by passing the base_url into the constructor or by
+setting the above environment variables for BASE_URLs. This feature is for
+internal use only.</p>
+<p>The authentication token is read from the user’s home directory
+<em>$home/.aurora-api-key</em> e.g. <em>C:/Users/Joe Bloggs/.aurora-api-key</em>. This can
+be overridden by passing the token into the constructor or by setting the
+environment variable <em>AURORA_API_KEY</em>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>token</strong> (<em>string</em><em>, </em><em>optional</em>) – Override the api authentication token used for</p></li>
+<li><p><strong>None.</strong> (<em>API access. Defaults to</em>)</p></li>
+<li><p><strong>scenario_base_url</strong> (<em>string</em><em>, </em><em>optional</em>) – Override the scenario service base url</p></li>
+<li><p><strong>inputs_base_url</strong> (<em>string</em><em>, </em><em>optional</em>) – Override the model inputs service base url</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="origin_sdk.OriginSession.OriginSession.change_base_commodities_assumptions">
+<span class="sig-name descname"><span class="pre">change_base_commodities_assumptions</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#origin_sdk.OriginSession.OriginSession.change_base_commodities_assumptions" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="origin_sdk.OriginSession.OriginSession.create_project">
+<span class="sig-name descname"><span class="pre">create_project</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">project</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">InputProject</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">ProjectSummaryType</span></span></span><a class="reference internal" href="../../_modules/origin_sdk/OriginSession.html#OriginSession.create_project"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#origin_sdk.OriginSession.OriginSession.create_project" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="origin_sdk.OriginSession.OriginSession.create_scenario">
+<span class="sig-name descname"><span class="pre">create_scenario</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">scenario</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="origin_sdk.types.scenario_types.html#origin_sdk.types.scenario_types.InputScenario" title="origin_sdk.types.scenario_types.InputScenario"><span class="pre">InputScenario</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="origin_sdk.types.scenario_types.html#origin_sdk.types.scenario_types.ScenarioType" title="origin_sdk.types.scenario_types.ScenarioType"><span class="pre">ScenarioType</span></a></span></span><a class="reference internal" href="../../_modules/origin_sdk/OriginSession.html#OriginSession.create_scenario"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#origin_sdk.OriginSession.OriginSession.create_scenario" title="Link to this definition">¶</a></dt>
+<dd><p>Creates a new scenario</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>scenario</strong> (<a class="reference internal" href="origin_sdk.types.scenario_types.html#origin_sdk.types.scenario_types.InputScenario" title="origin_sdk.types.scenario_types.InputScenario"><em>InputScenario</em></a>)</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="origin_sdk.OriginSession.OriginSession.dash_config_cache">
+<span class="sig-name descname"><span class="pre">dash_config_cache</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Any</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">None</span></span><a class="headerlink" href="#origin_sdk.OriginSession.OriginSession.dash_config_cache" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="origin_sdk.OriginSession.OriginSession.delete_project">
+<span class="sig-name descname"><span class="pre">delete_project</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">project_id</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/origin_sdk/OriginSession.html#OriginSession.delete_project"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#origin_sdk.OriginSession.OriginSession.delete_project" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="origin_sdk.OriginSession.OriginSession.delete_scenario">
+<span class="sig-name descname"><span class="pre">delete_scenario</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">scenario_id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/origin_sdk/OriginSession.html#OriginSession.delete_scenario"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#origin_sdk.OriginSession.OriginSession.delete_scenario" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="origin_sdk.OriginSession.OriginSession.get_aurora_scenarios">
+<span class="sig-name descname"><span class="pre">get_aurora_scenarios</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">region</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">List</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="origin_sdk.types.scenario_types.html#origin_sdk.types.scenario_types.ScenarioSummaryType" title="origin_sdk.types.scenario_types.ScenarioSummaryType"><span class="pre">ScenarioSummaryType</span></a><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="../../_modules/origin_sdk/OriginSession.html#OriginSession.get_aurora_scenarios"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#origin_sdk.OriginSession.OriginSession.get_aurora_scenarios" title="Link to this definition">¶</a></dt>
+<dd><p>Gets a list of all published Aurora scenarios.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>region</strong> (<em>use for a</em>)</p></li>
+<li><p><strong>to</strong> (<em>letter ISO codes where appropriate. If in doubt as to which code</em>)</p></li>
+<li><p><strong>region</strong></p></li>
+<li><p><strong>like</strong> (<em>browsing the platform. You will see something</em>)</p></li>
+<li><p><strong>&quot;</strong><strong>...</strong><strong>/launcher/aer/&lt;REGION&gt;&quot;</strong></p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>List[ScenarioSummaryType]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="origin_sdk.OriginSession.OriginSession.get_commodities">
+<span class="sig-name descname"><span class="pre">get_commodities</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#origin_sdk.OriginSession.OriginSession.get_commodities" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="origin_sdk.OriginSession.OriginSession.get_demand">
+<span class="sig-name descname"><span class="pre">get_demand</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#origin_sdk.OriginSession.OriginSession.get_demand" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="origin_sdk.OriginSession.OriginSession.get_demand_regions">
+<span class="sig-name descname"><span class="pre">get_demand_regions</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">scenario_id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="../../_modules/origin_sdk/OriginSession.html#OriginSession.get_demand_regions"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#origin_sdk.OriginSession.OriginSession.get_demand_regions" title="Link to this definition">¶</a></dt>
+<dd><p>Gets the regions of demand available for the current scenario</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="origin_sdk.OriginSession.OriginSession.get_demand_technologies">
+<span class="sig-name descname"><span class="pre">get_demand_technologies</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#origin_sdk.OriginSession.OriginSession.get_demand_technologies" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="origin_sdk.OriginSession.OriginSession.get_demand_technology_names">
+<span class="sig-name descname"><span class="pre">get_demand_technology_names</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#origin_sdk.OriginSession.OriginSession.get_demand_technology_names" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="origin_sdk.OriginSession.OriginSession.get_inputs_session">
+<span class="sig-name descname"><span class="pre">get_inputs_session</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">scenario_id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">InputsSession</span></span></span><a class="reference internal" href="../../_modules/origin_sdk/OriginSession.html#OriginSession.get_inputs_session"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#origin_sdk.OriginSession.OriginSession.get_inputs_session" title="Link to this definition">¶</a></dt>
+<dd><p>Gets the inputs instance information, as well as rehydrating all the
+data if required</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="origin_sdk.OriginSession.OriginSession.get_interconnectors">
+<span class="sig-name descname"><span class="pre">get_interconnectors</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#origin_sdk.OriginSession.OriginSession.get_interconnectors" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="origin_sdk.OriginSession.OriginSession.get_interconnectors_connections">
+<span class="sig-name descname"><span class="pre">get_interconnectors_connections</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#origin_sdk.OriginSession.OriginSession.get_interconnectors_connections" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="origin_sdk.OriginSession.OriginSession.get_meta_json">
+<span class="sig-name descname"><span class="pre">get_meta_json</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">meta_url</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/origin_sdk/OriginSession.html#OriginSession.get_meta_json"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#origin_sdk.OriginSession.OriginSession.get_meta_json" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="origin_sdk.OriginSession.OriginSession.get_model_file_download_url">
+<span class="sig-name descname"><span class="pre">get_model_file_download_url</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">file_url</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">str</span></span></span><a class="reference internal" href="../../_modules/origin_sdk/OriginSession.html#OriginSession.get_model_file_download_url"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#origin_sdk.OriginSession.OriginSession.get_model_file_download_url" title="Link to this definition">¶</a></dt>
+<dd><p>Gets the model file downloadable URL for a given model file url.
+This feature is for internal use only.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>file_url</strong> (<em>string</em>)</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="origin_sdk.OriginSession.OriginSession.get_model_files">
+<span class="sig-name descname"><span class="pre">get_model_files</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">scenario_id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="../../_modules/origin_sdk/OriginSession.html#OriginSession.get_model_files"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#origin_sdk.OriginSession.OriginSession.get_model_files" title="Link to this definition">¶</a></dt>
+<dd><p>Lists the model files for a scenario, for all runs and years.
+Each file is represented by a file URL, which maybe used to generate
+downloadable URLs later. Please note that the files will not be available
+after the retention period has expired.</p>
+<p>This feature is for internal use only.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>scenario_id</strong> (<em>string</em>)</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="origin_sdk.OriginSession.OriginSession.get_project">
+<span class="sig-name descname"><span class="pre">get_project</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">project_id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">ProjectType</span></span></span><a class="reference internal" href="../../_modules/origin_sdk/OriginSession.html#OriginSession.get_project"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#origin_sdk.OriginSession.OriginSession.get_project" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="origin_sdk.OriginSession.OriginSession.get_project_product_id">
+<span class="sig-name descname"><span class="pre">get_project_product_id</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">product</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">int</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/origin_sdk/OriginSession.html#OriginSession.get_project_product_id"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#origin_sdk.OriginSession.OriginSession.get_project_product_id" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="origin_sdk.OriginSession.OriginSession.get_projects">
+<span class="sig-name descname"><span class="pre">get_projects</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">ProjectSummaryType</span><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="../../_modules/origin_sdk/OriginSession.html#OriginSession.get_projects"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#origin_sdk.OriginSession.OriginSession.get_projects" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="origin_sdk.OriginSession.OriginSession.get_scenario_by_id">
+<span class="sig-name descname"><span class="pre">get_scenario_by_id</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">scenario_id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="origin_sdk.types.scenario_types.html#origin_sdk.types.scenario_types.ScenarioType" title="origin_sdk.types.scenario_types.ScenarioType"><span class="pre">ScenarioType</span></a></span></span><a class="reference internal" href="../../_modules/origin_sdk/OriginSession.html#OriginSession.get_scenario_by_id"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#origin_sdk.OriginSession.OriginSession.get_scenario_by_id" title="Link to this definition">¶</a></dt>
+<dd><p>Get a single scenario by it’s ID.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>scenario_id</strong> (<em>string</em>)</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>ScenarioType</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="origin_sdk.OriginSession.OriginSession.get_technology">
+<span class="sig-name descname"><span class="pre">get_technology</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#origin_sdk.OriginSession.OriginSession.get_technology" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="origin_sdk.OriginSession.OriginSession.get_technology_names">
+<span class="sig-name descname"><span class="pre">get_technology_names</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#origin_sdk.OriginSession.OriginSession.get_technology_names" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="origin_sdk.OriginSession.OriginSession.get_weather_year_list">
+<span class="sig-name descname"><span class="pre">get_weather_year_list</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">scenario_id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/origin_sdk/OriginSession.html#OriginSession.get_weather_year_list"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#origin_sdk.OriginSession.OriginSession.get_weather_year_list" title="Link to this definition">¶</a></dt>
+<dd><p>Provides list of weather years that are supported for this scenario.
+Returns empty list if weather year feature not supported.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>scenario_id</strong> (<em>String</em>) – ID of the scenario for which to check for supported weather years</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="origin_sdk.OriginSession.OriginSession.get_workbook_download_url">
+<span class="sig-name descname"><span class="pre">get_workbook_download_url</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#origin_sdk.OriginSession.OriginSession.get_workbook_download_url" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="origin_sdk.OriginSession.OriginSession.inputs_config_cache">
+<span class="sig-name descname"><span class="pre">inputs_config_cache</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Any</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">None</span></span><a class="headerlink" href="#origin_sdk.OriginSession.OriginSession.inputs_config_cache" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="origin_sdk.OriginSession.OriginSession.launch_scenario">
+<span class="sig-name descname"><span class="pre">launch_scenario</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">scenario_id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="origin_sdk.types.scenario_types.html#origin_sdk.types.scenario_types.ScenarioType" title="origin_sdk.types.scenario_types.ScenarioType"><span class="pre">ScenarioType</span></a></span></span><a class="reference internal" href="../../_modules/origin_sdk/OriginSession.html#OriginSession.launch_scenario"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#origin_sdk.OriginSession.OriginSession.launch_scenario" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="origin_sdk.OriginSession.OriginSession.pin_project">
+<span class="sig-name descname"><span class="pre">pin_project</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">project_id</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/origin_sdk/OriginSession.html#OriginSession.pin_project"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#origin_sdk.OriginSession.OriginSession.pin_project" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="origin_sdk.OriginSession.OriginSession.unpin_project">
+<span class="sig-name descname"><span class="pre">unpin_project</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">project_id</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/origin_sdk/OriginSession.html#OriginSession.unpin_project"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#origin_sdk.OriginSession.OriginSession.unpin_project" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="origin_sdk.OriginSession.OriginSession.update_commodity_price">
+<span class="sig-name descname"><span class="pre">update_commodity_price</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#origin_sdk.OriginSession.OriginSession.update_commodity_price" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="origin_sdk.OriginSession.OriginSession.update_demand_technology_variable">
+<span class="sig-name descname"><span class="pre">update_demand_technology_variable</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#origin_sdk.OriginSession.OriginSession.update_demand_technology_variable" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="origin_sdk.OriginSession.OriginSession.update_interconnectors">
+<span class="sig-name descname"><span class="pre">update_interconnectors</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#origin_sdk.OriginSession.OriginSession.update_interconnectors" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="origin_sdk.OriginSession.OriginSession.update_project">
+<span class="sig-name descname"><span class="pre">update_project</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">project_update</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">ProjectSummaryType</span></span></span><a class="reference internal" href="../../_modules/origin_sdk/OriginSession.html#OriginSession.update_project"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#origin_sdk.OriginSession.OriginSession.update_project" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="origin_sdk.OriginSession.OriginSession.update_scenario">
+<span class="sig-name descname"><span class="pre">update_scenario</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">scenario_update</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="origin_sdk.types.scenario_types.html#origin_sdk.types.scenario_types.ScenarioType" title="origin_sdk.types.scenario_types.ScenarioType"><span class="pre">ScenarioType</span></a></span></span><a class="reference internal" href="../../_modules/origin_sdk/OriginSession.html#OriginSession.update_scenario"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#origin_sdk.OriginSession.OriginSession.update_scenario" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="origin_sdk.OriginSession.OriginSession.update_system_demand">
+<span class="sig-name descname"><span class="pre">update_system_demand</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#origin_sdk.OriginSession.OriginSession.update_system_demand" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="origin_sdk.OriginSession.OriginSession.update_technology_endogenous">
+<span class="sig-name descname"><span class="pre">update_technology_endogenous</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#origin_sdk.OriginSession.OriginSession.update_technology_endogenous" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="origin_sdk.OriginSession.OriginSession.update_technology_exogenous">
+<span class="sig-name descname"><span class="pre">update_technology_exogenous</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#origin_sdk.OriginSession.OriginSession.update_technology_exogenous" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="origin_sdk.OriginSession.OriginSessionConfig">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">origin_sdk.OriginSession.</span></span><span class="sig-name descname"><span class="pre">OriginSessionConfig</span></span><a class="reference internal" href="../../_modules/origin_sdk/OriginSession.html#OriginSessionConfig"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#origin_sdk.OriginSession.OriginSessionConfig" title="Link to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">TypedDict</span></code></p>
+<p>Configuration accepted by <a class="reference internal" href="#origin_sdk.OriginSession.OriginSession" title="origin_sdk.OriginSession.OriginSession"><code class="xref py py-class docutils literal notranslate"><span class="pre">OriginSession</span></code></a>.</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="origin_sdk.OriginSession.OriginSessionConfig.inputs_base_url">
+<span class="sig-name descname"><span class="pre">inputs_base_url</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></span><a class="headerlink" href="#origin_sdk.OriginSession.OriginSessionConfig.inputs_base_url" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="origin_sdk.OriginSession.OriginSessionConfig.scenario_base_url">
+<span class="sig-name descname"><span class="pre">scenario_base_url</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></span><a class="headerlink" href="#origin_sdk.OriginSession.OriginSessionConfig.scenario_base_url" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="origin_sdk.OriginSession.OriginSessionConfig.token">
+<span class="sig-name descname"><span class="pre">token</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></span><a class="headerlink" href="#origin_sdk.OriginSession.OriginSessionConfig.token" title="Link to this definition">¶</a></dt>
+<dd><p>Override the API authentication token used for access.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="origin_sdk.OriginSession.OriginSessionConfig.universe">
+<span class="sig-name descname"><span class="pre">universe</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></span><a class="headerlink" href="#origin_sdk.OriginSession.OriginSessionConfig.universe" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="origin_sdk.OriginSession.get_endpoints">
+<span class="sig-prename descclassname"><span class="pre">origin_sdk.OriginSession.</span></span><span class="sig-name descname"><span class="pre">get_endpoints</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">universe</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'production'</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="../../_modules/origin_sdk/OriginSession.html#get_endpoints"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#origin_sdk.OriginSession.get_endpoints" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</section>
+
+        </article><button class="back-to-top" type="button">
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+    <path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8v12z"></path>
+  </svg>
+  <span>Back to top</span>
+</button><div class="navigation flex print:hidden"><div class="navigation-prev">
+    <a href="../index.html">
+      <i class="i-lucide chevron-left"></i>
+      <div class="page-info">
+        <span>Previous</span><div class="title">API reference</div></div>
+    </a>
+  </div><div class="navigation-next">
+    <a href="origin_sdk.service.InputsEditor.html">
+      <div class="page-info">
+        <span>Next</span>
+        <div class="title">origin_sdk.service.InputsEditor</div>
+      </div>
+      <i class="i-lucide chevron-right"></i>
+    </a>
+  </div></div></div>
+    </div>
+  </main>
+</div>
+<footer class="sy-foot">
+  <div class="sy-foot-inner sy-container mx-auto">
+    <div class="sy-foot-reserved md:flex justify-between items-center">
+      <div class="sy-foot-copyright"><p>2026, Aurora Energy Research</p>
+  
+  <p>
+    Made with
+    
+    <a href="https://www.sphinx-doc.org/">Sphinx</a> and
+    
+    <a href="https://shibuya.lepture.com">Shibuya theme</a>.
+  </p>
+</div>
+      <div class="sy-foot-socials"></div>
+    </div>
+  </div>
+</footer>
+      <script src="../../_static/documentation_options.js?v=d63f172e"></script>
+      <script src="../../_static/doctools.js?v=fd6eb6e6"></script>
+      <script src="../../_static/sphinx_highlight.js?v=6ffebe34"></script>
+      <script src="../../_static/shibuya.js?v=cac61aee"></script></body>
+</html>

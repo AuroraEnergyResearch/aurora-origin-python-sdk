@@ -1,0 +1,350 @@
+<!DOCTYPE html>
+<html lang="en" data-accent-color="orange" data-content_root="../../../">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"><title>origin_sdk.service.Project - Aurora Origin SDK Docs</title><link rel="index" title="Index" href="../../../genindex.html" /><link rel="search" title="Search" href="../../../search.html" />
+      <link rel="canonical" href="https://ghp.auroraer.com/aurora-origin-python-sdk/_modules/origin_sdk/service/Project.html" /><script>
+    function setColorMode(t){let e=document.documentElement;e.setAttribute("data-color-mode",t);let a=window.matchMedia&&window.matchMedia("(prefers-color-scheme: dark)").matches,s=t;"auto"===t&&(s=a?"dark":"light"),"light"===s?(e.classList.remove("dark"),e.classList.add("light")):(e.classList.remove("light"),e.classList.add("dark"))}
+    setColorMode(localStorage._theme||"auto");
+  </script><link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=e1a1ceaf" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/shibuya.css?v=44020203" />
+    <link media="print" rel="stylesheet" type="text/css" href="../../../_static/print.css?v=20ff2c19" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/custom.css?v=2c016416" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --sy-f-text: "Inter", var(--sy-f-sys), var(--sy-f-cjk), sans-serif;
+  --sy-f-heading: "Inter", var(--sy-f-sys), var(--sy-f-cjk), sans-serif;
+}
+</style>
+    <meta property="og:type" content="website"/>
+  <meta property="og:url" content="https://ghp.auroraer.com/aurora-origin-python-sdk/_modules/origin_sdk/service/Project.html"/>
+  <meta property="og:title" content="origin_sdk.service.Project"/>
+    <meta name="twitter:card" content="summary"/>
+  </head>
+<body><div class="sy-head">
+  <div class="sy-head-blur"></div>
+  <div class="sy-head-inner sy-container mx-auto">
+    <a class="sy-head-brand" href="../../../index.html">
+      <img class="light-logo" src="../../../_static/logo.svg" alt="Aurora Origin SDK" height="28" loading="lazy" />
+      <img class="dark-logo" src="../../../_static/logo.svg" alt="Aurora Origin SDK" height="28" loading="lazy" />
+      <strong>Aurora Origin SDK</strong>
+    </a>
+    <div class="sy-head-nav" id="head-nav">
+      <nav class="sy-head-links"></nav>
+      <div class="sy-head-extra flex items-center print:hidden"><form class="searchbox flex items-center" action="../../../search.html" method="get">
+  <input type="text" name="q" placeholder="Search" />
+  <kbd>/</kbd>
+</form><div class="sy-head-socials"></div></div>
+    </div>
+    <div class="sy-head-actions flex items-center shrink-0 print:hidden"><button class="js-theme theme-switch flex items-center"
+data-aria-auto="Switch to light color mode"
+data-aria-light="Switch to dark color mode"
+data-aria-dark="Switch to auto color mode">
+<i class="i-lucide theme-icon"></i>
+</button><button class="md:hidden flex items-center js-menu" aria-label="Menu" type="button" aria-controls="head-nav" aria-expanded="false">
+        <div class="hamburger">
+          <span class="hamburger_1"></span>
+          <span class="hamburger_2"></span>
+          <span class="hamburger_3"></span>
+        </div>
+      </button>
+    </div>
+  </div>
+</div>
+<div class="sy-page sy-container flex mx-auto">
+  <aside id="lside" class="sy-lside md:w-72 md:shrink-0 print:hidden">
+    <div class="sy-lside-inner md:sticky">
+      <div class="sy-scrollbar p-6">
+        <div class="globaltoc" data-expand-depth="0"><ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../common-patterns.html">Common Patterns</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../api/index.html">API reference</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/generated/origin_sdk.OriginSession.html">origin_sdk.OriginSession</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/generated/origin_sdk.service.InputsEditor.html">origin_sdk.service.InputsEditor</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/generated/origin_sdk.service.Project.html">origin_sdk.service.Project</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/generated/origin_sdk.service.Scenario.html">origin_sdk.service.Scenario</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/generated/origin_sdk.types.scenario_enums.html">origin_sdk.types.scenario_enums</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/generated/origin_sdk.types.scenario_types.html">origin_sdk.types.scenario_types</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/generated/origin_sdk.gql.queries.input_queries.session.html">origin_sdk.gql.queries.input_queries.session</a></li>
+</ul>
+</li>
+</ul>
+
+        </div>
+      </div>
+    </div>
+  </aside>
+  <div class="lside-overlay js-menu" role="button" aria-label="Close left sidebar" aria-controls="lside" aria-expanded="false"></div>
+  <aside id="rside" class="sy-rside pb-3 w-64 shrink-0 order-last">
+    <button class="rside-close js-menu xl:hidden" aria-label="Close Table of Contents" type="button" aria-controls="rside" aria-expanded="false">
+      <i class="i-lucide close"></i>
+    </button>
+    <div class="sy-scrollbar sy-rside-inner px-6 xl:top-16 xl:sticky xl:pl-0 pt-6 pb-4"></div>
+  </aside>
+  <div class="rside-overlay js-menu" role="button" aria-label="Close Table of Contents" aria-controls="rside" aria-expanded="false"></div>
+  <main class="sy-main w-full max-sm:max-w-full print:pt-6">
+<div class="sy-breadcrumbs" role="navigation">
+  <div class="sy-breadcrumbs-inner flex items-center">
+    <div class="md:hidden mr-3">
+      <button class="js-menu" aria-label="Menu" type="button" aria-controls="lside" aria-expanded="false">
+        <i class="i-lucide menu"></i>
+      </button>
+    </div>
+    <ol class="flex-1" itemscope itemtype="https://schema.org/BreadcrumbList"><li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
+        <a itemprop="item" href="../../../index.html"><span itemprop="name">Aurora Origin SDK</span></a>
+        <span>/</span>
+        <meta itemprop="position" content="1" />
+      </li><li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
+        <a itemprop="item" href="../../index.html"><span itemprop="name">Module code</span></a>
+        <span>/</span>
+        <meta itemprop="position" content="2" />
+      </li><li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
+        <strong itemprop="name">origin_sdk.service.Project</strong>
+        <meta itemprop="position" content="3" />
+      </li></ol>
+    <div class="xl:hidden ml-1">
+      <button class="js-menu" aria-label="Show table of contents" type="button" aria-controls="rside"
+        aria-expanded="false">
+        <i class="i-lucide outdent"></i>
+      </button>
+    </div>
+  </div>
+</div><div class="flex flex-col break-words justify-between">
+      <div class="relative min-w-0 max-w-6xl px-6 pb-6 pt-8 xl:px-12">
+  <article class="yue" role="main">
+          <h1>Source code for origin_sdk.service.Project</h1><div class="highlight"><pre>
+<span></span><span data-line="1"><span class="kn">import</span><span class="w"> </span><span class="nn">logging</span>
+</span><span data-line="2"><span class="kn">from</span><span class="w"> </span><span class="nn">origin_sdk.OriginSession</span><span class="w"> </span><span class="kn">import</span> <span class="n">OriginSession</span>
+</span><span data-line="3"><span class="kn">from</span><span class="w"> </span><span class="nn">origin_sdk.service.Scenario</span><span class="w"> </span><span class="kn">import</span> <span class="n">Scenario</span>
+</span><span data-line="4"><span class="kn">from</span><span class="w"> </span><span class="nn">origin_sdk.types.error_types</span><span class="w"> </span><span class="kn">import</span> <span class="n">ProjectNotFound</span><span class="p">,</span> <span class="n">ScenarioNotFound</span>
+</span><span data-line="5"><span class="kn">from</span><span class="w"> </span><span class="nn">origin_sdk.types.project_types</span><span class="w"> </span><span class="kn">import</span> <span class="n">InputProject</span>
+</span><span data-line="6">
+</span><span data-line="7"><span class="kn">from</span><span class="w"> </span><span class="nn">origin_sdk.types.scenario_types</span><span class="w"> </span><span class="kn">import</span> <span class="n">InputScenario</span>
+</span><span data-line="8">
+</span><span data-line="9"><span class="n">logger</span> <span class="o">=</span> <span class="n">logging</span><span class="o">.</span><span class="n">getLogger</span><span class="p">(</span><span class="vm">__name__</span><span class="p">)</span>
+</span><span data-line="10">
+</span><span data-line="11">
+<div class="viewcode-block" id="Project">
+<a class="viewcode-back" href="../../../api/generated/origin_sdk.service.Project.html#origin_sdk.service.Project.Project">[docs]</a>
+</span><span data-line="12"><span class="k">class</span><span class="w"> </span><span class="nc">Project</span><span class="p">:</span>
+</span><span data-line="13"><span class="w">    </span><span class="sd">&quot;&quot;&quot;The Project class is a more user-friendly set of mappings around the</span>
+</span><span data-line="14"><span class="sd">    lower level OriginSession calls.&quot;&quot;&quot;</span>
+</span><span data-line="15">
+</span><span data-line="16">    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">project_id</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">session</span><span class="p">:</span> <span class="n">OriginSession</span><span class="p">):</span>
+</span><span data-line="17">        <span class="bp">self</span><span class="o">.</span><span class="n">project_id</span> <span class="o">=</span> <span class="n">project_id</span>
+</span><span data-line="18">        <span class="bp">self</span><span class="o">.</span><span class="n">session</span> <span class="o">=</span> <span class="n">session</span>
+</span><span data-line="19">        <span class="bp">self</span><span class="o">.</span><span class="n">project</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">session</span><span class="o">.</span><span class="n">get_project</span><span class="p">(</span><span class="n">project_id</span><span class="p">)</span>
+</span><span data-line="20">
+<div class="viewcode-block" id="Project.get">
+<a class="viewcode-back" href="../../../api/generated/origin_sdk.service.Project.html#origin_sdk.service.Project.Project.get">[docs]</a>
+</span><span data-line="21">    <span class="k">def</span><span class="w"> </span><span class="nf">get</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">:</span> <span class="nb">str</span><span class="p">):</span>
+</span><span data-line="22"><span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+</span><span data-line="23"><span class="sd">        Shortcut for Project.project.get()</span>
+</span><span data-line="24"><span class="sd">        &quot;&quot;&quot;</span>
+</span><span data-line="25">        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">project</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">key</span><span class="p">)</span></div>
+
+</span><span data-line="26">
+<div class="viewcode-block" id="Project.refresh">
+<a class="viewcode-back" href="../../../api/generated/origin_sdk.service.Project.html#origin_sdk.service.Project.Project.refresh">[docs]</a>
+</span><span data-line="27">    <span class="k">def</span><span class="w"> </span><span class="nf">refresh</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+</span><span data-line="28"><span class="w">        </span><span class="sd">&quot;&quot;&quot;Refreshes the project data.&quot;&quot;&quot;</span>
+</span><span data-line="29">        <span class="bp">self</span><span class="o">.</span><span class="n">project</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">session</span><span class="o">.</span><span class="n">get_project</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">project_id</span><span class="p">)</span>
+</span><span data-line="30">        <span class="k">return</span> <span class="bp">self</span></div>
+
+</span><span data-line="31">
+<div class="viewcode-block" id="Project.pin">
+<a class="viewcode-back" href="../../../api/generated/origin_sdk.service.Project.html#origin_sdk.service.Project.Project.pin">[docs]</a>
+</span><span data-line="32">    <span class="k">def</span><span class="w"> </span><span class="nf">pin</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+</span><span data-line="33"><span class="w">        </span><span class="sd">&quot;&quot;&quot;Pins the project, if it isn&#39;t already&quot;&quot;&quot;</span>
+</span><span data-line="34">        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">project</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;isProjectPinned&quot;</span><span class="p">)</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">True</span><span class="p">:</span>
+</span><span data-line="35">            <span class="bp">self</span><span class="o">.</span><span class="n">session</span><span class="o">.</span><span class="n">pin_project</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">project_id</span><span class="p">)</span>
+</span><span data-line="36">        <span class="k">return</span> <span class="bp">self</span></div>
+
+</span><span data-line="37">
+<div class="viewcode-block" id="Project.unpin">
+<a class="viewcode-back" href="../../../api/generated/origin_sdk.service.Project.html#origin_sdk.service.Project.Project.unpin">[docs]</a>
+</span><span data-line="38">    <span class="k">def</span><span class="w"> </span><span class="nf">unpin</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+</span><span data-line="39"><span class="w">        </span><span class="sd">&quot;&quot;&quot;Unpins the project, if it isn&#39;t already&quot;&quot;&quot;</span>
+</span><span data-line="40">        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">project</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;isProjectPinned&quot;</span><span class="p">)</span> <span class="ow">is</span> <span class="kc">True</span><span class="p">:</span>
+</span><span data-line="41">            <span class="bp">self</span><span class="o">.</span><span class="n">session</span><span class="o">.</span><span class="n">unpin_project</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">project_id</span><span class="p">)</span>
+</span><span data-line="42">        <span class="k">return</span> <span class="bp">self</span></div>
+
+</span><span data-line="43">
+<div class="viewcode-block" id="Project.create_scenario">
+<a class="viewcode-back" href="../../../api/generated/origin_sdk.service.Project.html#origin_sdk.service.Project.Project.create_scenario">[docs]</a>
+</span><span data-line="44">    <span class="k">def</span><span class="w"> </span><span class="nf">create_scenario</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">scenario_opts</span><span class="p">:</span> <span class="n">InputScenario</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Scenario</span><span class="p">:</span>
+</span><span data-line="45"><span class="w">        </span><span class="sd">&quot;&quot;&quot;Shortcut to create a scenario in this project. See</span>
+</span><span data-line="46"><span class="sd">        OriginSession.createScenario for info on argument `scenario_opts`&quot;&quot;&quot;</span>
+</span><span data-line="47">        <span class="n">scenario</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">session</span><span class="o">.</span><span class="n">create_scenario</span><span class="p">(</span>
+</span><span data-line="48">            <span class="p">{</span><span class="s2">&quot;projectGlobalId&quot;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">project_id</span><span class="p">,</span> <span class="o">**</span><span class="n">scenario_opts</span><span class="p">}</span>
+</span><span data-line="49">        <span class="p">)</span>
+</span><span data-line="50">        <span class="k">return</span> <span class="n">Scenario</span><span class="p">(</span>
+</span><span data-line="51">            <span class="n">session</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">session</span><span class="p">,</span> <span class="n">scenario_id</span><span class="o">=</span><span class="n">scenario</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;scenarioGlobalId&quot;</span><span class="p">)</span>
+</span><span data-line="52">        <span class="p">)</span></div>
+
+</span><span data-line="53">
+<div class="viewcode-block" id="Project.get_scenario_by_name">
+<a class="viewcode-back" href="../../../api/generated/origin_sdk.service.Project.html#origin_sdk.service.Project.Project.get_scenario_by_name">[docs]</a>
+</span><span data-line="54">    <span class="k">def</span><span class="w"> </span><span class="nf">get_scenario_by_name</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">scenario_name</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Scenario</span><span class="p">:</span>
+</span><span data-line="55"><span class="w">        </span><span class="sd">&quot;&quot;&quot;Gets a scenario from the current project using the name instead of an</span>
+</span><span data-line="56"><span class="sd">        ID.</span>
+</span><span data-line="57">
+</span><span data-line="58"><span class="sd">        NOTE: In the case of more than one scenario with the same name, the</span>
+</span><span data-line="59"><span class="sd">        first one will be returned as ordered by the service.&quot;&quot;&quot;</span>
+</span><span data-line="60">
+</span><span data-line="61">        <span class="bp">self</span><span class="o">.</span><span class="n">refresh</span><span class="p">()</span>
+</span><span data-line="62">
+</span><span data-line="63">        <span class="n">scenarios</span> <span class="o">=</span> <span class="p">[</span>
+</span><span data-line="64">            <span class="n">scenario</span>
+</span><span data-line="65">            <span class="k">for</span> <span class="n">scenario</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">project</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;scenarios&quot;</span><span class="p">)</span>
+</span><span data-line="66">            <span class="k">if</span> <span class="n">scenario</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;name&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span> <span class="o">==</span> <span class="n">scenario_name</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span>
+</span><span data-line="67">        <span class="p">]</span>
+</span><span data-line="68">
+</span><span data-line="69">        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">scenarios</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+</span><span data-line="70">            <span class="c1"># We found a scenario with a name match!</span>
+</span><span data-line="71">            <span class="c1"># Select it to return</span>
+</span><span data-line="72">            <span class="k">return</span> <span class="n">Scenario</span><span class="p">(</span>
+</span><span data-line="73">                <span class="n">session</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">session</span><span class="p">,</span> <span class="n">scenario_id</span><span class="o">=</span><span class="n">scenarios</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;scenarioGlobalId&quot;</span><span class="p">)</span>
+</span><span data-line="74">            <span class="p">)</span>
+</span><span data-line="75">        <span class="k">else</span><span class="p">:</span>
+</span><span data-line="76">            <span class="k">raise</span> <span class="n">ScenarioNotFound</span><span class="p">(</span>
+</span><span data-line="77">                <span class="sa">f</span><span class="s2">&quot;No scenario with </span><span class="si">{</span><span class="n">scenario_name</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span><span class="si">}</span><span class="s2"> in project </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">project</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;name&#39;</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span>
+</span><span data-line="78">            <span class="p">)</span></div>
+
+</span><span data-line="79">
+<div class="viewcode-block" id="Project.get_or_create_scenario_by_name">
+<a class="viewcode-back" href="../../../api/generated/origin_sdk.service.Project.html#origin_sdk.service.Project.Project.get_or_create_scenario_by_name">[docs]</a>
+</span><span data-line="80">    <span class="k">def</span><span class="w"> </span><span class="nf">get_or_create_scenario_by_name</span><span class="p">(</span>
+</span><span data-line="81">        <span class="bp">self</span><span class="p">,</span> <span class="n">scenario_name</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">base_scenario_id</span><span class="p">:</span> <span class="nb">str</span>
+</span><span data-line="82">    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Scenario</span><span class="p">:</span>
+</span><span data-line="83"><span class="w">        </span><span class="sd">&quot;&quot;&quot;Either gets a scenario from this project or creates a scenario in</span>
+</span><span data-line="84"><span class="sd">        this project with the name specified. In the case of create, requires a</span>
+</span><span data-line="85"><span class="sd">        base_id.</span>
+</span><span data-line="86">
+</span><span data-line="87"><span class="sd">        NOTE: In the case of more than one scenario with the same name, the</span>
+</span><span data-line="88"><span class="sd">        first one will be returned as ordered by the service.</span>
+</span><span data-line="89">
+</span><span data-line="90"><span class="sd">        Arguments:</span>
+</span><span data-line="91"><span class="sd">            scenario_name: str - The name of the scenario to look for</span>
+</span><span data-line="92"><span class="sd">            base_id: str - The ID of the scenario to use as a base in the case</span>
+</span><span data-line="93"><span class="sd">            that the scenario doesn&#39;t exist</span>
+</span><span data-line="94"><span class="sd">        &quot;&quot;&quot;</span>
+</span><span data-line="95">
+</span><span data-line="96">        <span class="n">scenario</span> <span class="o">=</span> <span class="kc">None</span>
+</span><span data-line="97">
+</span><span data-line="98">        <span class="k">try</span><span class="p">:</span>
+</span><span data-line="99">            <span class="n">scenario</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_scenario_by_name</span><span class="p">(</span><span class="n">scenario_name</span><span class="o">=</span><span class="n">scenario_name</span><span class="p">)</span>
+</span><span data-line="100">
+</span><span data-line="101">        <span class="k">except</span> <span class="n">ScenarioNotFound</span><span class="p">:</span>
+</span><span data-line="102">            <span class="c1"># No scenario found, create it.</span>
+</span><span data-line="103">            <span class="n">scenario</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">create_scenario</span><span class="p">(</span>
+</span><span data-line="104">                <span class="p">{</span>
+</span><span data-line="105">                    <span class="s2">&quot;baseScenarioGlobalId&quot;</span><span class="p">:</span> <span class="n">base_scenario_id</span><span class="p">,</span>
+</span><span data-line="106">                    <span class="s2">&quot;name&quot;</span><span class="p">:</span> <span class="n">scenario_name</span><span class="p">,</span>
+</span><span data-line="107">                <span class="p">}</span>
+</span><span data-line="108">            <span class="p">)</span>
+</span><span data-line="109">
+</span><span data-line="110">        <span class="k">return</span> <span class="n">scenario</span></div>
+
+</span><span data-line="111">
+<div class="viewcode-block" id="Project.get_project_by_name">
+<a class="viewcode-back" href="../../../api/generated/origin_sdk.service.Project.html#origin_sdk.service.Project.Project.get_project_by_name">[docs]</a>
+</span><span data-line="112">    <span class="nd">@staticmethod</span>
+</span><span data-line="113">    <span class="k">def</span><span class="w"> </span><span class="nf">get_project_by_name</span><span class="p">(</span><span class="n">session</span><span class="p">:</span> <span class="n">OriginSession</span><span class="p">,</span> <span class="n">name</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="s2">&quot;Project&quot;</span><span class="p">:</span>
+</span><span data-line="114"><span class="w">        </span><span class="sd">&quot;&quot;&quot;Gets a project using the name instead of an ID.</span>
+</span><span data-line="115">
+</span><span data-line="116"><span class="sd">        NOTE: In the case of more than one project with the same name, the</span>
+</span><span data-line="117"><span class="sd">        first one will be returned as ordered by the service.&quot;&quot;&quot;</span>
+</span><span data-line="118">
+</span><span data-line="119">        <span class="n">all_projects</span> <span class="o">=</span> <span class="p">[</span><span class="n">p</span> <span class="k">for</span> <span class="n">p</span> <span class="ow">in</span> <span class="n">session</span><span class="o">.</span><span class="n">get_projects</span><span class="p">()</span> <span class="k">if</span> <span class="n">p</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;name&quot;</span><span class="p">)</span> <span class="o">==</span> <span class="n">name</span><span class="p">]</span>
+</span><span data-line="120">
+</span><span data-line="121">        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">all_projects</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+</span><span data-line="122">            <span class="n">project</span> <span class="o">=</span> <span class="n">all_projects</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+</span><span data-line="123">            <span class="k">return</span> <span class="n">Project</span><span class="p">(</span><span class="n">session</span><span class="o">=</span><span class="n">session</span><span class="p">,</span> <span class="n">project_id</span><span class="o">=</span><span class="n">project</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;projectGlobalId&quot;</span><span class="p">))</span>
+</span><span data-line="124">
+</span><span data-line="125">        <span class="k">else</span><span class="p">:</span>
+</span><span data-line="126">            <span class="k">raise</span> <span class="n">ProjectNotFound</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;No project found containing &#39;</span><span class="si">{</span><span class="n">name</span><span class="si">}</span><span class="s2">&#39;&quot;</span><span class="p">)</span></div>
+
+</span><span data-line="127">
+<div class="viewcode-block" id="Project.create">
+<a class="viewcode-back" href="../../../api/generated/origin_sdk.service.Project.html#origin_sdk.service.Project.Project.create">[docs]</a>
+</span><span data-line="128">    <span class="nd">@staticmethod</span>
+</span><span data-line="129">    <span class="k">def</span><span class="w"> </span><span class="nf">create</span><span class="p">(</span><span class="n">session</span><span class="p">:</span> <span class="n">OriginSession</span><span class="p">,</span> <span class="n">project</span><span class="p">:</span> <span class="n">InputProject</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="s2">&quot;Project&quot;</span><span class="p">:</span>
+</span><span data-line="130">        <span class="n">created_project</span> <span class="o">=</span> <span class="n">session</span><span class="o">.</span><span class="n">create_project</span><span class="p">(</span><span class="n">project</span><span class="o">=</span><span class="n">project</span><span class="p">)</span>
+</span><span data-line="131">        <span class="k">return</span> <span class="n">Project</span><span class="p">(</span>
+</span><span data-line="132">            <span class="n">session</span><span class="o">=</span><span class="n">session</span><span class="p">,</span> <span class="n">project_id</span><span class="o">=</span><span class="n">created_project</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;projectGlobalId&quot;</span><span class="p">)</span>
+</span><span data-line="133">        <span class="p">)</span></div>
+
+</span><span data-line="134">
+<div class="viewcode-block" id="Project.get_or_create_project_by_name">
+<a class="viewcode-back" href="../../../api/generated/origin_sdk.service.Project.html#origin_sdk.service.Project.Project.get_or_create_project_by_name">[docs]</a>
+</span><span data-line="135">    <span class="nd">@staticmethod</span>
+</span><span data-line="136">    <span class="k">def</span><span class="w"> </span><span class="nf">get_or_create_project_by_name</span><span class="p">(</span>
+</span><span data-line="137">        <span class="n">session</span><span class="p">:</span> <span class="n">OriginSession</span><span class="p">,</span>
+</span><span data-line="138">        <span class="n">name</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+</span><span data-line="139">        <span class="n">create_config</span><span class="p">:</span> <span class="n">InputProject</span> <span class="o">=</span> <span class="p">{},</span>
+</span><span data-line="140">        <span class="n">pin_project</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
+</span><span data-line="141">    <span class="p">)</span> <span class="o">-&gt;</span> <span class="s2">&quot;Project&quot;</span><span class="p">:</span>
+</span><span data-line="142"><span class="w">        </span><span class="sd">&quot;&quot;&quot;Either creates a project with this name, or returns the project that</span>
+</span><span data-line="143"><span class="sd">        already exists with the same name.</span>
+</span><span data-line="144">
+</span><span data-line="145"><span class="sd">        NOTE: In the case of more than one project with the same name, the</span>
+</span><span data-line="146"><span class="sd">        first one will be returned as ordered by the service.</span>
+</span><span data-line="147">
+</span><span data-line="148"><span class="sd">        Arguments:</span>
+</span><span data-line="149"><span class="sd">            session: OriginSession - The session to make API calls with</span>
+</span><span data-line="150"><span class="sd">            name: str - The name of the project to find/create</span>
+</span><span data-line="151"><span class="sd">            create_config: str - The configuration to use in the case where the</span>
+</span><span data-line="152"><span class="sd">                project is being created.</span>
+</span><span data-line="153"><span class="sd">            pin_project: Optional, bool - Whether to pin the project if it&#39;s not</span>
+</span><span data-line="154"><span class="sd">            already, defaults to False</span>
+</span><span data-line="155"><span class="sd">        &quot;&quot;&quot;</span>
+</span><span data-line="156">        <span class="k">try</span><span class="p">:</span>
+</span><span data-line="157">            <span class="n">project</span> <span class="o">=</span> <span class="n">Project</span><span class="o">.</span><span class="n">get_project_by_name</span><span class="p">(</span><span class="n">session</span><span class="o">=</span><span class="n">session</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="n">name</span><span class="p">)</span>
+</span><span data-line="158">
+</span><span data-line="159">        <span class="k">except</span> <span class="n">ProjectNotFound</span><span class="p">:</span>
+</span><span data-line="160">            <span class="n">project</span> <span class="o">=</span> <span class="n">Project</span><span class="o">.</span><span class="n">create</span><span class="p">(</span>
+</span><span data-line="161">                <span class="n">session</span><span class="o">=</span><span class="n">session</span><span class="p">,</span> <span class="n">project</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;name&quot;</span><span class="p">:</span> <span class="n">name</span><span class="p">,</span> <span class="o">**</span><span class="n">create_config</span><span class="p">}</span>
+</span><span data-line="162">            <span class="p">)</span>
+</span><span data-line="163">
+</span><span data-line="164">        <span class="k">if</span> <span class="n">pin_project</span> <span class="ow">is</span> <span class="kc">True</span><span class="p">:</span>
+</span><span data-line="165">            <span class="n">project</span><span class="o">.</span><span class="n">pin</span><span class="p">()</span>
+</span><span data-line="166">
+</span><span data-line="167">        <span class="k">return</span> <span class="n">project</span></div>
+</div>
+
+</span></pre></div>
+        </article><button class="back-to-top" type="button">
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+    <path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8v12z"></path>
+  </svg>
+  <span>Back to top</span>
+</button><div class="navigation flex print:hidden"></div></div>
+    </div>
+  </main>
+</div>
+<footer class="sy-foot">
+  <div class="sy-foot-inner sy-container mx-auto">
+    <div class="sy-foot-reserved md:flex justify-between items-center">
+      <div class="sy-foot-copyright"><p>2026, Aurora Energy Research</p>
+  
+  <p>
+    Made with
+    
+    <a href="https://www.sphinx-doc.org/">Sphinx</a> and
+    
+    <a href="https://shibuya.lepture.com">Shibuya theme</a>.
+  </p>
+</div>
+      <div class="sy-foot-socials"></div>
+    </div>
+  </div>
+</footer>
+      <script src="../../../_static/documentation_options.js?v=d63f172e"></script>
+      <script src="../../../_static/doctools.js?v=fd6eb6e6"></script>
+      <script src="../../../_static/sphinx_highlight.js?v=6ffebe34"></script>
+      <script src="../../../_static/shibuya.js?v=cac61aee"></script></body>
+</html>

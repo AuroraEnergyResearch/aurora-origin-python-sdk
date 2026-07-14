@@ -1,0 +1,16 @@
+﻿origin\_sdk.types.scenario\_types
+=================================
+
+.. automodule:: origin_sdk.types.scenario_types
+
+   
+   .. rubric:: Classes
+
+   .. autosummary::
+   
+      AdvancedScenarioSettings
+      InputScenario
+      RegionDict
+      ScenarioSummaryType
+      ScenarioType
+   

@@ -1,0 +1,489 @@
+<!DOCTYPE html>
+<html lang="en" data-accent-color="orange" data-content_root="../../">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"><title>origin_sdk.service.Scenario - Aurora Origin SDK Docs</title><link rel="index" title="Index" href="../../genindex.html" /><link rel="search" title="Search" href="../../search.html" /><link rel="next" title="origin_sdk.types.scenario_enums" href="origin_sdk.types.scenario_enums.html" /><link rel="prev" title="origin_sdk.service.Project" href="origin_sdk.service.Project.html" />
+      <link rel="canonical" href="https://ghp.auroraer.com/aurora-origin-python-sdk/api/generated/origin_sdk.service.Scenario.html" /><script>
+    function setColorMode(t){let e=document.documentElement;e.setAttribute("data-color-mode",t);let a=window.matchMedia&&window.matchMedia("(prefers-color-scheme: dark)").matches,s=t;"auto"===t&&(s=a?"dark":"light"),"light"===s?(e.classList.remove("dark"),e.classList.add("light")):(e.classList.remove("light"),e.classList.add("dark"))}
+    setColorMode(localStorage._theme||"auto");
+  </script><link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=e1a1ceaf" />
+    <link rel="stylesheet" type="text/css" href="../../_static/shibuya.css?v=44020203" />
+    <link media="print" rel="stylesheet" type="text/css" href="../../_static/print.css?v=20ff2c19" />
+    <link rel="stylesheet" type="text/css" href="../../_static/custom.css?v=2c016416" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --sy-f-text: "Inter", var(--sy-f-sys), var(--sy-f-cjk), sans-serif;
+  --sy-f-heading: "Inter", var(--sy-f-sys), var(--sy-f-cjk), sans-serif;
+}
+</style>
+    <meta property="og:type" content="website"/>
+  <meta property="og:url" content="https://ghp.auroraer.com/aurora-origin-python-sdk/api/generated/origin_sdk.service.Scenario.html"/>
+  <meta property="og:title" content="origin_sdk.service.Scenario"/>
+    <meta name="twitter:card" content="summary"/>
+  </head>
+<body><div class="sy-head">
+  <div class="sy-head-blur"></div>
+  <div class="sy-head-inner sy-container mx-auto">
+    <a class="sy-head-brand" href="../../index.html">
+      <img class="light-logo" src="../../_static/logo.svg" alt="Aurora Origin SDK" height="28" loading="lazy" />
+      <img class="dark-logo" src="../../_static/logo.svg" alt="Aurora Origin SDK" height="28" loading="lazy" />
+      <strong>Aurora Origin SDK</strong>
+    </a>
+    <div class="sy-head-nav" id="head-nav">
+      <nav class="sy-head-links"></nav>
+      <div class="sy-head-extra flex items-center print:hidden"><form class="searchbox flex items-center" action="../../search.html" method="get">
+  <input type="text" name="q" placeholder="Search" />
+  <kbd>/</kbd>
+</form><div class="sy-head-socials"></div></div>
+    </div>
+    <div class="sy-head-actions flex items-center shrink-0 print:hidden"><button class="js-theme theme-switch flex items-center"
+data-aria-auto="Switch to light color mode"
+data-aria-light="Switch to dark color mode"
+data-aria-dark="Switch to auto color mode">
+<i class="i-lucide theme-icon"></i>
+</button><button class="md:hidden flex items-center js-menu" aria-label="Menu" type="button" aria-controls="head-nav" aria-expanded="false">
+        <div class="hamburger">
+          <span class="hamburger_1"></span>
+          <span class="hamburger_2"></span>
+          <span class="hamburger_3"></span>
+        </div>
+      </button>
+    </div>
+  </div>
+</div>
+<div class="sy-page sy-container flex mx-auto">
+  <aside id="lside" class="sy-lside md:w-72 md:shrink-0 print:hidden">
+    <div class="sy-lside-inner md:sticky">
+      <div class="sy-scrollbar p-6">
+        <div class="globaltoc" data-expand-depth="0"><ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../../installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../common-patterns.html">Common Patterns</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../index.html">API reference</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="origin_sdk.OriginSession.html">origin_sdk.OriginSession</a></li>
+<li class="toctree-l2"><a class="reference internal" href="origin_sdk.service.InputsEditor.html">origin_sdk.service.InputsEditor</a></li>
+<li class="toctree-l2"><a class="reference internal" href="origin_sdk.service.Project.html">origin_sdk.service.Project</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">origin_sdk.service.Scenario</a></li>
+<li class="toctree-l2"><a class="reference internal" href="origin_sdk.types.scenario_enums.html">origin_sdk.types.scenario_enums</a></li>
+<li class="toctree-l2"><a class="reference internal" href="origin_sdk.types.scenario_types.html">origin_sdk.types.scenario_types</a></li>
+<li class="toctree-l2"><a class="reference internal" href="origin_sdk.gql.queries.input_queries.session.html">origin_sdk.gql.queries.input_queries.session</a></li>
+</ul>
+</li>
+</ul>
+
+        </div>
+      </div>
+    </div>
+  </aside>
+  <div class="lside-overlay js-menu" role="button" aria-label="Close left sidebar" aria-controls="lside" aria-expanded="false"></div>
+  <aside id="rside" class="sy-rside pb-3 w-64 shrink-0 order-last">
+    <button class="rside-close js-menu xl:hidden" aria-label="Close Table of Contents" type="button" aria-controls="rside" aria-expanded="false">
+      <i class="i-lucide close"></i>
+    </button>
+    <div class="sy-scrollbar sy-rside-inner px-6 xl:top-16 xl:sticky xl:pl-0 pt-6 pb-4"><div class="localtoc"><h3>On this page</h3><ul>
+<li><a class="reference internal" href="#origin_sdk.service.Scenario.Scenario"><code class="docutils literal notranslate"><span class="pre">Scenario</span></code></a><ul>
+<li><a class="reference internal" href="#origin_sdk.service.Scenario.Scenario.scenario_id"><code class="docutils literal notranslate">scenario_id</span></code></a></li>
+<li><a class="reference internal" href="#origin_sdk.service.Scenario.Scenario.session"><code class="docutils literal notranslate">session</span></code></a></li>
+<li><a class="reference internal" href="#origin_sdk.service.Scenario.Scenario.scenario"><code class="docutils literal notranslate">scenario</span></code></a></li>
+<li><a class="reference internal" href="#origin_sdk.service.Scenario.Scenario.get"><code class="docutils literal notranslate">get()</span></code></a></li>
+<li><a class="reference internal" href="#origin_sdk.service.Scenario.Scenario.get_download_types"><code class="docutils literal notranslate">get_download_types()</span></code></a></li>
+<li><a class="reference internal" href="#origin_sdk.service.Scenario.Scenario.get_download_years"><code class="docutils literal notranslate">get_download_years()</span></code></a></li>
+<li><a class="reference internal" href="#origin_sdk.service.Scenario.Scenario.get_downloadable_regions"><code class="docutils literal notranslate">get_downloadable_regions()</span></code></a></li>
+<li><a class="reference internal" href="#origin_sdk.service.Scenario.Scenario.get_latest_scenario_from_region"><code class="docutils literal notranslate">get_latest_scenario_from_region()</span></code></a></li>
+<li><a class="reference internal" href="#origin_sdk.service.Scenario.Scenario.get_scenario_data_csv"><code class="docutils literal notranslate">get_scenario_data_csv()</span></code></a></li>
+<li><a class="reference internal" href="#origin_sdk.service.Scenario.Scenario.get_scenario_data_download_url"><code class="docutils literal notranslate">get_scenario_data_download_url()</span></code></a></li>
+<li><a class="reference internal" href="#origin_sdk.service.Scenario.Scenario.get_scenario_dataframe"><code class="docutils literal notranslate">get_scenario_dataframe()</span></code></a></li>
+<li><a class="reference internal" href="#origin_sdk.service.Scenario.Scenario.get_scenario_region"><code class="docutils literal notranslate">get_scenario_region()</span></code></a></li>
+<li><a class="reference internal" href="#origin_sdk.service.Scenario.Scenario.get_scenario_regions"><code class="docutils literal notranslate">get_scenario_regions()</span></code></a></li>
+<li><a class="reference internal" href="#origin_sdk.service.Scenario.Scenario.refresh"><code class="docutils literal notranslate">refresh()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</div></div>
+  </aside>
+  <div class="rside-overlay js-menu" role="button" aria-label="Close Table of Contents" aria-controls="rside" aria-expanded="false"></div>
+  <main class="sy-main w-full max-sm:max-w-full print:pt-6">
+<div class="sy-breadcrumbs" role="navigation">
+  <div class="sy-breadcrumbs-inner flex items-center">
+    <div class="md:hidden mr-3">
+      <button class="js-menu" aria-label="Menu" type="button" aria-controls="lside" aria-expanded="false">
+        <i class="i-lucide menu"></i>
+      </button>
+    </div>
+    <ol class="flex-1" itemscope itemtype="https://schema.org/BreadcrumbList"><li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
+        <a itemprop="item" href="../../index.html"><span itemprop="name">Aurora Origin SDK</span></a>
+        <span>/</span>
+        <meta itemprop="position" content="1" />
+      </li><li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
+        <a itemprop="item" href="../index.html"><span itemprop="name">API reference</span></a>
+        <span>/</span>
+        <meta itemprop="position" content="2" />
+      </li><li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
+        <strong itemprop="name">origin_sdk.service.Scenario</strong>
+        <meta itemprop="position" content="3" />
+      </li></ol>
+    <div class="xl:hidden ml-1">
+      <button class="js-menu" aria-label="Show table of contents" type="button" aria-controls="rside"
+        aria-expanded="false">
+        <i class="i-lucide outdent"></i>
+      </button>
+    </div>
+  </div>
+</div><div class="flex flex-col break-words justify-between">
+      <div class="relative min-w-0 max-w-6xl px-6 pb-6 pt-8 xl:px-12">
+  <div class="copy-page-wrapper relative pb-4 lg:absolute lg:top-8 lg:right-6 xl:right-12">
+  <div id="copy-page-trigger">
+    <button
+      type="button"
+      class="js-copy px-3 py-1 inline-flex items-center gap-1"
+      data-url="https://ghp.auroraer.com/aurora-origin-python-sdk/_sources/api/generated/origin_sdk.service.Scenario.rst.txt"
+    >
+      <i class="i-lucide" data-icon="copy"></i>
+      <span>Copy page</span>
+    </button>
+    <button class="js-menu px-2 py-1" type="button" aria-label="More actions"
+      aria-haspopup="menu" aria-expanded="false" aria-controls="copy-page-content">
+      <i class="i-lucide chevron-down"></i>
+    </button>
+  </div>
+  <div id="copy-page-content" role="menu" aria-orientation="vertical" aria-hidden="true">
+    <div role="presentation">
+      <div class="flex flex-col" role="group">
+        <button class="js-copy" type="button" role="menuitem"
+          data-url="https://ghp.auroraer.com/aurora-origin-python-sdk/_sources/api/generated/origin_sdk.service.Scenario.rst.txt">
+          <span class="iconify-icon">
+            <i class="i-lucide" data-icon="copy"></i>
+          </span>
+          <span>Copy page</span>
+        </button>
+        <a role="menuitem" href="https://ghp.auroraer.com/aurora-origin-python-sdk/_sources/api/generated/origin_sdk.service.Scenario.rst.txt" target="_blank" rel="nofollow"><iconify-icon icon="bi:code-slash"></iconify-icon>
+            <span>View Source</span></a><a role="menuitem" href="https://chatgpt.com/?hints=search&q=Read%20https%3A//ghp.auroraer.com/aurora-origin-python-sdk/_sources/api/generated/origin_sdk.service.Scenario.rst.txt%20so%20I%20can%20ask%20questions%20about%20it." target="_blank" rel="nofollow">
+          <iconify-icon icon="bi:openai"></iconify-icon>
+          <span>Open in ChatGPT</span>
+        </a><a role="menuitem" href="https://claude.ai/new?q=Read%20https%3A//ghp.auroraer.com/aurora-origin-python-sdk/_sources/api/generated/origin_sdk.service.Scenario.rst.txt%20so%20I%20can%20ask%20questions%20about%20it." target="_blank" rel="nofollow">
+          <iconify-icon icon="bi:claude"></iconify-icon>
+          <span>Open in Claude</span>
+        </a></div>
+    </div>
+  </div>
+</div><article class="yue" role="main">
+          <section id="module-origin_sdk.service.Scenario">
+<span id="origin-sdk-service-scenario"></span><h1>origin_sdk.service.Scenario<a class="headerlink" href="#module-origin_sdk.service.Scenario" title="Link to this heading">¶</a></h1>
+<p class="rubric">Classes</p>
+<div class="table-wrapper autosummary longtable docutils container">
+<table class="autosummary longtable docutils align-default">
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="#origin_sdk.service.Scenario.Scenario" title="origin_sdk.service.Scenario.Scenario"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Scenario</span></code></a>(scenario_id, session)</p></td>
+<td><p>A Scenario class that holds state in order to provide a more Pythonic interface for Scenario building and downloading outputs</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<dl class="py class">
+<dt class="sig sig-object py" id="origin_sdk.service.Scenario.Scenario">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">origin_sdk.service.Scenario.</span></span><span class="sig-name descname"><span class="pre">Scenario</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">scenario_id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">session</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="origin_sdk.OriginSession.html#origin_sdk.OriginSession.OriginSession" title="origin_sdk.OriginSession.OriginSession"><span class="pre">OriginSession</span></a></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/origin_sdk/service/Scenario.html#Scenario"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#origin_sdk.service.Scenario.Scenario" title="Link to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>A Scenario class that holds state in order to provide a more Pythonic
+interface for Scenario building and downloading outputs</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>scenario_id</strong> (<em>str</em>) – The ID to initialise the scenario with. Will fetch</p></li>
+<li><p><strong>details</strong> (<em>the scenario details and populate itself with</em>)</p></li>
+<li><p><strong>session</strong> (<a class="reference internal" href="origin_sdk.OriginSession.html#origin_sdk.OriginSession.OriginSession" title="origin_sdk.OriginSession.OriginSession"><em>OriginSession</em></a>) – You should first instantiate an OriginSession</p></li>
+<li><p><strong>Scenario.</strong> (<em>and pass this over to the</em>)</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="origin_sdk.service.Scenario.Scenario.scenario_id">
+<span class="sig-name descname"><span class="pre">scenario_id</span></span><a class="headerlink" href="#origin_sdk.service.Scenario.Scenario.scenario_id" title="Link to this definition">¶</a></dt>
+<dd><p>The scenario ID</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>str</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="origin_sdk.service.Scenario.Scenario.session">
+<span class="sig-name descname"><span class="pre">session</span></span><a class="headerlink" href="#origin_sdk.service.Scenario.Scenario.session" title="Link to this definition">¶</a></dt>
+<dd><p>The OriginSession attached to this scenario</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference internal" href="origin_sdk.OriginSession.html#origin_sdk.OriginSession.OriginSession" title="origin_sdk.OriginSession.OriginSession">OriginSession</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="origin_sdk.service.Scenario.Scenario.scenario">
+<span class="sig-name descname"><span class="pre">scenario</span></span><a class="headerlink" href="#origin_sdk.service.Scenario.Scenario.scenario" title="Link to this definition">¶</a></dt>
+<dd><p>The full Scenario object from the service</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference internal" href="origin_sdk.types.scenario_types.html#origin_sdk.types.scenario_types.ScenarioType" title="origin_sdk.types.scenario_types.ScenarioType">ScenarioType</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="origin_sdk.service.Scenario.Scenario.get">
+<span class="sig-name descname"><span class="pre">get</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">key</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/origin_sdk/service/Scenario.html#Scenario.get"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#origin_sdk.service.Scenario.Scenario.get" title="Link to this definition">¶</a></dt>
+<dd><p>Shortcut for Scenario.scenario.get()</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="origin_sdk.service.Scenario.Scenario.get_download_types">
+<span class="sig-name descname"><span class="pre">get_download_types</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">region</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/origin_sdk/service/Scenario.html#Scenario.get_download_types"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#origin_sdk.service.Scenario.Scenario.get_download_types" title="Link to this definition">¶</a></dt>
+<dd><p>Returns the types, granularities, and optional sub-types of downloads
+available for the region. Expect something like “system”|”technology”
+and “1y”|”1m” for type and granularity respectively.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>region</strong> (<em>String</em>)</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>A list of download descriptors including type, granularity, and
+subType (where available) for the scenario region.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="origin_sdk.service.Scenario.Scenario.get_download_years">
+<span class="sig-name descname"><span class="pre">get_download_years</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">region</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/origin_sdk/service/Scenario.html#Scenario.get_download_years"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#origin_sdk.service.Scenario.Scenario.get_download_years" title="Link to this definition">¶</a></dt>
+<dd><p>Returns the valid download years for the region, as defined in the
+region metadata.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>region</strong> (<em>String</em>)</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>A list of valid years for downloads in the region.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="origin_sdk.service.Scenario.Scenario.get_downloadable_regions">
+<span class="sig-name descname"><span class="pre">get_downloadable_regions</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/origin_sdk/service/Scenario.html#Scenario.get_downloadable_regions"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#origin_sdk.service.Scenario.Scenario.get_downloadable_regions" title="Link to this definition">¶</a></dt>
+<dd><p>A helper function to return the regions available for download from
+this scenario</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>A list of regions available</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="origin_sdk.service.Scenario.Scenario.get_latest_scenario_from_region">
+<span class="property"><span class="k"><span class="pre">static</span></span><span class="w"> </span></span><span class="sig-name descname"><span class="pre">get_latest_scenario_from_region</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">session</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="origin_sdk.OriginSession.html#origin_sdk.OriginSession.OriginSession" title="origin_sdk.OriginSession.OriginSession"><span class="pre">OriginSession</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">region</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">name_filter</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/origin_sdk/service/Scenario.html#Scenario.get_latest_scenario_from_region"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#origin_sdk.service.Scenario.Scenario.get_latest_scenario_from_region" title="Link to this definition">¶</a></dt>
+<dd><p>Given a region (and optional name match) will return the latest
+scenario found.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="origin_sdk.service.Scenario.Scenario.get_scenario_data_csv">
+<span class="sig-name descname"><span class="pre">get_scenario_data_csv</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">region</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">download_type</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">granularity</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">currency</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">year</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">node</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sub_type</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">force_no_cache</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">params</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">str</span><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/origin_sdk/service/Scenario.html#Scenario.get_scenario_data_csv"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#origin_sdk.service.Scenario.Scenario.get_scenario_data_csv" title="Link to this definition">¶</a></dt>
+<dd><p>Downloads a csv from the service and returns as a string. Recommended to
+use if looking to generate a csv file on disk.</p>
+<p>In general, our csvs have two header rows. The first identifies the
+column of data and the second is a unit string or other contextual
+information if relevant. To convert this to a pandas data frame,
+pass the output of this method to pandas’ read_csv() method via a buffer.</p>
+<p>Examples:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span data-line="1"><span class="n">csv_data</span> <span class="o">=</span> <span class="n">scenario</span><span class="o">.</span><span class="n">get_scenario_data_csv</span><span class="p">(</span><span class="s1">&#39;gbr&#39;</span><span class="p">,</span> <span class="s1">&#39;system&#39;</span><span class="p">,</span> <span class="s1">&#39;1y&#39;</span><span class="p">)</span>
+</span><span data-line="2"><span class="n">buffer</span> <span class="o">=</span> <span class="n">StringIO</span><span class="p">(</span><span class="n">csv_data</span><span class="p">)</span>
+</span><span data-line="3"><span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">buffer</span><span class="p">,</span> <span class="n">header</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">])</span>
+</span></pre></div>
+</div>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span data-line="1"><span class="n">csv_data</span> <span class="o">=</span> <span class="n">scenario</span><span class="o">.</span><span class="n">get_scenario_data_csv</span><span class="p">(</span>
+</span><span data-line="2">    <span class="n">region</span><span class="o">=</span><span class="s1">&#39;erc&#39;</span><span class="p">,</span>
+</span><span data-line="3">    <span class="n">download_type</span><span class="o">=</span><span class="s1">&#39;nodal&#39;</span><span class="p">,</span>
+</span><span data-line="4">    <span class="n">granularity</span><span class="o">=</span><span class="s1">&#39;1h&#39;</span><span class="p">,</span>
+</span><span data-line="5">    <span class="n">currency</span><span class="o">=</span><span class="s1">&#39;usd2024&#39;</span><span class="p">,</span>
+</span><span data-line="6">    <span class="n">node</span><span class="o">=</span><span class="s1">&#39;ZONDWD_6_B1&#39;</span><span class="p">,</span>
+</span><span data-line="7"><span class="p">)</span>
+</span><span data-line="8"><span class="n">buffer</span> <span class="o">=</span> <span class="n">StringIO</span><span class="p">(</span><span class="n">csv_data</span><span class="p">)</span>
+</span><span data-line="9"><span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">buffer</span><span class="p">,</span> <span class="n">header</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">])</span>
+</span></pre></div>
+</div>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span data-line="1"><span class="n">csv_data</span> <span class="o">=</span> <span class="n">scenario</span><span class="o">.</span><span class="n">get_scenario_data_csv</span><span class="p">(</span>
+</span><span data-line="2">    <span class="n">region</span><span class="o">=</span><span class="s1">&#39;peu_deu&#39;</span><span class="p">,</span>
+</span><span data-line="3">    <span class="n">download_type</span><span class="o">=</span><span class="s1">&#39;interconnector&#39;</span><span class="p">,</span>
+</span><span data-line="4">    <span class="n">granularity</span><span class="o">=</span><span class="s1">&#39;1h&#39;</span><span class="p">,</span>
+</span><span data-line="5">    <span class="n">year</span><span class="o">=</span><span class="mi">2028</span><span class="p">,</span>
+</span><span data-line="6"><span class="p">)</span>
+</span></pre></div>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>region</strong> (<em>String</em>) – The region to download for. Use</p></li>
+<li><p><strong>options.</strong> (<em>&quot;get_download_types&quot; to query the available</em>)</p></li>
+<li><p><strong>download_type</strong> (<em>String</em>) – The “type” of file to download. You can use</p></li>
+<li><p><strong>options.</strong></p></li>
+<li><p><strong>granularity</strong> (<em>String</em>) – The “granularity” of file to download. You can use</p></li>
+<li><p><strong>options.</strong></p></li>
+<li><p><strong>currency</strong> (<em>Optional</em><em>, </em><em>String</em>) – The currency year to download the file</p></li>
+<li><p><strong>available.</strong> (<em>in. Will default to defaultCurrency on the scenario if</em>)</p></li>
+<li><p><strong>year</strong> (<em>Optional</em><em>, </em><em>int</em>) – The scenario year to download when supported by</p></li>
+<li><p><strong>template.</strong> (<em>the download filename</em>)</p></li>
+<li><p><strong>node</strong> (<em>Optional</em><em>, </em><em>String</em>) – The node identifier to download nodal data for.</p></li>
+<li><p><strong>sub_type</strong> (<em>Optional</em><em>, </em><em>String</em>) – Metadata sub-type used to disambiguate</p></li>
+<li><p><strong>granularity.</strong> (<em>downloads that share the same type and</em>)</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>CSV as text string</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="origin_sdk.service.Scenario.Scenario.get_scenario_data_download_url">
+<span class="sig-name descname"><span class="pre">get_scenario_data_download_url</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">region</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">download_type</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">granularity</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">currency</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">year</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">node</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sub_type</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">params</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">str</span><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">str</span></span></span><a class="reference internal" href="../../_modules/origin_sdk/service/Scenario.html#Scenario.get_scenario_data_download_url"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#origin_sdk.service.Scenario.Scenario.get_scenario_data_download_url" title="Link to this definition">¶</a></dt>
+<dd><p>Gets a short-lived download URL for scenario output CSV data without
+downloading the CSV into memory.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>region</strong> (<em>String</em>) – The region to download for. Use</p></li>
+<li><p><strong>options.</strong> (<em>&quot;get_download_types&quot; to query the available</em>)</p></li>
+<li><p><strong>download_type</strong> (<em>String</em>) – The “type” of file to download. You can use</p></li>
+<li><p><strong>options.</strong></p></li>
+<li><p><strong>granularity</strong> (<em>String</em>) – The “granularity” of file to download. You can use</p></li>
+<li><p><strong>options.</strong></p></li>
+<li><p><strong>currency</strong> (<em>Optional</em><em>, </em><em>String</em>) – The currency year to download the file</p></li>
+<li><p><strong>available.</strong> (<em>in. Will default to defaultCurrency on the scenario if</em>)</p></li>
+<li><p><strong>year</strong> (<em>Optional</em><em>, </em><em>int</em>) – The scenario year to download when supported by</p></li>
+<li><p><strong>template.</strong> (<em>the download filename</em>)</p></li>
+<li><p><strong>node</strong> (<em>Optional</em><em>, </em><em>String</em>) – The node identifier to download nodal data for.</p></li>
+<li><p><strong>sub_type</strong> (<em>Optional</em><em>, </em><em>String</em>) – Metadata sub-type used to disambiguate</p></li>
+<li><p><strong>granularity.</strong> (<em>downloads that share the same type and</em>)</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Short-lived URL for downloading CSV data.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="origin_sdk.service.Scenario.Scenario.get_scenario_dataframe">
+<span class="sig-name descname"><span class="pre">get_scenario_dataframe</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">region</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">download_type</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">granularity</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">currency</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">year</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sub_type</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">force_no_cache</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">params</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">str</span><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/origin_sdk/service/Scenario.html#Scenario.get_scenario_dataframe"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#origin_sdk.service.Scenario.Scenario.get_scenario_dataframe" title="Link to this definition">¶</a></dt>
+<dd><p>This method is deprecated. Use get_scenario_data_csv instead.</p>
+<p>Example:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span data-line="1"><span class="n">csv_data</span> <span class="o">=</span> <span class="n">scenario</span><span class="o">.</span><span class="n">get_scenario_data_csv</span><span class="p">(</span><span class="s1">&#39;gbr&#39;</span><span class="p">,</span> <span class="s1">&#39;system&#39;</span><span class="p">,</span> <span class="s1">&#39;1y&#39;</span><span class="p">)</span>
+</span><span data-line="2"><span class="n">buffer</span> <span class="o">=</span> <span class="n">StringIO</span><span class="p">(</span><span class="n">csv_data</span><span class="p">)</span>
+</span><span data-line="3"><span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">buffer</span><span class="p">,</span> <span class="n">header</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">])</span>
+</span></pre></div>
+</div>
+<p>—</p>
+<p>Much the same as <cite>get_scenario_data</cite> but instead parses the CSV as a
+pandas data frame for easier consumption via a script. In general, our
+CSVs have two header rows. The first identifies the column of data and
+the second is a unit string or other contextual information if relevant.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>region</strong> (<em>String</em>) – The region to download for. Use</p></li>
+<li><p><strong>options.</strong> (<em>&quot;get_download_types&quot; to query the available</em>)</p></li>
+<li><p><strong>type</strong> (<em>String</em>) – The “type” of file to download. You can use</p></li>
+<li><p><strong>options.</strong></p></li>
+<li><p><strong>granularity</strong> (<em>String</em>) – The “granularity” of file to download. You can use</p></li>
+<li><p><strong>options.</strong></p></li>
+<li><p><strong>currency</strong> (<em>Optional</em><em>, </em><em>String</em>) – The currency year to download the file</p></li>
+<li><p><strong>available.</strong> (<em>in. Will default to defaultCurrency on the scenario if</em>)</p></li>
+<li><p><strong>year</strong> (<em>Optional</em><em>, </em><em>int</em>) – The scenario year to download when supported by</p></li>
+<li><p><strong>template.</strong> (<em>the download filename</em>)</p></li>
+<li><p><strong>sub_type</strong> (<em>Optional</em><em>, </em><em>String</em>) – Metadata sub-type used to disambiguate</p></li>
+<li><p><strong>granularity.</strong> (<em>downloads that share the same type and</em>)</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Pandas Dataframe</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="origin_sdk.service.Scenario.Scenario.get_scenario_region">
+<span class="sig-name descname"><span class="pre">get_scenario_region</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">region</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/origin_sdk/service/Scenario.html#Scenario.get_scenario_region"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#origin_sdk.service.Scenario.Scenario.get_scenario_region" title="Link to this definition">¶</a></dt>
+<dd><p>Helper function to get a specific region from the regions object, as
+it’s a common access pattern.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>RegionDict</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="origin_sdk.service.Scenario.Scenario.get_scenario_regions">
+<span class="sig-name descname"><span class="pre">get_scenario_regions</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/origin_sdk/service/Scenario.html#Scenario.get_scenario_regions"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#origin_sdk.service.Scenario.Scenario.get_scenario_regions" title="Link to this definition">¶</a></dt>
+<dd><p>Helper function to get the regions object on the Scenario, as it’s a
+common access pattern.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="origin_sdk.service.Scenario.Scenario.refresh">
+<span class="sig-name descname"><span class="pre">refresh</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/origin_sdk/service/Scenario.html#Scenario.refresh"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#origin_sdk.service.Scenario.Scenario.refresh" title="Link to this definition">¶</a></dt>
+<dd><p>Contacts the service to get an updated view of the scenario. Useful for
+things such as polling on a frequency.</p>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+
+        </article><button class="back-to-top" type="button">
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+    <path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8v12z"></path>
+  </svg>
+  <span>Back to top</span>
+</button><div class="navigation flex print:hidden"><div class="navigation-prev">
+    <a href="origin_sdk.service.Project.html">
+      <i class="i-lucide chevron-left"></i>
+      <div class="page-info">
+        <span>Previous</span><div class="title">origin_sdk.service.Project</div></div>
+    </a>
+  </div><div class="navigation-next">
+    <a href="origin_sdk.types.scenario_enums.html">
+      <div class="page-info">
+        <span>Next</span>
+        <div class="title">origin_sdk.types.scenario_enums</div>
+      </div>
+      <i class="i-lucide chevron-right"></i>
+    </a>
+  </div></div></div>
+    </div>
+  </main>
+</div>
+<footer class="sy-foot">
+  <div class="sy-foot-inner sy-container mx-auto">
+    <div class="sy-foot-reserved md:flex justify-between items-center">
+      <div class="sy-foot-copyright"><p>2026, Aurora Energy Research</p>
+  
+  <p>
+    Made with
+    
+    <a href="https://www.sphinx-doc.org/">Sphinx</a> and
+    
+    <a href="https://shibuya.lepture.com">Shibuya theme</a>.
+  </p>
+</div>
+      <div class="sy-foot-socials"></div>
+    </div>
+  </div>
+</footer>
+      <script src="../../_static/documentation_options.js?v=d63f172e"></script>
+      <script src="../../_static/doctools.js?v=fd6eb6e6"></script>
+      <script src="../../_static/sphinx_highlight.js?v=6ffebe34"></script>
+      <script src="../../_static/shibuya.js?v=cac61aee"></script></body>
+</html>

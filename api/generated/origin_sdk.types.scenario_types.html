@@ -1,0 +1,1146 @@
+<!DOCTYPE html>
+<html lang="en" data-accent-color="orange" data-content_root="../../">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"><title>origin_sdk.types.scenario_types - Aurora Origin SDK Docs</title><link rel="index" title="Index" href="../../genindex.html" /><link rel="search" title="Search" href="../../search.html" /><link rel="next" title="origin_sdk.gql.queries.input_queries.session" href="origin_sdk.gql.queries.input_queries.session.html" /><link rel="prev" title="origin_sdk.types.scenario_enums" href="origin_sdk.types.scenario_enums.html" />
+      <link rel="canonical" href="https://ghp.auroraer.com/aurora-origin-python-sdk/api/generated/origin_sdk.types.scenario_types.html" /><script>
+    function setColorMode(t){let e=document.documentElement;e.setAttribute("data-color-mode",t);let a=window.matchMedia&&window.matchMedia("(prefers-color-scheme: dark)").matches,s=t;"auto"===t&&(s=a?"dark":"light"),"light"===s?(e.classList.remove("dark"),e.classList.add("light")):(e.classList.remove("light"),e.classList.add("dark"))}
+    setColorMode(localStorage._theme||"auto");
+  </script><link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=e1a1ceaf" />
+    <link rel="stylesheet" type="text/css" href="../../_static/shibuya.css?v=44020203" />
+    <link media="print" rel="stylesheet" type="text/css" href="../../_static/print.css?v=20ff2c19" />
+    <link rel="stylesheet" type="text/css" href="../../_static/custom.css?v=2c016416" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --sy-f-text: "Inter", var(--sy-f-sys), var(--sy-f-cjk), sans-serif;
+  --sy-f-heading: "Inter", var(--sy-f-sys), var(--sy-f-cjk), sans-serif;
+}
+</style>
+    <meta property="og:type" content="website"/>
+  <meta property="og:url" content="https://ghp.auroraer.com/aurora-origin-python-sdk/api/generated/origin_sdk.types.scenario_types.html"/>
+  <meta property="og:title" content="origin_sdk.types.scenario_types"/>
+    <meta name="twitter:card" content="summary"/>
+  </head>
+<body><div class="sy-head">
+  <div class="sy-head-blur"></div>
+  <div class="sy-head-inner sy-container mx-auto">
+    <a class="sy-head-brand" href="../../index.html">
+      <img class="light-logo" src="../../_static/logo.svg" alt="Aurora Origin SDK" height="28" loading="lazy" />
+      <img class="dark-logo" src="../../_static/logo.svg" alt="Aurora Origin SDK" height="28" loading="lazy" />
+      <strong>Aurora Origin SDK</strong>
+    </a>
+    <div class="sy-head-nav" id="head-nav">
+      <nav class="sy-head-links"></nav>
+      <div class="sy-head-extra flex items-center print:hidden"><form class="searchbox flex items-center" action="../../search.html" method="get">
+  <input type="text" name="q" placeholder="Search" />
+  <kbd>/</kbd>
+</form><div class="sy-head-socials"></div></div>
+    </div>
+    <div class="sy-head-actions flex items-center shrink-0 print:hidden"><button class="js-theme theme-switch flex items-center"
+data-aria-auto="Switch to light color mode"
+data-aria-light="Switch to dark color mode"
+data-aria-dark="Switch to auto color mode">
+<i class="i-lucide theme-icon"></i>
+</button><button class="md:hidden flex items-center js-menu" aria-label="Menu" type="button" aria-controls="head-nav" aria-expanded="false">
+        <div class="hamburger">
+          <span class="hamburger_1"></span>
+          <span class="hamburger_2"></span>
+          <span class="hamburger_3"></span>
+        </div>
+      </button>
+    </div>
+  </div>
+</div>
+<div class="sy-page sy-container flex mx-auto">
+  <aside id="lside" class="sy-lside md:w-72 md:shrink-0 print:hidden">
+    <div class="sy-lside-inner md:sticky">
+      <div class="sy-scrollbar p-6">
+        <div class="globaltoc" data-expand-depth="0"><ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../../installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../common-patterns.html">Common Patterns</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../index.html">API reference</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="origin_sdk.OriginSession.html">origin_sdk.OriginSession</a></li>
+<li class="toctree-l2"><a class="reference internal" href="origin_sdk.service.InputsEditor.html">origin_sdk.service.InputsEditor</a></li>
+<li class="toctree-l2"><a class="reference internal" href="origin_sdk.service.Project.html">origin_sdk.service.Project</a></li>
+<li class="toctree-l2"><a class="reference internal" href="origin_sdk.service.Scenario.html">origin_sdk.service.Scenario</a></li>
+<li class="toctree-l2"><a class="reference internal" href="origin_sdk.types.scenario_enums.html">origin_sdk.types.scenario_enums</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">origin_sdk.types.scenario_types</a></li>
+<li class="toctree-l2"><a class="reference internal" href="origin_sdk.gql.queries.input_queries.session.html">origin_sdk.gql.queries.input_queries.session</a></li>
+</ul>
+</li>
+</ul>
+
+        </div>
+      </div>
+    </div>
+  </aside>
+  <div class="lside-overlay js-menu" role="button" aria-label="Close left sidebar" aria-controls="lside" aria-expanded="false"></div>
+  <aside id="rside" class="sy-rside pb-3 w-64 shrink-0 order-last">
+    <button class="rside-close js-menu xl:hidden" aria-label="Close Table of Contents" type="button" aria-controls="rside" aria-expanded="false">
+      <i class="i-lucide close"></i>
+    </button>
+    <div class="sy-scrollbar sy-rside-inner px-6 xl:top-16 xl:sticky xl:pl-0 pt-6 pb-4"><div class="localtoc"><h3>On this page</h3><ul>
+<li><a class="reference internal" href="#origin_sdk.types.scenario_types.AdvancedScenarioSettings"><code class="docutils literal notranslate"><span class="pre">AdvancedScenarioSettings</span></code></a><ul>
+<li><a class="reference internal" href="#origin_sdk.types.scenario_types.AdvancedScenarioSettings.baseInputReference"><code class="docutils literal notranslate">baseInputReference</span></code></a></li>
+<li><a class="reference internal" href="#origin_sdk.types.scenario_types.AdvancedScenarioSettings.baseInputReferenceType"><code class="docutils literal notranslate">baseInputReferenceType</span></code></a></li>
+<li><a class="reference internal" href="#origin_sdk.types.scenario_types.AdvancedScenarioSettings.baseInputRepository"><code class="docutils literal notranslate">baseInputRepository</span></code></a></li>
+<li><a class="reference internal" href="#origin_sdk.types.scenario_types.AdvancedScenarioSettings.controlFileName"><code class="docutils literal notranslate">controlFileName</span></code></a></li>
+<li><a class="reference internal" href="#origin_sdk.types.scenario_types.AdvancedScenarioSettings.devTestMode"><code class="docutils literal notranslate">devTestMode</span></code></a></li>
+<li><a class="reference internal" href="#origin_sdk.types.scenario_types.AdvancedScenarioSettings.isHistoricRun"><code class="docutils literal notranslate">isHistoricRun</span></code></a></li>
+<li><a class="reference internal" href="#origin_sdk.types.scenario_types.AdvancedScenarioSettings.isPriorityRun"><code class="docutils literal notranslate">isPriorityRun</span></code></a></li>
+<li><a class="reference internal" href="#origin_sdk.types.scenario_types.AdvancedScenarioSettings.modelReference"><code class="docutils literal notranslate">modelReference</span></code></a></li>
+<li><a class="reference internal" href="#origin_sdk.types.scenario_types.AdvancedScenarioSettings.moduloOfYearToConfigForFYR"><code class="docutils literal notranslate">moduloOfYearToConfigForFYR</span></code></a></li>
+<li><a class="reference internal" href="#origin_sdk.types.scenario_types.AdvancedScenarioSettings.numIterations"><code class="docutils literal notranslate">numIterations</span></code></a></li>
+<li><a class="reference internal" href="#origin_sdk.types.scenario_types.AdvancedScenarioSettings.originMarketScenarioGlobalId"><code class="docutils literal notranslate">originMarketScenarioGlobalId</span></code></a></li>
+<li><a class="reference internal" href="#origin_sdk.types.scenario_types.AdvancedScenarioSettings.quickTry"><code class="docutils literal notranslate">quickTry</span></code></a></li>
+<li><a class="reference internal" href="#origin_sdk.types.scenario_types.AdvancedScenarioSettings.retentionPolicy"><code class="docutils literal notranslate">retentionPolicy</span></code></a></li>
+<li><a class="reference internal" href="#origin_sdk.types.scenario_types.AdvancedScenarioSettings.serverName"><code class="docutils literal notranslate">serverName</span></code></a></li>
+<li><a class="reference internal" href="#origin_sdk.types.scenario_types.AdvancedScenarioSettings.simulationMode"><code class="docutils literal notranslate">simulationMode</span></code></a></li>
+<li><a class="reference internal" href="#origin_sdk.types.scenario_types.AdvancedScenarioSettings.stateFile"><code class="docutils literal notranslate">stateFile</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#origin_sdk.types.scenario_types.InputScenario"><code class="docutils literal notranslate"><span class="pre">InputScenario</span></code></a><ul>
+<li><a class="reference internal" href="#origin_sdk.types.scenario_types.InputScenario.projectGlobalId"><code class="docutils literal notranslate">projectGlobalId</span></code></a></li>
+<li><a class="reference internal" href="#origin_sdk.types.scenario_types.InputScenario.name"><code class="docutils literal notranslate">name</span></code></a></li>
+<li><a class="reference internal" href="#origin_sdk.types.scenario_types.InputScenario.baseScenarioGlobalId"><code class="docutils literal notranslate">baseScenarioGlobalId</span></code></a></li>
+<li><a class="reference internal" href="#origin_sdk.types.scenario_types.InputScenario.description"><code class="docutils literal notranslate">description</span></code></a></li>
+<li><a class="reference internal" href="#origin_sdk.types.scenario_types.InputScenario.regionGroupCode"><code class="docutils literal notranslate">regionGroupCode</span></code></a></li>
+<li><a class="reference internal" href="#origin_sdk.types.scenario_types.InputScenario.useExogifiedInputs"><code class="docutils literal notranslate">useExogifiedInputs</span></code></a></li>
+<li><a class="reference internal" href="#origin_sdk.types.scenario_types.InputScenario.defaultCurrency"><code class="docutils literal notranslate">defaultCurrency</span></code></a></li>
+<li><a class="reference internal" href="#origin_sdk.types.scenario_types.InputScenario.retentionPolicy"><code class="docutils literal notranslate">retentionPolicy</span></code></a></li>
+<li><a class="reference internal" href="#origin_sdk.types.scenario_types.InputScenario.scenarioRunType"><code class="docutils literal notranslate">scenarioRunType</span></code></a></li>
+<li><a class="reference internal" href="#origin_sdk.types.scenario_types.InputScenario.modelType"><code class="docutils literal notranslate">modelType</span></code></a></li>
+<li><a class="reference internal" href="#origin_sdk.types.scenario_types.InputScenario.modelPriceSpikiness"><code class="docutils literal notranslate">modelPriceSpikiness</span></code></a></li>
+<li><a class="reference internal" href="#origin_sdk.types.scenario_types.InputScenario.years"><code class="docutils literal notranslate">years</span></code></a></li>
+<li><a class="reference internal" href="#origin_sdk.types.scenario_types.InputScenario.weatherYear"><code class="docutils literal notranslate">weatherYear</span></code></a></li>
+<li><a class="reference internal" href="#origin_sdk.types.scenario_types.InputScenario.advancedSettings"><code class="docutils literal notranslate">advancedSettings</span></code></a></li>
+<li><a class="reference internal" href="#id0"><code class="docutils literal notranslate">advancedSettings</span></code></a></li>
+<li><a class="reference internal" href="#id1"><code class="docutils literal notranslate">baseScenarioGlobalId</span></code></a></li>
+<li><a class="reference internal" href="#id2"><code class="docutils literal notranslate">defaultCurrency</span></code></a></li>
+<li><a class="reference internal" href="#id3"><code class="docutils literal notranslate">description</span></code></a></li>
+<li><a class="reference internal" href="#id4"><code class="docutils literal notranslate">modelPriceSpikiness</span></code></a></li>
+<li><a class="reference internal" href="#id5"><code class="docutils literal notranslate">modelType</span></code></a></li>
+<li><a class="reference internal" href="#id6"><code class="docutils literal notranslate">name</span></code></a></li>
+<li><a class="reference internal" href="#origin_sdk.types.scenario_types.InputScenario.preserveBaseScenarioTransformations"><code class="docutils literal notranslate">preserveBaseScenarioTransformations</span></code></a></li>
+<li><a class="reference internal" href="#id7"><code class="docutils literal notranslate">projectGlobalId</span></code></a></li>
+<li><a class="reference internal" href="#id8"><code class="docutils literal notranslate">regionGroupCode</span></code></a></li>
+<li><a class="reference internal" href="#id9"><code class="docutils literal notranslate">retentionPolicy</span></code></a></li>
+<li><a class="reference internal" href="#id10"><code class="docutils literal notranslate">scenarioRunType</span></code></a></li>
+<li><a class="reference internal" href="#id11"><code class="docutils literal notranslate">useExogifiedInputs</span></code></a></li>
+<li><a class="reference internal" href="#origin_sdk.types.scenario_types.InputScenario.userInputReference"><code class="docutils literal notranslate">userInputReference</span></code></a></li>
+<li><a class="reference internal" href="#origin_sdk.types.scenario_types.InputScenario.userInputRepository"><code class="docutils literal notranslate">userInputRepository</span></code></a></li>
+<li><a class="reference internal" href="#id12"><code class="docutils literal notranslate">weatherYear</span></code></a></li>
+<li><a class="reference internal" href="#id13"><code class="docutils literal notranslate">years</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#origin_sdk.types.scenario_types.RegionDict"><code class="docutils literal notranslate"><span class="pre">RegionDict</span></code></a><ul>
+<li><a class="reference internal" href="#origin_sdk.types.scenario_types.RegionDict.regionCode"><code class="docutils literal notranslate">regionCode</span></code></a></li>
+<li><a class="reference internal" href="#origin_sdk.types.scenario_types.RegionDict.metaUrl"><code class="docutils literal notranslate">metaUrl</span></code></a></li>
+<li><a class="reference internal" href="#origin_sdk.types.scenario_types.RegionDict.dataUrlBase"><code class="docutils literal notranslate">dataUrlBase</span></code></a></li>
+<li><a class="reference internal" href="#origin_sdk.types.scenario_types.RegionDict.__meta_json"><code class="docutils literal notranslate">__meta_json</span></code></a></li>
+<li><a class="reference internal" href="#id14"><code class="docutils literal notranslate">dataUrlBase</span></code></a></li>
+<li><a class="reference internal" href="#id15"><code class="docutils literal notranslate">metaUrl</span></code></a></li>
+<li><a class="reference internal" href="#id16"><code class="docutils literal notranslate">regionCode</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#origin_sdk.types.scenario_types.ScenarioSummaryType"><code class="docutils literal notranslate"><span class="pre">ScenarioSummaryType</span></code></a><ul>
+<li><a class="reference internal" href="#origin_sdk.types.scenario_types.ScenarioSummaryType.advancedSettings"><code class="docutils literal notranslate">advancedSettings</span></code></a></li>
+<li><a class="reference internal" href="#origin_sdk.types.scenario_types.ScenarioSummaryType.baseInputReference"><code class="docutils literal notranslate">baseInputReference</span></code></a></li>
+<li><a class="reference internal" href="#origin_sdk.types.scenario_types.ScenarioSummaryType.baseInputReferenceType"><code class="docutils literal notranslate">baseInputReferenceType</span></code></a></li>
+<li><a class="reference internal" href="#origin_sdk.types.scenario_types.ScenarioSummaryType.description"><code class="docutils literal notranslate">description</span></code></a></li>
+<li><a class="reference internal" href="#origin_sdk.types.scenario_types.ScenarioSummaryType.inputTypesSupported"><code class="docutils literal notranslate">inputTypesSupported</span></code></a></li>
+<li><a class="reference internal" href="#origin_sdk.types.scenario_types.ScenarioSummaryType.lastUpdated"><code class="docutils literal notranslate">lastUpdated</span></code></a></li>
+<li><a class="reference internal" href="#origin_sdk.types.scenario_types.ScenarioSummaryType.launchedByUserName"><code class="docutils literal notranslate">launchedByUserName</span></code></a></li>
+<li><a class="reference internal" href="#origin_sdk.types.scenario_types.ScenarioSummaryType.modelPriceSpikiness"><code class="docutils literal notranslate">modelPriceSpikiness</span></code></a></li>
+<li><a class="reference internal" href="#origin_sdk.types.scenario_types.ScenarioSummaryType.name"><code class="docutils literal notranslate">name</span></code></a></li>
+<li><a class="reference internal" href="#origin_sdk.types.scenario_types.ScenarioSummaryType.projectGlobalId"><code class="docutils literal notranslate">projectGlobalId</span></code></a></li>
+<li><a class="reference internal" href="#origin_sdk.types.scenario_types.ScenarioSummaryType.publicationDate"><code class="docutils literal notranslate">publicationDate</span></code></a></li>
+<li><a class="reference internal" href="#origin_sdk.types.scenario_types.ScenarioSummaryType.publishType"><code class="docutils literal notranslate">publishType</span></code></a></li>
+<li><a class="reference internal" href="#origin_sdk.types.scenario_types.ScenarioSummaryType.regionGroupCode"><code class="docutils literal notranslate">regionGroupCode</span></code></a></li>
+<li><a class="reference internal" href="#origin_sdk.types.scenario_types.ScenarioSummaryType.runCompletedAtUTC"><code class="docutils literal notranslate">runCompletedAtUTC</span></code></a></li>
+<li><a class="reference internal" href="#origin_sdk.types.scenario_types.ScenarioSummaryType.runDetails"><code class="docutils literal notranslate">runDetails</span></code></a></li>
+<li><a class="reference internal" href="#origin_sdk.types.scenario_types.ScenarioSummaryType.runStartedAtUTC"><code class="docutils literal notranslate">runStartedAtUTC</span></code></a></li>
+<li><a class="reference internal" href="#origin_sdk.types.scenario_types.ScenarioSummaryType.scenarioGlobalId"><code class="docutils literal notranslate">scenarioGlobalId</span></code></a></li>
+<li><a class="reference internal" href="#origin_sdk.types.scenario_types.ScenarioSummaryType.scenarioInputsAvailable"><code class="docutils literal notranslate">scenarioInputsAvailable</span></code></a></li>
+<li><a class="reference internal" href="#origin_sdk.types.scenario_types.ScenarioSummaryType.scenarioLaunchable"><code class="docutils literal notranslate">scenarioLaunchable</span></code></a></li>
+<li><a class="reference internal" href="#origin_sdk.types.scenario_types.ScenarioSummaryType.scenarioOutputsAvailable"><code class="docutils literal notranslate">scenarioOutputsAvailable</span></code></a></li>
+<li><a class="reference internal" href="#origin_sdk.types.scenario_types.ScenarioSummaryType.scenarioRunStatus"><code class="docutils literal notranslate">scenarioRunStatus</span></code></a></li>
+<li><a class="reference internal" href="#origin_sdk.types.scenario_types.ScenarioSummaryType.scenarioRunType"><code class="docutils literal notranslate">scenarioRunType</span></code></a></li>
+<li><a class="reference internal" href="#origin_sdk.types.scenario_types.ScenarioSummaryType.scenarioTransformStatus"><code class="docutils literal notranslate">scenarioTransformStatus</span></code></a></li>
+<li><a class="reference internal" href="#origin_sdk.types.scenario_types.ScenarioSummaryType.scenarioType"><code class="docutils literal notranslate">scenarioType</span></code></a></li>
+<li><a class="reference internal" href="#origin_sdk.types.scenario_types.ScenarioSummaryType.supportsExogenousInputs"><code class="docutils literal notranslate">supportsExogenousInputs</span></code></a></li>
+<li><a class="reference internal" href="#origin_sdk.types.scenario_types.ScenarioSummaryType.useExogifiedInputs"><code class="docutils literal notranslate">useExogifiedInputs</span></code></a></li>
+<li><a class="reference internal" href="#origin_sdk.types.scenario_types.ScenarioSummaryType.weatherYear"><code class="docutils literal notranslate">weatherYear</span></code></a></li>
+<li><a class="reference internal" href="#origin_sdk.types.scenario_types.ScenarioSummaryType.years"><code class="docutils literal notranslate">years</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#origin_sdk.types.scenario_types.ScenarioType"><code class="docutils literal notranslate"><span class="pre">ScenarioType</span></code></a><ul>
+<li><a class="reference internal" href="#origin_sdk.types.scenario_types.ScenarioType.advancedSettings"><code class="docutils literal notranslate">advancedSettings</span></code></a></li>
+<li><a class="reference internal" href="#origin_sdk.types.scenario_types.ScenarioType.appReleaseStatus"><code class="docutils literal notranslate">appReleaseStatus</span></code></a></li>
+<li><a class="reference internal" href="#origin_sdk.types.scenario_types.ScenarioType.baseInputReference"><code class="docutils literal notranslate">baseInputReference</span></code></a></li>
+<li><a class="reference internal" href="#origin_sdk.types.scenario_types.ScenarioType.baseInputReferenceType"><code class="docutils literal notranslate">baseInputReferenceType</span></code></a></li>
+<li><a class="reference internal" href="#origin_sdk.types.scenario_types.ScenarioType.baseScenarioGlobalId"><code class="docutils literal notranslate">baseScenarioGlobalId</span></code></a></li>
+<li><a class="reference internal" href="#origin_sdk.types.scenario_types.ScenarioType.currencies"><code class="docutils literal notranslate">currencies</span></code></a></li>
+<li><a class="reference internal" href="#origin_sdk.types.scenario_types.ScenarioType.defaultCurrency"><code class="docutils literal notranslate">defaultCurrency</span></code></a></li>
+<li><a class="reference internal" href="#origin_sdk.types.scenario_types.ScenarioType.description"><code class="docutils literal notranslate">description</span></code></a></li>
+<li><a class="reference internal" href="#origin_sdk.types.scenario_types.ScenarioType.inputImportStatus"><code class="docutils literal notranslate">inputImportStatus</span></code></a></li>
+<li><a class="reference internal" href="#origin_sdk.types.scenario_types.ScenarioType.inputTypesSupported"><code class="docutils literal notranslate">inputTypesSupported</span></code></a></li>
+<li><a class="reference internal" href="#origin_sdk.types.scenario_types.ScenarioType.lastUpdated"><code class="docutils literal notranslate">lastUpdated</span></code></a></li>
+<li><a class="reference internal" href="#origin_sdk.types.scenario_types.ScenarioType.launchedByEmail"><code class="docutils literal notranslate">launchedByEmail</span></code></a></li>
+<li><a class="reference internal" href="#origin_sdk.types.scenario_types.ScenarioType.launchedByUserName"><code class="docutils literal notranslate">launchedByUserName</span></code></a></li>
+<li><a class="reference internal" href="#origin_sdk.types.scenario_types.ScenarioType.modelPriceSpikiness"><code class="docutils literal notranslate">modelPriceSpikiness</span></code></a></li>
+<li><a class="reference internal" href="#origin_sdk.types.scenario_types.ScenarioType.name"><code class="docutils literal notranslate">name</span></code></a></li>
+<li><a class="reference internal" href="#origin_sdk.types.scenario_types.ScenarioType.projectGlobalId"><code class="docutils literal notranslate">projectGlobalId</span></code></a></li>
+<li><a class="reference internal" href="#origin_sdk.types.scenario_types.ScenarioType.publicationDate"><code class="docutils literal notranslate">publicationDate</span></code></a></li>
+<li><a class="reference internal" href="#origin_sdk.types.scenario_types.ScenarioType.publishType"><code class="docutils literal notranslate">publishType</span></code></a></li>
+<li><a class="reference internal" href="#origin_sdk.types.scenario_types.ScenarioType.regionGroupCode"><code class="docutils literal notranslate">regionGroupCode</span></code></a></li>
+<li><a class="reference internal" href="#origin_sdk.types.scenario_types.ScenarioType.regions"><code class="docutils literal notranslate">regions</span></code></a></li>
+<li><a class="reference internal" href="#origin_sdk.types.scenario_types.ScenarioType.runCompletedAtUTC"><code class="docutils literal notranslate">runCompletedAtUTC</span></code></a></li>
+<li><a class="reference internal" href="#origin_sdk.types.scenario_types.ScenarioType.runDetails"><code class="docutils literal notranslate">runDetails</span></code></a></li>
+<li><a class="reference internal" href="#origin_sdk.types.scenario_types.ScenarioType.runStartedAtUTC"><code class="docutils literal notranslate">runStartedAtUTC</span></code></a></li>
+<li><a class="reference internal" href="#origin_sdk.types.scenario_types.ScenarioType.scenarioGlobalId"><code class="docutils literal notranslate">scenarioGlobalId</span></code></a></li>
+<li><a class="reference internal" href="#origin_sdk.types.scenario_types.ScenarioType.scenarioInputsAvailable"><code class="docutils literal notranslate">scenarioInputsAvailable</span></code></a></li>
+<li><a class="reference internal" href="#origin_sdk.types.scenario_types.ScenarioType.scenarioLaunchable"><code class="docutils literal notranslate">scenarioLaunchable</span></code></a></li>
+<li><a class="reference internal" href="#origin_sdk.types.scenario_types.ScenarioType.scenarioOutputsAvailable"><code class="docutils literal notranslate">scenarioOutputsAvailable</span></code></a></li>
+<li><a class="reference internal" href="#origin_sdk.types.scenario_types.ScenarioType.scenarioRunStatus"><code class="docutils literal notranslate">scenarioRunStatus</span></code></a></li>
+<li><a class="reference internal" href="#origin_sdk.types.scenario_types.ScenarioType.scenarioRunType"><code class="docutils literal notranslate">scenarioRunType</span></code></a></li>
+<li><a class="reference internal" href="#origin_sdk.types.scenario_types.ScenarioType.scenarioTransformStatus"><code class="docutils literal notranslate">scenarioTransformStatus</span></code></a></li>
+<li><a class="reference internal" href="#origin_sdk.types.scenario_types.ScenarioType.scenarioType"><code class="docutils literal notranslate">scenarioType</span></code></a></li>
+<li><a class="reference internal" href="#origin_sdk.types.scenario_types.ScenarioType.sensitivity"><code class="docutils literal notranslate">sensitivity</span></code></a></li>
+<li><a class="reference internal" href="#origin_sdk.types.scenario_types.ScenarioType.supportsExogenousInputs"><code class="docutils literal notranslate">supportsExogenousInputs</span></code></a></li>
+<li><a class="reference internal" href="#origin_sdk.types.scenario_types.ScenarioType.useExogifiedInputs"><code class="docutils literal notranslate">useExogifiedInputs</span></code></a></li>
+<li><a class="reference internal" href="#origin_sdk.types.scenario_types.ScenarioType.userInputReference"><code class="docutils literal notranslate">userInputReference</span></code></a></li>
+<li><a class="reference internal" href="#origin_sdk.types.scenario_types.ScenarioType.userInputRepository"><code class="docutils literal notranslate">userInputRepository</span></code></a></li>
+<li><a class="reference internal" href="#origin_sdk.types.scenario_types.ScenarioType.weatherYear"><code class="docutils literal notranslate">weatherYear</span></code></a></li>
+<li><a class="reference internal" href="#origin_sdk.types.scenario_types.ScenarioType.years"><code class="docutils literal notranslate">years</span></code></a></li>
+</ul>
+</li>
+</ul>
+</div></div>
+  </aside>
+  <div class="rside-overlay js-menu" role="button" aria-label="Close Table of Contents" aria-controls="rside" aria-expanded="false"></div>
+  <main class="sy-main w-full max-sm:max-w-full print:pt-6">
+<div class="sy-breadcrumbs" role="navigation">
+  <div class="sy-breadcrumbs-inner flex items-center">
+    <div class="md:hidden mr-3">
+      <button class="js-menu" aria-label="Menu" type="button" aria-controls="lside" aria-expanded="false">
+        <i class="i-lucide menu"></i>
+      </button>
+    </div>
+    <ol class="flex-1" itemscope itemtype="https://schema.org/BreadcrumbList"><li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
+        <a itemprop="item" href="../../index.html"><span itemprop="name">Aurora Origin SDK</span></a>
+        <span>/</span>
+        <meta itemprop="position" content="1" />
+      </li><li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
+        <a itemprop="item" href="../index.html"><span itemprop="name">API reference</span></a>
+        <span>/</span>
+        <meta itemprop="position" content="2" />
+      </li><li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
+        <strong itemprop="name">origin_sdk.types.scenario_types</strong>
+        <meta itemprop="position" content="3" />
+      </li></ol>
+    <div class="xl:hidden ml-1">
+      <button class="js-menu" aria-label="Show table of contents" type="button" aria-controls="rside"
+        aria-expanded="false">
+        <i class="i-lucide outdent"></i>
+      </button>
+    </div>
+  </div>
+</div><div class="flex flex-col break-words justify-between">
+      <div class="relative min-w-0 max-w-6xl px-6 pb-6 pt-8 xl:px-12">
+  <div class="copy-page-wrapper relative pb-4 lg:absolute lg:top-8 lg:right-6 xl:right-12">
+  <div id="copy-page-trigger">
+    <button
+      type="button"
+      class="js-copy px-3 py-1 inline-flex items-center gap-1"
+      data-url="https://ghp.auroraer.com/aurora-origin-python-sdk/_sources/api/generated/origin_sdk.types.scenario_types.rst.txt"
+    >
+      <i class="i-lucide" data-icon="copy"></i>
+      <span>Copy page</span>
+    </button>
+    <button class="js-menu px-2 py-1" type="button" aria-label="More actions"
+      aria-haspopup="menu" aria-expanded="false" aria-controls="copy-page-content">
+      <i class="i-lucide chevron-down"></i>
+    </button>
+  </div>
+  <div id="copy-page-content" role="menu" aria-orientation="vertical" aria-hidden="true">
+    <div role="presentation">
+      <div class="flex flex-col" role="group">
+        <button class="js-copy" type="button" role="menuitem"
+          data-url="https://ghp.auroraer.com/aurora-origin-python-sdk/_sources/api/generated/origin_sdk.types.scenario_types.rst.txt">
+          <span class="iconify-icon">
+            <i class="i-lucide" data-icon="copy"></i>
+          </span>
+          <span>Copy page</span>
+        </button>
+        <a role="menuitem" href="https://ghp.auroraer.com/aurora-origin-python-sdk/_sources/api/generated/origin_sdk.types.scenario_types.rst.txt" target="_blank" rel="nofollow"><iconify-icon icon="bi:code-slash"></iconify-icon>
+            <span>View Source</span></a><a role="menuitem" href="https://chatgpt.com/?hints=search&q=Read%20https%3A//ghp.auroraer.com/aurora-origin-python-sdk/_sources/api/generated/origin_sdk.types.scenario_types.rst.txt%20so%20I%20can%20ask%20questions%20about%20it." target="_blank" rel="nofollow">
+          <iconify-icon icon="bi:openai"></iconify-icon>
+          <span>Open in ChatGPT</span>
+        </a><a role="menuitem" href="https://claude.ai/new?q=Read%20https%3A//ghp.auroraer.com/aurora-origin-python-sdk/_sources/api/generated/origin_sdk.types.scenario_types.rst.txt%20so%20I%20can%20ask%20questions%20about%20it." target="_blank" rel="nofollow">
+          <iconify-icon icon="bi:claude"></iconify-icon>
+          <span>Open in Claude</span>
+        </a></div>
+    </div>
+  </div>
+</div><article class="yue" role="main">
+          <section id="module-origin_sdk.types.scenario_types">
+<span id="origin-sdk-types-scenario-types"></span><h1>origin_sdk.types.scenario_types<a class="headerlink" href="#module-origin_sdk.types.scenario_types" title="Link to this heading">¶</a></h1>
+<p>The scenario_types module contains type hinting and can be useful when trying to
+understand what options you have when interacting with functions, or what
+outputs to expect from queries. Enums are available in
+[scenario_enums](/docs/origin_sdk/types/scenario_enums) for import and usage.</p>
+<p class="rubric">Classes</p>
+<div class="table-wrapper autosummary longtable docutils container">
+<table class="autosummary longtable docutils align-default">
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="#origin_sdk.types.scenario_types.AdvancedScenarioSettings" title="origin_sdk.types.scenario_types.AdvancedScenarioSettings"><code class="xref py py-obj docutils literal notranslate"><span class="pre">AdvancedScenarioSettings</span></code></a></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#origin_sdk.types.scenario_types.InputScenario" title="origin_sdk.types.scenario_types.InputScenario"><code class="xref py py-obj docutils literal notranslate"><span class="pre">InputScenario</span></code></a></p></td>
+<td><p>Interface for creating or updating scenarios.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#origin_sdk.types.scenario_types.RegionDict" title="origin_sdk.types.scenario_types.RegionDict"><code class="xref py py-obj docutils literal notranslate"><span class="pre">RegionDict</span></code></a></p></td>
+<td><p>Regional information object.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#origin_sdk.types.scenario_types.ScenarioSummaryType" title="origin_sdk.types.scenario_types.ScenarioSummaryType"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ScenarioSummaryType</span></code></a></p></td>
+<td><p>Dictionary received when requesting a list of scenarios</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#origin_sdk.types.scenario_types.ScenarioType" title="origin_sdk.types.scenario_types.ScenarioType"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ScenarioType</span></code></a></p></td>
+<td><p>Extended scenario details received when requesting a single scenario</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<dl class="py class">
+<dt class="sig sig-object py" id="origin_sdk.types.scenario_types.AdvancedScenarioSettings">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">origin_sdk.types.scenario_types.</span></span><span class="sig-name descname"><span class="pre">AdvancedScenarioSettings</span></span><a class="reference internal" href="../../_modules/origin_sdk/types/scenario_types.html#AdvancedScenarioSettings"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#origin_sdk.types.scenario_types.AdvancedScenarioSettings" title="Link to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">TypedDict</span></code></p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="origin_sdk.types.scenario_types.AdvancedScenarioSettings.baseInputReference">
+<span class="sig-name descname"><span class="pre">baseInputReference</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><a class="headerlink" href="#origin_sdk.types.scenario_types.AdvancedScenarioSettings.baseInputReference" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="origin_sdk.types.scenario_types.AdvancedScenarioSettings.baseInputReferenceType">
+<span class="sig-name descname"><span class="pre">baseInputReferenceType</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><a class="headerlink" href="#origin_sdk.types.scenario_types.AdvancedScenarioSettings.baseInputReferenceType" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="origin_sdk.types.scenario_types.AdvancedScenarioSettings.baseInputRepository">
+<span class="sig-name descname"><span class="pre">baseInputRepository</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><a class="headerlink" href="#origin_sdk.types.scenario_types.AdvancedScenarioSettings.baseInputRepository" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="origin_sdk.types.scenario_types.AdvancedScenarioSettings.controlFileName">
+<span class="sig-name descname"><span class="pre">controlFileName</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><a class="headerlink" href="#origin_sdk.types.scenario_types.AdvancedScenarioSettings.controlFileName" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="origin_sdk.types.scenario_types.AdvancedScenarioSettings.devTestMode">
+<span class="sig-name descname"><span class="pre">devTestMode</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><a class="headerlink" href="#origin_sdk.types.scenario_types.AdvancedScenarioSettings.devTestMode" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="origin_sdk.types.scenario_types.AdvancedScenarioSettings.isHistoricRun">
+<span class="sig-name descname"><span class="pre">isHistoricRun</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><a class="headerlink" href="#origin_sdk.types.scenario_types.AdvancedScenarioSettings.isHistoricRun" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="origin_sdk.types.scenario_types.AdvancedScenarioSettings.isPriorityRun">
+<span class="sig-name descname"><span class="pre">isPriorityRun</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><a class="headerlink" href="#origin_sdk.types.scenario_types.AdvancedScenarioSettings.isPriorityRun" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="origin_sdk.types.scenario_types.AdvancedScenarioSettings.modelReference">
+<span class="sig-name descname"><span class="pre">modelReference</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><a class="headerlink" href="#origin_sdk.types.scenario_types.AdvancedScenarioSettings.modelReference" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="origin_sdk.types.scenario_types.AdvancedScenarioSettings.moduloOfYearToConfigForFYR">
+<span class="sig-name descname"><span class="pre">moduloOfYearToConfigForFYR</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><a class="headerlink" href="#origin_sdk.types.scenario_types.AdvancedScenarioSettings.moduloOfYearToConfigForFYR" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="origin_sdk.types.scenario_types.AdvancedScenarioSettings.numIterations">
+<span class="sig-name descname"><span class="pre">numIterations</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><a class="headerlink" href="#origin_sdk.types.scenario_types.AdvancedScenarioSettings.numIterations" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="origin_sdk.types.scenario_types.AdvancedScenarioSettings.originMarketScenarioGlobalId">
+<span class="sig-name descname"><span class="pre">originMarketScenarioGlobalId</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><a class="headerlink" href="#origin_sdk.types.scenario_types.AdvancedScenarioSettings.originMarketScenarioGlobalId" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="origin_sdk.types.scenario_types.AdvancedScenarioSettings.quickTry">
+<span class="sig-name descname"><span class="pre">quickTry</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">bool</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><a class="headerlink" href="#origin_sdk.types.scenario_types.AdvancedScenarioSettings.quickTry" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="origin_sdk.types.scenario_types.AdvancedScenarioSettings.retentionPolicy">
+<span class="sig-name descname"><span class="pre">retentionPolicy</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><a class="headerlink" href="#origin_sdk.types.scenario_types.AdvancedScenarioSettings.retentionPolicy" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="origin_sdk.types.scenario_types.AdvancedScenarioSettings.serverName">
+<span class="sig-name descname"><span class="pre">serverName</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><a class="headerlink" href="#origin_sdk.types.scenario_types.AdvancedScenarioSettings.serverName" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="origin_sdk.types.scenario_types.AdvancedScenarioSettings.simulationMode">
+<span class="sig-name descname"><span class="pre">simulationMode</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><a class="headerlink" href="#origin_sdk.types.scenario_types.AdvancedScenarioSettings.simulationMode" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="origin_sdk.types.scenario_types.AdvancedScenarioSettings.stateFile">
+<span class="sig-name descname"><span class="pre">stateFile</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><a class="headerlink" href="#origin_sdk.types.scenario_types.AdvancedScenarioSettings.stateFile" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="origin_sdk.types.scenario_types.InputScenario">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">origin_sdk.types.scenario_types.</span></span><span class="sig-name descname"><span class="pre">InputScenario</span></span><a class="reference internal" href="../../_modules/origin_sdk/types/scenario_types.html#InputScenario"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#origin_sdk.types.scenario_types.InputScenario" title="Link to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">TypedDict</span></code></p>
+<p>Interface for creating or updating scenarios. Note that while you may be
+able to create a scenario partially, the values required to put it into a
+launchable state varies based on configuration. If you are missing
+parameters, the service ought to tell you what is missing.</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="origin_sdk.types.scenario_types.InputScenario.projectGlobalId">
+<span class="sig-name descname"><span class="pre">projectGlobalId</span></span><a class="headerlink" href="#origin_sdk.types.scenario_types.InputScenario.projectGlobalId" title="Link to this definition">¶</a></dt>
+<dd><p>The ID of the project to create the scenario
+in</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>string</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="origin_sdk.types.scenario_types.InputScenario.name">
+<span class="sig-name descname"><span class="pre">name</span></span><a class="headerlink" href="#origin_sdk.types.scenario_types.InputScenario.name" title="Link to this definition">¶</a></dt>
+<dd><p>The name of the scenario</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>string</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="origin_sdk.types.scenario_types.InputScenario.baseScenarioGlobalId">
+<span class="sig-name descname"><span class="pre">baseScenarioGlobalId</span></span><a class="headerlink" href="#origin_sdk.types.scenario_types.InputScenario.baseScenarioGlobalId" title="Link to this definition">¶</a></dt>
+<dd><p><strong>Required only for non-Aurorean use.</strong> The
+“base” scenario you wish to use. This is equivalent to your own
+scenario, or a published AER scenario that you wish to “copy”.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>string</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="origin_sdk.types.scenario_types.InputScenario.description">
+<span class="sig-name descname"><span class="pre">description</span></span><a class="headerlink" href="#origin_sdk.types.scenario_types.InputScenario.description" title="Link to this definition">¶</a></dt>
+<dd><p>A description for the scenario. Purely for user
+purposes, not used by the system.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>optional, string</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="origin_sdk.types.scenario_types.InputScenario.regionGroupCode">
+<span class="sig-name descname"><span class="pre">regionGroupCode</span></span><a class="headerlink" href="#origin_sdk.types.scenario_types.InputScenario.regionGroupCode" title="Link to this definition">¶</a></dt>
+<dd><p>A region group for the scenario. Be aware
+that a “regionGroup” would be AUS, whereas a “region” would then be
+“VIC” or “NSW”. For most regions, the “regionGroup” and it’s three
+letter region code are identical.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>optional, string</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="origin_sdk.types.scenario_types.InputScenario.useExogifiedInputs">
+<span class="sig-name descname"><span class="pre">useExogifiedInputs</span></span><a class="headerlink" href="#origin_sdk.types.scenario_types.InputScenario.useExogifiedInputs" title="Link to this definition">¶</a></dt>
+<dd><p>A true value here is equivalent to the
+“Model Determined Capacity” toggled off in the interface. When this
+is set to false, the model automatically builds capacity to support
+demand. If you unselect this, you are choosing to take control of
+defining the capacity build assumptions (this runs much more
+quickly). Whether these options are available, depends on the
+scenario this is based on.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>optional, boolean</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="origin_sdk.types.scenario_types.InputScenario.defaultCurrency">
+<span class="sig-name descname"><span class="pre">defaultCurrency</span></span><a class="headerlink" href="#origin_sdk.types.scenario_types.InputScenario.defaultCurrency" title="Link to this definition">¶</a></dt>
+<dd><p>Should be set automatically once a
+<cite>regionGroupCode</cite> is chosen, but can be overridden</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>optional, string</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="origin_sdk.types.scenario_types.InputScenario.retentionPolicy">
+<span class="sig-name descname"><span class="pre">retentionPolicy</span></span><a class="headerlink" href="#origin_sdk.types.scenario_types.InputScenario.retentionPolicy" title="Link to this definition">¶</a></dt>
+<dd><p>Internal only.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>optional, string</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="origin_sdk.types.scenario_types.InputScenario.scenarioRunType">
+<span class="sig-name descname"><span class="pre">scenarioRunType</span></span><a class="headerlink" href="#origin_sdk.types.scenario_types.InputScenario.scenarioRunType" title="Link to this definition">¶</a></dt>
+<dd><p><strong>Deprecated for external use.</strong>
+Internal only. External users should use <cite>useExogifiedInputs</cite> instead.
+Set useExogifiedInputs=True for MDC off (fixed capacities), or
+useExogifiedInputs=False for MDC on (model-determined capacities).</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>optional, <a class="reference internal" href="origin_sdk.types.scenario_enums.html#origin_sdk.types.scenario_enums.ScenarioRunType" title="origin_sdk.types.scenario_enums.ScenarioRunType">ScenarioRunType</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="origin_sdk.types.scenario_types.InputScenario.modelType">
+<span class="sig-name descname"><span class="pre">modelType</span></span><a class="headerlink" href="#origin_sdk.types.scenario_types.InputScenario.modelType" title="Link to this definition">¶</a></dt>
+<dd><p><strong>Deprecated</strong> Internal users should use <cite>scenarioRunType</cite> instead. Can be values <cite>AERES</cite>, <cite>NODAL</cite>, <cite>REGIONAL</cite> or <cite>NETWORK</cite>.
+<cite>NETWORK</cite>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>optional, <a class="reference internal" href="origin_sdk.types.scenario_enums.html#origin_sdk.types.scenario_enums.ModelType" title="origin_sdk.types.scenario_enums.ModelType">ModelType</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="origin_sdk.types.scenario_types.InputScenario.modelPriceSpikiness">
+<span class="sig-name descname"><span class="pre">modelPriceSpikiness</span></span><a class="headerlink" href="#origin_sdk.types.scenario_types.InputScenario.modelPriceSpikiness" title="Link to this definition">¶</a></dt>
+<dd><p>Used for AUS, set
+this to one of the ModelPriceSpikiness enum values if you wish to
+use the feature.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>optional, <a class="reference internal" href="origin_sdk.types.scenario_enums.html#origin_sdk.types.scenario_enums.ModelPriceSpikiness" title="origin_sdk.types.scenario_enums.ModelPriceSpikiness">ModelPriceSpikiness</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="origin_sdk.types.scenario_types.InputScenario.years">
+<span class="sig-name descname"><span class="pre">years</span></span><a class="headerlink" href="#origin_sdk.types.scenario_types.InputScenario.years" title="Link to this definition">¶</a></dt>
+<dd><p>Internal only.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>optional, List[int]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="origin_sdk.types.scenario_types.InputScenario.weatherYear">
+<span class="sig-name descname"><span class="pre">weatherYear</span></span><a class="headerlink" href="#origin_sdk.types.scenario_types.InputScenario.weatherYear" title="Link to this definition">¶</a></dt>
+<dd><p>The Weather Year for which to simulate (half)hourly profiles - if supported.
+Should only be used for scenarios with “fixed capacities” and without further edits; i.e.
+<cite>useExogifiedInputs</cite> = <cite>True</cite>, or <cite>scenarioRunType</cite> = <cite>FYR</cite></p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>optional, int</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="origin_sdk.types.scenario_types.InputScenario.advancedSettings">
+<span class="sig-name descname"><span class="pre">advancedSettings</span></span><a class="headerlink" href="#origin_sdk.types.scenario_types.InputScenario.advancedSettings" title="Link to this definition">¶</a></dt>
+<dd><p>Internal only.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>optional, <a class="reference internal" href="#origin_sdk.types.scenario_types.AdvancedScenarioSettings" title="origin_sdk.types.scenario_types.AdvancedScenarioSettings">AdvancedScenarioSettings</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="id0">
+<span class="sig-name descname"><span class="pre">advancedSettings</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="#origin_sdk.types.scenario_types.AdvancedScenarioSettings" title="origin_sdk.types.scenario_types.AdvancedScenarioSettings"><span class="pre">AdvancedScenarioSettings</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><a class="headerlink" href="#id0" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="id1">
+<span class="sig-name descname"><span class="pre">baseScenarioGlobalId</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><a class="headerlink" href="#id1" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="id2">
+<span class="sig-name descname"><span class="pre">defaultCurrency</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><a class="headerlink" href="#id2" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="id3">
+<span class="sig-name descname"><span class="pre">description</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><a class="headerlink" href="#id3" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="id4">
+<span class="sig-name descname"><span class="pre">modelPriceSpikiness</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="origin_sdk.types.scenario_enums.html#origin_sdk.types.scenario_enums.ModelPriceSpikiness" title="origin_sdk.types.scenario_enums.ModelPriceSpikiness"><span class="pre">ModelPriceSpikiness</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><a class="headerlink" href="#id4" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="id5">
+<span class="sig-name descname"><span class="pre">modelType</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="origin_sdk.types.scenario_enums.html#origin_sdk.types.scenario_enums.ModelType" title="origin_sdk.types.scenario_enums.ModelType"><span class="pre">ModelType</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><a class="headerlink" href="#id5" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="id6">
+<span class="sig-name descname"><span class="pre">name</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></span><a class="headerlink" href="#id6" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="origin_sdk.types.scenario_types.InputScenario.preserveBaseScenarioTransformations">
+<span class="sig-name descname"><span class="pre">preserveBaseScenarioTransformations</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">bool</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><a class="headerlink" href="#origin_sdk.types.scenario_types.InputScenario.preserveBaseScenarioTransformations" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="id7">
+<span class="sig-name descname"><span class="pre">projectGlobalId</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></span><a class="headerlink" href="#id7" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="id8">
+<span class="sig-name descname"><span class="pre">regionGroupCode</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><a class="headerlink" href="#id8" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="id9">
+<span class="sig-name descname"><span class="pre">retentionPolicy</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><a class="headerlink" href="#id9" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="id10">
+<span class="sig-name descname"><span class="pre">scenarioRunType</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="origin_sdk.types.scenario_enums.html#origin_sdk.types.scenario_enums.ScenarioRunType" title="origin_sdk.types.scenario_enums.ScenarioRunType"><span class="pre">ScenarioRunType</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><a class="headerlink" href="#id10" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="id11">
+<span class="sig-name descname"><span class="pre">useExogifiedInputs</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">bool</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><a class="headerlink" href="#id11" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="origin_sdk.types.scenario_types.InputScenario.userInputReference">
+<span class="sig-name descname"><span class="pre">userInputReference</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><a class="headerlink" href="#origin_sdk.types.scenario_types.InputScenario.userInputReference" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="origin_sdk.types.scenario_types.InputScenario.userInputRepository">
+<span class="sig-name descname"><span class="pre">userInputRepository</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><a class="headerlink" href="#origin_sdk.types.scenario_types.InputScenario.userInputRepository" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="id12">
+<span class="sig-name descname"><span class="pre">weatherYear</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">int</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><a class="headerlink" href="#id12" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="id13">
+<span class="sig-name descname"><span class="pre">years</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><a class="headerlink" href="#id13" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="origin_sdk.types.scenario_types.RegionDict">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">origin_sdk.types.scenario_types.</span></span><span class="sig-name descname"><span class="pre">RegionDict</span></span><a class="reference internal" href="../../_modules/origin_sdk/types/scenario_types.html#RegionDict"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#origin_sdk.types.scenario_types.RegionDict" title="Link to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">TypedDict</span></code></p>
+<p>Regional information object.</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="origin_sdk.types.scenario_types.RegionDict.regionCode">
+<span class="sig-name descname"><span class="pre">regionCode</span></span><a class="headerlink" href="#origin_sdk.types.scenario_types.RegionDict.regionCode" title="Link to this definition">¶</a></dt>
+<dd><p>ISO code or similar from the service</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>String</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="origin_sdk.types.scenario_types.RegionDict.metaUrl">
+<span class="sig-name descname"><span class="pre">metaUrl</span></span><a class="headerlink" href="#origin_sdk.types.scenario_types.RegionDict.metaUrl" title="Link to this definition">¶</a></dt>
+<dd><p>URL used to get the meta json file for this region’s downloads</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>String</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="origin_sdk.types.scenario_types.RegionDict.dataUrlBase">
+<span class="sig-name descname"><span class="pre">dataUrlBase</span></span><a class="headerlink" href="#origin_sdk.types.scenario_types.RegionDict.dataUrlBase" title="Link to this definition">¶</a></dt>
+<dd><p>URL used as the base to construct a download URL</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>String</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py">
+<span class="sig-name descname"><span class="pre">for</span> <span class="pre">output</span> <span class="pre">data</span></span></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="origin_sdk.types.scenario_types.RegionDict.__meta_json">
+<span class="sig-name descname"><span class="pre">__meta_json</span></span><a class="headerlink" href="#origin_sdk.types.scenario_types.RegionDict.__meta_json" title="Link to this definition">¶</a></dt>
+<dd><p>Not provided by the service. This field is</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Optional</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py">
+<span class="sig-name descname"><span class="pre">populated</span> <span class="pre">as</span> <span class="pre">required</span> <span class="pre">by</span> <span class="pre">internal</span> <span class="pre">implementation</span> <span class="pre">of</span> <span class="pre">the</span> <span class="pre">Scenario</span> <span class="pre">class.</span></span></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py">
+<span class="sig-name descname"><span class="pre">Observe</span> <span class="pre">this</span> <span class="pre">at</span> <span class="pre">your</span> <span class="pre">own</span> <span class="pre">risk.</span></span></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="id14">
+<span class="sig-name descname"><span class="pre">dataUrlBase</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></span><a class="headerlink" href="#id14" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="id15">
+<span class="sig-name descname"><span class="pre">metaUrl</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></span><a class="headerlink" href="#id15" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="id16">
+<span class="sig-name descname"><span class="pre">regionCode</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></span><a class="headerlink" href="#id16" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="origin_sdk.types.scenario_types.ScenarioSummaryType">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">origin_sdk.types.scenario_types.</span></span><span class="sig-name descname"><span class="pre">ScenarioSummaryType</span></span><a class="reference internal" href="../../_modules/origin_sdk/types/scenario_types.html#ScenarioSummaryType"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#origin_sdk.types.scenario_types.ScenarioSummaryType" title="Link to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">TypedDict</span></code></p>
+<p>Dictionary received when requesting a list of scenarios</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="origin_sdk.types.scenario_types.ScenarioSummaryType.advancedSettings">
+<span class="sig-name descname"><span class="pre">advancedSettings</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="#origin_sdk.types.scenario_types.AdvancedScenarioSettings" title="origin_sdk.types.scenario_types.AdvancedScenarioSettings"><span class="pre">AdvancedScenarioSettings</span></a></span><a class="headerlink" href="#origin_sdk.types.scenario_types.ScenarioSummaryType.advancedSettings" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="origin_sdk.types.scenario_types.ScenarioSummaryType.baseInputReference">
+<span class="sig-name descname"><span class="pre">baseInputReference</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></span><a class="headerlink" href="#origin_sdk.types.scenario_types.ScenarioSummaryType.baseInputReference" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="origin_sdk.types.scenario_types.ScenarioSummaryType.baseInputReferenceType">
+<span class="sig-name descname"><span class="pre">baseInputReferenceType</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></span><a class="headerlink" href="#origin_sdk.types.scenario_types.ScenarioSummaryType.baseInputReferenceType" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="origin_sdk.types.scenario_types.ScenarioSummaryType.description">
+<span class="sig-name descname"><span class="pre">description</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></span><a class="headerlink" href="#origin_sdk.types.scenario_types.ScenarioSummaryType.description" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="origin_sdk.types.scenario_types.ScenarioSummaryType.inputTypesSupported">
+<span class="sig-name descname"><span class="pre">inputTypesSupported</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="origin_sdk.types.scenario_enums.html#origin_sdk.types.scenario_enums.InputTypesSupported" title="origin_sdk.types.scenario_enums.InputTypesSupported"><span class="pre">InputTypesSupported</span></a></span><a class="headerlink" href="#origin_sdk.types.scenario_types.ScenarioSummaryType.inputTypesSupported" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="origin_sdk.types.scenario_types.ScenarioSummaryType.lastUpdated">
+<span class="sig-name descname"><span class="pre">lastUpdated</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></span><a class="headerlink" href="#origin_sdk.types.scenario_types.ScenarioSummaryType.lastUpdated" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="origin_sdk.types.scenario_types.ScenarioSummaryType.launchedByUserName">
+<span class="sig-name descname"><span class="pre">launchedByUserName</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></span><a class="headerlink" href="#origin_sdk.types.scenario_types.ScenarioSummaryType.launchedByUserName" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="origin_sdk.types.scenario_types.ScenarioSummaryType.modelPriceSpikiness">
+<span class="sig-name descname"><span class="pre">modelPriceSpikiness</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="origin_sdk.types.scenario_enums.html#origin_sdk.types.scenario_enums.ModelPriceSpikiness" title="origin_sdk.types.scenario_enums.ModelPriceSpikiness"><span class="pre">ModelPriceSpikiness</span></a></span><a class="headerlink" href="#origin_sdk.types.scenario_types.ScenarioSummaryType.modelPriceSpikiness" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="origin_sdk.types.scenario_types.ScenarioSummaryType.name">
+<span class="sig-name descname"><span class="pre">name</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></span><a class="headerlink" href="#origin_sdk.types.scenario_types.ScenarioSummaryType.name" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="origin_sdk.types.scenario_types.ScenarioSummaryType.projectGlobalId">
+<span class="sig-name descname"><span class="pre">projectGlobalId</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></span><a class="headerlink" href="#origin_sdk.types.scenario_types.ScenarioSummaryType.projectGlobalId" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="origin_sdk.types.scenario_types.ScenarioSummaryType.publicationDate">
+<span class="sig-name descname"><span class="pre">publicationDate</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></span><a class="headerlink" href="#origin_sdk.types.scenario_types.ScenarioSummaryType.publicationDate" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="origin_sdk.types.scenario_types.ScenarioSummaryType.publishType">
+<span class="sig-name descname"><span class="pre">publishType</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></span><a class="headerlink" href="#origin_sdk.types.scenario_types.ScenarioSummaryType.publishType" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="origin_sdk.types.scenario_types.ScenarioSummaryType.regionGroupCode">
+<span class="sig-name descname"><span class="pre">regionGroupCode</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></span><a class="headerlink" href="#origin_sdk.types.scenario_types.ScenarioSummaryType.regionGroupCode" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="origin_sdk.types.scenario_types.ScenarioSummaryType.runCompletedAtUTC">
+<span class="sig-name descname"><span class="pre">runCompletedAtUTC</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></span><a class="headerlink" href="#origin_sdk.types.scenario_types.ScenarioSummaryType.runCompletedAtUTC" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="origin_sdk.types.scenario_types.ScenarioSummaryType.runDetails">
+<span class="sig-name descname"><span class="pre">runDetails</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Any</span></span><a class="headerlink" href="#origin_sdk.types.scenario_types.ScenarioSummaryType.runDetails" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="origin_sdk.types.scenario_types.ScenarioSummaryType.runStartedAtUTC">
+<span class="sig-name descname"><span class="pre">runStartedAtUTC</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></span><a class="headerlink" href="#origin_sdk.types.scenario_types.ScenarioSummaryType.runStartedAtUTC" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="origin_sdk.types.scenario_types.ScenarioSummaryType.scenarioGlobalId">
+<span class="sig-name descname"><span class="pre">scenarioGlobalId</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></span><a class="headerlink" href="#origin_sdk.types.scenario_types.ScenarioSummaryType.scenarioGlobalId" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="origin_sdk.types.scenario_types.ScenarioSummaryType.scenarioInputsAvailable">
+<span class="sig-name descname"><span class="pre">scenarioInputsAvailable</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">bool</span></span><a class="headerlink" href="#origin_sdk.types.scenario_types.ScenarioSummaryType.scenarioInputsAvailable" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="origin_sdk.types.scenario_types.ScenarioSummaryType.scenarioLaunchable">
+<span class="sig-name descname"><span class="pre">scenarioLaunchable</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">bool</span></span><a class="headerlink" href="#origin_sdk.types.scenario_types.ScenarioSummaryType.scenarioLaunchable" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="origin_sdk.types.scenario_types.ScenarioSummaryType.scenarioOutputsAvailable">
+<span class="sig-name descname"><span class="pre">scenarioOutputsAvailable</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">bool</span></span><a class="headerlink" href="#origin_sdk.types.scenario_types.ScenarioSummaryType.scenarioOutputsAvailable" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="origin_sdk.types.scenario_types.ScenarioSummaryType.scenarioRunStatus">
+<span class="sig-name descname"><span class="pre">scenarioRunStatus</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="origin_sdk.types.scenario_enums.html#origin_sdk.types.scenario_enums.ScenarioRunStatus" title="origin_sdk.types.scenario_enums.ScenarioRunStatus"><span class="pre">ScenarioRunStatus</span></a></span><a class="headerlink" href="#origin_sdk.types.scenario_types.ScenarioSummaryType.scenarioRunStatus" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="origin_sdk.types.scenario_types.ScenarioSummaryType.scenarioRunType">
+<span class="sig-name descname"><span class="pre">scenarioRunType</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="origin_sdk.types.scenario_enums.html#origin_sdk.types.scenario_enums.ScenarioRunType" title="origin_sdk.types.scenario_enums.ScenarioRunType"><span class="pre">ScenarioRunType</span></a></span><a class="headerlink" href="#origin_sdk.types.scenario_types.ScenarioSummaryType.scenarioRunType" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="origin_sdk.types.scenario_types.ScenarioSummaryType.scenarioTransformStatus">
+<span class="sig-name descname"><span class="pre">scenarioTransformStatus</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="origin_sdk.types.scenario_enums.html#origin_sdk.types.scenario_enums.ScenarioTransformStatus" title="origin_sdk.types.scenario_enums.ScenarioTransformStatus"><span class="pre">ScenarioTransformStatus</span></a></span><a class="headerlink" href="#origin_sdk.types.scenario_types.ScenarioSummaryType.scenarioTransformStatus" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="origin_sdk.types.scenario_types.ScenarioSummaryType.scenarioType">
+<span class="sig-name descname"><span class="pre">scenarioType</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="origin_sdk.types.scenario_enums.html#origin_sdk.types.scenario_enums.ScenarioOwner" title="origin_sdk.types.scenario_enums.ScenarioOwner"><span class="pre">ScenarioOwner</span></a></span><a class="headerlink" href="#origin_sdk.types.scenario_types.ScenarioSummaryType.scenarioType" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="origin_sdk.types.scenario_types.ScenarioSummaryType.supportsExogenousInputs">
+<span class="sig-name descname"><span class="pre">supportsExogenousInputs</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></span><a class="headerlink" href="#origin_sdk.types.scenario_types.ScenarioSummaryType.supportsExogenousInputs" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="origin_sdk.types.scenario_types.ScenarioSummaryType.useExogifiedInputs">
+<span class="sig-name descname"><span class="pre">useExogifiedInputs</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">bool</span></span><a class="headerlink" href="#origin_sdk.types.scenario_types.ScenarioSummaryType.useExogifiedInputs" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="origin_sdk.types.scenario_types.ScenarioSummaryType.weatherYear">
+<span class="sig-name descname"><span class="pre">weatherYear</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">int</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><a class="headerlink" href="#origin_sdk.types.scenario_types.ScenarioSummaryType.weatherYear" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="origin_sdk.types.scenario_types.ScenarioSummaryType.years">
+<span class="sig-name descname"><span class="pre">years</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">]</span></span></span><a class="headerlink" href="#origin_sdk.types.scenario_types.ScenarioSummaryType.years" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="origin_sdk.types.scenario_types.ScenarioType">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">origin_sdk.types.scenario_types.</span></span><span class="sig-name descname"><span class="pre">ScenarioType</span></span><a class="reference internal" href="../../_modules/origin_sdk/types/scenario_types.html#ScenarioType"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#origin_sdk.types.scenario_types.ScenarioType" title="Link to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#origin_sdk.types.scenario_types.ScenarioSummaryType" title="origin_sdk.types.scenario_types.ScenarioSummaryType"><code class="xref py py-class docutils literal notranslate"><span class="pre">ScenarioSummaryType</span></code></a></p>
+<p>Extended scenario details received when requesting a single scenario</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="origin_sdk.types.scenario_types.ScenarioType.advancedSettings">
+<span class="sig-name descname"><span class="pre">advancedSettings</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="#origin_sdk.types.scenario_types.AdvancedScenarioSettings" title="origin_sdk.types.scenario_types.AdvancedScenarioSettings"><span class="pre">AdvancedScenarioSettings</span></a></span><a class="headerlink" href="#origin_sdk.types.scenario_types.ScenarioType.advancedSettings" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="origin_sdk.types.scenario_types.ScenarioType.appReleaseStatus">
+<span class="sig-name descname"><span class="pre">appReleaseStatus</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Any</span></span><a class="headerlink" href="#origin_sdk.types.scenario_types.ScenarioType.appReleaseStatus" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="origin_sdk.types.scenario_types.ScenarioType.baseInputReference">
+<span class="sig-name descname"><span class="pre">baseInputReference</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></span><a class="headerlink" href="#origin_sdk.types.scenario_types.ScenarioType.baseInputReference" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="origin_sdk.types.scenario_types.ScenarioType.baseInputReferenceType">
+<span class="sig-name descname"><span class="pre">baseInputReferenceType</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></span><a class="headerlink" href="#origin_sdk.types.scenario_types.ScenarioType.baseInputReferenceType" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="origin_sdk.types.scenario_types.ScenarioType.baseScenarioGlobalId">
+<span class="sig-name descname"><span class="pre">baseScenarioGlobalId</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></span><a class="headerlink" href="#origin_sdk.types.scenario_types.ScenarioType.baseScenarioGlobalId" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="origin_sdk.types.scenario_types.ScenarioType.currencies">
+<span class="sig-name descname"><span class="pre">currencies</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Any</span></span><a class="headerlink" href="#origin_sdk.types.scenario_types.ScenarioType.currencies" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="origin_sdk.types.scenario_types.ScenarioType.defaultCurrency">
+<span class="sig-name descname"><span class="pre">defaultCurrency</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></span><a class="headerlink" href="#origin_sdk.types.scenario_types.ScenarioType.defaultCurrency" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="origin_sdk.types.scenario_types.ScenarioType.description">
+<span class="sig-name descname"><span class="pre">description</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></span><a class="headerlink" href="#origin_sdk.types.scenario_types.ScenarioType.description" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="origin_sdk.types.scenario_types.ScenarioType.inputImportStatus">
+<span class="sig-name descname"><span class="pre">inputImportStatus</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></span><a class="headerlink" href="#origin_sdk.types.scenario_types.ScenarioType.inputImportStatus" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="origin_sdk.types.scenario_types.ScenarioType.inputTypesSupported">
+<span class="sig-name descname"><span class="pre">inputTypesSupported</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="origin_sdk.types.scenario_enums.html#origin_sdk.types.scenario_enums.InputTypesSupported" title="origin_sdk.types.scenario_enums.InputTypesSupported"><span class="pre">InputTypesSupported</span></a></span><a class="headerlink" href="#origin_sdk.types.scenario_types.ScenarioType.inputTypesSupported" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="origin_sdk.types.scenario_types.ScenarioType.lastUpdated">
+<span class="sig-name descname"><span class="pre">lastUpdated</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></span><a class="headerlink" href="#origin_sdk.types.scenario_types.ScenarioType.lastUpdated" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="origin_sdk.types.scenario_types.ScenarioType.launchedByEmail">
+<span class="sig-name descname"><span class="pre">launchedByEmail</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></span><a class="headerlink" href="#origin_sdk.types.scenario_types.ScenarioType.launchedByEmail" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="origin_sdk.types.scenario_types.ScenarioType.launchedByUserName">
+<span class="sig-name descname"><span class="pre">launchedByUserName</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></span><a class="headerlink" href="#origin_sdk.types.scenario_types.ScenarioType.launchedByUserName" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="origin_sdk.types.scenario_types.ScenarioType.modelPriceSpikiness">
+<span class="sig-name descname"><span class="pre">modelPriceSpikiness</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="origin_sdk.types.scenario_enums.html#origin_sdk.types.scenario_enums.ModelPriceSpikiness" title="origin_sdk.types.scenario_enums.ModelPriceSpikiness"><span class="pre">ModelPriceSpikiness</span></a></span><a class="headerlink" href="#origin_sdk.types.scenario_types.ScenarioType.modelPriceSpikiness" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="origin_sdk.types.scenario_types.ScenarioType.name">
+<span class="sig-name descname"><span class="pre">name</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></span><a class="headerlink" href="#origin_sdk.types.scenario_types.ScenarioType.name" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="origin_sdk.types.scenario_types.ScenarioType.projectGlobalId">
+<span class="sig-name descname"><span class="pre">projectGlobalId</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></span><a class="headerlink" href="#origin_sdk.types.scenario_types.ScenarioType.projectGlobalId" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="origin_sdk.types.scenario_types.ScenarioType.publicationDate">
+<span class="sig-name descname"><span class="pre">publicationDate</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></span><a class="headerlink" href="#origin_sdk.types.scenario_types.ScenarioType.publicationDate" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="origin_sdk.types.scenario_types.ScenarioType.publishType">
+<span class="sig-name descname"><span class="pre">publishType</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></span><a class="headerlink" href="#origin_sdk.types.scenario_types.ScenarioType.publishType" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="origin_sdk.types.scenario_types.ScenarioType.regionGroupCode">
+<span class="sig-name descname"><span class="pre">regionGroupCode</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></span><a class="headerlink" href="#origin_sdk.types.scenario_types.ScenarioType.regionGroupCode" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="origin_sdk.types.scenario_types.ScenarioType.regions">
+<span class="sig-name descname"><span class="pre">regions</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference internal" href="#origin_sdk.types.scenario_types.RegionDict" title="origin_sdk.types.scenario_types.RegionDict"><span class="pre">RegionDict</span></a><span class="p"><span class="pre">]</span></span></span><a class="headerlink" href="#origin_sdk.types.scenario_types.ScenarioType.regions" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="origin_sdk.types.scenario_types.ScenarioType.runCompletedAtUTC">
+<span class="sig-name descname"><span class="pre">runCompletedAtUTC</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></span><a class="headerlink" href="#origin_sdk.types.scenario_types.ScenarioType.runCompletedAtUTC" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="origin_sdk.types.scenario_types.ScenarioType.runDetails">
+<span class="sig-name descname"><span class="pre">runDetails</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Any</span></span><a class="headerlink" href="#origin_sdk.types.scenario_types.ScenarioType.runDetails" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="origin_sdk.types.scenario_types.ScenarioType.runStartedAtUTC">
+<span class="sig-name descname"><span class="pre">runStartedAtUTC</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></span><a class="headerlink" href="#origin_sdk.types.scenario_types.ScenarioType.runStartedAtUTC" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="origin_sdk.types.scenario_types.ScenarioType.scenarioGlobalId">
+<span class="sig-name descname"><span class="pre">scenarioGlobalId</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></span><a class="headerlink" href="#origin_sdk.types.scenario_types.ScenarioType.scenarioGlobalId" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="origin_sdk.types.scenario_types.ScenarioType.scenarioInputsAvailable">
+<span class="sig-name descname"><span class="pre">scenarioInputsAvailable</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">bool</span></span><a class="headerlink" href="#origin_sdk.types.scenario_types.ScenarioType.scenarioInputsAvailable" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="origin_sdk.types.scenario_types.ScenarioType.scenarioLaunchable">
+<span class="sig-name descname"><span class="pre">scenarioLaunchable</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">bool</span></span><a class="headerlink" href="#origin_sdk.types.scenario_types.ScenarioType.scenarioLaunchable" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="origin_sdk.types.scenario_types.ScenarioType.scenarioOutputsAvailable">
+<span class="sig-name descname"><span class="pre">scenarioOutputsAvailable</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">bool</span></span><a class="headerlink" href="#origin_sdk.types.scenario_types.ScenarioType.scenarioOutputsAvailable" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="origin_sdk.types.scenario_types.ScenarioType.scenarioRunStatus">
+<span class="sig-name descname"><span class="pre">scenarioRunStatus</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="origin_sdk.types.scenario_enums.html#origin_sdk.types.scenario_enums.ScenarioRunStatus" title="origin_sdk.types.scenario_enums.ScenarioRunStatus"><span class="pre">ScenarioRunStatus</span></a></span><a class="headerlink" href="#origin_sdk.types.scenario_types.ScenarioType.scenarioRunStatus" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="origin_sdk.types.scenario_types.ScenarioType.scenarioRunType">
+<span class="sig-name descname"><span class="pre">scenarioRunType</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="origin_sdk.types.scenario_enums.html#origin_sdk.types.scenario_enums.ScenarioRunType" title="origin_sdk.types.scenario_enums.ScenarioRunType"><span class="pre">ScenarioRunType</span></a></span><a class="headerlink" href="#origin_sdk.types.scenario_types.ScenarioType.scenarioRunType" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="origin_sdk.types.scenario_types.ScenarioType.scenarioTransformStatus">
+<span class="sig-name descname"><span class="pre">scenarioTransformStatus</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="origin_sdk.types.scenario_enums.html#origin_sdk.types.scenario_enums.ScenarioTransformStatus" title="origin_sdk.types.scenario_enums.ScenarioTransformStatus"><span class="pre">ScenarioTransformStatus</span></a></span><a class="headerlink" href="#origin_sdk.types.scenario_types.ScenarioType.scenarioTransformStatus" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="origin_sdk.types.scenario_types.ScenarioType.scenarioType">
+<span class="sig-name descname"><span class="pre">scenarioType</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="origin_sdk.types.scenario_enums.html#origin_sdk.types.scenario_enums.ScenarioOwner" title="origin_sdk.types.scenario_enums.ScenarioOwner"><span class="pre">ScenarioOwner</span></a></span><a class="headerlink" href="#origin_sdk.types.scenario_types.ScenarioType.scenarioType" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="origin_sdk.types.scenario_types.ScenarioType.sensitivity">
+<span class="sig-name descname"><span class="pre">sensitivity</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></span><a class="headerlink" href="#origin_sdk.types.scenario_types.ScenarioType.sensitivity" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="origin_sdk.types.scenario_types.ScenarioType.supportsExogenousInputs">
+<span class="sig-name descname"><span class="pre">supportsExogenousInputs</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></span><a class="headerlink" href="#origin_sdk.types.scenario_types.ScenarioType.supportsExogenousInputs" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="origin_sdk.types.scenario_types.ScenarioType.useExogifiedInputs">
+<span class="sig-name descname"><span class="pre">useExogifiedInputs</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">bool</span></span><a class="headerlink" href="#origin_sdk.types.scenario_types.ScenarioType.useExogifiedInputs" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="origin_sdk.types.scenario_types.ScenarioType.userInputReference">
+<span class="sig-name descname"><span class="pre">userInputReference</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></span><a class="headerlink" href="#origin_sdk.types.scenario_types.ScenarioType.userInputReference" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="origin_sdk.types.scenario_types.ScenarioType.userInputRepository">
+<span class="sig-name descname"><span class="pre">userInputRepository</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></span><a class="headerlink" href="#origin_sdk.types.scenario_types.ScenarioType.userInputRepository" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="origin_sdk.types.scenario_types.ScenarioType.weatherYear">
+<span class="sig-name descname"><span class="pre">weatherYear</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">int</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><a class="headerlink" href="#origin_sdk.types.scenario_types.ScenarioType.weatherYear" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="origin_sdk.types.scenario_types.ScenarioType.years">
+<span class="sig-name descname"><span class="pre">years</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">]</span></span></span><a class="headerlink" href="#origin_sdk.types.scenario_types.ScenarioType.years" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</section>
+
+        </article><button class="back-to-top" type="button">
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+    <path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8v12z"></path>
+  </svg>
+  <span>Back to top</span>
+</button><div class="navigation flex print:hidden"><div class="navigation-prev">
+    <a href="origin_sdk.types.scenario_enums.html">
+      <i class="i-lucide chevron-left"></i>
+      <div class="page-info">
+        <span>Previous</span><div class="title">origin_sdk.types.scenario_enums</div></div>
+    </a>
+  </div><div class="navigation-next">
+    <a href="origin_sdk.gql.queries.input_queries.session.html">
+      <div class="page-info">
+        <span>Next</span>
+        <div class="title">origin_sdk.gql.queries.input_queries.session</div>
+      </div>
+      <i class="i-lucide chevron-right"></i>
+    </a>
+  </div></div></div>
+    </div>
+  </main>
+</div>
+<footer class="sy-foot">
+  <div class="sy-foot-inner sy-container mx-auto">
+    <div class="sy-foot-reserved md:flex justify-between items-center">
+      <div class="sy-foot-copyright"><p>2026, Aurora Energy Research</p>
+  
+  <p>
+    Made with
+    
+    <a href="https://www.sphinx-doc.org/">Sphinx</a> and
+    
+    <a href="https://shibuya.lepture.com">Shibuya theme</a>.
+  </p>
+</div>
+      <div class="sy-foot-socials"></div>
+    </div>
+  </div>
+</footer>
+      <script src="../../_static/documentation_options.js?v=d63f172e"></script>
+      <script src="../../_static/doctools.js?v=fd6eb6e6"></script>
+      <script src="../../_static/sphinx_highlight.js?v=6ffebe34"></script>
+      <script src="../../_static/shibuya.js?v=cac61aee"></script></body>
+</html>

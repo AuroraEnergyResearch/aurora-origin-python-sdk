@@ -1,0 +1,611 @@
+<!DOCTYPE html>
+<html lang="en" data-accent-color="orange" data-content_root="../../">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"><title>origin_sdk.types.scenario_enums - Aurora Origin SDK Docs</title><link rel="index" title="Index" href="../../genindex.html" /><link rel="search" title="Search" href="../../search.html" /><link rel="next" title="origin_sdk.types.scenario_types" href="origin_sdk.types.scenario_types.html" /><link rel="prev" title="origin_sdk.service.Scenario" href="origin_sdk.service.Scenario.html" />
+      <link rel="canonical" href="https://ghp.auroraer.com/aurora-origin-python-sdk/api/generated/origin_sdk.types.scenario_enums.html" /><script>
+    function setColorMode(t){let e=document.documentElement;e.setAttribute("data-color-mode",t);let a=window.matchMedia&&window.matchMedia("(prefers-color-scheme: dark)").matches,s=t;"auto"===t&&(s=a?"dark":"light"),"light"===s?(e.classList.remove("dark"),e.classList.add("light")):(e.classList.remove("light"),e.classList.add("dark"))}
+    setColorMode(localStorage._theme||"auto");
+  </script><link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=e1a1ceaf" />
+    <link rel="stylesheet" type="text/css" href="../../_static/shibuya.css?v=44020203" />
+    <link media="print" rel="stylesheet" type="text/css" href="../../_static/print.css?v=20ff2c19" />
+    <link rel="stylesheet" type="text/css" href="../../_static/custom.css?v=2c016416" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --sy-f-text: "Inter", var(--sy-f-sys), var(--sy-f-cjk), sans-serif;
+  --sy-f-heading: "Inter", var(--sy-f-sys), var(--sy-f-cjk), sans-serif;
+}
+</style>
+    <meta property="og:type" content="website"/>
+  <meta property="og:url" content="https://ghp.auroraer.com/aurora-origin-python-sdk/api/generated/origin_sdk.types.scenario_enums.html"/>
+  <meta property="og:title" content="origin_sdk.types.scenario_enums"/>
+    <meta name="twitter:card" content="summary"/>
+  </head>
+<body><div class="sy-head">
+  <div class="sy-head-blur"></div>
+  <div class="sy-head-inner sy-container mx-auto">
+    <a class="sy-head-brand" href="../../index.html">
+      <img class="light-logo" src="../../_static/logo.svg" alt="Aurora Origin SDK" height="28" loading="lazy" />
+      <img class="dark-logo" src="../../_static/logo.svg" alt="Aurora Origin SDK" height="28" loading="lazy" />
+      <strong>Aurora Origin SDK</strong>
+    </a>
+    <div class="sy-head-nav" id="head-nav">
+      <nav class="sy-head-links"></nav>
+      <div class="sy-head-extra flex items-center print:hidden"><form class="searchbox flex items-center" action="../../search.html" method="get">
+  <input type="text" name="q" placeholder="Search" />
+  <kbd>/</kbd>
+</form><div class="sy-head-socials"></div></div>
+    </div>
+    <div class="sy-head-actions flex items-center shrink-0 print:hidden"><button class="js-theme theme-switch flex items-center"
+data-aria-auto="Switch to light color mode"
+data-aria-light="Switch to dark color mode"
+data-aria-dark="Switch to auto color mode">
+<i class="i-lucide theme-icon"></i>
+</button><button class="md:hidden flex items-center js-menu" aria-label="Menu" type="button" aria-controls="head-nav" aria-expanded="false">
+        <div class="hamburger">
+          <span class="hamburger_1"></span>
+          <span class="hamburger_2"></span>
+          <span class="hamburger_3"></span>
+        </div>
+      </button>
+    </div>
+  </div>
+</div>
+<div class="sy-page sy-container flex mx-auto">
+  <aside id="lside" class="sy-lside md:w-72 md:shrink-0 print:hidden">
+    <div class="sy-lside-inner md:sticky">
+      <div class="sy-scrollbar p-6">
+        <div class="globaltoc" data-expand-depth="0"><ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../../installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../common-patterns.html">Common Patterns</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../index.html">API reference</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="origin_sdk.OriginSession.html">origin_sdk.OriginSession</a></li>
+<li class="toctree-l2"><a class="reference internal" href="origin_sdk.service.InputsEditor.html">origin_sdk.service.InputsEditor</a></li>
+<li class="toctree-l2"><a class="reference internal" href="origin_sdk.service.Project.html">origin_sdk.service.Project</a></li>
+<li class="toctree-l2"><a class="reference internal" href="origin_sdk.service.Scenario.html">origin_sdk.service.Scenario</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">origin_sdk.types.scenario_enums</a></li>
+<li class="toctree-l2"><a class="reference internal" href="origin_sdk.types.scenario_types.html">origin_sdk.types.scenario_types</a></li>
+<li class="toctree-l2"><a class="reference internal" href="origin_sdk.gql.queries.input_queries.session.html">origin_sdk.gql.queries.input_queries.session</a></li>
+</ul>
+</li>
+</ul>
+
+        </div>
+      </div>
+    </div>
+  </aside>
+  <div class="lside-overlay js-menu" role="button" aria-label="Close left sidebar" aria-controls="lside" aria-expanded="false"></div>
+  <aside id="rside" class="sy-rside pb-3 w-64 shrink-0 order-last">
+    <button class="rside-close js-menu xl:hidden" aria-label="Close Table of Contents" type="button" aria-controls="rside" aria-expanded="false">
+      <i class="i-lucide close"></i>
+    </button>
+    <div class="sy-scrollbar sy-rside-inner px-6 xl:top-16 xl:sticky xl:pl-0 pt-6 pb-4"><div class="localtoc"><h3>On this page</h3><ul>
+<li><a class="reference internal" href="#origin_sdk.types.scenario_enums.InputTypesSupported"><code class="docutils literal notranslate"><span class="pre">InputTypesSupported</span></code></a><ul>
+<li><a class="reference internal" href="#origin_sdk.types.scenario_enums.InputTypesSupported.ENDOGENOUS_AND_EXOGENOUS"><code class="docutils literal notranslate">ENDOGENOUS_AND_EXOGENOUS</span></code></a></li>
+<li><a class="reference internal" href="#origin_sdk.types.scenario_enums.InputTypesSupported.ENDOGENOUS_ONLY"><code class="docutils literal notranslate">ENDOGENOUS_ONLY</span></code></a></li>
+<li><a class="reference internal" href="#origin_sdk.types.scenario_enums.InputTypesSupported.EXOGENOUS_ONLY"><code class="docutils literal notranslate">EXOGENOUS_ONLY</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#origin_sdk.types.scenario_enums.ModelPriceSpikiness"><code class="docutils literal notranslate"><span class="pre">ModelPriceSpikiness</span></code></a><ul>
+<li><a class="reference internal" href="#origin_sdk.types.scenario_enums.ModelPriceSpikiness.HIGH"><code class="docutils literal notranslate">HIGH</span></code></a></li>
+<li><a class="reference internal" href="#origin_sdk.types.scenario_enums.ModelPriceSpikiness.LOW"><code class="docutils literal notranslate">LOW</span></code></a></li>
+<li><a class="reference internal" href="#origin_sdk.types.scenario_enums.ModelPriceSpikiness.MEDIUM"><code class="docutils literal notranslate">MEDIUM</span></code></a></li>
+<li><a class="reference internal" href="#origin_sdk.types.scenario_enums.ModelPriceSpikiness.NONE"><code class="docutils literal notranslate">NONE</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#origin_sdk.types.scenario_enums.ModelType"><code class="docutils literal notranslate"><span class="pre">ModelType</span></code></a><ul>
+<li><a class="reference internal" href="#origin_sdk.types.scenario_enums.ModelType.AERES"><code class="docutils literal notranslate">AERES</span></code></a></li>
+<li><a class="reference internal" href="#origin_sdk.types.scenario_enums.ModelType.NETWORK"><code class="docutils literal notranslate">NETWORK</span></code></a></li>
+<li><a class="reference internal" href="#origin_sdk.types.scenario_enums.ModelType.NODAL"><code class="docutils literal notranslate">NODAL</span></code></a></li>
+<li><a class="reference internal" href="#origin_sdk.types.scenario_enums.ModelType.REGIONAL"><code class="docutils literal notranslate">REGIONAL</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#origin_sdk.types.scenario_enums.RetentionPolicyEnum"><code class="docutils literal notranslate"><span class="pre">RetentionPolicyEnum</span></code></a><ul>
+<li><a class="reference internal" href="#origin_sdk.types.scenario_enums.RetentionPolicyEnum.CENTRAL"><code class="docutils literal notranslate">CENTRAL</span></code></a></li>
+<li><a class="reference internal" href="#origin_sdk.types.scenario_enums.RetentionPolicyEnum.LONG_TERM"><code class="docutils literal notranslate">LONG_TERM</span></code></a></li>
+<li><a class="reference internal" href="#origin_sdk.types.scenario_enums.RetentionPolicyEnum.MIDTERM"><code class="docutils literal notranslate">MIDTERM</span></code></a></li>
+<li><a class="reference internal" href="#origin_sdk.types.scenario_enums.RetentionPolicyEnum.SHORT_TERM"><code class="docutils literal notranslate">SHORT_TERM</span></code></a></li>
+<li><a class="reference internal" href="#origin_sdk.types.scenario_enums.RetentionPolicyEnum.STANDARD"><code class="docutils literal notranslate">STANDARD</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#origin_sdk.types.scenario_enums.ScenarioOwner"><code class="docutils literal notranslate"><span class="pre">ScenarioOwner</span></code></a><ul>
+<li><a class="reference internal" href="#origin_sdk.types.scenario_enums.ScenarioOwner.AURORA_SCENARIO"><code class="docutils literal notranslate">AURORA_SCENARIO</span></code></a></li>
+<li><a class="reference internal" href="#origin_sdk.types.scenario_enums.ScenarioOwner.TENANTED_SCENARIO"><code class="docutils literal notranslate">TENANTED_SCENARIO</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#origin_sdk.types.scenario_enums.ScenarioRunStatus"><code class="docutils literal notranslate"><span class="pre">ScenarioRunStatus</span></code></a><ul>
+<li><a class="reference internal" href="#origin_sdk.types.scenario_enums.ScenarioRunStatus.COMPLETE"><code class="docutils literal notranslate">COMPLETE</span></code></a></li>
+<li><a class="reference internal" href="#origin_sdk.types.scenario_enums.ScenarioRunStatus.ERRORED"><code class="docutils literal notranslate">ERRORED</span></code></a></li>
+<li><a class="reference internal" href="#origin_sdk.types.scenario_enums.ScenarioRunStatus.NOT_LAUNCHED"><code class="docutils literal notranslate">NOT_LAUNCHED</span></code></a></li>
+<li><a class="reference internal" href="#origin_sdk.types.scenario_enums.ScenarioRunStatus.QUEUED"><code class="docutils literal notranslate">QUEUED</span></code></a></li>
+<li><a class="reference internal" href="#origin_sdk.types.scenario_enums.ScenarioRunStatus.RUNNING"><code class="docutils literal notranslate">RUNNING</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#origin_sdk.types.scenario_enums.ScenarioRunType"><code class="docutils literal notranslate"><span class="pre">ScenarioRunType</span></code></a><ul>
+<li><a class="reference internal" href="#origin_sdk.types.scenario_enums.ScenarioRunType.FYR"><code class="docutils literal notranslate">FYR</span></code></a></li>
+<li><a class="reference internal" href="#origin_sdk.types.scenario_enums.ScenarioRunType.MYR"><code class="docutils literal notranslate">MYR</span></code></a></li>
+<li><a class="reference internal" href="#origin_sdk.types.scenario_enums.ScenarioRunType.MYR_AND_FYR"><code class="docutils literal notranslate">MYR_AND_FYR</span></code></a></li>
+<li><a class="reference internal" href="#origin_sdk.types.scenario_enums.ScenarioRunType.NETWORK"><code class="docutils literal notranslate">NETWORK</span></code></a></li>
+<li><a class="reference internal" href="#origin_sdk.types.scenario_enums.ScenarioRunType.NODAL"><code class="docutils literal notranslate">NODAL</span></code></a></li>
+<li><a class="reference internal" href="#origin_sdk.types.scenario_enums.ScenarioRunType.NODAL_PLACEMENT"><code class="docutils literal notranslate">NODAL_PLACEMENT</span></code></a></li>
+<li><a class="reference internal" href="#origin_sdk.types.scenario_enums.ScenarioRunType.NODAL_PLACEMENT_AND_NODAL"><code class="docutils literal notranslate">NODAL_PLACEMENT_AND_NODAL</span></code></a></li>
+<li><a class="reference internal" href="#origin_sdk.types.scenario_enums.ScenarioRunType.REGIONAL_FYR"><code class="docutils literal notranslate">REGIONAL_FYR</span></code></a></li>
+<li><a class="reference internal" href="#origin_sdk.types.scenario_enums.ScenarioRunType.REGIONAL_MYR"><code class="docutils literal notranslate">REGIONAL_MYR</span></code></a></li>
+<li><a class="reference internal" href="#origin_sdk.types.scenario_enums.ScenarioRunType.REGIONAL_MYR_AND_FYR"><code class="docutils literal notranslate">REGIONAL_MYR_AND_FYR</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#origin_sdk.types.scenario_enums.ScenarioTransformStatus"><code class="docutils literal notranslate"><span class="pre">ScenarioTransformStatus</span></code></a><ul>
+<li><a class="reference internal" href="#origin_sdk.types.scenario_enums.ScenarioTransformStatus.COMPLETE"><code class="docutils literal notranslate">COMPLETE</span></code></a></li>
+<li><a class="reference internal" href="#origin_sdk.types.scenario_enums.ScenarioTransformStatus.ERRORED"><code class="docutils literal notranslate">ERRORED</span></code></a></li>
+<li><a class="reference internal" href="#origin_sdk.types.scenario_enums.ScenarioTransformStatus.NOT_STARTED"><code class="docutils literal notranslate">NOT_STARTED</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#origin_sdk.types.scenario_enums.ServerName"><code class="docutils literal notranslate"><span class="pre">ServerName</span></code></a><ul>
+<li><a class="reference internal" href="#origin_sdk.types.scenario_enums.ServerName.AZATHOTH"><code class="docutils literal notranslate">AZATHOTH</span></code></a></li>
+<li><a class="reference internal" href="#origin_sdk.types.scenario_enums.ServerName.BRYNHILDR"><code class="docutils literal notranslate">BRYNHILDR</span></code></a></li>
+<li><a class="reference internal" href="#origin_sdk.types.scenario_enums.ServerName.CTHULHU"><code class="docutils literal notranslate">CTHULHU</span></code></a></li>
+<li><a class="reference internal" href="#origin_sdk.types.scenario_enums.ServerName.HASTUR"><code class="docutils literal notranslate">HASTUR</span></code></a></li>
+<li><a class="reference internal" href="#origin_sdk.types.scenario_enums.ServerName.QUETZAL"><code class="docutils literal notranslate">QUETZAL</span></code></a></li>
+<li><a class="reference internal" href="#origin_sdk.types.scenario_enums.ServerName.TATZELWURM"><code class="docutils literal notranslate">TATZELWURM</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#origin_sdk.types.scenario_enums.SimulationMode"><code class="docutils literal notranslate"><span class="pre">SimulationMode</span></code></a><ul>
+<li><a class="reference internal" href="#origin_sdk.types.scenario_enums.SimulationMode.EUROPEAN_NETWORK"><code class="docutils literal notranslate">EUROPEAN_NETWORK</span></code></a></li>
+<li><a class="reference internal" href="#origin_sdk.types.scenario_enums.SimulationMode.NO_FLOW_CONSTRAINTS"><code class="docutils literal notranslate">NO_FLOW_CONSTRAINTS</span></code></a></li>
+<li><a class="reference internal" href="#origin_sdk.types.scenario_enums.SimulationMode.WITH_FLOW_CONSTRAINTS"><code class="docutils literal notranslate">WITH_FLOW_CONSTRAINTS</span></code></a></li>
+<li><a class="reference internal" href="#origin_sdk.types.scenario_enums.SimulationMode.WITH_FLOW_CONSTRAINTS_AND_N1"><code class="docutils literal notranslate">WITH_FLOW_CONSTRAINTS_AND_N1</span></code></a></li>
+</ul>
+</li>
+</ul>
+</div></div>
+  </aside>
+  <div class="rside-overlay js-menu" role="button" aria-label="Close Table of Contents" aria-controls="rside" aria-expanded="false"></div>
+  <main class="sy-main w-full max-sm:max-w-full print:pt-6">
+<div class="sy-breadcrumbs" role="navigation">
+  <div class="sy-breadcrumbs-inner flex items-center">
+    <div class="md:hidden mr-3">
+      <button class="js-menu" aria-label="Menu" type="button" aria-controls="lside" aria-expanded="false">
+        <i class="i-lucide menu"></i>
+      </button>
+    </div>
+    <ol class="flex-1" itemscope itemtype="https://schema.org/BreadcrumbList"><li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
+        <a itemprop="item" href="../../index.html"><span itemprop="name">Aurora Origin SDK</span></a>
+        <span>/</span>
+        <meta itemprop="position" content="1" />
+      </li><li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
+        <a itemprop="item" href="../index.html"><span itemprop="name">API reference</span></a>
+        <span>/</span>
+        <meta itemprop="position" content="2" />
+      </li><li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
+        <strong itemprop="name">origin_sdk.types.scenario_enums</strong>
+        <meta itemprop="position" content="3" />
+      </li></ol>
+    <div class="xl:hidden ml-1">
+      <button class="js-menu" aria-label="Show table of contents" type="button" aria-controls="rside"
+        aria-expanded="false">
+        <i class="i-lucide outdent"></i>
+      </button>
+    </div>
+  </div>
+</div><div class="flex flex-col break-words justify-between">
+      <div class="relative min-w-0 max-w-6xl px-6 pb-6 pt-8 xl:px-12">
+  <div class="copy-page-wrapper relative pb-4 lg:absolute lg:top-8 lg:right-6 xl:right-12">
+  <div id="copy-page-trigger">
+    <button
+      type="button"
+      class="js-copy px-3 py-1 inline-flex items-center gap-1"
+      data-url="https://ghp.auroraer.com/aurora-origin-python-sdk/_sources/api/generated/origin_sdk.types.scenario_enums.rst.txt"
+    >
+      <i class="i-lucide" data-icon="copy"></i>
+      <span>Copy page</span>
+    </button>
+    <button class="js-menu px-2 py-1" type="button" aria-label="More actions"
+      aria-haspopup="menu" aria-expanded="false" aria-controls="copy-page-content">
+      <i class="i-lucide chevron-down"></i>
+    </button>
+  </div>
+  <div id="copy-page-content" role="menu" aria-orientation="vertical" aria-hidden="true">
+    <div role="presentation">
+      <div class="flex flex-col" role="group">
+        <button class="js-copy" type="button" role="menuitem"
+          data-url="https://ghp.auroraer.com/aurora-origin-python-sdk/_sources/api/generated/origin_sdk.types.scenario_enums.rst.txt">
+          <span class="iconify-icon">
+            <i class="i-lucide" data-icon="copy"></i>
+          </span>
+          <span>Copy page</span>
+        </button>
+        <a role="menuitem" href="https://ghp.auroraer.com/aurora-origin-python-sdk/_sources/api/generated/origin_sdk.types.scenario_enums.rst.txt" target="_blank" rel="nofollow"><iconify-icon icon="bi:code-slash"></iconify-icon>
+            <span>View Source</span></a><a role="menuitem" href="https://chatgpt.com/?hints=search&q=Read%20https%3A//ghp.auroraer.com/aurora-origin-python-sdk/_sources/api/generated/origin_sdk.types.scenario_enums.rst.txt%20so%20I%20can%20ask%20questions%20about%20it." target="_blank" rel="nofollow">
+          <iconify-icon icon="bi:openai"></iconify-icon>
+          <span>Open in ChatGPT</span>
+        </a><a role="menuitem" href="https://claude.ai/new?q=Read%20https%3A//ghp.auroraer.com/aurora-origin-python-sdk/_sources/api/generated/origin_sdk.types.scenario_enums.rst.txt%20so%20I%20can%20ask%20questions%20about%20it." target="_blank" rel="nofollow">
+          <iconify-icon icon="bi:claude"></iconify-icon>
+          <span>Open in Claude</span>
+        </a></div>
+    </div>
+  </div>
+</div><article class="yue" role="main">
+          <section id="module-origin_sdk.types.scenario_enums">
+<span id="origin-sdk-types-scenario-enums"></span><h1>origin_sdk.types.scenario_enums<a class="headerlink" href="#module-origin_sdk.types.scenario_enums" title="Link to this heading">¶</a></h1>
+<p class="rubric">Classes</p>
+<div class="table-wrapper autosummary longtable docutils container">
+<table class="autosummary longtable docutils align-default">
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="#origin_sdk.types.scenario_enums.InputTypesSupported" title="origin_sdk.types.scenario_enums.InputTypesSupported"><code class="xref py py-obj docutils literal notranslate"><span class="pre">InputTypesSupported</span></code></a>(*values)</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#origin_sdk.types.scenario_enums.ModelPriceSpikiness" title="origin_sdk.types.scenario_enums.ModelPriceSpikiness"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ModelPriceSpikiness</span></code></a>(*values)</p></td>
+<td><p>Used to set a Model Price Spikiness on a scenario that implements this feature, typically from the AUS region.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#origin_sdk.types.scenario_enums.ModelType" title="origin_sdk.types.scenario_enums.ModelType"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ModelType</span></code></a>(*values)</p></td>
+<td><p>Internal only.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#origin_sdk.types.scenario_enums.RetentionPolicyEnum" title="origin_sdk.types.scenario_enums.RetentionPolicyEnum"><code class="xref py py-obj docutils literal notranslate"><span class="pre">RetentionPolicyEnum</span></code></a>(*values)</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#origin_sdk.types.scenario_enums.ScenarioOwner" title="origin_sdk.types.scenario_enums.ScenarioOwner"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ScenarioOwner</span></code></a>(*values)</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#origin_sdk.types.scenario_enums.ScenarioRunStatus" title="origin_sdk.types.scenario_enums.ScenarioRunStatus"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ScenarioRunStatus</span></code></a>(*values)</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#origin_sdk.types.scenario_enums.ScenarioRunType" title="origin_sdk.types.scenario_enums.ScenarioRunType"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ScenarioRunType</span></code></a>(*values)</p></td>
+<td><p>Internal only.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#origin_sdk.types.scenario_enums.ScenarioTransformStatus" title="origin_sdk.types.scenario_enums.ScenarioTransformStatus"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ScenarioTransformStatus</span></code></a>(*values)</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#origin_sdk.types.scenario_enums.ServerName" title="origin_sdk.types.scenario_enums.ServerName"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ServerName</span></code></a>(*values)</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#origin_sdk.types.scenario_enums.SimulationMode" title="origin_sdk.types.scenario_enums.SimulationMode"><code class="xref py py-obj docutils literal notranslate"><span class="pre">SimulationMode</span></code></a>(*values)</p></td>
+<td><p>Internal only.</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<dl class="py class">
+<dt class="sig sig-object py" id="origin_sdk.types.scenario_enums.InputTypesSupported">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">origin_sdk.types.scenario_enums.</span></span><span class="sig-name descname"><span class="pre">InputTypesSupported</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">values</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/origin_sdk/types/scenario_enums.html#InputTypesSupported"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#origin_sdk.types.scenario_enums.InputTypesSupported" title="Link to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">Enum</span></code></p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="origin_sdk.types.scenario_enums.InputTypesSupported.ENDOGENOUS_AND_EXOGENOUS">
+<span class="sig-name descname"><span class="pre">ENDOGENOUS_AND_EXOGENOUS</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'ENDOGENOUS_AND_EXOGENOUS'</span></span><a class="headerlink" href="#origin_sdk.types.scenario_enums.InputTypesSupported.ENDOGENOUS_AND_EXOGENOUS" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="origin_sdk.types.scenario_enums.InputTypesSupported.ENDOGENOUS_ONLY">
+<span class="sig-name descname"><span class="pre">ENDOGENOUS_ONLY</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'ENDOGENOUS_ONLY'</span></span><a class="headerlink" href="#origin_sdk.types.scenario_enums.InputTypesSupported.ENDOGENOUS_ONLY" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="origin_sdk.types.scenario_enums.InputTypesSupported.EXOGENOUS_ONLY">
+<span class="sig-name descname"><span class="pre">EXOGENOUS_ONLY</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'EXOGENOUS_ONLY'</span></span><a class="headerlink" href="#origin_sdk.types.scenario_enums.InputTypesSupported.EXOGENOUS_ONLY" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="origin_sdk.types.scenario_enums.ModelPriceSpikiness">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">origin_sdk.types.scenario_enums.</span></span><span class="sig-name descname"><span class="pre">ModelPriceSpikiness</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">values</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/origin_sdk/types/scenario_enums.html#ModelPriceSpikiness"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#origin_sdk.types.scenario_enums.ModelPriceSpikiness" title="Link to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">Enum</span></code></p>
+<p>Used to set a Model Price Spikiness on a scenario that implements this
+feature, typically from the AUS region.</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="origin_sdk.types.scenario_enums.ModelPriceSpikiness.HIGH">
+<span class="sig-name descname"><span class="pre">HIGH</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'High'</span></span><a class="headerlink" href="#origin_sdk.types.scenario_enums.ModelPriceSpikiness.HIGH" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="origin_sdk.types.scenario_enums.ModelPriceSpikiness.LOW">
+<span class="sig-name descname"><span class="pre">LOW</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'Low'</span></span><a class="headerlink" href="#origin_sdk.types.scenario_enums.ModelPriceSpikiness.LOW" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="origin_sdk.types.scenario_enums.ModelPriceSpikiness.MEDIUM">
+<span class="sig-name descname"><span class="pre">MEDIUM</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'Medium'</span></span><a class="headerlink" href="#origin_sdk.types.scenario_enums.ModelPriceSpikiness.MEDIUM" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="origin_sdk.types.scenario_enums.ModelPriceSpikiness.NONE">
+<span class="sig-name descname"><span class="pre">NONE</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'None'</span></span><a class="headerlink" href="#origin_sdk.types.scenario_enums.ModelPriceSpikiness.NONE" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="origin_sdk.types.scenario_enums.ModelType">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">origin_sdk.types.scenario_enums.</span></span><span class="sig-name descname"><span class="pre">ModelType</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">values</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/origin_sdk/types/scenario_enums.html#ModelType"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#origin_sdk.types.scenario_enums.ModelType" title="Link to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">Enum</span></code></p>
+<p>Internal only. Used to set a <cite>modelType</cite>.</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="origin_sdk.types.scenario_enums.ModelType.AERES">
+<span class="sig-name descname"><span class="pre">AERES</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'aeres'</span></span><a class="headerlink" href="#origin_sdk.types.scenario_enums.ModelType.AERES" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="origin_sdk.types.scenario_enums.ModelType.NETWORK">
+<span class="sig-name descname"><span class="pre">NETWORK</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'network'</span></span><a class="headerlink" href="#origin_sdk.types.scenario_enums.ModelType.NETWORK" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="origin_sdk.types.scenario_enums.ModelType.NODAL">
+<span class="sig-name descname"><span class="pre">NODAL</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'nodal'</span></span><a class="headerlink" href="#origin_sdk.types.scenario_enums.ModelType.NODAL" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="origin_sdk.types.scenario_enums.ModelType.REGIONAL">
+<span class="sig-name descname"><span class="pre">REGIONAL</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'regional'</span></span><a class="headerlink" href="#origin_sdk.types.scenario_enums.ModelType.REGIONAL" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="origin_sdk.types.scenario_enums.RetentionPolicyEnum">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">origin_sdk.types.scenario_enums.</span></span><span class="sig-name descname"><span class="pre">RetentionPolicyEnum</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">values</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/origin_sdk/types/scenario_enums.html#RetentionPolicyEnum"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#origin_sdk.types.scenario_enums.RetentionPolicyEnum" title="Link to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">Enum</span></code></p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="origin_sdk.types.scenario_enums.RetentionPolicyEnum.CENTRAL">
+<span class="sig-name descname"><span class="pre">CENTRAL</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'Central'</span></span><a class="headerlink" href="#origin_sdk.types.scenario_enums.RetentionPolicyEnum.CENTRAL" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="origin_sdk.types.scenario_enums.RetentionPolicyEnum.LONG_TERM">
+<span class="sig-name descname"><span class="pre">LONG_TERM</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'LongTerm'</span></span><a class="headerlink" href="#origin_sdk.types.scenario_enums.RetentionPolicyEnum.LONG_TERM" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="origin_sdk.types.scenario_enums.RetentionPolicyEnum.MIDTERM">
+<span class="sig-name descname"><span class="pre">MIDTERM</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'MidTerm'</span></span><a class="headerlink" href="#origin_sdk.types.scenario_enums.RetentionPolicyEnum.MIDTERM" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="origin_sdk.types.scenario_enums.RetentionPolicyEnum.SHORT_TERM">
+<span class="sig-name descname"><span class="pre">SHORT_TERM</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'ShortTerm'</span></span><a class="headerlink" href="#origin_sdk.types.scenario_enums.RetentionPolicyEnum.SHORT_TERM" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="origin_sdk.types.scenario_enums.RetentionPolicyEnum.STANDARD">
+<span class="sig-name descname"><span class="pre">STANDARD</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'Standard'</span></span><a class="headerlink" href="#origin_sdk.types.scenario_enums.RetentionPolicyEnum.STANDARD" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="origin_sdk.types.scenario_enums.ScenarioOwner">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">origin_sdk.types.scenario_enums.</span></span><span class="sig-name descname"><span class="pre">ScenarioOwner</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">values</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/origin_sdk/types/scenario_enums.html#ScenarioOwner"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#origin_sdk.types.scenario_enums.ScenarioOwner" title="Link to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">Enum</span></code></p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="origin_sdk.types.scenario_enums.ScenarioOwner.AURORA_SCENARIO">
+<span class="sig-name descname"><span class="pre">AURORA_SCENARIO</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'AURORA_SCENARIO'</span></span><a class="headerlink" href="#origin_sdk.types.scenario_enums.ScenarioOwner.AURORA_SCENARIO" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="origin_sdk.types.scenario_enums.ScenarioOwner.TENANTED_SCENARIO">
+<span class="sig-name descname"><span class="pre">TENANTED_SCENARIO</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'TENANTED_SCENARIO'</span></span><a class="headerlink" href="#origin_sdk.types.scenario_enums.ScenarioOwner.TENANTED_SCENARIO" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="origin_sdk.types.scenario_enums.ScenarioRunStatus">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">origin_sdk.types.scenario_enums.</span></span><span class="sig-name descname"><span class="pre">ScenarioRunStatus</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">values</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/origin_sdk/types/scenario_enums.html#ScenarioRunStatus"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#origin_sdk.types.scenario_enums.ScenarioRunStatus" title="Link to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">Enum</span></code></p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="origin_sdk.types.scenario_enums.ScenarioRunStatus.COMPLETE">
+<span class="sig-name descname"><span class="pre">COMPLETE</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'Complete'</span></span><a class="headerlink" href="#origin_sdk.types.scenario_enums.ScenarioRunStatus.COMPLETE" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="origin_sdk.types.scenario_enums.ScenarioRunStatus.ERRORED">
+<span class="sig-name descname"><span class="pre">ERRORED</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'Errored'</span></span><a class="headerlink" href="#origin_sdk.types.scenario_enums.ScenarioRunStatus.ERRORED" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="origin_sdk.types.scenario_enums.ScenarioRunStatus.NOT_LAUNCHED">
+<span class="sig-name descname"><span class="pre">NOT_LAUNCHED</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'NotLaunched'</span></span><a class="headerlink" href="#origin_sdk.types.scenario_enums.ScenarioRunStatus.NOT_LAUNCHED" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="origin_sdk.types.scenario_enums.ScenarioRunStatus.QUEUED">
+<span class="sig-name descname"><span class="pre">QUEUED</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'Queued'</span></span><a class="headerlink" href="#origin_sdk.types.scenario_enums.ScenarioRunStatus.QUEUED" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="origin_sdk.types.scenario_enums.ScenarioRunStatus.RUNNING">
+<span class="sig-name descname"><span class="pre">RUNNING</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'Running'</span></span><a class="headerlink" href="#origin_sdk.types.scenario_enums.ScenarioRunStatus.RUNNING" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="origin_sdk.types.scenario_enums.ScenarioRunType">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">origin_sdk.types.scenario_enums.</span></span><span class="sig-name descname"><span class="pre">ScenarioRunType</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">values</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/origin_sdk/types/scenario_enums.html#ScenarioRunType"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#origin_sdk.types.scenario_enums.ScenarioRunType" title="Link to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">Enum</span></code></p>
+<p>Internal only. Used to set a <cite>scenarioRunType</cite>.</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="origin_sdk.types.scenario_enums.ScenarioRunType.FYR">
+<span class="sig-name descname"><span class="pre">FYR</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'FYR'</span></span><a class="headerlink" href="#origin_sdk.types.scenario_enums.ScenarioRunType.FYR" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="origin_sdk.types.scenario_enums.ScenarioRunType.MYR">
+<span class="sig-name descname"><span class="pre">MYR</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'MYR'</span></span><a class="headerlink" href="#origin_sdk.types.scenario_enums.ScenarioRunType.MYR" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="origin_sdk.types.scenario_enums.ScenarioRunType.MYR_AND_FYR">
+<span class="sig-name descname"><span class="pre">MYR_AND_FYR</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'MYR_AND_FYR'</span></span><a class="headerlink" href="#origin_sdk.types.scenario_enums.ScenarioRunType.MYR_AND_FYR" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="origin_sdk.types.scenario_enums.ScenarioRunType.NETWORK">
+<span class="sig-name descname"><span class="pre">NETWORK</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'NETWORK'</span></span><a class="headerlink" href="#origin_sdk.types.scenario_enums.ScenarioRunType.NETWORK" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="origin_sdk.types.scenario_enums.ScenarioRunType.NODAL">
+<span class="sig-name descname"><span class="pre">NODAL</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'NODAL'</span></span><a class="headerlink" href="#origin_sdk.types.scenario_enums.ScenarioRunType.NODAL" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="origin_sdk.types.scenario_enums.ScenarioRunType.NODAL_PLACEMENT">
+<span class="sig-name descname"><span class="pre">NODAL_PLACEMENT</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'NODAL_PLACEMENT'</span></span><a class="headerlink" href="#origin_sdk.types.scenario_enums.ScenarioRunType.NODAL_PLACEMENT" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="origin_sdk.types.scenario_enums.ScenarioRunType.NODAL_PLACEMENT_AND_NODAL">
+<span class="sig-name descname"><span class="pre">NODAL_PLACEMENT_AND_NODAL</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'NODAL_PLACEMENT_AND_NODAL'</span></span><a class="headerlink" href="#origin_sdk.types.scenario_enums.ScenarioRunType.NODAL_PLACEMENT_AND_NODAL" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="origin_sdk.types.scenario_enums.ScenarioRunType.REGIONAL_FYR">
+<span class="sig-name descname"><span class="pre">REGIONAL_FYR</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'REGIONAL_FYR'</span></span><a class="headerlink" href="#origin_sdk.types.scenario_enums.ScenarioRunType.REGIONAL_FYR" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="origin_sdk.types.scenario_enums.ScenarioRunType.REGIONAL_MYR">
+<span class="sig-name descname"><span class="pre">REGIONAL_MYR</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'REGIONAL_MYR'</span></span><a class="headerlink" href="#origin_sdk.types.scenario_enums.ScenarioRunType.REGIONAL_MYR" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="origin_sdk.types.scenario_enums.ScenarioRunType.REGIONAL_MYR_AND_FYR">
+<span class="sig-name descname"><span class="pre">REGIONAL_MYR_AND_FYR</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'REGIONAL_MYR_AND_FYR'</span></span><a class="headerlink" href="#origin_sdk.types.scenario_enums.ScenarioRunType.REGIONAL_MYR_AND_FYR" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="origin_sdk.types.scenario_enums.ScenarioTransformStatus">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">origin_sdk.types.scenario_enums.</span></span><span class="sig-name descname"><span class="pre">ScenarioTransformStatus</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">values</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/origin_sdk/types/scenario_enums.html#ScenarioTransformStatus"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#origin_sdk.types.scenario_enums.ScenarioTransformStatus" title="Link to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">Enum</span></code></p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="origin_sdk.types.scenario_enums.ScenarioTransformStatus.COMPLETE">
+<span class="sig-name descname"><span class="pre">COMPLETE</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'Complete'</span></span><a class="headerlink" href="#origin_sdk.types.scenario_enums.ScenarioTransformStatus.COMPLETE" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="origin_sdk.types.scenario_enums.ScenarioTransformStatus.ERRORED">
+<span class="sig-name descname"><span class="pre">ERRORED</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'Errored'</span></span><a class="headerlink" href="#origin_sdk.types.scenario_enums.ScenarioTransformStatus.ERRORED" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="origin_sdk.types.scenario_enums.ScenarioTransformStatus.NOT_STARTED">
+<span class="sig-name descname"><span class="pre">NOT_STARTED</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'NotStarted'</span></span><a class="headerlink" href="#origin_sdk.types.scenario_enums.ScenarioTransformStatus.NOT_STARTED" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="origin_sdk.types.scenario_enums.ServerName">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">origin_sdk.types.scenario_enums.</span></span><span class="sig-name descname"><span class="pre">ServerName</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">values</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/origin_sdk/types/scenario_enums.html#ServerName"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#origin_sdk.types.scenario_enums.ServerName" title="Link to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">Enum</span></code></p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="origin_sdk.types.scenario_enums.ServerName.AZATHOTH">
+<span class="sig-name descname"><span class="pre">AZATHOTH</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'Azathoth'</span></span><a class="headerlink" href="#origin_sdk.types.scenario_enums.ServerName.AZATHOTH" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="origin_sdk.types.scenario_enums.ServerName.BRYNHILDR">
+<span class="sig-name descname"><span class="pre">BRYNHILDR</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'Brynhildr'</span></span><a class="headerlink" href="#origin_sdk.types.scenario_enums.ServerName.BRYNHILDR" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="origin_sdk.types.scenario_enums.ServerName.CTHULHU">
+<span class="sig-name descname"><span class="pre">CTHULHU</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'Cthulhu'</span></span><a class="headerlink" href="#origin_sdk.types.scenario_enums.ServerName.CTHULHU" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="origin_sdk.types.scenario_enums.ServerName.HASTUR">
+<span class="sig-name descname"><span class="pre">HASTUR</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'Hastur'</span></span><a class="headerlink" href="#origin_sdk.types.scenario_enums.ServerName.HASTUR" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="origin_sdk.types.scenario_enums.ServerName.QUETZAL">
+<span class="sig-name descname"><span class="pre">QUETZAL</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'Quetzal'</span></span><a class="headerlink" href="#origin_sdk.types.scenario_enums.ServerName.QUETZAL" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="origin_sdk.types.scenario_enums.ServerName.TATZELWURM">
+<span class="sig-name descname"><span class="pre">TATZELWURM</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'Tatzelwurm'</span></span><a class="headerlink" href="#origin_sdk.types.scenario_enums.ServerName.TATZELWURM" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="origin_sdk.types.scenario_enums.SimulationMode">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">origin_sdk.types.scenario_enums.</span></span><span class="sig-name descname"><span class="pre">SimulationMode</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">values</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/origin_sdk/types/scenario_enums.html#SimulationMode"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#origin_sdk.types.scenario_enums.SimulationMode" title="Link to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">Enum</span></code></p>
+<p>Internal only. Used to set a <cite>simulationMode</cite>.</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="origin_sdk.types.scenario_enums.SimulationMode.EUROPEAN_NETWORK">
+<span class="sig-name descname"><span class="pre">EUROPEAN_NETWORK</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'EUROPEAN_NETWORK'</span></span><a class="headerlink" href="#origin_sdk.types.scenario_enums.SimulationMode.EUROPEAN_NETWORK" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="origin_sdk.types.scenario_enums.SimulationMode.NO_FLOW_CONSTRAINTS">
+<span class="sig-name descname"><span class="pre">NO_FLOW_CONSTRAINTS</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'NO_FLOW_CONSTRAINTS'</span></span><a class="headerlink" href="#origin_sdk.types.scenario_enums.SimulationMode.NO_FLOW_CONSTRAINTS" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="origin_sdk.types.scenario_enums.SimulationMode.WITH_FLOW_CONSTRAINTS">
+<span class="sig-name descname"><span class="pre">WITH_FLOW_CONSTRAINTS</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'WITH_FLOW_CONSTRAINTS'</span></span><a class="headerlink" href="#origin_sdk.types.scenario_enums.SimulationMode.WITH_FLOW_CONSTRAINTS" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="origin_sdk.types.scenario_enums.SimulationMode.WITH_FLOW_CONSTRAINTS_AND_N1">
+<span class="sig-name descname"><span class="pre">WITH_FLOW_CONSTRAINTS_AND_N1</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'WITH_FLOW_CONSTRAINTS_AND_N1'</span></span><a class="headerlink" href="#origin_sdk.types.scenario_enums.SimulationMode.WITH_FLOW_CONSTRAINTS_AND_N1" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</section>
+
+        </article><button class="back-to-top" type="button">
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+    <path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8v12z"></path>
+  </svg>
+  <span>Back to top</span>
+</button><div class="navigation flex print:hidden"><div class="navigation-prev">
+    <a href="origin_sdk.service.Scenario.html">
+      <i class="i-lucide chevron-left"></i>
+      <div class="page-info">
+        <span>Previous</span><div class="title">origin_sdk.service.Scenario</div></div>
+    </a>
+  </div><div class="navigation-next">
+    <a href="origin_sdk.types.scenario_types.html">
+      <div class="page-info">
+        <span>Next</span>
+        <div class="title">origin_sdk.types.scenario_types</div>
+      </div>
+      <i class="i-lucide chevron-right"></i>
+    </a>
+  </div></div></div>
+    </div>
+  </main>
+</div>
+<footer class="sy-foot">
+  <div class="sy-foot-inner sy-container mx-auto">
+    <div class="sy-foot-reserved md:flex justify-between items-center">
+      <div class="sy-foot-copyright"><p>2026, Aurora Energy Research</p>
+  
+  <p>
+    Made with
+    
+    <a href="https://www.sphinx-doc.org/">Sphinx</a> and
+    
+    <a href="https://shibuya.lepture.com">Shibuya theme</a>.
+  </p>
+</div>
+      <div class="sy-foot-socials"></div>
+    </div>
+  </div>
+</footer>
+      <script src="../../_static/documentation_options.js?v=d63f172e"></script>
+      <script src="../../_static/doctools.js?v=fd6eb6e6"></script>
+      <script src="../../_static/sphinx_highlight.js?v=6ffebe34"></script>
+      <script src="../../_static/shibuya.js?v=cac61aee"></script></body>
+</html>

@@ -1,0 +1,12 @@
+﻿origin\_sdk.gql.queries.input\_queries.session
+==============================================
+
+.. automodule:: origin_sdk.gql.queries.input_queries.session
+
+   
+   .. rubric:: Functions
+
+   .. autosummary::
+   
+      create_get_session_gql
+   

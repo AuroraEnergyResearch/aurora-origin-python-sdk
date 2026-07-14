@@ -1,0 +1,19 @@
+﻿origin\_sdk.OriginSession
+=========================
+
+.. automodule:: origin_sdk.OriginSession
+
+   
+   .. rubric:: Functions
+
+   .. autosummary::
+   
+      get_endpoints
+   
+   .. rubric:: Classes
+
+   .. autosummary::
+   
+      OriginSession
+      OriginSessionConfig
+   

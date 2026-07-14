@@ -1,0 +1,12 @@
+﻿origin\_sdk.service.InputsEditor
+================================
+
+.. automodule:: origin_sdk.service.InputsEditor
+
+   
+   .. rubric:: Classes
+
+   .. autosummary::
+   
+      InputsEditor
+   

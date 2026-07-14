@@ -1,0 +1,21 @@
+﻿origin\_sdk.types.scenario\_enums
+=================================
+
+.. automodule:: origin_sdk.types.scenario_enums
+
+   
+   .. rubric:: Classes
+
+   .. autosummary::
+   
+      InputTypesSupported
+      ModelPriceSpikiness
+      ModelType
+      RetentionPolicyEnum
+      ScenarioOwner
+      ScenarioRunStatus
+      ScenarioRunType
+      ScenarioTransformStatus
+      ServerName
+      SimulationMode
+   
