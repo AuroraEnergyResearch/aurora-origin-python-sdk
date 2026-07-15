@@ -1,6 +1,7 @@
 [project]
-name = "aurora_origin_sdk"
-version = "0.31.0"
+name = "aurora-origin-sdk"
+version = "0.32.0"
+description = "Compatibility wrapper for auroraer-origin-sdk"
 authors = [
   { name = "Aurora Development", email = "aurora_development@auroraer.com" },
 ]
@@ -14,40 +15,20 @@ keywords = [
   "origin",
   "sdk",
 ]
-license = { file = "LICENSE" }
-dependencies = [
-  "requests>=2.28.2,<3.0",
-  "appdirs>=1.4.4,<2.0",
-  "pandas>=2.3.3; python_version>='3.14'",
-  "pandas; python_version<'3.14'"
-]
+license = "MIT"
+license-files = ["LICENSE"]
+dependencies = ["auroraer-origin-sdk>=0.31.0,<1"]
 requires-python = ">=3.9,<3.15"
 
-[dependency-groups]
-dev = ["aurora_origin_sdk[development]"]
+[project.optional-dependencies]
+notebooks = ["auroraer-origin-sdk[notebooks]>=0.31.0,<1"]
 
 [project.urls]
 repository = "https://github.com/AuroraEnergyResearch/aurora-origin-python-sdk"
-
-[project.optional-dependencies]
-setup = ["pytest-runner"]
-tests = ["pytest"]
-development = [
-  "mypy",
-  "flake8",
-  "black",
-  "pytest",
-  "pytest-snapshot",
-  "debugpy",
-  "sphinx",
-  "myst-parser",
-  "shibuya",
-]
-notebooks = ["matplotlib", "pandas", "ipykernel"]
 
 [build-system]
 build-backend = "setuptools.build_meta"
 requires = ["setuptools"]
 
-[tool.setuptools.packages.find]
-where = ["src"]
+[tool.setuptools]
+packages = []
