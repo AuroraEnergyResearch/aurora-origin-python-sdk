@@ -1,10 +1,35 @@
-# Aurora Origin SDK 
+# Aurora Origin SDK
 
 Python SDK for accessing data from Origin, Aurora's Market model platform.
 
-> [!IMPORTANT]
-> This installation method is no longer supported. Please install the SDK via the package we publish on PyPI: [`auroraer-python-sdk`](https://pypi.org/project/auroraer-origin-sdk/)
-> This repository is now a simple wrapper that passes through to that package, and won't be updated going forward.
+# Installation
 
-To install the SDK, follow the [installation instructions in the docs](https://ghp.auroraer.com/aurora-origin-python-sdk/installation.html).
+> [!NOTE]
+> We support running the SDK in all currently supported versions of Python: 3.10 - 3.14.
 
+> [!WARNING]
+> Python 3.9 support is deprecated and will be removed in a future release. Please upgrade to Python 3.10 or later.
+
+1. Install the package from the git repository
+
+```bash
+# Use pip:
+pip install git+https://github.com/AuroraEnergyResearch/aurora-origin-python-sdk
+# Or uv:
+uv add git+https://github.com/AuroraEnergyResearch/aurora-origin-python-sdk
+```
+
+2. Add your Aurora API key to the file $home/.aurora-api-key. for example `C:\Users\Joe Bloggs\.aurora-api-key` or set as the environment variable `AURORA_API_KEY`.
+
+3. Import `OriginSession` and initialise.
+
+```python
+from origin_sdk.OriginSession import OriginSession
+session  = OriginSession()
+result  = session.get_projects()
+print(res[0])
+```
+
+4. See
+   [the documentation](https://auroraenergyresearch.github.io/aurora-origin-python-sdk/)
+   for further details on the SDK.
