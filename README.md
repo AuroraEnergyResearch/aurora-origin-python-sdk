@@ -1,35 +1,26 @@
-# Aurora Origin SDK
+# Aurora Origin SDK compatibility package
 
-Python SDK for accessing data from Origin, Aurora's Market model platform.
+`aurora-origin-sdk` is the legacy distribution name for the Aurora Origin Python
+SDK. Version 0.32.0 is a metadata-only compatibility package that installs the
+replacement [`auroraer-origin-sdk` package from PyPI](https://pypi.org/project/auroraer-origin-sdk/).
 
-# Installation
-
-> [!NOTE]
-> We support running the SDK in all currently supported versions of Python: 3.10 - 3.14.
-
-> [!WARNING]
-> Python 3.9 support is deprecated and will be removed in a future release. Please upgrade to Python 3.10 or later.
-
-1. Install the package from the git repository
+New installations should depend on the replacement package directly:
 
 ```bash
-# Use pip:
-pip install git+https://github.com/AuroraEnergyResearch/aurora-origin-python-sdk
-# Or uv:
-uv add git+https://github.com/AuroraEnergyResearch/aurora-origin-python-sdk
+pip install auroraer-origin-sdk
 ```
 
-2. Add your Aurora API key to the file $home/.aurora-api-key. for example `C:\Users\Joe Bloggs\.aurora-api-key` or set as the environment variable `AURORA_API_KEY`.
+Existing `import origin_sdk` statements continue to work because the replacement
+distribution provides the same Python package.
 
-3. Import `OriginSession` and initialise.
+The legacy notebook extra is also forwarded to the replacement package:
 
-```python
-from origin_sdk.OriginSession import OriginSession
-session  = OriginSession()
-result  = session.get_projects()
-print(res[0])
+```bash
+pip install "aurora-origin-sdk[notebooks]"
 ```
 
-4. See
-   [the documentation](https://auroraenergyresearch.github.io/aurora-origin-python-sdk/)
-   for further details on the SDK.
+New installations should reference the replacement extra directly:
+
+```bash
+pip install "auroraer-origin-sdk[notebooks]"
+```
