@@ -1,13 +1,15 @@
 # Installation
 
-1. Install the package from the Git repository.
+1. Install the package from PyPi
+
+The SDK is [available to install from PyPi](https://pypi.org/project/auroraer-origin-sdk/)
 
 ```bash
 # Use pip:
-pip install git+https://github.com/AuroraEnergyResearch/aurora-origin-python-sdk
+pip install auroraer-origin-sdk
 
 # Or uv:
-uv add git+https://github.com/AuroraEnergyResearch/aurora-origin-python-sdk
+uv add auroraer-origin-sdk
 ```
 
 2. Add your Aurora API key to `$HOME/.aurora-api-key`, for example `C:\\Users\\Joe Bloggs\\.aurora-api-key`, or set the `AURORA_API_KEY` environment variable.
