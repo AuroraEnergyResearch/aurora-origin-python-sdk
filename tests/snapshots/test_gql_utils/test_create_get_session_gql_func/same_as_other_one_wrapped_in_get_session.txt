@@ -1,0 +1,17 @@
+query ( $sessionId: String!, $technologyName: String!) {
+	getSession (sessionId: $sessionId) {
+		a
+		b
+		c
+		d
+		e {
+			Will
+			For
+			Sure
+			Tree
+		}
+		getTechnology (technologyName: $technologyName) {
+			name
+		}
+	}
+}

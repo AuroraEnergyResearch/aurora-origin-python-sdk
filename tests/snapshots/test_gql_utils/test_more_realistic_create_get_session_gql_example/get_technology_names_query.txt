@@ -1,0 +1,6 @@
+query ( $sessionId: String!, $regions: [String]) {
+	getSession (sessionId: $sessionId) {
+		technologyNames(regions: $regions)
+		getTechnologyGroupings
+	}
+}
